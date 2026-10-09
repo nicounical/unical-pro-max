@@ -11,17 +11,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="css/core.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/hero.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/manifesto.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/reel.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/services.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/numbers.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/work.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/process.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/clients.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/quotes.css?v=20261009111410">
-<link rel="stylesheet" href="css/sections/contact.css?v=20261009111410">
+<link rel="stylesheet" href="css/core.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/hero.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/services.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/reel.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/work.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/process.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/numbers.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/sectors.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/manifesto.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/clients.css?v=20261009115905">
+<link rel="stylesheet" href="css/sections/contact.css?v=20261009115905">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Unical Graphic","url":"https://www.unical.es","telephone":"+34937502304","address":{"@type":"PostalAddress","streetAddress":"Passatge la Carola, 2","postalCode":"08349","addressLocality":"Cabrera de Mar","addressRegion":"Barcelona","addressCountry":"ES"},"sameAs":["https://www.instagram.com/unical_graphic/","https://www.linkedin.com/company/unical-graphic-sl"]}
 </script>
@@ -44,16 +44,18 @@
 <header class="hd">
   <a class="hd__logo" href="#top" aria-label="Unical Graphic, inicio"><img class="l-light" src="assets/img/logo/logo-unical-light.png" alt="Unical Graphic" width="800" height="105"><img class="l-dark" src="assets/img/logo/logo-unical.png" alt="" width="800" height="98"></a>
   <nav class="hd__nav" aria-label="Principal">
-    <a href="#servicios" data-magnetic>Servicios</a>
+    <a href="#top" aria-current="page" data-magnetic>Inicio</a>
+    <a href="rotulacion.html" data-magnetic>Rotulación</a>
+    <a href="impresion.html" data-magnetic>Impresión</a>
+    <a href="eventos.html" data-magnetic>Eventos</a>
     <a href="#proyectos" data-magnetic>Proyectos</a>
-    <a href="#proceso" data-magnetic>Proceso</a>
     <a href="#contacto" data-magnetic>Contacto</a>
   </nav>
   <a class="hd__cta" href="#contacto" data-magnetic><span>Presupuesto</span><i aria-hidden="true"></i></a>
   <button class="hd__menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="sr-only">Menú</span><i></i><i></i></button>
 </header>
 <div class="mnav" id="mnav" hidden>
-  <nav aria-label="Menú móvil"><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#proceso">Proceso</a><a href="#contacto">Contacto</a></nav>
+  <nav aria-label="Menú móvil"><a href="#top">Inicio</a><a href="rotulacion.html">Rotulación</a><a href="impresion.html">Impresión</a><a href="eventos.html">Eventos</a><a href="#proyectos">Proyectos</a><a href="#contacto">Contacto</a></nav>
   <a href="tel:+34937502304" class="mnav__tel">937 50 23 04</a>
 </div>
 
@@ -94,9 +96,10 @@
         <span class="hero-b__word">LÍMITES</span>
       </div>
       <div class="hero-b__copy">
-        <p class="mono hero-b__kicker">Unical Graphic · Producción visual 360°</p>
-        <h1 class="hero-b__h1">Producción visual <span class="acc">sin límites</span> para marcas que quieren verse.</h1>
+        <p class="mono hero-b__kicker">Servicios 360° · Barcelona</p>
+        <h1 class="hero-b__h1">Producción visual <span class="acc">B2B.</span> <span class="hero-b__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</span></h1>
         <div class="hero-b__ctas">
+          <a class="hero-b__play" href="#proyectos" data-magnetic>Ver proyectos</a>
           <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <button class="hero-b__play" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
         </div>
@@ -117,7 +120,7 @@
           <a class="hero-c__link" href="#proyectos">Ver proyectos →</a>
         </div>
         <ul class="hero-c__stats">
-          <li><b>+25</b><span>años</span></li><li><b>+5.000</b><span>proyectos</span></li><li><b>3M &amp; Avery</b><span>certificados</span></li>
+          <li><b>+25</b><span>años</span></li><li><b>+3.000</b><span>proyectos</span></li><li><b>3M &amp; Avery</b><span>certificados</span></li>
         </ul>
       </div>
       <div class="hero-c__wall" aria-hidden="true">
@@ -200,113 +203,425 @@
   </div>
 </section>
 
-<!-- ===== 02-manifesto.html ===== -->
-<section class="opt-sec" id="manifiesto" data-sec="manifesto" data-label="Manifiesto">
+<!-- ===== 04-services.html ===== -->
+<section class="opt-sec" id="servicios" data-sec="services" data-label="Servicios" data-default="C">
 
-  <!-- A · Palabras que se iluminan -->
-  <div class="variant man-a" data-v="A" data-name="Palabras" data-theme="dark">
-    <div class="wrap man-a__in">
-      <p class="mono label">(Unical Graphic)</p>
-      <p class="man-a__text">
-        Somos el taller detrás de las marcas que ves en la calle, en las ferias y en las tiendas.
-        <span class="man-pill"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></span>
-        Convertimos una idea en un vinilo, un stand o una flota entera,
-        <span class="man-pill"><img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy"></span>
-        con producción propia y montaje en toda España. Sin intermediarios. <span class="acc">Sin excusas.</span>
-        <span class="man-pill"><video src="assets/video/v-lexus-1.mp4" poster="assets/video/v-lexus-1.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></span>
-      </p>
-      <div class="man-stats">
-        <div><b data-count="25">25</b><sup>+</sup><span>años produciendo</span></div>
-        <div><b data-count="5000">5.000</b><sup>+</sup><span>proyectos instalados</span></div>
-        <div><b data-count="1000">1.000</b><sup>m²</sup><span>de planta propia</span></div>
-        <div><b data-count="500">500</b><sup>+</sup><span>marcas cliente</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- B · Marquesina gigante -->
-  <div class="variant man-b" data-v="B" data-name="Marquesina" data-theme="dark" hidden>
-    <h2 class="sr-only">Diseñamos, fabricamos e instalamos</h2>
-    <div class="man-b__rows" aria-hidden="true">
-      <div class="man-b__row"><div class="man-b__track">
-        <span>Diseñamos</span><i class="man-b__img"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"></i><span class="acc">Fabricamos</span><i class="man-b__img"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></i><span>Instalamos</span><i class="man-b__img"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></i>
-        <span>Diseñamos</span><i class="man-b__img"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"></i><span class="acc">Fabricamos</span><i class="man-b__img"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></i><span>Instalamos</span><i class="man-b__img"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></i>
-      </div></div>
-      <div class="man-b__row man-b__row--out"><div class="man-b__track">
-        <span>Gran formato</span><b>✦</b><span>Flotas</span><b>✦</b><span>Stands</span><b>✦</b><span>Retail</span><b>✦</b><span>Señalética</span><b>✦</b>
-        <span>Gran formato</span><b>✦</b><span>Flotas</span><b>✦</b><span>Stands</span><b>✦</b><span>Retail</span><b>✦</b><span>Señalética</span><b>✦</b>
-      </div></div>
-    </div>
-    <div class="wrap man-b__foot">
-      <p class="mono label">(Quiénes somos)</p>
-      <p class="man-b__p rv">Más de 25 años siendo el taller detrás de las marcas que ves en la calle, en las ferias y en las tiendas. <strong>Producción propia en 1.000 m²</strong> y montaje en toda España, sin intermediarios.</p>
-      <a class="btn rv" href="#proyectos" data-magnetic>Ver proyectos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </div>
-
-  <!-- C · Frases fijas -->
-  <div class="variant man-c" data-v="C" data-name="Tres frases" data-theme="dark" hidden>
-    <div class="man-c__pin">
-      <div class="man-c__left">
-        <p class="mono label">(Así trabajamos)</p>
-        <div class="man-c__phrases">
-          <div class="man-c__ph is-on"><h2 class="man-c__h">Diseñamos.</h2><p>Originales, renders 3D y pruebas de color antes de imprimir nada.</p></div>
-          <div class="man-c__ph"><h2 class="man-c__h">Fabricamos<span class="acc">.</span></h2><p>Producción propia en 1.000 m²: impresión, corte, laminado y carpintería.</p></div>
-          <div class="man-c__ph"><h2 class="man-c__h">Instalamos<span class="acc">.</span></h2><p>Instaladores certificados 3M &amp; Avery en cualquier punto de España.</p></div>
+  <!-- A · Paneles apilados (adaptado de «Services Stack», 21st.dev) -->
+  <div class="variant services-a" data-v="A" data-name="Paneles apilados" data-theme="dark">
+    <div class="services-a__bg" aria-hidden="true">
+      <div class="services-a__sticky">
+        <img class="on" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+        <img src="assets/img/proyectos/tke.webp" alt="" loading="lazy">
+        <img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy">
+        <img src="assets/video/evento-cirsa.jpg" alt="" loading="lazy">
+        <img src="assets/img/hubs/rotulacion/letras-corporeas.webp" alt="" loading="lazy">
+        <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+        <div class="services-a__grain"></div>
+        <div class="services-a__shade"></div>
+        <div class="services-a__side">
+          <p class="services-a__kicker mono">Servicios 360°</p>
+          <p class="services-a__eyebrow">Producción visual<br>de principio a fin.</p>
+          <div class="services-a__titles">
+            <span class="on">Impresión</span>
+            <span>Rotulación</span>
+            <span>Stands</span>
+            <span>Eventos corporativos</span>
+            <span>Letras corpóreas</span>
+            <span>Retail</span>
+          </div>
+          <p class="services-a__count mono"><b>01</b> / 06</p>
         </div>
-        <div class="man-c__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
       </div>
-      <div class="man-c__right">
-        <figure class="man-c__fig is-on"><img src="assets/img/proyectos/3cat.webp" alt="Diseño de mural corporativo para 3cat" loading="lazy"></figure>
-        <figure class="man-c__fig"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión en gran formato en la planta de Unical" loading="lazy"></figure>
-        <figure class="man-c__fig"><video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></figure>
+    </div>
+    <h2 class="sr-only">Servicios 360°: producción visual de principio a fin.</h2>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Impresión</h3>
+        <div class="services-a__art" data-art="print"></div>
+        <div class="services-a__body">
+          <p class="services-a__sub mono">01 · Gran formato</p>
+          <p class="services-a__text">Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Lonas</li><li>Impresión UV</li><li>Telas</li><li>Vinilo</li><li>Vallas</li><li>Cualquier tamaño</li></ul>
+          <a class="services-a__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Rotulación</h3>
+        <div class="services-a__art" data-art="van"></div>
+        <div class="services-a__body">
+          <p class="services-a__sub mono">02 · Vehículos y flotas</p>
+          <p class="services-a__text">Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Furgonetas</li><li>Camiones</li><li>Vinilos 3M</li><li>Vinilos Avery</li><li>Flotas corporativas</li><li>Garantía de 5 a 7 años</li></ul>
+          <a class="services-a__go" href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Stands</h3>
+        <div class="services-a__art" data-art="stand"></div>
+        <div class="services-a__body">
+          <p class="services-a__sub mono">03 · Ferias y congresos</p>
+          <p class="services-a__text">Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Diseño</li><li>Producción</li><li>Fira Barcelona</li><li>Toda España</li><li>Transporte</li><li>Montaje llave en mano</li></ul>
+          <a class="services-a__go" href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Eventos corporativos</h3>
+        <div class="services-a__art" data-art="event"></div>
+        <div class="services-a__body">
+          <p class="services-a__sub mono">04 · Ambientación y activaciones</p>
+          <p class="services-a__text">Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Backdrops</li><li>Photocalls</li><li>Banderolas</li><li>Presentaciones</li><li>Eventos de marca</li><li>Montaje integral</li></ul>
+          <a class="services-a__go" href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Letras corpóreas</h3>
+        <div class="services-a__art" data-art="letters"></div>
+        <div class="services-a__body">
+          <p class="services-a__sub mono">05 · Rótulos en volumen</p>
+          <p class="services-a__text">Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Fachada</li><li>PVC</li><li>Metacrilato</li><li>Aluminio</li><li>Retroiluminación led</li><li>Interior</li></ul>
+          <a class="services-a__go" href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Retail</h3>
+        <div class="services-a__art" data-art="store"></div>
+        <div class="services-a__body">
+          <p class="services-a__sub mono">06 · PLV y punto de venta</p>
+          <p class="services-a__text">Expositores, pop-up stores y material promocional para cadenas y grandes marcas.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Expositores</li><li>Punto de venta</li><li>Pop-up stores</li><li>Material promocional</li><li>Grandes marcas</li><li>Cadenas</li></ul>
+          <a class="services-a__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- B · Acordeón a pantalla completa -->
+  <div class="variant services-b" data-v="B" data-name="Acordeón" data-theme="dark" hidden>
+    <header class="services-b__head wrap">
+      <p class="mono label">(Servicios 360°)</p>
+      <h2 class="big">Producción visual <span class="acc">de principio a fin.</span></h2>
+    </header>
+    <div class="services-b__cols" role="list">
+      <div class="services-b__col on" role="listitem">
+        <img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+        <button type="button" class="services-b__hit" aria-expanded="true"><span class="sr-only">Impresión</span></button>
+        <span class="services-b__n mono">01</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Impresión</span>
+          <span class="services-b__sub mono">Gran formato</span>
+          <span class="services-b__d">Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución.</span>
+          <a class="services-b__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </span>
+      </div>
+      <div class="services-b__col" role="listitem">
+        <img src="assets/img/proyectos/tke.webp" alt="" loading="lazy">
+        <button type="button" class="services-b__hit" aria-expanded="false"><span class="sr-only">Rotulación</span></button>
+        <span class="services-b__n mono">02</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Rotulación</span>
+          <span class="services-b__sub mono">Vehículos y flotas</span>
+          <span class="services-b__d">Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años.</span>
+          <a class="services-b__go" href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </span>
+      </div>
+      <div class="services-b__col" role="listitem">
+        <img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy">
+        <button type="button" class="services-b__hit" aria-expanded="false"><span class="sr-only">Stands</span></button>
+        <span class="services-b__n mono">03</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Stands</span>
+          <span class="services-b__sub mono">Ferias y congresos</span>
+          <span class="services-b__d">Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España.</span>
+          <a class="services-b__go" href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </span>
+      </div>
+      <div class="services-b__col" role="listitem">
+        <img src="assets/img/hubs/eventos/evento-neon.webp" alt="" loading="lazy">
+        <button type="button" class="services-b__hit" aria-expanded="false"><span class="sr-only">Eventos corporativos</span></button>
+        <span class="services-b__n mono">04</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Eventos corporativos</span>
+          <span class="services-b__sub mono">Ambientación y activaciones</span>
+          <span class="services-b__d">Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca.</span>
+          <a class="services-b__go" href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </span>
+      </div>
+      <div class="services-b__col" role="listitem">
+        <img src="assets/img/hubs/rotulacion/letras-corporeas.webp" alt="" loading="lazy">
+        <button type="button" class="services-b__hit" aria-expanded="false"><span class="sr-only">Letras corpóreas</span></button>
+        <span class="services-b__n mono">05</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Letras corpóreas</span>
+          <span class="services-b__sub mono">Rótulos en volumen</span>
+          <span class="services-b__d">Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior.</span>
+          <a class="services-b__go" href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </span>
+      </div>
+      <div class="services-b__col" role="listitem">
+        <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+        <button type="button" class="services-b__hit" aria-expanded="false"><span class="sr-only">Retail</span></button>
+        <span class="services-b__n mono">06</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Retail</span>
+          <span class="services-b__sub mono">PLV y punto de venta</span>
+          <span class="services-b__d">Expositores, pop-up stores y material promocional para cadenas y grandes marcas.</span>
+          <a class="services-b__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a>
+        </span>
       </div>
     </div>
   </div>
 
-  <!-- D · Tres pilares (claro) -->
-  <div class="variant man-d" data-v="D" data-name="Tres pilares" data-theme="light" hidden>
+  <!-- C · Lista gigante con media que sigue al cursor -->
+  <div class="variant services-c" data-v="C" data-name="Lista gigante" data-theme="light" hidden>
+    <header class="services-c__head wrap">
+      <div>
+        <p class="mono label">(Servicios 360°)</p>
+        <h2 class="big services-c__h">Producción visual <span class="acc">de principio a fin.</span></h2>
+      </div>
+      <p class="lead">Pasa el cursor por cada servicio. Todo se produce en nuestra planta de Cabrera de Mar y lo instalan equipos propios.</p>
+    </header>
+    <ol class="services-c__list wrap">
+      <li><a href="impresion.html" data-media="assets/img/servicios/gran-formato.webp"><span class="services-c__n mono">01</span><span class="services-c__main"><span class="services-c__t">Impresión</span><span class="services-c__d">Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución.</span></span><span class="services-c__tag mono">Gran formato<b>Ver servicio →</b></span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="rotulacion.html" data-media="assets/img/proyectos/tke.webp"><span class="services-c__n mono">02</span><span class="services-c__main"><span class="services-c__t">Rotulación</span><span class="services-c__d">Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años.</span></span><span class="services-c__tag mono">Vehículos y flotas<b>Ver servicio →</b></span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="eventos.html" data-media="assets/img/proyectos/eversense.webp"><span class="services-c__n mono">03</span><span class="services-c__main"><span class="services-c__t">Stands</span><span class="services-c__d">Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España.</span></span><span class="services-c__tag mono">Ferias y congresos<b>Ver servicio →</b></span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="eventos.html" data-media="assets/video/evento-cirsa.mp4" data-type="video"><span class="services-c__n mono">04</span><span class="services-c__main"><span class="services-c__t">Eventos <span class="acc">corporativos</span></span><span class="services-c__d">Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca.</span></span><span class="services-c__tag mono">Ambientación y activaciones<b>Ver servicio →</b></span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="rotulacion.html" data-media="assets/img/hubs/rotulacion/letras-corporeas.webp"><span class="services-c__n mono">05</span><span class="services-c__main"><span class="services-c__t">Letras <span class="acc">corpóreas</span></span><span class="services-c__d">Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior.</span></span><span class="services-c__tag mono">Rótulos en volumen<b>Ver servicio →</b></span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="impresion.html" data-media="assets/img/proyectos/venca.webp"><span class="services-c__n mono">06</span><span class="services-c__main"><span class="services-c__t">Retail</span><span class="services-c__d">Expositores, pop-up stores y material promocional para cadenas y grandes marcas.</span></span><span class="services-c__tag mono">PLV y punto de venta<b>Ver servicio →</b></span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+    </ol>
+    <div class="services-c__float" aria-hidden="true"><div class="services-c__float-in"></div></div>
+  </div>
+
+  <!-- D · Carrusel 3D que gira con el scroll -->
+  <div class="variant services-d" data-v="D" data-name="Carrusel 3D" data-theme="dark" hidden>
+    <div class="services-d__pin">
+      <header class="services-d__head">
+        <p class="mono label">(Servicios 360°)</p>
+        <h2 class="big">Producción visual <span class="acc">de principio a fin.</span></h2>
+      </header>
+      <div class="services-d__stage" data-cursor="Arrastra">
+        <div class="services-d__ring">
+          <article class="services-d__card"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy"><div><span class="mono">01 · Gran formato</span><h3>Impresión</h3><p>Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución.</p><a class="services-d__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy"><div><span class="mono">02 · Vehículos y flotas</span><h3>Rotulación</h3><p>Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años.</p><a class="services-d__go" href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense en un congreso médico" loading="lazy"><div><span class="mono">03 · Ferias y congresos</span><h3>Stands</h3><p>Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España.</p><a class="services-d__go" href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a></div></article>
+          <article class="services-d__card"><img src="assets/img/hubs/eventos/evento-neon.webp" alt="Evento corporativo con escenografía de neón producido por Unical" loading="lazy"><div><span class="mono">04 · Ambientación y activaciones</span><h3>Eventos corporativos</h3><p>Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca.</p><a class="services-d__go" href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a></div></article>
+          <article class="services-d__card"><img src="assets/img/hubs/rotulacion/letras-corporeas.webp" alt="Letras corpóreas retroiluminadas en el taller de Unical" loading="lazy"><div><span class="mono">05 · Rótulos en volumen</span><h3>Letras corpóreas</h3><p>Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior.</p><a class="services-d__go" href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"><div><span class="mono">06 · PLV y punto de venta</span><h3>Retail</h3><p>Expositores, pop-up stores y material promocional para cadenas y grandes marcas.</p><a class="services-d__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a></div></article>
+        </div>
+      </div>
+      <p class="services-d__hint mono">Desliza o arrastra para girar</p>
+    </div>
+  </div>
+
+  <!-- E · Bento con vídeo -->
+  <div class="variant services-e" data-v="E" data-name="Bento vídeo" data-theme="dark" hidden>
     <div class="wrap">
-      <p class="mono label">(Por qué Unical)</p>
-      <h2 class="big man-d__title">Un solo partner para <span class="acc">todo lo visual.</span></h2>
-      <div class="man-d__cols">
-        <article class="man-d__col rv">
-          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54V24l14 10V24l14 10V14h20v40z"/><path d="M16 46h6M30 46h6M44 46h6"/></svg>
-          <h3>Producción propia</h3><p>1.000 m² de planta con impresión, corte, laminado y taller. Controlamos calidad y plazos.</p>
-        </article>
-        <article class="man-d__col rv">
-          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 54l6-18L44 8l12 12-28 28z"/><path d="M38 14l12 12M10 54l14-4"/></svg>
-          <h3>Diseño + fabricación</h3><p>Del boceto al último vinilo: originales, 3D, prototipos y producción final con un mismo equipo.</p>
-        </article>
-        <article class="man-d__col rv">
-          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58S12 38 12 24a20 20 0 0 1 40 0c0 14-20 34-20 34z"/><circle cx="32" cy="24" r="7"/></svg>
-          <h3>Toda España</h3><p>Base en Barcelona e instaladores certificados 3M &amp; Avery para montar donde haga falta.</p>
-        </article>
-      </div>
-      <div class="man-stats man-stats--light">
-        <div><b data-count="25">25</b><sup>+</sup><span>años produciendo</span></div>
-        <div><b data-count="5000">5.000</b><sup>+</sup><span>proyectos instalados</span></div>
-        <div><b data-count="1000">1.000</b><sup>m²</sup><span>de planta propia</span></div>
-        <div><b data-count="500">500</b><sup>+</sup><span>marcas cliente</span></div>
+      <header class="services-e__head">
+        <p class="mono label">(Servicios 360°)</p>
+        <h2 class="big">Producción visual <span class="acc">de principio a fin.</span></h2>
+      </header>
+      <div class="services-e__grid">
+        <a href="rotulacion.html" class="services-e__cell services-e__cell--xl" data-cursor="Ver">
+          <video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
+          <span class="services-e__info"><span class="mono">02 · Vehículos y flotas</span><b>Rotulación</b><span class="services-e__d">Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años.</span><span class="services-e__more mono">Ver servicio →</span></span>
+        </a>
+        <a href="rotulacion.html" class="services-e__cell services-e__cell--tall" data-cursor="Ver">
+          <img src="assets/img/hubs/rotulacion/letras-corporeas.webp" alt="Letras corpóreas retroiluminadas en el taller de Unical" loading="lazy">
+          <span class="services-e__info"><span class="mono">05 · Rótulos en volumen</span><b>Letras corpóreas</b><span class="services-e__d">Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior.</span><span class="services-e__more mono">Ver servicio →</span></span>
+        </a>
+        <a href="impresion.html" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy">
+          <span class="services-e__info"><span class="mono">01 · Gran formato</span><b>Impresión</b><span class="services-e__d">Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución.</span><span class="services-e__more mono">Ver servicio →</span></span>
+        </a>
+        <a href="eventos.html" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense en un congreso médico" loading="lazy">
+          <span class="services-e__info"><span class="mono">03 · Ferias y congresos</span><b>Stands</b><span class="services-e__d">Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España.</span><span class="services-e__more mono">Ver servicio →</span></span>
+        </a>
+        <a href="eventos.html" class="services-e__cell services-e__cell--wide" data-cursor="Ver">
+          <video src="assets/video/evento-cirsa.mp4" poster="assets/video/evento-cirsa.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
+          <span class="services-e__info"><span class="mono">04 · Ambientación y activaciones</span><b>Eventos corporativos</b><span class="services-e__d">Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca.</span><span class="services-e__more mono">Ver servicio →</span></span>
+        </a>
+        <a href="impresion.html" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy">
+          <span class="services-e__info"><span class="mono">06 · PLV y punto de venta</span><b>Retail</b><span class="services-e__d">Expositores, pop-up stores y material promocional para cadenas y grandes marcas.</span><span class="services-e__more mono">Ver servicio →</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell services-e__cell--cta">
+          <span class="services-e__info"><span class="mono">¿Otro proyecto?</span><b>Si se puede imprimir, lo producimos.</b><span class="services-e__go" aria-hidden="true">→</span></span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- E · Decodificación -->
-  <div class="variant man-e" data-v="E" data-name="Decodificación" data-theme="dark" hidden>
-    <div class="wrap man-e__grid">
-      <figure class="man-e__vid">
-        <video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
-        <figcaption class="mono">REC ● Lexus · wrapping integral</figcaption>
-      </figure>
-      <div class="man-e__copy">
-        <p class="mono label man-e__label" data-scramble>// UNICAL_GRAPHIC.SYS</p>
-        <h2 class="man-e__h" data-scramble>Convertimos ideas en producción real.</h2>
-        <p class="man-e__p" data-scramble>Vinilos, lonas, stands, flotas y escaparates. Diseñados, fabricados e instalados por el mismo equipo desde 1.000 m² de planta propia en Barcelona.</p>
-        <div class="man-e__stats">
-          <div><b data-count="25">25</b><span>+ años</span></div>
-          <div><b data-count="5000">5.000</b><span>+ proyectos</span></div>
-          <div><b data-count="500">500</b><span>+ clientes</span></div>
+  <!-- F · Del boceto al resultado: comparador plano / foto real -->
+  <div class="variant services-f" data-v="F" data-name="Boceto → resultado" data-theme="dark" hidden>
+    <div class="services-f__in wrap">
+      <header class="services-f__head">
+        <p class="mono label">(Servicios 360°)</p>
+        <h2 class="big">Producción visual <span class="acc">de principio a fin.</span></h2>
+        <p class="lead">Del boceto al resultado: arrastra la línea. A la izquierda, el plano técnico que preparamos; a la derecha, lo que instalamos.</p>
+      </header>
+      <div class="services-f__tabs" role="tablist" aria-label="Servicio"></div>
+      <div class="services-f__grid">
+        <div class="services-f__cmp" style="--x:50%" data-cursor="Arrastra">
+          <img class="services-f__real" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+          <div class="services-f__bp" aria-hidden="true">
+            <img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+            <svg class="services-f__lines" viewBox="0 0 160 100" preserveAspectRatio="none"></svg>
+          </div>
+          <span class="services-f__tag services-f__tag--l mono" aria-hidden="true">Plano técnico</span>
+          <span class="services-f__tag services-f__tag--r mono" aria-hidden="true">Resultado real</span>
+          <div class="services-f__handle" aria-hidden="true"><i></i></div>
+          <input class="services-f__range" type="range" min="0" max="100" value="50" aria-label="Comparar plano técnico y resultado real">
+        </div>
+        <aside class="services-f__info" aria-live="polite">
+          <p class="services-f__n mono"></p>
+          <h3 class="services-f__t"></h3>
+          <p class="services-f__d"></p>
+          <ul class="services-f__chips"></ul>
+          <div class="services-f__ctas">
+            <a class="btn" href="#contacto" data-magnetic>Quiero algo así <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="services-f__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- G · Vídeo controlado por el scroll -->
+  <div class="variant services-g" data-v="G" data-name="Vídeo con scroll" data-theme="dark" hidden>
+    <div class="services-g__pin">
+      <video class="services-g__video" src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" muted playsinline preload="metadata" aria-hidden="true"></video>
+      <div class="services-g__shade" aria-hidden="true"></div>
+      <h2 class="sr-only">Servicios 360°: producción visual de principio a fin.</h2>
+      <p class="services-g__kicker mono">(Servicios 360° · desliza para avanzar)</p>
+      <ol class="services-g__caps">
+        <li><span class="mono">01 / 06 · Gran formato</span><h3>Impresión</h3><p>Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución.</p><a href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a></li>
+        <li><span class="mono">02 / 06 · Vehículos y flotas</span><h3>Rotulación</h3><p>Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años.</p><a href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a></li>
+        <li><span class="mono">03 / 06 · Ferias y congresos</span><h3>Stands</h3><p>Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España.</p><a href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a></li>
+        <li><span class="mono">04 / 06 · Ambientación y activaciones</span><h3>Eventos <span class="acc">corporativos</span></h3><p>Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca.</p><a href="eventos.html">Ver servicio <span aria-hidden="true">→</span></a></li>
+        <li><span class="mono">05 / 06 · Rótulos en volumen</span><h3>Letras <span class="acc">corpóreas</span></h3><p>Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior.</p><a href="rotulacion.html">Ver servicio <span aria-hidden="true">→</span></a></li>
+        <li><span class="mono">06 / 06 · PLV y punto de venta</span><h3>Retail</h3><p>Expositores, pop-up stores y material promocional para cadenas y grandes marcas.</p><a href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a></li>
+      </ol>
+      <div class="services-g__bar" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <!-- H · Taller isométrico con puntos calientes -->
+  <div class="variant services-h" data-v="H" data-name="Taller isométrico" data-theme="dark" hidden>
+    <div class="services-h__in wrap">
+      <header class="services-h__head">
+        <p class="mono label">(Servicios 360° · nuestra planta)</p>
+        <h2 class="big">Producción visual <span class="acc">de principio a fin.</span></h2>
+        <p class="lead">Producción propia en Cabrera de Mar. Pasa el cursor o pulsa cada punto para ver qué sale de cada zona.</p>
+      </header>
+      <div class="services-h__grid">
+        <div class="services-h__map">
+          <svg class="services-h__svg" viewBox="0 0 1000 680" role="img" aria-label="Plano isométrico de la planta de Unical con seis zonas de trabajo"></svg>
+          <div class="services-h__spots"></div>
+        </div>
+        <aside class="services-h__card" aria-live="polite">
+          <div class="services-h__img"><img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy"></div>
+          <div class="services-h__body">
+            <p class="services-h__n mono"></p>
+            <h3 class="services-h__t"></h3>
+            <p class="services-h__d"></p>
+            <ul class="services-h__chips"></ul>
+            <a class="services-h__go" href="impresion.html">Ver servicio <span aria-hidden="true">→</span></a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- I · Pósters cinéticos en horizontal -->
+  <div class="variant services-i" data-v="I" data-name="Pósters cinéticos" data-theme="dark" hidden>
+    <div class="services-i__pin">
+      <h2 class="sr-only">Servicios 360°: producción visual de principio a fin.</h2>
+      <div class="services-i__track">
+        <article class="services-i__poster">
+          <img class="services-i__media" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+          <div class="services-i__knock" aria-hidden="true"><span>XXL</span></div>
+          <div class="services-i__meta"><p class="mono">01 · Gran formato</p><h3>Impresión</h3><p>Vallas, lonas, telas y vinilo a cualquier tamaño con impresión UV de alta resolución. <a class="services-i__go" href="impresion.html">Ver servicio →</a></p></div>
+        </article>
+        <article class="services-i__poster">
+          <video class="services-i__media" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="services-i__knock" aria-hidden="true"><span>VINILO</span></div>
+          <div class="services-i__meta"><p class="mono">02 · Vehículos y flotas</p><h3>Rotulación</h3><p>Furgonetas, camiones y flotas corporativas con vinilos 3M y Avery, garantía de 5 a 7 años. <a class="services-i__go" href="rotulacion.html">Ver servicio →</a></p></div>
+        </article>
+        <article class="services-i__poster">
+          <img class="services-i__media" src="assets/img/proyectos/eversense.webp" alt="" loading="lazy">
+          <div class="services-i__knock" aria-hidden="true"><span>STAND</span></div>
+          <div class="services-i__meta"><p class="mono">03 · Ferias y congresos</p><h3>Stands</h3><p>Diseño, producción, transporte y montaje llave en mano para Fira Barcelona y toda España. <a class="services-i__go" href="eventos.html">Ver servicio →</a></p></div>
+        </article>
+        <article class="services-i__poster">
+          <video class="services-i__media" src="assets/video/evento-cirsa.mp4" poster="assets/video/evento-cirsa.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="services-i__knock" aria-hidden="true"><span>EVENTO</span></div>
+          <div class="services-i__meta"><p class="mono">04 · Ambientación y activaciones</p><h3>Eventos <span class="acc">corporativos</span></h3><p>Photocalls, backdrops, banderolas y montaje integral para presentaciones y eventos de marca. <a class="services-i__go" href="eventos.html">Ver servicio →</a></p></div>
+        </article>
+        <article class="services-i__poster">
+          <img class="services-i__media" src="assets/img/hubs/rotulacion/letras-corporeas.webp" alt="" loading="lazy">
+          <div class="services-i__knock" aria-hidden="true"><span>LETRAS</span></div>
+          <div class="services-i__meta"><p class="mono">05 · Rótulos en volumen</p><h3>Letras <span class="acc">corpóreas</span></h3><p>Letras en PVC, metacrilato y aluminio, con o sin retroiluminación led, para fachada e interior. <a class="services-i__go" href="rotulacion.html">Ver servicio →</a></p></div>
+        </article>
+        <article class="services-i__poster">
+          <img class="services-i__media" src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+          <div class="services-i__knock" aria-hidden="true"><span>RETAIL</span></div>
+          <div class="services-i__meta"><p class="mono">06 · PLV y punto de venta</p><h3>Retail</h3><p>Expositores, pop-up stores y material promocional para cadenas y grandes marcas. <a class="services-i__go" href="impresion.html">Ver servicio →</a></p></div>
+        </article>
+      </div>
+      <p class="services-i__count mono" aria-hidden="true"><b>01</b> / 06</p>
+    </div>
+  </div>
+
+  <!-- J · Configurador «Elige tu proyecto» -->
+  <div class="variant services-j" data-v="J" data-name="Elige tu proyecto" data-theme="light" hidden>
+    <div class="services-j__in wrap">
+      <header class="services-j__head">
+        <p class="mono label">(Servicios 360°)</p>
+        <h2 class="big">Producción visual <span class="acc">de principio a fin.</span></h2>
+        <p class="lead">Elige tu proyecto en 10 segundos y te preparamos el mensaje.</p>
+      </header>
+      <div class="services-j__grid">
+        <div class="services-j__form">
+          <fieldset class="services-j__step">
+            <legend class="mono">1 · ¿Qué quieres producir?</legend>
+            <div class="services-j__chips" data-group="tipo"></div>
+          </fieldset>
+          <fieldset class="services-j__step">
+            <legend class="mono">2 · ¿De qué alcance?</legend>
+            <div class="services-j__chips" data-group="escala"></div>
+          </fieldset>
+          <div class="services-j__out" aria-live="polite">
+            <div><p class="mono">Lo que incluye</p><ul class="services-j__mats"></ul></div>
+            <div><p class="mono">Plazo</p><p class="services-j__plazo"></p></div>
+          </div>
+          <div class="services-j__ctas">
+            <a class="btn btn--dark services-j__wa" href="https://wa.me/34663512014" target="_blank" rel="noopener" data-magnetic>Pedir por WhatsApp <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="services-j__go" href="#contacto">o ir a contacto →</a>
+            <a class="services-j__hub" href="impresion.html">Ver servicio →</a>
+          </div>
+        </div>
+        <div class="services-j__stage">
+          <div class="services-j__frame"><img class="on" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy"></div>
+          <p class="services-j__summary mono"></p>
         </div>
       </div>
     </div>
@@ -314,7 +629,7 @@
 </section>
 
 <!-- ===== 03-reel.html ===== -->
-<section class="opt-sec" id="showreel" data-sec="reel" data-label="Showreel">
+<section class="opt-sec" id="showreel" data-sec="reel" data-label="Showreel" data-default="E">
 
   <!-- A · Expansión con scroll (adaptado de «Scroll media expansion hero», 21st.dev) -->
   <div class="variant reel-a" data-v="A" data-name="Expansión" data-theme="dark">
@@ -338,7 +653,7 @@
     <div class="reel-b__pin">
       <div class="reel-b__head">
         <p class="label mono">(Showreel 2026)</p>
-        <h2 class="big">25 segundos.<br><span class="acc">5.000 proyectos.</span></h2>
+        <h2 class="big">37 segundos.<br><span class="acc">+3.000 proyectos.</span></h2>
       </div>
       <div class="reel-b__stage">
         <div class="reel-b__tv" data-cursor="Play">
@@ -420,384 +735,8 @@
   </div>
 </section>
 
-<!-- ===== 04-services.html ===== -->
-<section class="opt-sec" id="servicios" data-sec="services" data-label="Servicios">
-
-  <!-- A · Paneles apilados (adaptado de «Services Stack», 21st.dev) -->
-  <div class="variant services-a" data-v="A" data-name="Paneles apilados" data-theme="dark">
-    <div class="services-a__bg" aria-hidden="true">
-      <div class="services-a__sticky">
-        <img class="on" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
-        <img src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
-        <img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
-        <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
-        <div class="services-a__grain"></div>
-        <div class="services-a__shade"></div>
-        <div class="services-a__side">
-          <p class="services-a__eyebrow">Bajo un mismo techo,<br>producimos</p>
-          <div class="services-a__titles">
-            <span class="on">Gran formato &amp; exterior</span>
-            <span>Vehículos &amp; flotas</span>
-            <span>Stands &amp; eventos</span>
-            <span>Retail &amp; interiorismo</span>
-          </div>
-          <p class="services-a__count mono"><b>01</b> / 04</p>
-        </div>
-      </div>
-    </div>
-    <h2 class="sr-only">Servicios</h2>
-    <div class="services-a__panel" data-panel>
-      <article class="services-a__card">
-        <h3 class="services-a__mtitle">Gran formato &amp; exterior</h3>
-        <div class="services-a__art" data-art="print"></div>
-        <div class="services-a__body">
-          <p>Lonas de fachada, vinilos, textil y rígidos hasta 5 m de ancho. Impresos en nuestra planta e instalados con grúa si hace falta.</p>
-          <p class="services-a__covers mono">Lo que incluye</p>
-          <ul class="services-a__chips"><li>Lonas y mesh</li><li>Vinilo impreso</li><li>Textil tensado</li><li>Rígidos y forex</li><li>Vallas</li><li>Instalación en altura</li></ul>
-        </div>
-      </article>
-    </div>
-    <div class="services-a__panel" data-panel>
-      <article class="services-a__card">
-        <h3 class="services-a__mtitle">Vehículos &amp; flotas</h3>
-        <div class="services-a__art" data-art="van"></div>
-        <div class="services-a__body">
-          <p>Del primer render 3D al último vehículo rotulado. Car wrapping, cambio de color y flotas de decenas de unidades con un acabado idéntico.</p>
-          <p class="services-a__covers mono">Lo que incluye</p>
-          <ul class="services-a__chips"><li>Toma de medidas</li><li>Diseño 3D</li><li>Car wrapping</li><li>Cambio de color</li><li>Flotas</li><li>Láminas solares</li></ul>
-        </div>
-      </article>
-    </div>
-    <div class="services-a__panel" data-panel>
-      <article class="services-a__card">
-        <h3 class="services-a__mtitle">Stands &amp; eventos</h3>
-        <div class="services-a__art" data-art="stand"></div>
-        <div class="services-a__body">
-          <p>Stands llave en mano para ferias y congresos, escenografía y photocalls. Diseñamos, fabricamos, transportamos y montamos.</p>
-          <p class="services-a__covers mono">Lo que incluye</p>
-          <ul class="services-a__chips"><li>Diseño del stand</li><li>Estructura</li><li>Gráfica</li><li>Iluminación</li><li>Transporte</li><li>Montaje y desmontaje</li></ul>
-        </div>
-      </article>
-    </div>
-    <div class="services-a__panel" data-panel>
-      <article class="services-a__card">
-        <h3 class="services-a__mtitle">Retail &amp; interiorismo</h3>
-        <div class="services-a__art" data-art="store"></div>
-        <div class="services-a__body">
-          <p>PLV, escaparates, pop-up stores, señalética y vinilos decorativos. Renovamos hoteles, restaurantes y oficinas sin obras.</p>
-          <p class="services-a__covers mono">Lo que incluye</p>
-          <ul class="services-a__chips"><li>PLV y displays</li><li>Escaparates</li><li>Pop-up stores</li><li>Señalética</li><li>Corpóreos</li><li>Vinilos decorativos</li></ul>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <!-- B · Acordeón a pantalla completa -->
-  <div class="variant services-b" data-v="B" data-name="Acordeón" data-theme="dark" hidden>
-    <header class="services-b__head wrap">
-      <p class="mono label">(Servicios)</p>
-      <h2 class="big">Todo lo visual, <span class="acc">en casa.</span></h2>
-    </header>
-    <div class="services-b__cols" role="list">
-      <button type="button" class="services-b__col on" role="listitem" aria-expanded="true">
-        <img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
-        <span class="services-b__n mono">01</span>
-        <span class="services-b__in">
-          <span class="services-b__t">Gran formato</span>
-          <span class="services-b__d">Lonas, vinilos, textil y rígidos hasta 5 m de ancho, impresos en nuestra planta.</span>
-          <span class="services-b__chips"><i>Lonas</i><i>Vinilo</i><i>Textil</i><i>Vallas</i></span>
-        </span>
-      </button>
-      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
-        <img src="assets/img/servicios/car-wrapping.webp" alt="" loading="lazy">
-        <span class="services-b__n mono">02</span>
-        <span class="services-b__in">
-          <span class="services-b__t">Car wrapping</span>
-          <span class="services-b__d">Cambio de color y wrapping integral reversible con vinilos 3M y Avery.</span>
-          <span class="services-b__chips"><i>Wrapping</i><i>Cambio de color</i><i>Láminas solares</i></span>
-        </span>
-      </button>
-      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
-        <img src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
-        <span class="services-b__n mono">03</span>
-        <span class="services-b__in">
-          <span class="services-b__t">Flotas</span>
-          <span class="services-b__d">Decenas de vehículos con un acabado idéntico, en cualquier punto de España.</span>
-          <span class="services-b__chips"><i>Furgonetas</i><i>Camiones</i><i>Coordinación</i></span>
-        </span>
-      </button>
-      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
-        <img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
-        <span class="services-b__n mono">04</span>
-        <span class="services-b__in">
-          <span class="services-b__t">Stands</span>
-          <span class="services-b__d">Llave en mano para ferias y congresos: diseño, fabricación, transporte y montaje.</span>
-          <span class="services-b__chips"><i>Diseño</i><i>Estructura</i><i>Montaje</i></span>
-        </span>
-      </button>
-      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
-        <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
-        <span class="services-b__n mono">05</span>
-        <span class="services-b__in">
-          <span class="services-b__t">Retail &amp; PLV</span>
-          <span class="services-b__d">Escaparates, pop-up stores, displays y visual merchandising que venden.</span>
-          <span class="services-b__chips"><i>PLV</i><i>Pop-up</i><i>Escaparates</i></span>
-        </span>
-      </button>
-      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
-        <img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy">
-        <span class="services-b__n mono">06</span>
-        <span class="services-b__in">
-          <span class="services-b__t">Interiorismo</span>
-          <span class="services-b__d">Murales, vinilos decorativos y señalética para oficinas, hoteles y restaurantes.</span>
-          <span class="services-b__chips"><i>Murales</i><i>Vinilos</i><i>Señalética</i></span>
-        </span>
-      </button>
-    </div>
-  </div>
-
-  <!-- C · Lista gigante con media que sigue al cursor -->
-  <div class="variant services-c" data-v="C" data-name="Lista gigante" data-theme="light" hidden>
-    <header class="services-c__head wrap">
-      <p class="mono label">(Qué hacemos)</p>
-      <p class="lead">Pasa el cursor por cada servicio. Todo se produce en nuestra planta de 1.000 m² y lo instalan equipos propios.</p>
-    </header>
-    <h2 class="sr-only">Servicios</h2>
-    <ol class="services-c__list wrap">
-      <li><a href="#contacto" data-media="assets/img/servicios/gran-formato.webp"><span class="services-c__n mono">01</span><span class="services-c__t">Gran formato</span><span class="services-c__tag mono">Lonas · vinilo · textil</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/video/v-lexus-1.mp4" data-type="video"><span class="services-c__n mono">02</span><span class="services-c__t">Car <span class="acc">wrapping</span></span><span class="services-c__tag mono">Cambio de color</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/img/proyectos/tke.webp"><span class="services-c__n mono">03</span><span class="services-c__t">Flotas</span><span class="services-c__tag mono">Rotulación de vehículos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/img/proyectos/eversense.webp"><span class="services-c__n mono">04</span><span class="services-c__t">Stands</span><span class="services-c__tag mono">Ferias y congresos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/video/evento-cirsa.mp4" data-type="video"><span class="services-c__n mono">05</span><span class="services-c__t">Eventos</span><span class="services-c__tag mono">Escenografía · photocall</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/img/proyectos/venca.webp"><span class="services-c__n mono">06</span><span class="services-c__t">Retail <span class="acc">&amp; PLV</span></span><span class="services-c__tag mono">Pop-up · escaparates</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/img/servicios/senaletica.webp"><span class="services-c__n mono">07</span><span class="services-c__t">Señalética</span><span class="services-c__tag mono">Corpóreos · rótulos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-      <li><a href="#contacto" data-media="assets/img/proyectos/mcdonalds.webp"><span class="services-c__n mono">08</span><span class="services-c__t">Interiorismo</span><span class="services-c__tag mono">Murales · vinilos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
-    </ol>
-    <div class="services-c__float" aria-hidden="true"><div class="services-c__float-in"></div></div>
-  </div>
-
-  <!-- D · Carrusel 3D que gira con el scroll -->
-  <div class="variant services-d" data-v="D" data-name="Carrusel 3D" data-theme="dark" hidden>
-    <div class="services-d__pin">
-      <header class="services-d__head">
-        <p class="mono label">(Servicios)</p>
-        <h2 class="big">Gira y <span class="acc">elige.</span></h2>
-      </header>
-      <div class="services-d__stage" data-cursor="Arrastra">
-        <div class="services-d__ring">
-          <article class="services-d__card"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy"><div><span class="mono">01</span><h3>Gran formato</h3><p>Lonas, vinilo y textil hasta 5 m.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/servicios/car-wrapping.webp" alt="Car wrapping" loading="lazy"><div><span class="mono">02</span><h3>Car wrapping</h3><p>Cambio de color reversible.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta TKE rotulada" loading="lazy"><div><span class="mono">03</span><h3>Flotas</h3><p>Decenas de vehículos, un acabado.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense" loading="lazy"><div><span class="mono">04</span><h3>Stands</h3><p>Llave en mano para ferias.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/proyectos/disney.webp" alt="Evento de Disney" loading="lazy"><div><span class="mono">05</span><h3>Eventos</h3><p>Escenografía y photocalls.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"><div><span class="mono">06</span><h3>Retail &amp; PLV</h3><p>Pop-ups, escaparates, displays.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/servicios/senaletica.webp" alt="Señalética corporativa" loading="lazy"><div><span class="mono">07</span><h3>Señalética</h3><p>Corpóreos y rótulos.</p></div></article>
-          <article class="services-d__card"><img src="assets/img/proyectos/mcdonalds.webp" alt="Murales de McDonald's" loading="lazy"><div><span class="mono">08</span><h3>Interiorismo</h3><p>Murales y vinilos.</p></div></article>
-        </div>
-      </div>
-      <p class="services-d__hint mono">Desliza o arrastra para girar</p>
-    </div>
-  </div>
-
-  <!-- E · Bento con vídeo -->
-  <div class="variant services-e" data-v="E" data-name="Bento vídeo" data-theme="dark" hidden>
-    <div class="wrap">
-      <header class="services-e__head">
-        <p class="mono label">(Servicios 360°)</p>
-        <h2 class="big">Un taller. <span class="acc">Todo el oficio.</span></h2>
-      </header>
-      <div class="services-e__grid">
-        <a href="#contacto" class="services-e__cell services-e__cell--xl" data-cursor="Ver">
-          <video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
-          <span class="services-e__info"><span class="mono">01 · Vehículos</span><b>Car wrapping &amp; flotas</b><span class="services-e__d">Del render 3D al último vehículo rotulado, con vinilos 3M y Avery.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell services-e__cell--tall" data-cursor="Ver">
-          <video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
-          <span class="services-e__info"><span class="mono">02 · Detalle</span><b>Cambio de color</b><span class="services-e__d">Reversible, sin tocar la pintura original.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
-          <img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy">
-          <span class="services-e__info"><span class="mono">03</span><b>Gran formato</b><span class="services-e__d">Hasta 5 m de ancho.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
-          <img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy">
-          <span class="services-e__info"><span class="mono">04</span><b>Stands</b><span class="services-e__d">Llave en mano.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell services-e__cell--wide" data-cursor="Ver">
-          <video src="assets/video/evento-cirsa.mp4" poster="assets/video/evento-cirsa.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
-          <span class="services-e__info"><span class="mono">05 · Eventos</span><b>Escenografía &amp; photocall</b><span class="services-e__d">Producción e instalación para eventos corporativos.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
-          <img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy">
-          <span class="services-e__info"><span class="mono">06</span><b>Retail &amp; PLV</b><span class="services-e__d">Pop-ups y escaparates.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
-          <img src="assets/img/proyectos/3cat.webp" alt="Mural de 3cat" loading="lazy">
-          <span class="services-e__info"><span class="mono">07</span><b>Interiorismo</b><span class="services-e__d">Murales y vinilos.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell services-e__cell--cta services-e__cell--wide">
-          <span class="services-e__info"><span class="mono">¿Otro proyecto?</span><b>Si se puede imprimir, lo producimos.</b><span class="services-e__go" aria-hidden="true">→</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
-          <img src="assets/img/servicios/senaletica.webp" alt="Señalética corporativa" loading="lazy">
-          <span class="services-e__info"><span class="mono">08</span><b>Señalética</b><span class="services-e__d">Corpóreos y rótulos.</span></span>
-        </a>
-        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
-          <img src="assets/img/proyectos/jpujol.webp" alt="Flota de J.Pujol rotulada" loading="lazy">
-          <span class="services-e__info"><span class="mono">09</span><b>Flotas</b><span class="services-e__d">Decenas de vehículos, un acabado.</span></span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 05-numbers.html ===== -->
-<section class="opt-sec" id="cifras" data-sec="numbers" data-label="Cifras">
-
-  <!-- A · Recorrido horizontal -->
-  <div class="variant num-a" data-v="A" data-name="Horizontal" data-theme="dark">
-    <div class="num-a__pin">
-      <div class="num-a__track">
-        <div class="num-a__intro">
-          <p class="mono label">(En cifras)</p>
-          <h2 class="big">Hechos,<br><span class="acc">no promesas.</span></h2>
-        </div>
-        <div class="num-a__num"><b data-count="25" data-count-manual>25</b><sup>+</sup><span>años de oficio en Barcelona</span></div>
-        <figure class="num-a__clip"><video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Lexus · wrapping integral</figcaption></figure>
-        <div class="num-a__num"><b data-count="5000" data-count-manual>5.000</b><sup>+</sup><span>proyectos producidos e instalados</span></div>
-        <figure class="num-a__clip num-a__clip--wide"><img src="assets/img/proyectos/disney.webp" alt="Evento Disney producido por Unical" loading="lazy"><figcaption class="mono">Disney · evento</figcaption></figure>
-        <div class="num-a__num"><b data-count="1000" data-count-manual>1.000</b><sup>m²</sup><span>de planta de producción propia</span></div>
-        <figure class="num-a__clip"><video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Showroom Lexus</figcaption></figure>
-        <div class="num-a__num"><b data-count="500" data-count-manual>500</b><sup>+</sup><span>marcas que repiten</span></div>
-        <div class="num-a__partners">
-          <p class="mono">Instaladores y materiales certificados</p>
-          <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"><img src="assets/img/partners/orafol.svg" alt="Orafol" loading="lazy"><img src="assets/img/partners/hp.svg" alt="HP" loading="lazy"><img src="assets/img/partners/hexis.svg" alt="Hexis" loading="lazy"><img src="assets/img/partners/mactac.svg" alt="Mactac" loading="lazy"></div>
-        </div>
-      </div>
-      <div class="num-a__progress" aria-hidden="true"><i></i></div>
-    </div>
-  </div>
-
-  <!-- B · Rejilla 2×2 con barras -->
-  <div class="variant num-b" data-v="B" data-name="Rejilla 2×2" data-theme="light" hidden>
-    <div class="wrap">
-      <header class="num-b__head">
-        <p class="mono label">(En cifras)</p>
-        <h2 class="big rv">Hechos, <span class="acc">no promesas.</span></h2>
-      </header>
-      <div class="num-b__grid">
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="25">0</b><sup>+</sup></p>
-          <p class="num-b__t">años de oficio en Barcelona</p>
-          <div class="num-b__bar" style="--to:.25"><i></i></div>
-          <p class="num-b__f mono">Taller en Cabrera de Mar</p>
-        </article>
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="5000">0</b><sup>+</sup></p>
-          <p class="num-b__t">proyectos producidos e instalados</p>
-          <div class="num-b__dots" aria-hidden="true"></div>
-          <p class="num-b__f mono">Cada punto, 50 proyectos</p>
-        </article>
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="1000">0</b><sup>m²</sup></p>
-          <p class="num-b__t">de planta de producción propia</p>
-          <div class="num-b__plan" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <p class="num-b__f mono">Impresión · corte · laminado · taller</p>
-        </article>
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="500">0</b><sup>+</sup></p>
-          <p class="num-b__t">marcas que repiten</p>
-          <div class="num-b__ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50"/><circle class="num-b__arc" cx="60" cy="60" r="50"/></svg><span class="mono">3M · Avery</span></div>
-          <p class="num-b__f mono">Instaladores certificados</p>
-        </article>
-      </div>
-    </div>
-  </div>
-
-  <!-- C · Odómetro sobre vídeo -->
-  <div class="variant num-c" data-v="C" data-name="Odómetro" data-theme="dark" hidden>
-    <video class="num-c__bg" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
-    <div class="num-c__shade" aria-hidden="true"></div>
-    <div class="wrap num-c__in">
-      <p class="mono label">(Contador en marcha)</p>
-      <h2 class="big num-c__title">Seguimos <span class="acc">sumando.</span></h2>
-      <div class="num-c__list">
-        <div class="num-c__row"><div class="num-c__odo" data-odo="25" data-suffix="+" aria-label="Más de 25"></div><p>años de oficio en Barcelona</p></div>
-        <div class="num-c__row"><div class="num-c__odo" data-odo="5000" data-suffix="+" aria-label="Más de 5.000"></div><p>proyectos producidos e instalados</p></div>
-        <div class="num-c__row"><div class="num-c__odo" data-odo="1000" data-suffix="m²" aria-label="1.000 metros cuadrados"></div><p>de planta de producción propia</p></div>
-        <div class="num-c__row"><div class="num-c__odo" data-odo="500" data-suffix="+" aria-label="Más de 500"></div><p>marcas que repiten</p></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- D · Una cifra por pantalla -->
-  <div class="variant num-d" data-v="D" data-name="Pantalla a pantalla" data-theme="dark" hidden>
-    <h2 class="sr-only">Unical en cifras</h2>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">25+</span><span class="num-d__f">25+</span></p>
-        <div class="num-d__txt"><p class="mono label">01 / 04</p><p class="num-d__t"><b>Más de 25 años</b> de oficio en Barcelona.</p></div>
-      </div>
-    </div>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">5.000</span><span class="num-d__f">5.000</span></p>
-        <div class="num-d__txt"><p class="mono label">02 / 04</p><p class="num-d__t"><b>Más de 5.000 proyectos</b> producidos e instalados.</p></div>
-      </div>
-    </div>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">1.000</span><span class="num-d__f">1.000</span></p>
-        <div class="num-d__txt"><p class="mono label">03 / 04</p><p class="num-d__t"><b>1.000 m²</b> de planta de producción propia.</p></div>
-      </div>
-    </div>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">500+</span><span class="num-d__f">500+</span></p>
-        <div class="num-d__txt"><p class="mono label">04 / 04</p><p class="num-d__t"><b>Más de 500 marcas</b> que repiten.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- E · Baraja en abanico -->
-  <div class="variant num-e" data-v="E" data-name="Baraja" data-theme="dark" hidden>
-    <div class="wrap num-e__in">
-      <header class="num-e__head">
-        <p class="mono label">(En cifras)</p>
-        <h2 class="big">Cuatro cartas <span class="acc">ganadoras.</span></h2>
-      </header>
-      <div class="num-e__deck">
-        <article class="num-e__card" style="--i:0">
-          <div class="num-e__img"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="25">0</b><sup>+</sup></p><p class="num-e__t">años de oficio</p>
-        </article>
-        <article class="num-e__card" style="--i:1">
-          <div class="num-e__img"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="5000">0</b><sup>+</sup></p><p class="num-e__t">proyectos instalados</p>
-        </article>
-        <article class="num-e__card" style="--i:2">
-          <div class="num-e__img"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión en gran formato" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="1000">0</b><sup>m²</sup></p><p class="num-e__t">de planta propia</p>
-        </article>
-        <article class="num-e__card" style="--i:3">
-          <div class="num-e__img"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="500">0</b><sup>+</sup></p><p class="num-e__t">marcas que repiten</p>
-        </article>
-      </div>
-      <div class="num-e__partners">
-        <p class="mono">Certificados por</p>
-        <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"><img src="assets/img/partners/orafol.svg" alt="Orafol" loading="lazy"><img src="assets/img/partners/hp.svg" alt="HP" loading="lazy"><img src="assets/img/partners/hexis.svg" alt="Hexis" loading="lazy"><img src="assets/img/partners/mactac.svg" alt="Mactac" loading="lazy"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 06-work.html ===== -->
-<section class="opt-sec" id="proyectos" data-sec="work" data-label="Proyectos">
+<section class="opt-sec" id="proyectos" data-sec="work" data-label="Proyectos" data-default="C">
 
   <!-- A · Índice con media flotante + galería con profundidad -->
   <div class="variant work-a" data-v="A" data-name="Índice flotante" data-theme="light">
@@ -929,7 +868,7 @@
 </section>
 
 <!-- ===== 07-process.html ===== -->
-<section class="opt-sec" id="proceso" data-sec="process" data-label="Proceso">
+<section class="opt-sec" id="proceso" data-sec="process" data-label="Proceso" data-default="E">
 
   <!-- A · Trazo ondulado -->
   <div class="variant process-a" data-v="A" data-name="Trazo ondulado" data-theme="light">
@@ -1094,8 +1033,451 @@
   </div>
 </section>
 
+<!-- ===== 05-numbers.html ===== -->
+<section class="opt-sec" id="cifras" data-sec="numbers" data-label="Cifras" data-default="C">
+
+  <!-- A · Recorrido horizontal -->
+  <div class="variant num-a" data-v="A" data-name="Horizontal" data-theme="dark">
+    <div class="num-a__pin">
+      <div class="num-a__track">
+        <div class="num-a__intro">
+          <p class="mono label">Por qué elegirnos</p>
+          <h2 class="big num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+          <p class="lead num-lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+        </div>
+        <div class="num-a__num"><b data-count="25" data-count-manual>25</b><sup>+</sup><span>años de experiencia</span></div>
+        <figure class="num-a__clip"><video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Lexus · wrapping integral</figcaption></figure>
+        <div class="num-a__num"><b data-count="3000" data-count-manual>3.000</b><sup>+</sup><span>proyectos entregados</span></div>
+        <figure class="num-a__clip num-a__clip--wide"><img src="assets/img/proyectos/disney.webp" alt="Evento Disney producido por Unical" loading="lazy"><figcaption class="mono">Disney · evento</figcaption></figure>
+        <div class="num-a__num"><b data-count="40" data-count-manual>40</b><sup>+</sup><span>sectores atendidos</span></div>
+        <figure class="num-a__clip"><video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Showroom Lexus</figcaption></figure>
+        <div class="num-a__cert">
+          <p class="num-a__certn">3M <span class="acc">·</span> Avery</p>
+          <p class="mono">Instaladores certificados</p>
+          <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="num-a__progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <!-- B · Rejilla 2×2 con gráficos -->
+  <div class="variant num-b" data-v="B" data-name="Rejilla 2×2" data-theme="light" hidden>
+    <div class="wrap">
+      <header class="num-b__head">
+        <p class="mono label">Por qué elegirnos</p>
+        <h2 class="big rv num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+        <p class="lead rv num-lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+      </header>
+      <div class="num-b__grid">
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="25">0</b><sup>+</sup></p>
+          <p class="num-b__t">años de experiencia</p>
+          <div class="num-b__bar" style="--to:.25"><i></i></div>
+          <p class="num-b__f mono">Taller en Cabrera de Mar</p>
+        </article>
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="3000">0</b><sup>+</sup></p>
+          <p class="num-b__t">proyectos entregados</p>
+          <div class="num-b__dots" data-n="100" aria-hidden="true"></div>
+          <p class="num-b__f mono">Cada punto, 30 proyectos</p>
+        </article>
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="40">0</b><sup>+</sup></p>
+          <p class="num-b__t">sectores atendidos</p>
+          <div class="num-b__dots num-b__dots--sq" data-n="40" aria-hidden="true"></div>
+          <p class="num-b__f mono">Vehículos · ferias · retail · pharma…</p>
+        </article>
+        <article class="num-b__cell num-b__cell--cert rv">
+          <p class="num-b__word">3M <span class="acc">·</span> Avery</p>
+          <p class="num-b__t">instaladores certificados</p>
+          <div class="num-b__ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50"/><circle class="num-b__arc" cx="60" cy="60" r="50"/></svg><span class="mono">Certificado</span></div>
+          <p class="num-b__f mono">Acabados con garantía de fabricante</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Odómetro sobre vídeo -->
+  <div class="variant num-c" data-v="C" data-name="Odómetro" data-theme="dark" hidden>
+    <video class="num-c__bg" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+    <div class="num-c__shade" aria-hidden="true"></div>
+    <div class="wrap num-c__in">
+      <p class="mono label">Por qué elegirnos</p>
+      <h2 class="big num-c__title num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+      <p class="lead num-c__lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+      <div class="num-c__list">
+        <div class="num-c__row"><div class="num-c__odo" data-odo="25" data-suffix="+" aria-label="Más de 25"></div><p>años de experiencia</p></div>
+        <div class="num-c__row"><div class="num-c__odo" data-odo="3000" data-suffix="+" aria-label="Más de 3.000"></div><p>proyectos entregados</p></div>
+        <div class="num-c__row"><div class="num-c__odo" data-odo="40" data-suffix="+" aria-label="Más de 40"></div><p>sectores atendidos</p></div>
+        <div class="num-c__row"><p class="num-c__word">3M <span class="acc">·</span> Avery</p><p>instaladores certificados</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D · Una cifra por pantalla -->
+  <div class="variant num-d" data-v="D" data-name="Pantalla a pantalla" data-theme="dark" hidden>
+    <h2 class="sr-only">+25 años haciendo lo imposible una realidad</h2>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">25+</span><span class="num-d__f">25+</span></p>
+        <div class="num-d__txt"><p class="mono label">01 / 04 · Por qué elegirnos</p><p class="num-d__t"><b>Más de 25 años</b> de experiencia haciendo lo imposible una realidad.</p></div>
+      </div>
+    </div>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">3.000</span><span class="num-d__f">3.000</span></p>
+        <div class="num-d__txt"><p class="mono label">02 / 04</p><p class="num-d__t"><b>Más de 3.000 proyectos</b> entregados.</p></div>
+      </div>
+    </div>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">40+</span><span class="num-d__f">40+</span></p>
+        <div class="num-d__txt"><p class="mono label">03 / 04</p><p class="num-d__t"><b>Más de 40 sectores</b> atendidos.</p></div>
+      </div>
+    </div>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/servicios/car-wrapping.webp" alt="" loading="lazy">
+        <p class="num-d__big num-d__big--word" aria-hidden="true"><span class="num-d__o">3M·AVERY</span><span class="num-d__f">3M·AVERY</span></p>
+        <div class="num-d__txt"><p class="mono label">04 / 04</p><p class="num-d__t"><b>Instaladores certificados</b> 3M &amp; Avery, con producción propia en Cabrera de Mar y cobertura en toda España.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Baraja en abanico -->
+  <div class="variant num-e" data-v="E" data-name="Baraja" data-theme="dark" hidden>
+    <div class="wrap num-e__in">
+      <header class="num-e__head">
+        <p class="mono label">Por qué elegirnos</p>
+        <h2 class="big num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+        <p class="lead num-e__lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+      </header>
+      <div class="num-e__deck">
+        <article class="num-e__card" style="--i:0">
+          <div class="num-e__img"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="25">0</b><sup>+</sup></p><p class="num-e__t">años de experiencia</p>
+        </article>
+        <article class="num-e__card" style="--i:1">
+          <div class="num-e__img"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="3000">0</b><sup>+</sup></p><p class="num-e__t">proyectos entregados</p>
+        </article>
+        <article class="num-e__card" style="--i:2">
+          <div class="num-e__img"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="40">0</b><sup>+</sup></p><p class="num-e__t">sectores atendidos</p>
+        </article>
+        <article class="num-e__card" style="--i:3">
+          <div class="num-e__img"><img src="assets/img/servicios/car-wrapping.webp" alt="Car wrapping con vinilo certificado" loading="lazy"></div>
+          <p class="num-e__n num-e__n--word"><b>3M·Avery</b></p><p class="num-e__t">instaladores certificados</p>
+        </article>
+      </div>
+      <div class="num-e__partners">
+        <p class="mono">Certificados por</p>
+        <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11-sectors.html ===== -->
+<section class="opt-sec" id="sectores" data-sec="sectors" data-label="Sectores">
+
+  <!-- A · Bolas con física -->
+  <div class="variant sec-a" data-v="A" data-name="Bolas" data-theme="dark">
+    <div class="wrap sec-a__head">
+      <div>
+        <p class="mono label">Sectores</p>
+        <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+      </div>
+      <div class="sec-a__side">
+        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+        <p class="sec-a__hint mono"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5m0-1a2 2 0 0 1 4 0v2m0-1a2 2 0 0 1 4 0v4a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-3-5a2 2 0 0 1 3-2l2 2"/></svg>Arrastra las bolas</p>
+      </div>
+    </div>
+    <ul class="sr-only">
+      <li>Vehículos</li><li>Stands y Ferias</li><li>Retail y PLV</li><li>Hostelería</li><li>Oficinas</li><li>Publicidad Exterior</li><li>Eventos Deportivos</li><li>Pharma</li>
+    </ul>
+    <div class="wrap">
+      <div class="sec-a__box" aria-hidden="true">
+        <span class="sec-ball sec-ball--blue" data-r="1.15">Vehículos</span>
+        <span class="sec-ball sec-ball--paper" data-r="1.1">Stands y Ferias</span>
+        <span class="sec-ball sec-ball--strong" data-r="1">Retail y PLV</span>
+        <span class="sec-ball sec-ball--line" data-r=".95">Hostelería</span>
+        <span class="sec-ball sec-ball--paper" data-r=".88">Oficinas</span>
+        <span class="sec-ball sec-ball--blue" data-r="1.08">Publicidad Exterior</span>
+        <span class="sec-ball sec-ball--strong" data-r="1.05">Eventos Deportivos</span>
+        <span class="sec-ball sec-ball--line" data-r=".85">Pharma</span>
+        <span class="sec-ball sec-ball--img" data-r=".55" style="background-image:url(assets/img/proyectos/tke.webp)"></span>
+        <span class="sec-ball sec-ball--img" data-r=".5" style="background-image:url(assets/img/proyectos/eversense.webp)"></span>
+        <span class="sec-ball sec-ball--img" data-r=".46" style="background-image:url(assets/img/proyectos/venca.webp)"></span>
+        <span class="sec-ball sec-ball--img" data-r=".5" style="background-image:url(assets/img/proyectos/five-guys.webp)"></span>
+        <span class="sec-ball sec-ball--img" data-r=".42" style="background-image:url(assets/img/proyectos/tibau.webp)"></span>
+        <span class="sec-ball sec-ball--img" data-r=".48" style="background-image:url(assets/img/proyectos/janssen.webp)"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B · Lista con imagen fija -->
+  <div class="variant sec-b" data-v="B" data-name="Lista + imagen" data-theme="dark" hidden>
+    <div class="wrap sec-b__grid">
+      <div class="sec-b__left">
+        <p class="mono label">Sectores</p>
+        <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+        <ol class="sec-b__list">
+          <li><button type="button" class="is-on" aria-pressed="true"><span class="mono">01</span><b>Vehículos</b><em>Rotulación de vehículos y flotas, car wrapping y cambio de color.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">02</span><b>Stands y Ferias</b><em>Stands llave en mano para ferias y congresos en toda España.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">03</span><b>Retail y PLV</b><em>PLV, escaparates y pop-up stores para el punto de venta.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">04</span><b>Hostelería</b><em>Murales, decoración y señalética para restaurantes y hoteles.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">05</span><b>Oficinas</b><em>Vinilos decorativos, murales corporativos y señalética interior.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">06</span><b>Publicidad Exterior</b><em>Lonas de fachada, vallas y grandes formatos de exterior.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">07</span><b>Eventos Deportivos</b><em>Gráfica y rotulación para equipos, competiciones y eventos.</em></button></li>
+          <li><button type="button" aria-pressed="false"><span class="mono">08</span><b>Pharma</b><em>Stands, congresos y material para la industria farmacéutica.</em></button></li>
+        </ol>
+      </div>
+      <div class="sec-b__media">
+        <div class="sec-b__frame">
+          <figure class="is-on"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada por Unical" loading="lazy"><figcaption class="mono">TK Elevator · rotulación</figcaption></figure>
+          <figure><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense en congreso médico" loading="lazy"><figcaption class="mono">Eversense · stand</figcaption></figure>
+          <figure><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"><figcaption class="mono">Venca · pop-up store</figcaption></figure>
+          <figure><img src="assets/img/proyectos/five-guys.webp" alt="Interior de restaurante Five Guys" loading="lazy"><figcaption class="mono">Five Guys · interiorismo</figcaption></figure>
+          <figure><img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy"><figcaption class="mono">3cat · mural corporativo</figcaption></figure>
+          <figure><img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos en el Tibidabo" loading="lazy"><figcaption class="mono">Tibidabo · exterior</figcaption></figure>
+          <figure><img src="assets/img/proyectos/tibau.webp" alt="Camión de asistencia rally de Tibau Team" loading="lazy"><figcaption class="mono">Tibau Team · Dakar</figcaption></figure>
+          <figure><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen Oncology" loading="lazy"><figcaption class="mono">Janssen · congreso</figcaption></figure>
+        </div>
+        <p class="sec-b__count mono"><b>01</b> / 08</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Tarjetas -->
+  <div class="variant sec-c" data-v="C" data-name="Tarjetas" data-theme="light" hidden>
+    <div class="wrap">
+      <header class="sec-c__head">
+        <p class="mono label">Sectores</p>
+        <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+      </header>
+      <ul class="sec-c__grid">
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"><video src="assets/video/v-lexus-1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><div class="sec-c__txt"><span class="mono">01</span><h3>Vehículos</h3><p>Rotulación de vehículos y flotas, car wrapping y cambio de color.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">02</span><h3>Stands y Ferias</h3><p>Stands llave en mano para ferias y congresos en toda España.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">03</span><h3>Retail y PLV</h3><p>PLV, escaparates y pop-up stores para el punto de venta.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/five-guys.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">04</span><h3>Hostelería</h3><p>Murales, decoración y señalética para restaurantes y hoteles.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">05</span><h3>Oficinas</h3><p>Vinilos decorativos, murales corporativos y señalética interior.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/tibidabo.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">06</span><h3>Publicidad Exterior</h3><p>Lonas de fachada, vallas y grandes formatos de exterior.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/tibau.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">07</span><h3>Eventos Deportivos</h3><p>Gráfica y rotulación para equipos, competiciones y eventos.</p></div></li>
+        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">08</span><h3>Pharma</h3><p>Stands, congresos y material para la industria farmacéutica.</p></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- D · Marquesina de iconos -->
+  <div class="variant sec-d" data-v="D" data-name="Marquesina iconos" data-theme="dark" hidden>
+    <header class="wrap sec-d__head">
+      <p class="mono label">Sectores</p>
+      <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+      <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+    </header>
+    <div class="sec-d__rows">
+      <div class="sec-d__row"><ul class="sec-d__track">
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 21v-5l3-6h14l4 6h3v5h-3M4 21h3M12 21h8"/><circle cx="9.5" cy="21.5" r="2.5"/><circle cx="22.5" cy="21.5" r="2.5"/></svg>Vehículos</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26h24M7 26V7h18v19M7 12h18M12 26v-8h8v8"/></svg>Stands y Ferias</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 11h18l-1.5 15h-15zM12 11V9a4 4 0 0 1 8 0v2"/></svg>Retail y PLV</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 12h16v6a8 8 0 0 1-16 0zM22 14h2a3 3 0 0 1 0 6h-2M10 4v4M14 4v4M18 4v4"/></svg>Hostelería</li>
+      </ul></div>
+      <div class="sec-d__row sec-d__row--rev"><ul class="sec-d__track">
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 28V5h12v23M19 12h6v16M4 28h24M11 9h4M11 14h4M11 19h4"/></svg>Oficinas</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6h24v13H4zM10 19v9M22 19v9M8 10h10M8 14h6"/></svg>Publicidad Exterior</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 5h12v6a6 6 0 0 1-12 0zM10 7H6v2a4 4 0 0 0 4 4M22 7h4v2a4 4 0 0 1-4 4M16 17v5M11 27h10l-1-5h-8z"/></svg>Eventos Deportivos</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11.5 20.5l9-9a4.95 4.95 0 0 1 7 7l-9 9a4.95 4.95 0 0 1-7-7zM16 16l7 7"/></svg>Pharma</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- E · Pestañas -->
+  <div class="variant sec-e" data-v="E" data-name="Pestañas" data-theme="dark" hidden>
+    <div class="wrap">
+      <header class="sec-e__head">
+        <div><p class="mono label">Sectores</p><h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div>
+        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+      </header>
+      <div class="sec-e__ui">
+        <div class="sec-e__tabs" role="tablist" aria-label="Sectores">
+          <button role="tab" id="sec-e-t0" aria-controls="sec-e-p" aria-selected="true" tabindex="0">Vehículos</button>
+          <button role="tab" id="sec-e-t1" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Stands y Ferias</button>
+          <button role="tab" id="sec-e-t2" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Retail y PLV</button>
+          <button role="tab" id="sec-e-t3" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Hostelería</button>
+          <button role="tab" id="sec-e-t4" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Oficinas</button>
+          <button role="tab" id="sec-e-t5" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Publicidad Exterior</button>
+          <button role="tab" id="sec-e-t6" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Eventos Deportivos</button>
+          <button role="tab" id="sec-e-t7" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Pharma</button>
+        </div>
+        <div class="sec-e__panel" id="sec-e-p" role="tabpanel" aria-labelledby="sec-e-t0">
+          <div class="sec-e__imgs">
+            <img class="is-on" src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy">
+            <img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense" loading="lazy">
+            <img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy">
+            <img src="assets/img/proyectos/mcdonalds.webp" alt="Murales en restaurante McDonald's" loading="lazy">
+            <img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy">
+            <img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos en el Tibidabo" loading="lazy">
+            <img src="assets/img/proyectos/tibau.webp" alt="Camión de Tibau Team para el Dakar" loading="lazy">
+            <img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy">
+          </div>
+          <div class="sec-e__info">
+            <p class="sec-e__n mono"><b>01</b> / 08</p>
+            <h3 class="sec-e__name">Vehículos</h3>
+            <p class="sec-e__desc">Rotulación de vehículos y flotas, car wrapping y cambio de color.</p>
+            <p class="sec-e__proj mono">Proyectos: <span>Lexus · TK Elevator · J.Pujol</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02-manifesto.html ===== -->
+<section class="opt-sec" id="porque" data-sec="manifesto" data-label="Por qué Unical" data-default="B">
+
+  <!-- A · Palabras que se iluminan -->
+  <div class="variant man-a" data-v="A" data-name="Palabras" data-theme="dark">
+    <div class="wrap man-a__in">
+      <p class="mono label">Por qué Unical</p>
+      <h2 class="big man-title">Hacemos que lo <span class="acc">imposible</span> sea, simplemente, una realidad.</h2>
+      <p class="man-a__text">
+        Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad
+        <span class="man-pill"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></span>
+        y la profesionalidad priman sobre cualquier otra cosa.
+        <span class="man-pill"><img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy"></span>
+        Somos tu partner, <span class="acc">no solo tu proveedor.</span>
+        <span class="man-pill"><video src="assets/video/v-lexus-1.mp4" poster="assets/video/v-lexus-1.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></span>
+      </p>
+      <ol class="man-pillars">
+        <li class="rv"><span class="man-pillars__n mono">01 / 04</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p><ul class="man-tags"><li>Sin intermediarios</li><li>Plazos controlados</li></ul></li>
+        <li class="rv"><span class="man-pillars__n mono">02 / 04</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p><ul class="man-tags"><li>Originales</li><li>Mockup previo</li></ul></li>
+        <li class="rv"><span class="man-pillars__n mono">03 / 04</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p><ul class="man-tags"><li>Certificados 3M</li><li>Equipo propio</li></ul></li>
+        <li class="rv"><span class="man-pillars__n mono">04 / 04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p><ul class="man-tags"><li>Toda España</li><li>Llave en mano</li></ul></li>
+      </ol>
+      <a class="btn man-cta" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+
+  <!-- B · Marquesina gigante -->
+  <div class="variant man-b" data-v="B" data-name="Marquesina" data-theme="dark" hidden>
+    <div class="wrap man-b__head">
+      <p class="mono label">Por qué Unical</p>
+      <h2 class="big man-title rv">Hacemos que lo <span class="acc">imposible</span> sea, simplemente, una realidad.</h2>
+    </div>
+    <div class="man-b__rows" aria-hidden="true">
+      <div class="man-b__row"><div class="man-b__track">
+        <span>Producción propia</span><i class="man-b__img"><img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy"></i><span class="acc">Diseño + Fabricación</span><i class="man-b__img"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"></i><span>Instalación profesional</span><i class="man-b__img"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></i><span class="acc">Cobertura nacional</span><i class="man-b__img"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></i>
+        <span>Producción propia</span><i class="man-b__img"><img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy"></i><span class="acc">Diseño + Fabricación</span><i class="man-b__img"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"></i>
+      </div></div>
+      <div class="man-b__row man-b__row--out"><div class="man-b__track">
+        <span>Sin intermediarios</span><b>✦</b><span>Plazos controlados</span><b>✦</b><span>Originales</span><b>✦</b><span>Mockup previo</span><b>✦</b><span>Certificados 3M</span><b>✦</b><span>Equipo propio</span><b>✦</b><span>Toda España</span><b>✦</b><span>Llave en mano</span><b>✦</b>
+        <span>Sin intermediarios</span><b>✦</b><span>Plazos controlados</span><b>✦</b><span>Originales</span><b>✦</b>
+      </div></div>
+    </div>
+    <div class="wrap man-b__foot">
+      <p class="man-b__p rv">Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. <strong>Somos tu partner, no solo tu proveedor.</strong></p>
+      <a class="btn rv" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="wrap">
+      <ol class="man-pillars man-pillars--b">
+        <li class="rv"><span class="man-pillars__n mono">01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p><ul class="man-tags"><li>Sin intermediarios</li><li>Plazos controlados</li></ul></li>
+        <li class="rv"><span class="man-pillars__n mono">02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p><ul class="man-tags"><li>Originales</li><li>Mockup previo</li></ul></li>
+        <li class="rv"><span class="man-pillars__n mono">03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p><ul class="man-tags"><li>Certificados 3M</li><li>Equipo propio</li></ul></li>
+        <li class="rv"><span class="man-pillars__n mono">04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p><ul class="man-tags"><li>Toda España</li><li>Llave en mano</li></ul></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- C · Cuatro pilares fijos -->
+  <div class="variant man-c" data-v="C" data-name="Cuatro pilares" data-theme="dark" hidden>
+    <div class="man-c__pin">
+      <div class="man-c__left">
+        <p class="mono label">Por qué Unical</p>
+        <h2 class="man-c__kick">Hacemos que lo <span class="acc">imposible</span> sea, simplemente, una realidad.</h2>
+        <div class="man-c__phrases">
+          <div class="man-c__ph is-on"><h3 class="man-c__h">Producción propia.</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p><ul class="man-tags"><li>Sin intermediarios</li><li>Plazos controlados</li></ul></div>
+          <div class="man-c__ph"><h3 class="man-c__h">Diseño + Fabricación<span class="acc">.</span></h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p><ul class="man-tags"><li>Originales</li><li>Mockup previo</li></ul></div>
+          <div class="man-c__ph"><h3 class="man-c__h">Instalación profesional<span class="acc">.</span></h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p><ul class="man-tags"><li>Certificados 3M</li><li>Equipo propio</li></ul></div>
+          <div class="man-c__ph"><h3 class="man-c__h">Cobertura nacional<span class="acc">.</span></h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p><ul class="man-tags"><li>Toda España</li><li>Llave en mano</li></ul></div>
+        </div>
+        <div class="man-c__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div>
+        <a class="btn man-c__cta" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="man-c__right">
+        <figure class="man-c__fig is-on"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión en gran formato en la planta de Unical" loading="lazy"></figure>
+        <figure class="man-c__fig"><img src="assets/img/proyectos/3cat.webp" alt="Diseño y fabricación de mural corporativo para 3cat" loading="lazy"></figure>
+        <figure class="man-c__fig"><video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></figure>
+        <figure class="man-c__fig"><img src="assets/img/proyectos/janssen.webp" alt="Stand llave en mano montado por Unical" loading="lazy"></figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- D · Cuatro pilares (claro) -->
+  <div class="variant man-d" data-v="D" data-name="Pilares" data-theme="light" hidden>
+    <div class="wrap">
+      <p class="mono label">Por qué Unical</p>
+      <h2 class="big man-d__title">Hacemos que lo <span class="acc">imposible</span> sea, simplemente, una realidad.</h2>
+      <div class="man-d__intro">
+        <p class="lead">Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. Somos tu partner, no solo tu proveedor.</p>
+        <a class="btn btn--dark" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="man-d__cols">
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54V24l14 10V24l14 10V14h20v40z"/><path d="M16 46h6M30 46h6M44 46h6"/></svg>
+          <span class="mono man-d__n">01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p>
+          <ul class="man-tags man-tags--light"><li>Sin intermediarios</li><li>Plazos controlados</li></ul>
+        </article>
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 54l6-18L44 8l12 12-28 28z"/><path d="M38 14l12 12M10 54l14-4"/></svg>
+          <span class="mono man-d__n">02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p>
+          <ul class="man-tags man-tags--light"><li>Originales</li><li>Mockup previo</li></ul>
+        </article>
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M40 10a12 12 0 0 0-11 16L10 45a5 5 0 0 0 7 7l19-19a12 12 0 0 0 16-11l-7 4-5-1-1-5z"/></svg>
+          <span class="mono man-d__n">03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p>
+          <ul class="man-tags man-tags--light"><li>Certificados 3M</li><li>Equipo propio</li></ul>
+        </article>
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58S12 38 12 24a20 20 0 0 1 40 0c0 14-20 34-20 34z"/><circle cx="32" cy="24" r="7"/></svg>
+          <span class="mono man-d__n">04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p>
+          <ul class="man-tags man-tags--light"><li>Toda España</li><li>Llave en mano</li></ul>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Decodificación -->
+  <div class="variant man-e" data-v="E" data-name="Decodificación" data-theme="dark" hidden>
+    <div class="wrap man-e__grid">
+      <figure class="man-e__vid">
+        <video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <figcaption class="mono">REC ● Lexus · wrapping integral</figcaption>
+      </figure>
+      <div class="man-e__copy">
+        <p class="mono label man-e__label" data-scramble>// POR_QUE_UNICAL</p>
+        <h2 class="man-e__h" data-scramble>Hacemos que lo imposible sea, simplemente, una realidad.</h2>
+        <p class="man-e__p" data-scramble>Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. Somos tu partner, no solo tu proveedor.</p>
+        <ol class="man-e__list">
+          <li><span class="mono">01</span><b>Producción propia</b><em class="mono">Sin intermediarios · Plazos controlados</em></li>
+          <li><span class="mono">02</span><b>Diseño + Fabricación</b><em class="mono">Originales · Mockup previo</em></li>
+          <li><span class="mono">03</span><b>Instalación profesional</b><em class="mono">Certificados 3M · Equipo propio</em></li>
+          <li><span class="mono">04</span><b>Cobertura nacional</b><em class="mono">Toda España · Llave en mano</em></li>
+        </ol>
+        <a class="btn" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 08-clients.html ===== -->
-<section class="opt-sec" id="clientes" data-sec="clients" data-label="Clientes">
+<section class="opt-sec" id="clientes" data-sec="clients" data-label="Clientes" data-default="D">
 
   <!-- A · Marquesinas que reaccionan a la velocidad -->
   <div class="variant clients-a" data-v="A" data-name="Marquesina veloz" data-theme="light">
@@ -1171,96 +1553,8 @@
   </div>
 </section>
 
-<!-- ===== 09-quotes.html ===== -->
-<section class="opt-sec" id="opiniones" data-sec="quotes" data-label="Opiniones">
-
-  <!-- A · Cita grande (v2) -->
-  <div class="variant quotes-a" data-v="A" data-name="Cita grande" data-theme="dark">
-    <div class="quotes-a__in wrap">
-      <p class="mono label">(Lo que dicen)</p>
-      <div class="quotes-a__stage" aria-live="polite" data-q-render="a"></div>
-      <div class="quotes-a__nav">
-        <button type="button" class="quotes-a__btn" data-dir="-1" aria-label="Opinión anterior" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-        <span class="mono quotes-a__count" data-count-label>01 / 05</span>
-        <button type="button" class="quotes-a__btn" data-dir="1" aria-label="Opinión siguiente" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <span class="quotes-a__g mono"><span aria-hidden="true">★</span> 4,9 en Google · +120 reseñas</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- B · Baraja -->
-  <div class="variant quotes-b" data-v="B" data-name="Baraja" data-theme="dark" hidden>
-    <div class="quotes-b__in wrap">
-      <div class="quotes-b__head">
-        <p class="mono label">(Lo que dicen)</p>
-        <h2 class="big">Clientes que <span class="acc">repiten.</span></h2>
-        <p class="lead">Arrastra las tarjetas a un lado o usa las flechas.</p>
-        <p class="quotes-b__g mono"><span aria-hidden="true">★★★★★</span> 4,9 en Google · +120 reseñas</p>
-      </div>
-      <div class="quotes-b__deck-wrap">
-        <div class="quotes-b__deck" data-q-render="b" aria-live="polite"></div>
-        <div class="quotes-b__nav">
-          <button type="button" class="quotes-b__btn" data-throw="-1" aria-label="Siguiente opinión, hacia la izquierda" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-          <span class="mono" data-count-label>01 / 05</span>
-          <button type="button" class="quotes-b__btn" data-throw="1" aria-label="Siguiente opinión, hacia la derecha" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- C · Muro -->
-  <div class="variant quotes-c" data-v="C" data-name="Muro en movimiento" data-theme="light" hidden>
-    <div class="quotes-c__in wrap">
-      <div class="quotes-c__head">
-        <div>
-          <p class="mono label">(Lo que dicen)</p>
-          <h2 class="big">Opiniones <span class="acc">reales.</span></h2>
-        </div>
-        <div class="quotes-c__side">
-          <p class="quotes-c__score"><b>4,9</b><span class="quotes-c__stars" aria-hidden="true">★★★★★</span></p>
-          <p class="mono">Google · +120 reseñas</p>
-          <button type="button" class="quotes-c__pause" aria-pressed="false" data-pause>Pausar movimiento</button>
-        </div>
-      </div>
-      <div class="quotes-c__wall" data-q-render="c"></div>
-    </div>
-  </div>
-
-  <!-- D · Pantalla completa -->
-  <div class="variant quotes-d" data-v="D" data-name="Pantalla completa" data-theme="dark" hidden>
-    <div class="quotes-d__stage" data-q-render="d" aria-live="polite"></div>
-    <div class="quotes-d__ui wrap">
-      <p class="mono label">(Lo que dicen)</p>
-      <div class="quotes-d__nav">
-        <div class="quotes-d__dots" role="tablist" aria-label="Elegir opinión"></div>
-        <span class="mono quotes-d__g"><span aria-hidden="true">★</span> 4,9 en Google · +120 reseñas</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- E · Valoración -->
-  <div class="variant quotes-e" data-v="E" data-name="Valoración 4,9" data-theme="light" hidden>
-    <div class="quotes-e__in wrap">
-      <div class="quotes-e__score">
-        <p class="mono label">(Valoración media en Google)</p>
-        <p class="quotes-e__num" aria-label="4,9 sobre 5"><span data-score>4,9</span><small>/5</small></p>
-        <div class="quotes-e__stars" aria-hidden="true">
-          <span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i data-last></i></span>
-        </div>
-        <p class="quotes-e__based">Basado en <b>+120 reseñas</b> de empresas que ya han producido con nosotros.</p>
-      </div>
-      <div class="quotes-e__type">
-        <span class="quotes-e__mark" aria-hidden="true">“</span>
-        <blockquote class="quotes-e__q" aria-live="polite"><span data-type></span><i class="quotes-e__caret" aria-hidden="true"></i></blockquote>
-        <p class="quotes-e__who" data-who></p>
-        <div class="quotes-e__bars" data-bars></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 10-contact.html ===== -->
-<section class="opt-sec" id="contacto" data-sec="contact" data-label="Contacto">
+<section class="opt-sec" id="contacto" data-sec="contact" data-label="Contacto" data-default="C">
 
   <!-- A · Vídeo + formulario (v2) -->
   <div class="variant contact-a" data-v="A" data-name="Vídeo + formulario" data-theme="dark">
@@ -1435,9 +1729,10 @@
 <footer class="ft" data-theme="dark">
   <div class="ft__top">
     <div><p class="mono">Estudio y planta</p><p>Passatge la Carola, 2<br>08349 Cabrera de Mar, Barcelona</p></div>
+    <div><p class="mono">Servicios</p><p><a href="rotulacion.html">Rotulación</a><br><a href="impresion.html">Impresión</a><br><a href="eventos.html">Eventos y stands</a><br><a href="#proyectos">Proyectos</a></p></div>
     <div><p class="mono">Social</p><p><a href="https://www.instagram.com/unical_graphic/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/unical-graphic-sl" target="_blank" rel="noopener">LinkedIn</a></p></div>
     <div><p class="mono">Otras versiones</p><p><a href="opciones.html">Versión 1 (opciones A/B/C)</a><br><a href="https://www.unical.es" target="_blank" rel="noopener">Web actual</a></p></div>
-    <div class="ft__up"><a href="#top" data-magnetic>Volver arriba ↑</a></div>
+    <div class="ft__up"><a href="#main" data-magnetic>Volver arriba ↑</a></div>
   </div>
   <img class="ft__logo" src="assets/img/logo/logo-unical-light-xl.png" alt="Unical Graphic" width="1800" height="236" loading="lazy">
   <div class="ft__legal mono"><span>© 2026 Unical Graphic S.L. · CIF B-60670809</span><span>Versión de prueba «Pro Max» · no indexada</span></div>
@@ -1464,16 +1759,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/core.js?v=20261009111410"></script>
-<script src="js/sections/hero.js?v=20261009111410"></script>
-<script src="js/sections/manifesto.js?v=20261009111410"></script>
-<script src="js/sections/reel.js?v=20261009111410"></script>
-<script src="js/sections/services.js?v=20261009111410"></script>
-<script src="js/sections/numbers.js?v=20261009111410"></script>
-<script src="js/sections/work.js?v=20261009111410"></script>
-<script src="js/sections/process.js?v=20261009111410"></script>
-<script src="js/sections/clients.js?v=20261009111410"></script>
-<script src="js/sections/quotes.js?v=20261009111410"></script>
-<script src="js/sections/contact.js?v=20261009111410"></script>
+<script src="js/core.js?v=20261009115905"></script>
+<script src="js/sections/hero.js?v=20261009115905"></script>
+<script src="js/sections/services.js?v=20261009115905"></script>
+<script src="js/sections/reel.js?v=20261009115905"></script>
+<script src="js/sections/work.js?v=20261009115905"></script>
+<script src="js/sections/process.js?v=20261009115905"></script>
+<script src="js/sections/numbers.js?v=20261009115905"></script>
+<script src="js/sections/sectors.js?v=20261009115905"></script>
+<script src="js/sections/manifesto.js?v=20261009115905"></script>
+<script src="js/sections/clients.js?v=20261009115905"></script>
+<script src="js/sections/contact.js?v=20261009115905"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@ ws.onmessage = e => { const m=JSON.parse(e.data); if(m.id&&pend[m.id]){pend[m.id
 const send=(method,params={})=>new Promise(r=>{const i=++id;pend[i]=r;ws.send(JSON.stringify({id:i,method,params}));});
 await send("Runtime.enable"); await send("Log.enable"); await send("Page.enable");
 await send("Emulation.setDeviceMetricsOverride",{width:+W,height:+H,deviceScaleFactor:1,mobile:+W<600});
-await send("Page.navigate",{url:"http://localhost:8765/?"+query+"&t="+Date.now()}); await sleep(5000);
+await send("Page.navigate",{url:"http://localhost:8765/"+(process.env.PAGE||"")+"?"+query+"&t="+Date.now()}); await sleep(5000);
 let k=0;
 for (const p of list.split(",")) {
   const isNum = /^[0-9.]+$/.test(p);

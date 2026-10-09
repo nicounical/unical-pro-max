@@ -77,3 +77,11 @@ Clases compartidas útiles: `.big`, `.label`, `.lead`, `.mono`, `.acc`, `.wrap`,
 2. Servidor ya activo en http://localhost:8765.
 3. Capturas: `node tools/shot.mjs <carpeta> 1440 860 <prefijo> "#servicios,#servicios+900" "services=C&nointro=1"` (también 390 844). Escribe las capturas en tu carpeta del scratchpad, no en el repo. La herramienta imprime los errores de consola: deben ser "no errors".
 4. No hagas commit ni push.
+
+## Web multipágina (estructura de la web en creación del usuario)
+La referencia de estructura y textos es la web que el usuario lleva semanas creando: `C:\Users\Nico\Desktop\webunical\Final` (home `Landing-Home/unical-home-FINAL_v29.html`, hubs en `HUBS/`, subpáginas en `SUB_HUBS/` con carpetas `Fotos/`). **Solo lectura: no modifiques nada en webunical.**
+- `src/pages.json` define las páginas (index, rotulacion, impresion, eventos) y el orden de fragmentos. `python tools/build.py` las genera todas.
+- Menú: Inicio · Rotulación · Impresión · Eventos · Proyectos · Contacto (+ Presupuesto). Enlaces entre páginas: `rotulacion.html`, `impresion.html`, `eventos.html`, `index.html#proyectos`.
+- Hubs: fragmentos `src/sections/hub-*.html` (con varias `<section class="opt-sec">` dentro, cada una con al menos 1 versión) + `hub-common` (estilos/JS compartidos de los hubs; el html puede ser solo un comentario).
+- Las fotos nuevas que se saquen de webunical se copian optimizadas (WebP, máx. 1600 px, calidad ~74) a `assets/img/hubs/<hub>/`.
+- Cifras de la v29: +25 años, +3.000 proyectos, +40 sectores, instaladores certificados 3M & Avery.

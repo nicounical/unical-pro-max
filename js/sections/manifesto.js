@@ -21,7 +21,7 @@
     gsap.from(ux.$$(".man-b__img", root), { scale: 0, rotate: -12, duration: 1.2, stagger: .08, ease: "back.out(1.8)", scrollTrigger: { trigger: root, start: "top 70%" } });
   });
 
-  /* ---------- C · Tres frases fijas ---------- */
+  /* ---------- C · Cuatro pilares fijos ---------- */
   register("manifesto", "C", (root, ux) => {
     const ph = ux.$$(".man-c__ph", root), figs = ux.$$(".man-c__fig", root), dots = ux.$$(".man-c__dots i", root);
     const heads = ph.map(p => ux.splitChars(ux.$(".man-c__h", p)));
@@ -32,10 +32,10 @@
       dots.forEach((d, j) => d.classList.toggle("is-on", j === i));
       if (ux.reduce) return;
       gsap.to(heads[prev], { yPercent: -110, opacity: 0, duration: .45, stagger: .015, ease: "power3.in", overwrite: true });
-      gsap.to(ux.$("p", ph[prev]), { opacity: 0, y: -20, duration: .3, overwrite: true, onComplete: () => ph[prev].classList.remove("is-on") });
+      gsap.to(ux.$$("p, .man-tags", ph[prev]), { opacity: 0, y: -20, duration: .3, overwrite: true, onComplete: () => ph[prev].classList.remove("is-on") });
       ph[i].classList.add("is-on");
       gsap.fromTo(heads[i], { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .9, stagger: .025, ease: "expo.out", delay: .25, overwrite: true });
-      gsap.fromTo(ux.$("p", ph[i]), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .7, delay: .5, overwrite: true });
+      gsap.fromTo(ux.$$("p, .man-tags", ph[i]), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .7, delay: .5, overwrite: true });
       const dir = i > prev ? 1 : -1;
       figs[i].classList.add("is-on");
       gsap.fromTo(figs[i], { clipPath: dir > 0 ? "inset(100% 0 0 0)" : "inset(0 0 100% 0)", zIndex: 2 }, { clipPath: "inset(0% 0 0 0)", duration: 1.1, ease: "expo.inOut", overwrite: true,
@@ -47,7 +47,7 @@
     figs.forEach((f, j) => { f.classList.toggle("is-on", j === 0); f.style.clipPath = ""; });
     if (ux.reduce) return;
     gsap.set(heads.flat(), { yPercent: 0, opacity: 1 });
-    ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", onUpdate: s => set(Math.min(2, Math.floor(s.progress * 3))) });
+    ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", onUpdate: s => set(Math.min(figs.length - 1, Math.floor(s.progress * figs.length))) });
     gsap.from(heads[0], { yPercent: 110, opacity: 0, duration: 1, stagger: .03, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 60%" } });
   });
 

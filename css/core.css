@@ -96,10 +96,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hd__logo img{grid-area:1/1;width:136px;transition:opacity .4s}
 .hd__logo .l-dark{opacity:0}
 .hd.on-light .l-dark{opacity:1}.hd.on-light .l-light{opacity:0}
-.hd__nav{display:flex;gap:2rem;margin-left:auto;font-family:var(--f-head);font-weight:600;font-size:.95rem}
+.hd__nav{display:flex;gap:1.6rem;margin-left:auto;font-family:var(--f-head);font-weight:600;font-size:.95rem}
 .hd__nav a{position:relative;padding:6px 0}
 .hd__nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
-.hd__nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.hd__nav a:hover::after,.hd__nav a[aria-current]::after{transform:scaleX(1);transform-origin:left}
 .hd__cta{display:inline-flex;align-items:center;gap:.6rem;border:1.5px solid currentColor;border-radius:999px;padding:.55rem 1.15rem;font-family:var(--f-head);font-weight:600;font-size:.92rem}
 .hd__cta i{width:7px;height:7px;border-radius:50%;background:currentColor}
 .hd__menu{display:none;width:44px;height:44px;position:relative;margin-left:auto}
@@ -111,7 +111,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .mnav nav{display:flex;flex-direction:column;gap:.5rem}
 .mnav nav a{font-family:var(--f-head);font-size:2.6rem;font-weight:var(--w-display);letter-spacing:-.04em;padding:.3rem 0}
 .mnav__tel{color:var(--u-blue);font-size:1.2rem;font-weight:600}
-@media (max-width:860px){.hd__nav,.hd__cta{display:none}.hd__menu{display:block}}
+@media (max-width:1060px){.hd__nav,.hd__cta{display:none}.hd__menu{display:block}}
 
 /* ---------- Selector de versiones (dock) ---------- */
 .dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:140;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 16px;border-radius:999px;background:rgba(16,16,29,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 50px rgba(0,0,0,.35);color:var(--u-paper);font-size:.8rem;max-width:calc(100vw - 24px);transition:opacity .3s,transform .4s var(--ease)}
@@ -124,7 +124,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .dock__all{height:36px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.1);font-weight:600;font-size:.78rem}
 .dock__all:hover{background:var(--u-paper);color:var(--u-night)}
 body.no-dock .dock,body.no-dock .board{display:none!important}
-@media (max-width:600px){.dock{left:12px;right:12px;transform:none;bottom:12px;justify-content:space-between}.dock__name{display:none}.dock__btns button{width:34px;height:34px}}
+@media (max-width:600px){.dock{left:12px;right:12px;transform:none;bottom:12px;justify-content:space-between}.dock__name{display:none}.dock__sec{max-width:72px;overflow:hidden;text-overflow:ellipsis}.dock__btns{flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}.dock__btns::-webkit-scrollbar{display:none}.dock__btns button{flex:none;width:34px;height:34px}}
 .board{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:141;width:min(380px,calc(100vw - 24px));background:var(--u-paper);color:var(--u-ink);border-radius:16px;padding:16px;box-shadow:0 30px 70px rgba(0,0,0,.4)}
 .board__t{font-family:var(--f-head);font-weight:700;margin-bottom:.6rem}
 .board__list{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:2px;font-size:.88rem}
@@ -137,7 +137,7 @@ body.no-dock .dock,body.no-dock .board{display:none!important}
 
 /* ---------- Pie ---------- */
 .ft{background:var(--u-night);padding:clamp(4rem,8vw,6rem) var(--pad) 90px;border-top:1px solid var(--u-line)}
-.ft__top{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:2rem;color:var(--u-muted);font-size:.95rem}
+.ft__top{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:2rem;color:var(--u-muted);font-size:.95rem}
 .ft__top .mono{color:var(--u-paper);margin-bottom:.8rem}
 .ft__top a:hover{color:var(--u-blue)}
 .ft__up a{display:inline-block;border:1.5px solid var(--u-line);border-radius:999px;padding:.6rem 1.1rem;color:var(--u-paper);font-weight:600}

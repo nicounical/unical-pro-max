@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unical Graphic · Producción visual sin límites</title>
-<meta name="description" content="Impresión gran formato, rotulación de vehículos, stands, eventos, PLV y señalética. Lo diseñamos, lo fabricamos y lo instalamos desde Barcelona a toda España.">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESC}}">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#10101D">
 <link rel="icon" href="favicon.ico">
@@ -33,18 +33,20 @@
 <div class="progress" aria-hidden="true"><i></i></div>
 
 <header class="hd">
-  <a class="hd__logo" href="#top" aria-label="Unical Graphic, inicio"><img class="l-light" src="assets/img/logo/logo-unical-light.png" alt="Unical Graphic" width="800" height="105"><img class="l-dark" src="assets/img/logo/logo-unical.png" alt="" width="800" height="98"></a>
+  <a class="hd__logo" href="{{HOME}}#top" aria-label="Unical Graphic, inicio"><img class="l-light" src="assets/img/logo/logo-unical-light.png" alt="Unical Graphic" width="800" height="105"><img class="l-dark" src="assets/img/logo/logo-unical.png" alt="" width="800" height="98"></a>
   <nav class="hd__nav" aria-label="Principal">
-    <a href="#servicios" data-magnetic>Servicios</a>
-    <a href="#proyectos" data-magnetic>Proyectos</a>
-    <a href="#proceso" data-magnetic>Proceso</a>
+    <a href="{{HOME}}#top"{{CUR_INICIO}} data-magnetic>Inicio</a>
+    <a href="rotulacion.html"{{CUR_ROTULACION}} data-magnetic>Rotulación</a>
+    <a href="impresion.html"{{CUR_IMPRESION}} data-magnetic>Impresión</a>
+    <a href="eventos.html"{{CUR_EVENTOS}} data-magnetic>Eventos</a>
+    <a href="{{HOME}}#proyectos" data-magnetic>Proyectos</a>
     <a href="#contacto" data-magnetic>Contacto</a>
   </nav>
   <a class="hd__cta" href="#contacto" data-magnetic><span>Presupuesto</span><i aria-hidden="true"></i></a>
   <button class="hd__menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="sr-only">Menú</span><i></i><i></i></button>
 </header>
 <div class="mnav" id="mnav" hidden>
-  <nav aria-label="Menú móvil"><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#proceso">Proceso</a><a href="#contacto">Contacto</a></nav>
+  <nav aria-label="Menú móvil"><a href="{{HOME}}#top">Inicio</a><a href="rotulacion.html">Rotulación</a><a href="impresion.html">Impresión</a><a href="eventos.html">Eventos</a><a href="{{HOME}}#proyectos">Proyectos</a><a href="#contacto">Contacto</a></nav>
   <a href="tel:+34937502304" class="mnav__tel">937 50 23 04</a>
 </div>
 
@@ -55,9 +57,10 @@
 <footer class="ft" data-theme="dark">
   <div class="ft__top">
     <div><p class="mono">Estudio y planta</p><p>Passatge la Carola, 2<br>08349 Cabrera de Mar, Barcelona</p></div>
+    <div><p class="mono">Servicios</p><p><a href="rotulacion.html">Rotulación</a><br><a href="impresion.html">Impresión</a><br><a href="eventos.html">Eventos y stands</a><br><a href="{{HOME}}#proyectos">Proyectos</a></p></div>
     <div><p class="mono">Social</p><p><a href="https://www.instagram.com/unical_graphic/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/unical-graphic-sl" target="_blank" rel="noopener">LinkedIn</a></p></div>
     <div><p class="mono">Otras versiones</p><p><a href="opciones.html">Versión 1 (opciones A/B/C)</a><br><a href="https://www.unical.es" target="_blank" rel="noopener">Web actual</a></p></div>
-    <div class="ft__up"><a href="#top" data-magnetic>Volver arriba ↑</a></div>
+    <div class="ft__up"><a href="#main" data-magnetic>Volver arriba ↑</a></div>
   </div>
   <img class="ft__logo" src="assets/img/logo/logo-unical-light-xl.png" alt="Unical Graphic" width="1800" height="236" loading="lazy">
   <div class="ft__legal mono"><span>© 2026 Unical Graphic S.L. · CIF B-60670809</span><span>Versión de prueba «Pro Max» · no indexada</span></div>

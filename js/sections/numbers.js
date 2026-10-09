@@ -21,16 +21,19 @@
 
   /* B · Rejilla 2×2 con gráficos que se rellenan */
   register("numbers", "B", (root, ux) => {
-    const dots = ux.$(".num-b__dots", root);
-    if (!dots.children.length) dots.innerHTML = "<i></i>".repeat(100);
-    const bar = ux.$(".num-b__bar", root), plan = ux.$$(".num-b__plan i", root), ring = ux.$(".num-b__ring", root);
+    const dotsAll = ux.$$(".num-b__dots", root);
+    dotsAll.forEach(d => { if (!d.children.length) d.innerHTML = "<i></i>".repeat(+d.dataset.n || 100); });
+    const bar = ux.$(".num-b__bar", root), ring = ux.$(".num-b__ring", root);
     if (ux.reduce) {
       bar.style.setProperty("--p", bar.style.getPropertyValue("--to"));
-      ux.$$("i", dots).forEach(d => d.classList.add("on")); ring.style.setProperty("--o", 0); return;
+      dotsAll.forEach(d => ux.$$("i", d).forEach(i => i.classList.add("on"))); ring.style.setProperty("--o", 0); return;
     }
     gsap.fromTo(bar, { "--p": 0 }, { "--p": +bar.style.getPropertyValue("--to"), duration: 1.8, ease: "power3.out", scrollTrigger: { trigger: bar, start: "top 90%", once: true } });
-    ScrollTrigger.create({ trigger: dots, start: "top 90%", once: true, onEnter: () => ux.$$("i", dots).forEach((d, i) => gsap.delayedCall(i * .018, () => d.classList.add("on"))) });
-    gsap.from(plan, { scale: 0, duration: .9, stagger: .12, ease: "back.out(1.6)", scrollTrigger: { trigger: plan[0], start: "top 90%", once: true } });
+    dotsAll.forEach(dots => {
+      const items = ux.$$("i", dots); items.forEach(i => i.classList.remove("on"));
+      const step = Math.min(.018, 1.6 / items.length);
+      ScrollTrigger.create({ trigger: dots, start: "top 90%", once: true, onEnter: () => items.forEach((d, i) => gsap.delayedCall(i * step, () => d.classList.add("on"))) });
+    });
     gsap.fromTo(ring, { "--o": 1 }, { "--o": 0, duration: 2, ease: "power3.out", scrollTrigger: { trigger: ring, start: "top 90%", once: true } });
   });
 

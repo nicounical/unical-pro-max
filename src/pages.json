@@ -1,0 +1,56 @@
+[
+  {
+    "file": "index.html",
+    "nav": "inicio",
+    "title": "Unical Graphic · Producción visual sin límites",
+    "description": "Impresión gran formato, rotulación de vehículos, stands, eventos, PLV y señalética. Lo diseñamos, lo fabricamos y lo instalamos desde Barcelona a toda España.",
+    "sections": [
+      "01-hero",
+      "04-services",
+      "03-reel",
+      "06-work",
+      "07-process",
+      "05-numbers",
+      "11-sectors",
+      "02-manifesto",
+      "08-clients",
+      "10-contact"
+    ]
+  },
+  {
+    "file": "rotulacion.html",
+    "nav": "rotulacion",
+    "title": "Rotulación en Barcelona · Unical Graphic",
+    "description": "Rotulación de vehículos y flotas, rotulación comercial, rótulos luminosos, letras corpóreas y señalética corporativa con producción propia en Barcelona.",
+    "sections": [
+      "hub-common",
+      "hub-rotulacion",
+      "09-quotes",
+      "10-contact"
+    ]
+  },
+  {
+    "file": "impresion.html",
+    "nav": "impresion",
+    "title": "Impresión gran formato en Barcelona · Unical Graphic",
+    "description": "Impresión gran formato, sobre rígidos, PLV y displays, publicidad exterior y vinilos decorativos con producción propia en Barcelona.",
+    "sections": [
+      "hub-common",
+      "hub-impresion",
+      "09-quotes",
+      "10-contact"
+    ]
+  },
+  {
+    "file": "eventos.html",
+    "nav": "eventos",
+    "title": "Eventos y stands en Barcelona · Unical Graphic",
+    "description": "Stands para ferias, eventos corporativos y deportivos, lanzamientos, pop-ups y photocalls llave en mano desde Barcelona.",
+    "sections": [
+      "hub-common",
+      "hub-eventos",
+      "09-quotes",
+      "10-contact"
+    ]
+  }
+]
