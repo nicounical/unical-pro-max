@@ -155,7 +155,7 @@
   }
   function syncURL() {
     const p = new URLSearchParams(location.search);
-    secs.forEach(s => { const k = s.dataset.sec; state[k] === "A" ? p.delete(k) : p.set(k, state[k]); });
+    secs.forEach(s => { const k = s.dataset.sec; state[k] === (s.dataset.default || "A") ? p.delete(k) : p.set(k, state[k]); });
     p.delete("nointro");
     const q = p.toString();
     history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash);
@@ -199,7 +199,7 @@
   if (!hasGsap) {
     html.classList.add("no-gsap"); html.classList.remove("is-loading"); $(".loader").classList.add("done");
     introDone = true;
-    secs.forEach(s => { const v = (params.get(s.dataset.sec) || "A").toUpperCase(); variantsOf(s).forEach(x => (x.hidden = x.dataset.v !== v)); state[s.dataset.sec] = v; watchVideos(s); });
+    secs.forEach(s => { const v = (params.get(s.dataset.sec) || s.dataset.default || "A").toUpperCase(); variantsOf(s).forEach(x => (x.hidden = x.dataset.v !== v)); state[s.dataset.sec] = v; watchVideos(s); });
     $$(".rv").forEach(r => (r.style.cssText = "opacity:1;transform:none"));
     renderDock(); renderBoard();
     addEventListener("scroll", pickSection, { passive: true });
@@ -271,7 +271,7 @@
 
   /* ---------- Arranque ---------- */
   document.addEventListener("DOMContentLoaded", () => {
-    secs.forEach(s => show(s, (params.get(s.dataset.sec) || "A").toUpperCase(), false));
+    secs.forEach(s => show(s, (params.get(s.dataset.sec) || s.dataset.default || "A").toUpperCase(), false));
     const finish = () => {
       html.classList.remove("is-loading"); $(".loader").classList.add("done");
       introDone = true; introQ.splice(0).forEach(cb => { try { cb(); } catch (e) { console.error(e); } });

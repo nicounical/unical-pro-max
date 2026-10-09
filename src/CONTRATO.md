@@ -35,6 +35,7 @@ Núcleo compartido (NO editar; si necesitas algo del núcleo, dilo en tu informe
   … C, D, E (todas con hidden salvo A)
 </section>
 ```
+- `data-default="B"` en la `<section>` elige la versión que se ve por defecto (si falta, A). La portada usa B (elegida por el usuario), con `hero-letras.mp4` (empieza con la foto del Lexus de la portada actual).
 - `data-name`: 1–3 palabras en español que describan la versión (se ve en el selector).
 - `data-theme="dark"|"light"` en cada versión según su fondo (la cabecera cambia el logo con esto). Cada versión pinta su propio fondo.
 - No pongas selector de versiones: lo genera el núcleo (dock inferior).

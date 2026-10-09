@@ -31,7 +31,9 @@
     const intro = gsap.timeline({ paused: true })
       .to(words, { yPercent: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: "expo.out" })
       .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, "<.5");
-    ux.onIntro(() => intro.play());
+    // La primera imagen dentro de las letras es siempre el Lexus: el vídeo arranca desde 0 al terminar la precarga
+    const vid = ux.$(".hero-b__video", root);
+    ux.onIntro(() => { if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); } intro.play(); });
     gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .6 } })
       .to(knock, { scale: 28, ease: "power2.in", duration: 1 }, 0)
       .to(knock, { autoAlpha: 0, duration: .15 }, .85)
