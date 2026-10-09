@@ -2,10 +2,17 @@
 
 Versión experimental de la web de [Unical Graphic](https://www.unical.es). No es la definitiva y las páginas llevan `noindex`.
 
-- **`index.html`** — versión 2: narrativa con scroll, vídeo y animación (la principal).
-- **`opciones.html`** — versión 1: landing con 3 opciones (A/B/C) por sección.
+- **`index.html`** — versión 3: narrativa con vídeo y animación, con **5 versiones (A–E) de cada sección**. Se cambian con el selector flotante de abajo; la combinación queda en la URL (p. ej. `?hero=B&services=D`).
+- **`opciones.html`** — versión 1 (3 opciones por sección).
 
-Web estática: HTML, CSS y JavaScript. Librerías por CDN: GSAP 3.12.5 + ScrollTrigger y Lenis 1.1.13 (scroll suave).
+## Cómo está montada
+- `src/shell.html` + `src/sections/NN-*.html` → `python tools/build.py` genera `index.html`.
+- `css/core.css` y `js/core.js`: base común (tipografía gruesa Poppins 700–800, cabecera, precarga, cursor, scroll suave, selector de versiones). Ver `src/CONTRATO.md`.
+- `css/sections/*.css` y `js/sections/*.js`: cada sección con sus 5 versiones.
+- `src/ref/`: la versión 2 (referencia).
+- `tools/shot.mjs`: capturas con Chrome headless para revisar versiones.
+
+Librerías por CDN: GSAP 3.12.5 + ScrollTrigger y Lenis 1.1.13.
 
 ## Cómo se ha hecho
 - **ui-ux-pro-max** (`--design-system`, variance 10 · motion 10 · density 2): patrón *Scroll-Triggered Storytelling* (capítulos con indicador de progreso, CTA final), tipografía editorial de acento y presets GSAP de pin, scrub y parallax. Adaptado a los colores de marca de Unical.

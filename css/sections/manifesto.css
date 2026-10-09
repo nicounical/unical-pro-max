@@ -1,0 +1,85 @@
+/* ===== Manifiesto · 5 versiones ===== */
+.man-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:clamp(4rem,8vw,6rem);border-top:1px solid var(--u-line);padding-top:2rem}
+.man-stats div{display:flex;flex-wrap:wrap;align-items:baseline}
+.man-stats b{font-family:var(--f-head);font-weight:var(--w-display);font-size:clamp(2.6rem,5vw,4.6rem);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.man-stats sup{color:var(--u-blue);font-family:var(--f-head);font-weight:700;font-size:1.4rem;margin-left:.15em;position:relative;top:-.9em}
+.man-stats span{flex-basis:100%;color:var(--u-muted);font-size:.92rem;margin-top:.5rem}
+.man-stats--light{border-color:var(--u-line-dark)}
+.man-stats--light sup{color:var(--u-blue-strong)}
+.man-stats--light span{color:var(--u-muted-dark)}
+@media (max-width:760px){.man-stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- A · Palabras ---------- */
+.man-a{background:var(--u-night);padding:clamp(7rem,15vw,13rem) 0 clamp(5rem,10vw,8rem)}
+.man-a__text{font-family:var(--f-head);font-weight:600;font-size:clamp(1.8rem,3.9vw,3.9rem);line-height:1.1;letter-spacing:-.035em}
+.man-a__text .word{opacity:.14}
+.man-pill{display:inline-block;vertical-align:middle;width:2.4em;height:1.05em;border-radius:999px;overflow:hidden;margin:0 .12em;transform:translateY(-.06em)}
+.man-pill img,.man-pill video{width:100%;height:100%!important;object-fit:cover}
+
+/* ---------- B · Marquesina ---------- */
+.man-b{background:var(--u-night);padding:clamp(6rem,12vw,10rem) 0;overflow:hidden}
+.man-b__rows{display:grid;gap:clamp(.5rem,1.5vw,1.2rem)}
+.man-b__row{white-space:nowrap}
+.man-b__track{display:inline-flex;align-items:center;gap:clamp(1.2rem,3vw,3rem);font-family:var(--f-head);font-weight:900;font-size:clamp(4rem,12vw,13rem);line-height:1;letter-spacing:-.06em;will-change:transform}
+.man-b__row--out .man-b__track{color:transparent;-webkit-text-stroke:2px rgba(153,196,228,.7);font-size:clamp(3rem,8vw,9rem)}
+.man-b__row--out b{-webkit-text-stroke:0;color:var(--u-blue);font-size:.4em}
+.man-b__img{display:inline-block;width:1.6em;height:.8em;border-radius:999px;overflow:hidden;font-style:normal}
+.man-b__img img{width:100%;height:100%!important;object-fit:cover}
+.man-b__foot{display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:start;margin-top:clamp(3rem,7vw,6rem)}
+.man-b__p{font-size:clamp(1.15rem,1.8vw,1.6rem);line-height:1.35;font-weight:500;max-width:42ch}
+.man-b__p strong{color:var(--u-blue);font-weight:700}
+@media (max-width:860px){.man-b__foot{grid-template-columns:1fr}}
+
+/* ---------- C · Tres frases ---------- */
+.man-c{background:var(--u-navy);height:300vh}
+.man-c__pin{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding:100px var(--pad) 90px;overflow:hidden}
+.man-c__phrases{position:relative;min-height:clamp(240px,34vh,360px)}
+.man-c__ph{position:absolute;inset:0;opacity:0;visibility:hidden}
+.man-c__ph.is-on{opacity:1;visibility:visible}
+.man-c__h{font-weight:var(--w-display);font-size:clamp(2.8rem,6.6vw,7.4rem);white-space:nowrap;line-height:.92;letter-spacing:-.06em}
+.man-c__ph p{margin-top:1.4rem;color:var(--u-muted);font-size:clamp(1.05rem,1.4vw,1.3rem);max-width:34ch}
+.man-c__dots{display:flex;gap:8px;margin-top:2rem}
+.man-c__dots i{width:36px;height:4px;border-radius:4px;background:var(--u-line);transition:background .4s,width .5s var(--ease)}
+.man-c__dots i.is-on{background:var(--u-blue);width:64px}
+.man-c__right{position:relative;height:min(68vh,640px);border-radius:22px;overflow:hidden;background:var(--u-night)}
+.man-c__fig{position:absolute;inset:0;margin:0;clip-path:inset(100% 0 0 0)}
+.man-c__fig.is-on{clip-path:inset(0 0 0 0)}
+.man-c__fig img,.man-c__fig video{width:100%;height:100%!important;object-fit:cover}
+@media (max-width:860px){
+  .man-c__pin{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start;gap:1.5rem;padding-top:96px}
+  .man-c__right{height:38vh}
+  .man-c__phrases{min-height:200px}
+}
+
+/* ---------- D · Tres pilares ---------- */
+.man-d{background:var(--u-paper);color:var(--u-ink);padding:clamp(7rem,13vw,11rem) 0}
+.man-d__title{max-width:14ch}
+.man-d__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2vw,1.5rem);margin-top:clamp(3rem,6vw,5rem)}
+.man-d__col{background:#fff;border:1px solid var(--u-line-dark);border-radius:20px;padding:clamp(1.6rem,2.6vw,2.4rem);transition:transform .5s var(--ease),box-shadow .5s}
+.man-d__col:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(26,26,46,.12)}
+.man-d__ico{width:64px;height:64px;fill:none;stroke:var(--u-blue-strong);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;margin-bottom:1.6rem}
+.man-d__col h3{font-size:clamp(1.4rem,2vw,1.8rem);margin-bottom:.6rem}
+.man-d__col p{color:var(--u-muted-dark)}
+.man-d .man-stats b{color:var(--u-ink)}
+@media (max-width:860px){.man-d__cols{grid-template-columns:1fr}}
+
+/* ---------- E · Decodificación ---------- */
+.man-e{background:var(--u-night);padding:clamp(6rem,12vw,10rem) 0}
+.man-e__grid{display:grid;grid-template-columns:minmax(240px,.6fr) 1.4fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.man-e__vid{position:relative;margin:0;aspect-ratio:9/16;max-height:78vh;border-radius:20px;overflow:hidden;border:1px solid var(--u-line)}
+.man-e__vid video{width:100%;height:100%!important;object-fit:cover}
+.man-e__vid figcaption{position:absolute;left:12px;top:12px;background:rgba(16,16,29,.75);padding:.35rem .6rem;border-radius:6px;font-size:.62rem;color:#FDA29B}
+.man-e__label{font-family:var(--f-mono)}
+.man-e__h{font-weight:var(--w-display);font-size:clamp(2.6rem,6vw,6.4rem);line-height:.95;letter-spacing:-.055em}
+.man-e__p{margin-top:1.6rem;color:var(--u-muted);font-size:clamp(1.05rem,1.4vw,1.25rem);max-width:48ch}
+.man-e__stats{display:flex;gap:clamp(1.5rem,4vw,3.5rem);margin-top:2.6rem;border-top:1px solid var(--u-line);padding-top:1.6rem;flex-wrap:wrap}
+.man-e__stats b{display:block;font-family:var(--f-mono);font-weight:600;font-size:clamp(2rem,3.6vw,3.2rem);color:var(--u-blue);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.man-e__stats span{color:var(--u-muted);font-size:.9rem}
+@media (max-width:760px){.man-e__grid{grid-template-columns:1fr}.man-e__vid{max-height:56vh;width:min(320px,80%)}}
+
+@media (prefers-reduced-motion:reduce){
+  .man-a__text .word{opacity:1}
+  .man-c{height:auto}.man-c__pin{position:relative;height:auto}
+  .man-c__ph{position:relative;opacity:1;visibility:visible;margin-bottom:2rem}
+  .man-c__fig{position:relative;clip-path:none;height:300px;margin-bottom:1rem}.man-c__right{height:auto;background:none}
+}

@@ -1,0 +1,86 @@
+<section class="opt-sec" id="opiniones" data-sec="quotes" data-label="Opiniones">
+
+  <!-- A · Cita grande (v2) -->
+  <div class="variant quotes-a" data-v="A" data-name="Cita grande" data-theme="dark">
+    <div class="quotes-a__in wrap">
+      <p class="mono label">(Lo que dicen)</p>
+      <div class="quotes-a__stage" aria-live="polite" data-q-render="a"></div>
+      <div class="quotes-a__nav">
+        <button type="button" class="quotes-a__btn" data-dir="-1" aria-label="Opinión anterior" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <span class="mono quotes-a__count" data-count-label>01 / 05</span>
+        <button type="button" class="quotes-a__btn" data-dir="1" aria-label="Opinión siguiente" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <span class="quotes-a__g mono"><span aria-hidden="true">★</span> 4,9 en Google · +120 reseñas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B · Baraja -->
+  <div class="variant quotes-b" data-v="B" data-name="Baraja" data-theme="dark" hidden>
+    <div class="quotes-b__in wrap">
+      <div class="quotes-b__head">
+        <p class="mono label">(Lo que dicen)</p>
+        <h2 class="big">Clientes que <span class="acc">repiten.</span></h2>
+        <p class="lead">Arrastra las tarjetas a un lado o usa las flechas.</p>
+        <p class="quotes-b__g mono"><span aria-hidden="true">★★★★★</span> 4,9 en Google · +120 reseñas</p>
+      </div>
+      <div class="quotes-b__deck-wrap">
+        <div class="quotes-b__deck" data-q-render="b" aria-live="polite"></div>
+        <div class="quotes-b__nav">
+          <button type="button" class="quotes-b__btn" data-throw="-1" aria-label="Siguiente opinión, hacia la izquierda" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <span class="mono" data-count-label>01 / 05</span>
+          <button type="button" class="quotes-b__btn" data-throw="1" aria-label="Siguiente opinión, hacia la derecha" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Muro -->
+  <div class="variant quotes-c" data-v="C" data-name="Muro en movimiento" data-theme="light" hidden>
+    <div class="quotes-c__in wrap">
+      <div class="quotes-c__head">
+        <div>
+          <p class="mono label">(Lo que dicen)</p>
+          <h2 class="big">Opiniones <span class="acc">reales.</span></h2>
+        </div>
+        <div class="quotes-c__side">
+          <p class="quotes-c__score"><b>4,9</b><span class="quotes-c__stars" aria-hidden="true">★★★★★</span></p>
+          <p class="mono">Google · +120 reseñas</p>
+          <button type="button" class="quotes-c__pause" aria-pressed="false" data-pause>Pausar movimiento</button>
+        </div>
+      </div>
+      <div class="quotes-c__wall" data-q-render="c"></div>
+    </div>
+  </div>
+
+  <!-- D · Pantalla completa -->
+  <div class="variant quotes-d" data-v="D" data-name="Pantalla completa" data-theme="dark" hidden>
+    <div class="quotes-d__stage" data-q-render="d" aria-live="polite"></div>
+    <div class="quotes-d__ui wrap">
+      <p class="mono label">(Lo que dicen)</p>
+      <div class="quotes-d__nav">
+        <div class="quotes-d__dots" role="tablist" aria-label="Elegir opinión"></div>
+        <span class="mono quotes-d__g"><span aria-hidden="true">★</span> 4,9 en Google · +120 reseñas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Valoración -->
+  <div class="variant quotes-e" data-v="E" data-name="Valoración 4,9" data-theme="light" hidden>
+    <div class="quotes-e__in wrap">
+      <div class="quotes-e__score">
+        <p class="mono label">(Valoración media en Google)</p>
+        <p class="quotes-e__num" aria-label="4,9 sobre 5"><span data-score>4,9</span><small>/5</small></p>
+        <div class="quotes-e__stars" aria-hidden="true">
+          <span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i data-last></i></span>
+        </div>
+        <p class="quotes-e__based">Basado en <b>+120 reseñas</b> de empresas que ya han producido con nosotros.</p>
+      </div>
+      <div class="quotes-e__type">
+        <span class="quotes-e__mark" aria-hidden="true">“</span>
+        <blockquote class="quotes-e__q" aria-live="polite"><span data-type></span><i class="quotes-e__caret" aria-hidden="true"></i></blockquote>
+        <p class="quotes-e__who" data-who></p>
+        <div class="quotes-e__bars" data-bars></div>
+      </div>
+    </div>
+  </div>
+</section>

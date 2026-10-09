@@ -10,9 +10,18 @@
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="preload" as="video" href="assets/video/hero-lexus.mp4" type="video/mp4">
-<link rel="stylesheet" href="css/pro.css?v=4">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="css/core.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/hero.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/manifesto.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/reel.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/services.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/numbers.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/work.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/process.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/clients.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/quotes.css?v=20261009101303">
+<link rel="stylesheet" href="css/sections/contact.css?v=20261009101303">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Unical Graphic","url":"https://www.unical.es","telephone":"+34937502304","address":{"@type":"PostalAddress","streetAddress":"Passatge la Carola, 2","postalCode":"08349","addressLocality":"Cabrera de Mar","addressRegion":"Barcelona","addressCountry":"ES"},"sameAs":["https://www.instagram.com/unical_graphic/","https://www.linkedin.com/company/unical-graphic-sl"]}
 </script>
@@ -20,7 +29,6 @@
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
 
-<!-- Precarga -->
 <div class="loader" aria-hidden="true">
   <div class="loader__in">
     <img src="assets/img/logo/logo-unical-light.png" alt="" width="800" height="105">
@@ -30,10 +38,9 @@
   <div class="loader__panels"><i></i><i></i><i></i><i></i><i></i></div>
 </div>
 
-<!-- Cursor -->
 <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"><span class="cursor__label"></span></div></div>
+<div class="progress" aria-hidden="true"><i></i></div>
 
-<!-- Cabecera -->
 <header class="hd">
   <a class="hd__logo" href="#top" aria-label="Unical Graphic, inicio"><img class="l-light" src="assets/img/logo/logo-unical-light.png" alt="Unical Graphic" width="800" height="105"><img class="l-dark" src="assets/img/logo/logo-unical.png" alt="" width="800" height="98"></a>
   <nav class="hd__nav" aria-label="Principal">
@@ -46,290 +53,1409 @@
   <button class="hd__menu" type="button" aria-expanded="false" aria-controls="mnav"><span class="sr-only">Menú</span><i></i><i></i></button>
 </header>
 <div class="mnav" id="mnav" hidden>
-  <nav aria-label="Menú móvil">
-    <a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#proceso">Proceso</a><a href="#contacto">Contacto</a>
-  </nav>
+  <nav aria-label="Menú móvil"><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#proceso">Proceso</a><a href="#contacto">Contacto</a></nav>
   <a href="tel:+34937502304" class="mnav__tel">937 50 23 04</a>
 </div>
 
-<!-- Índice de capítulos -->
-<nav class="chapters" aria-label="Capítulos">
-  <a href="#top" data-ch="0"><span>01</span><b>Intro</b></a>
-  <a href="#showreel" data-ch="1"><span>02</span><b>Showreel</b></a>
-  <a href="#servicios" data-ch="2"><span>03</span><b>Servicios</b></a>
-  <a href="#proyectos" data-ch="3"><span>04</span><b>Proyectos</b></a>
-  <a href="#proceso" data-ch="4"><span>05</span><b>Proceso</b></a>
-  <a href="#contacto" data-ch="5"><span>06</span><b>Contacto</b></a>
-  <i class="chapters__bar"><i></i></i>
-</nav>
-
 <main id="main">
+<!-- ===== 01-hero.html ===== -->
+<section class="opt-sec" id="top" data-sec="hero" data-label="Portada">
 
-<!-- ============ 01 · PORTADA ============ -->
-<section class="hero" id="top" data-chapter="0">
-  <div class="hero__media">
-    <video class="hero__video" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
-    <div class="hero__shade"></div>
-  </div>
-  <div class="hero__content">
-    <p class="hero__kicker mono"><span class="dot"></span>Barcelona · Toda España · Desde hace +25 años</p>
-    <h1 class="hero__title">
-      <span class="line"><span class="split">Producción</span></span>
-      <span class="line"><span class="split">visual <em class="serif">sin</em></span></span>
-      <span class="line"><span class="split"><em class="serif">límites.</em></span></span>
-    </h1>
-    <div class="hero__foot">
-      <p class="hero__lead">Impresión gran formato, rotulación, stands, eventos y retail. Lo diseñamos, lo fabricamos y lo instalamos.</p>
-      <a class="btn-round" href="#showreel" data-magnetic data-cursor="Play"><span>Ver<br>showreel</span></a>
+  <!-- A · Cinemático -->
+  <div class="variant hero-a" data-v="A" data-name="Cinemático" data-theme="dark">
+    <div class="hero-a__media">
+      <video class="hero-a__video" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+      <div class="hero-a__shade"></div>
     </div>
-  </div>
-  <div class="hero__ticker" aria-hidden="true">
-    <div class="ticker"><div class="ticker__track">
+    <div class="hero-a__content">
+      <p class="hero-a__kicker mono"><span class="hero-dot"></span>Barcelona · Toda España · +25 años</p>
+      <h1 class="hero-a__title">
+        <span class="line"><span class="hero-a__split">Producción</span></span>
+        <span class="line"><span class="hero-a__split">visual <span class="acc">sin</span></span></span>
+        <span class="line"><span class="hero-a__split"><span class="acc">límites.</span></span></span>
+      </h1>
+      <div class="hero-a__foot">
+        <p class="hero-a__lead">Impresión gran formato, rotulación, stands, eventos y retail. Lo diseñamos, lo fabricamos y lo instalamos.</p>
+        <a class="hero-round" href="#showreel" data-magnetic data-cursor="Play"><span>Ver<br>showreel</span></a>
+      </div>
+    </div>
+    <div class="hero-a__ticker" aria-hidden="true"><div class="hero-ticker"><div class="hero-ticker__track">
       <span>Gran formato</span><span>Car wrapping</span><span>Rotulación de flotas</span><span>Stands</span><span>Eventos</span><span>PLV &amp; Retail</span><span>Señalética</span><span>Vinilos</span><span>Publicidad exterior</span>
-    </div></div>
+      <span>Gran formato</span><span>Car wrapping</span><span>Rotulación de flotas</span><span>Stands</span><span>Eventos</span><span>PLV &amp; Retail</span><span>Señalética</span><span>Vinilos</span><span>Publicidad exterior</span>
+    </div></div></div>
   </div>
-  <p class="hero__scroll mono" aria-hidden="true">Scroll <i></i></p>
-</section>
 
-<!-- ============ MANIFIESTO ============ -->
-<section class="manifesto" aria-label="Quiénes somos">
-  <p class="mono label">(Unical Graphic)</p>
-  <p class="manifesto__text" data-words>
-    Somos el taller detrás de las marcas que ves en la calle, en las ferias y en las tiendas.
-    <span class="pill"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></span>
-    Convertimos una idea en un vinilo, un stand o una flota entera,
-    <span class="pill"><img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy"></span>
-    con producción propia y montaje en toda España. Sin intermediarios. Sin excusas.
-    <span class="pill pill--video"><video src="assets/video/v-lexus-1.mp4" autoplay muted loop playsinline aria-hidden="true"></video></span>
-  </p>
-  <div class="manifesto__stats">
-    <div><b data-count="25">0</b><sup>+</sup><span>años produciendo</span></div>
-    <div><b data-count="5000">0</b><sup>+</sup><span>proyectos instalados</span></div>
-    <div><b data-count="1000">0</b><sup>m²</sup><span>de planta propia</span></div>
-    <div><b data-count="500">0</b><sup>+</sup><span>marcas cliente</span></div>
-  </div>
-</section>
-
-<!-- ============ 02 · SHOWREEL (expansión con scroll) ============ -->
-<section class="reel" id="showreel" data-chapter="1">
-  <div class="reel__pin">
-    <div class="reel__bg" aria-hidden="true"><img src="assets/img/proyectos/janssen.webp" alt=""></div>
-    <div class="reel__frame" data-cursor="Play">
-      <video class="reel__video" src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" muted loop playsinline preload="metadata"></video>
-      <div class="reel__veil"></div>
-      <button class="reel__play" type="button" aria-label="Ver el showreel a pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
-    </div>
-    <h2 class="reel__title" aria-label="Showreel 2026">
-      <span class="reel__w reel__w--l">Show<em class="serif">reel</em></span>
-      <span class="reel__w reel__w--r">2026</span>
-    </h2>
-    <p class="reel__hint mono"><span class="reel__hint-l">Desliza para</span><span class="reel__hint-r">ampliar</span></p>
-  </div>
-</section>
-
-<!-- ============ 03 · SERVICIOS (paneles apilados) ============ -->
-<section class="svc" id="servicios" data-chapter="2" aria-label="Servicios">
-  <div class="svc__bg" aria-hidden="true">
-    <div class="svc__sticky">
-      <img class="on" src="assets/img/servicios/gran-formato.webp" alt="">
-      <img src="assets/img/proyectos/jpujol.webp" alt="">
-      <img src="assets/img/proyectos/janssen.webp" alt="">
-      <img src="assets/img/proyectos/venca.webp" alt="">
-      <div class="grain"></div>
-      <div class="svc__shade"></div>
-      <div class="svc__side">
-        <p class="svc__eyebrow">Bajo un mismo techo,<br>producimos</p>
-        <div class="svc__titles">
-          <span class="on">Gran formato &amp; exterior</span>
-          <span>Vehículos &amp; flotas</span>
-          <span>Stands &amp; eventos</span>
-          <span>Retail &amp; interiorismo</span>
+  <!-- B · Vídeo en letras -->
+  <div class="variant hero-b" data-v="B" data-name="Vídeo en letras" data-theme="dark" hidden>
+    <div class="hero-b__pin">
+      <video class="hero-b__video" src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <div class="hero-b__knock" aria-hidden="true">
+        <span class="hero-b__word">SIN</span>
+        <span class="hero-b__word">LÍMITES</span>
+      </div>
+      <div class="hero-b__copy">
+        <p class="mono hero-b__kicker">Unical Graphic · Producción visual 360°</p>
+        <h1 class="hero-b__h1">Producción visual <span class="acc">sin límites</span> para marcas que quieren verse.</h1>
+        <div class="hero-b__ctas">
+          <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <button class="hero-b__play" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
         </div>
-        <p class="svc__count mono"><b>01</b> / 04</p>
+      </div>
+      <p class="hero-b__hint mono" aria-hidden="true">Scroll para entrar</p>
+    </div>
+  </div>
+
+  <!-- C · Mosaico -->
+  <div class="variant hero-c" data-v="C" data-name="Mosaico" data-theme="dark" hidden>
+    <div class="hero-c__grid">
+      <div class="hero-c__copy">
+        <p class="mono label">Desde Barcelona a toda España</p>
+        <h1 class="hero-c__title"><span class="line"><span>Lo diseñamos.</span></span><span class="line"><span>Lo fabricamos.</span></span><span class="line"><span class="acc">Lo instalamos.</span></span></h1>
+        <p class="lead hero-c__lead">Gran formato, rotulación de vehículos y flotas, stands, eventos, PLV y señalética. Producción propia en 1.000 m² y montaje profesional.</p>
+        <div class="hero-c__ctas">
+          <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="hero-c__link" href="#proyectos">Ver proyectos →</a>
+        </div>
+        <ul class="hero-c__stats">
+          <li><b>+25</b><span>años</span></li><li><b>+5.000</b><span>proyectos</span></li><li><b>3M &amp; Avery</b><span>certificados</span></li>
+        </ul>
+      </div>
+      <div class="hero-c__wall" aria-hidden="true">
+        <div class="hero-c__col" data-speed="-0.25"><div class="hero-c__loop" style="--d:38s">
+          <figure><video src="assets/video/v-lexus-1.mp4" poster="assets/video/v-lexus-1.jpg" data-autoplay muted loop playsinline preload="none"></video></figure>
+          <figure><img src="assets/img/proyectos/eversense.webp" alt="" loading="eager"></figure>
+          <figure><img src="assets/img/proyectos/tibidabo.webp" alt="" loading="eager"></figure>
+          <figure><video src="assets/video/v-lexus-1.mp4" poster="assets/video/v-lexus-1.jpg" data-autoplay muted loop playsinline preload="none"></video></figure>
+          <figure><img src="assets/img/proyectos/eversense.webp" alt="" loading="eager"></figure>
+          <figure><img src="assets/img/proyectos/tibidabo.webp" alt="" loading="eager"></figure>
+        </div></div>
+        <div class="hero-c__col hero-c__col--rev" data-speed="0.2"><div class="hero-c__loop" style="--d:44s">
+          <figure><img src="assets/img/proyectos/tke.webp" alt="" loading="eager"></figure>
+          <figure><video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none"></video></figure>
+          <figure><img src="assets/img/proyectos/venca.webp" alt="" loading="eager"></figure>
+          <figure><img src="assets/img/proyectos/tke.webp" alt="" loading="eager"></figure>
+          <figure><video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none"></video></figure>
+          <figure><img src="assets/img/proyectos/venca.webp" alt="" loading="eager"></figure>
+        </div></div>
+        <div class="hero-c__col" data-speed="-0.35"><div class="hero-c__loop" style="--d:34s">
+          <figure><img src="assets/img/proyectos/tibau.webp" alt="" loading="eager"></figure>
+          <figure><img src="assets/img/proyectos/janssen.webp" alt="" loading="eager"></figure>
+          <figure><video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" data-autoplay muted loop playsinline preload="none"></video></figure>
+          <figure><img src="assets/img/proyectos/tibau.webp" alt="" loading="eager"></figure>
+          <figure><img src="assets/img/proyectos/janssen.webp" alt="" loading="eager"></figure>
+          <figure><video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" data-autoplay muted loop playsinline preload="none"></video></figure>
+        </div></div>
       </div>
     </div>
   </div>
 
-  <div class="svc__panel" data-panel>
-    <article class="svc__card">
-      <h3 class="svc__mtitle">Gran formato &amp; exterior</h3>
-      <div class="svc__art" data-art="print"></div>
-      <div class="svc__body">
-        <p>Lonas de fachada, vinilos, textil y rígidos hasta 5 m de ancho. Impresos en nuestra planta e instalados con grúa si hace falta.</p>
-        <p class="svc__covers mono">Lo que incluye</p>
-        <ul class="chips"><li>Lonas y mesh</li><li>Vinilo impreso</li><li>Textil tensado</li><li>Rígidos y forex</li><li>Vallas</li><li>Instalación en altura</li></ul>
+  <!-- D · Lente -->
+  <div class="variant hero-d" data-v="D" data-name="Lente" data-theme="dark" hidden>
+    <div class="hero-d__stage">
+      <video class="hero-d__base" src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <div class="hero-d__lens" aria-hidden="true"><video class="hero-d__color" src="assets/video/showreel.mp4" muted loop playsinline preload="none"></video></div>
+      <div class="hero-d__veil"></div>
+    </div>
+    <div class="hero-d__content">
+      <p class="mono hero-d__kicker"><span class="hero-dot"></span>Unical Graphic · Barcelona</p>
+      <h1 class="hero-d__title">
+        <span class="hero-d__rot" aria-hidden="true"><span class="hero-d__rot-in">
+          <span>Rotulamos</span><span>Imprimimos</span><span>Montamos</span><span>Instalamos</span><span>Rotulamos</span>
+        </span></span>
+        <span class="sr-only">Rotulamos, imprimimos, montamos e instalamos</span>
+        <span class="hero-d__fixed">tu marca <span class="acc">a lo grande.</span></span>
+      </h1>
+      <div class="hero-d__foot">
+        <p class="lead">Del vinilo de un escaparate a una flota de 30 furgonetas. Producción propia y montaje en toda España.</p>
+        <a class="btn" href="#contacto" data-magnetic>Hablemos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-    </article>
+    </div>
+    <p class="hero-d__hint mono" aria-hidden="true">Mueve el cursor · descubre el color</p>
   </div>
-  <div class="svc__panel" data-panel>
-    <article class="svc__card">
-      <h3 class="svc__mtitle">Vehículos &amp; flotas</h3>
-      <div class="svc__art" data-art="van"></div>
-      <div class="svc__body">
-        <p>Del primer render 3D al último vehículo rotulado. Car wrapping, cambio de color y flotas de decenas de unidades con un acabado idéntico.</p>
-        <p class="svc__covers mono">Lo que incluye</p>
-        <ul class="chips"><li>Toma de medidas</li><li>Diseño 3D</li><li>Car wrapping</li><li>Cambio de color</li><li>Flotas</li><li>Láminas solares</li></ul>
+
+  <!-- E · Carrusel -->
+  <div class="variant hero-e" data-v="E" data-name="Carrusel" data-theme="dark" hidden>
+    <div class="hero-e__slides" aria-roledescription="carrusel" aria-label="Proyectos destacados">
+      <figure class="hero-e__slide is-on" aria-label="1 de 5"><video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <figcaption><span class="mono">Car wrapping · Lexus</span><b>Un Lexus vestido de <span class="acc">Black Panther.</span></b></figcaption></figure>
+      <figure class="hero-e__slide" aria-label="2 de 5"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense en congreso médico" loading="eager">
+        <figcaption><span class="mono">Stands · Eversense</span><b>Stands que paran <span class="acc">a la gente.</span></b></figcaption></figure>
+      <figure class="hero-e__slide" aria-label="3 de 5"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="eager">
+        <figcaption><span class="mono">Flotas · TK Elevator</span><b>Flotas con la marca <span class="acc">en movimiento.</span></b></figcaption></figure>
+      <figure class="hero-e__slide" aria-label="4 de 5"><img src="assets/img/proyectos/mcdonalds.webp" alt="Murales interiores en McDonald's" loading="eager">
+        <figcaption><span class="mono">Interiorismo · McDonald’s</span><b>Espacios que cuentan <span class="acc">tu historia.</span></b></figcaption></figure>
+      <figure class="hero-e__slide" aria-label="5 de 5"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca de noche" loading="eager">
+        <figcaption><span class="mono">Retail · Venca</span><b>Pop-ups que <span class="acc">venden.</span></b></figcaption></figure>
+    </div>
+    <div class="hero-e__ui">
+      <h1 class="hero-e__h1 mono">Unical Graphic · Producción visual en Barcelona</h1>
+      <div class="hero-e__bar">
+        <span class="hero-e__count mono"><b>01</b> / 05</span>
+        <span class="hero-e__prog"><i></i></span>
+        <button type="button" class="hero-e__arrow" data-dir="-1" aria-label="Proyecto anterior" data-magnetic>←</button>
+        <button type="button" class="hero-e__arrow" data-dir="1" aria-label="Proyecto siguiente" data-magnetic>→</button>
+        <a class="btn hero-e__cta" href="#contacto" data-magnetic>Presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-    </article>
-  </div>
-  <div class="svc__panel" data-panel>
-    <article class="svc__card">
-      <h3 class="svc__mtitle">Stands &amp; eventos</h3>
-      <div class="svc__art" data-art="stand"></div>
-      <div class="svc__body">
-        <p>Stands llave en mano para ferias y congresos, escenografía y photocalls. Diseñamos, fabricamos, transportamos y montamos.</p>
-        <p class="svc__covers mono">Lo que incluye</p>
-        <ul class="chips"><li>Diseño del stand</li><li>Estructura</li><li>Gráfica</li><li>Iluminación</li><li>Transporte</li><li>Montaje y desmontaje</li></ul>
-      </div>
-    </article>
-  </div>
-  <div class="svc__panel" data-panel>
-    <article class="svc__card">
-      <h3 class="svc__mtitle">Retail &amp; interiorismo</h3>
-      <div class="svc__art" data-art="store"></div>
-      <div class="svc__body">
-        <p>PLV, escaparates, pop-up stores, señalética y vinilos decorativos. Renovamos hoteles, restaurantes y oficinas sin obras.</p>
-        <p class="svc__covers mono">Lo que incluye</p>
-        <ul class="chips"><li>PLV y displays</li><li>Escaparates</li><li>Pop-up stores</li><li>Señalética</li><li>Corpóreos</li><li>Vinilos decorativos</li></ul>
-      </div>
-    </article>
+    </div>
   </div>
 </section>
 
-<!-- ============ CIFRAS EN HORIZONTAL ============ -->
-<section class="hz" aria-label="Unical en cifras">
-  <div class="hz__pin">
-    <div class="hz__track">
-      <div class="hz__intro">
-        <p class="mono label">(En cifras)</p>
-        <h2 class="big">Hechos,<br><em class="serif">no promesas.</em></h2>
+<!-- ===== 02-manifesto.html ===== -->
+<section class="opt-sec" id="manifiesto" data-sec="manifesto" data-label="Manifiesto">
+
+  <!-- A · Palabras que se iluminan -->
+  <div class="variant man-a" data-v="A" data-name="Palabras" data-theme="dark">
+    <div class="wrap man-a__in">
+      <p class="mono label">(Unical Graphic)</p>
+      <p class="man-a__text">
+        Somos el taller detrás de las marcas que ves en la calle, en las ferias y en las tiendas.
+        <span class="man-pill"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></span>
+        Convertimos una idea en un vinilo, un stand o una flota entera,
+        <span class="man-pill"><img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy"></span>
+        con producción propia y montaje en toda España. Sin intermediarios. <span class="acc">Sin excusas.</span>
+        <span class="man-pill"><video src="assets/video/v-lexus-1.mp4" poster="assets/video/v-lexus-1.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></span>
+      </p>
+      <div class="man-stats">
+        <div><b data-count="25">25</b><sup>+</sup><span>años produciendo</span></div>
+        <div><b data-count="5000">5.000</b><sup>+</sup><span>proyectos instalados</span></div>
+        <div><b data-count="1000">1.000</b><sup>m²</sup><span>de planta propia</span></div>
+        <div><b data-count="500">500</b><sup>+</sup><span>marcas cliente</span></div>
       </div>
-      <div class="hz__num"><b data-count="25">0</b><sup>+</sup><span>años de oficio en Barcelona</span></div>
-      <figure class="hz__clip"><video src="assets/video/v-lexus-2.mp4" muted loop playsinline preload="none" data-lazyplay aria-hidden="true"></video><figcaption class="mono">Lexus · wrapping integral</figcaption></figure>
-      <div class="hz__num"><b data-count="5000">0</b><sup>+</sup><span>proyectos producidos e instalados</span></div>
-      <figure class="hz__clip hz__clip--wide"><img src="assets/img/proyectos/disney.webp" alt="Evento Disney producido por Unical" loading="lazy"><figcaption class="mono">Disney · evento</figcaption></figure>
-      <div class="hz__num"><b data-count="1000">0</b><sup>m²</sup><span>de planta de producción propia</span></div>
-      <figure class="hz__clip"><video src="assets/video/v-lexus-3.mp4" muted loop playsinline preload="none" data-lazyplay aria-hidden="true"></video><figcaption class="mono">Showroom Lexus</figcaption></figure>
-      <div class="hz__num"><b data-count="500">0</b><sup>+</sup><span>marcas que repiten</span></div>
-      <div class="hz__partners">
-        <p class="mono">Instaladores y materiales certificados</p>
+    </div>
+  </div>
+
+  <!-- B · Marquesina gigante -->
+  <div class="variant man-b" data-v="B" data-name="Marquesina" data-theme="dark" hidden>
+    <h2 class="sr-only">Diseñamos, fabricamos e instalamos</h2>
+    <div class="man-b__rows" aria-hidden="true">
+      <div class="man-b__row"><div class="man-b__track">
+        <span>Diseñamos</span><i class="man-b__img"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"></i><span class="acc">Fabricamos</span><i class="man-b__img"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></i><span>Instalamos</span><i class="man-b__img"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></i>
+        <span>Diseñamos</span><i class="man-b__img"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"></i><span class="acc">Fabricamos</span><i class="man-b__img"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></i><span>Instalamos</span><i class="man-b__img"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></i>
+      </div></div>
+      <div class="man-b__row man-b__row--out"><div class="man-b__track">
+        <span>Gran formato</span><b>✦</b><span>Flotas</span><b>✦</b><span>Stands</span><b>✦</b><span>Retail</span><b>✦</b><span>Señalética</span><b>✦</b>
+        <span>Gran formato</span><b>✦</b><span>Flotas</span><b>✦</b><span>Stands</span><b>✦</b><span>Retail</span><b>✦</b><span>Señalética</span><b>✦</b>
+      </div></div>
+    </div>
+    <div class="wrap man-b__foot">
+      <p class="mono label">(Quiénes somos)</p>
+      <p class="man-b__p rv">Más de 25 años siendo el taller detrás de las marcas que ves en la calle, en las ferias y en las tiendas. <strong>Producción propia en 1.000 m²</strong> y montaje en toda España, sin intermediarios.</p>
+      <a class="btn rv" href="#proyectos" data-magnetic>Ver proyectos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+
+  <!-- C · Frases fijas -->
+  <div class="variant man-c" data-v="C" data-name="Tres frases" data-theme="dark" hidden>
+    <div class="man-c__pin">
+      <div class="man-c__left">
+        <p class="mono label">(Así trabajamos)</p>
+        <div class="man-c__phrases">
+          <div class="man-c__ph is-on"><h2 class="man-c__h">Diseñamos.</h2><p>Originales, renders 3D y pruebas de color antes de imprimir nada.</p></div>
+          <div class="man-c__ph"><h2 class="man-c__h">Fabricamos<span class="acc">.</span></h2><p>Producción propia en 1.000 m²: impresión, corte, laminado y carpintería.</p></div>
+          <div class="man-c__ph"><h2 class="man-c__h">Instalamos<span class="acc">.</span></h2><p>Instaladores certificados 3M &amp; Avery en cualquier punto de España.</p></div>
+        </div>
+        <div class="man-c__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
+      </div>
+      <div class="man-c__right">
+        <figure class="man-c__fig is-on"><img src="assets/img/proyectos/3cat.webp" alt="Diseño de mural corporativo para 3cat" loading="lazy"></figure>
+        <figure class="man-c__fig"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión en gran formato en la planta de Unical" loading="lazy"></figure>
+        <figure class="man-c__fig"><video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- D · Tres pilares (claro) -->
+  <div class="variant man-d" data-v="D" data-name="Tres pilares" data-theme="light" hidden>
+    <div class="wrap">
+      <p class="mono label">(Por qué Unical)</p>
+      <h2 class="big man-d__title">Un solo partner para <span class="acc">todo lo visual.</span></h2>
+      <div class="man-d__cols">
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54V24l14 10V24l14 10V14h20v40z"/><path d="M16 46h6M30 46h6M44 46h6"/></svg>
+          <h3>Producción propia</h3><p>1.000 m² de planta con impresión, corte, laminado y taller. Controlamos calidad y plazos.</p>
+        </article>
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 54l6-18L44 8l12 12-28 28z"/><path d="M38 14l12 12M10 54l14-4"/></svg>
+          <h3>Diseño + fabricación</h3><p>Del boceto al último vinilo: originales, 3D, prototipos y producción final con un mismo equipo.</p>
+        </article>
+        <article class="man-d__col rv">
+          <svg class="man-d__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58S12 38 12 24a20 20 0 0 1 40 0c0 14-20 34-20 34z"/><circle cx="32" cy="24" r="7"/></svg>
+          <h3>Toda España</h3><p>Base en Barcelona e instaladores certificados 3M &amp; Avery para montar donde haga falta.</p>
+        </article>
+      </div>
+      <div class="man-stats man-stats--light">
+        <div><b data-count="25">25</b><sup>+</sup><span>años produciendo</span></div>
+        <div><b data-count="5000">5.000</b><sup>+</sup><span>proyectos instalados</span></div>
+        <div><b data-count="1000">1.000</b><sup>m²</sup><span>de planta propia</span></div>
+        <div><b data-count="500">500</b><sup>+</sup><span>marcas cliente</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Decodificación -->
+  <div class="variant man-e" data-v="E" data-name="Decodificación" data-theme="dark" hidden>
+    <div class="wrap man-e__grid">
+      <figure class="man-e__vid">
+        <video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <figcaption class="mono">REC ● Lexus · wrapping integral</figcaption>
+      </figure>
+      <div class="man-e__copy">
+        <p class="mono label man-e__label" data-scramble>// UNICAL_GRAPHIC.SYS</p>
+        <h2 class="man-e__h" data-scramble>Convertimos ideas en producción real.</h2>
+        <p class="man-e__p" data-scramble>Vinilos, lonas, stands, flotas y escaparates. Diseñados, fabricados e instalados por el mismo equipo desde 1.000 m² de planta propia en Barcelona.</p>
+        <div class="man-e__stats">
+          <div><b data-count="25">25</b><span>+ años</span></div>
+          <div><b data-count="5000">5.000</b><span>+ proyectos</span></div>
+          <div><b data-count="500">500</b><span>+ clientes</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03-reel.html ===== -->
+<section class="opt-sec" id="showreel" data-sec="reel" data-label="Showreel">
+
+  <!-- A · Expansión con scroll (adaptado de «Scroll media expansion hero», 21st.dev) -->
+  <div class="variant reel-a" data-v="A" data-name="Expansión" data-theme="dark">
+    <div class="reel-a__pin">
+      <div class="reel-a__bg" aria-hidden="true"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></div>
+      <div class="reel-a__frame" data-cursor="Play">
+        <video class="reel-a__video" src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <div class="reel-a__veil"></div>
+        <button class="reel-play" type="button" data-reel aria-label="Ver el showreel a pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <h2 class="reel-a__title" aria-label="Showreel 2026">
+        <span class="reel-a__w reel-a__w--l">Show<span class="acc">reel</span></span>
+        <span class="reel-a__w reel-a__w--r">2026</span>
+      </h2>
+      <p class="reel-a__hint mono" aria-hidden="true"><span class="reel-a__hl">Desliza para</span><span class="reel-a__hr">ampliar</span></p>
+    </div>
+  </div>
+
+  <!-- B · Monitor en perspectiva -->
+  <div class="variant reel-b" data-v="B" data-name="Monitor 3D" data-theme="dark" hidden>
+    <div class="reel-b__pin">
+      <div class="reel-b__head">
+        <p class="label mono">(Showreel 2026)</p>
+        <h2 class="big">25 segundos.<br><span class="acc">5.000 proyectos.</span></h2>
+      </div>
+      <div class="reel-b__stage">
+        <div class="reel-b__tv" data-cursor="Play">
+          <div class="reel-b__screen">
+            <video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            <div class="reel-b__glare" aria-hidden="true"></div>
+            <span class="reel-b__rec mono" aria-hidden="true"><i></i>REC · 00:25</span>
+          </div>
+          <button class="reel-play" type="button" data-reel aria-label="Ver el showreel a pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="reel-b__floor" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Franja cinemática con créditos -->
+  <div class="variant reel-c" data-v="C" data-name="Cinemascope" data-theme="dark" hidden>
+    <div class="reel-c__pin">
+      <div class="reel-c__screen" data-cursor="Play">
+        <video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <div class="reel-c__bar reel-c__bar--t" aria-hidden="true"></div>
+        <div class="reel-c__bar reel-c__bar--b" aria-hidden="true"></div>
+        <div class="reel-c__credits" aria-hidden="true">
+          <p><span class="mono">Car wrapping</span>Lexus</p>
+          <p><span class="mono">Stand congreso</span>Eversense</p>
+          <p><span class="mono">Interiorismo</span>McDonald’s</p>
+          <p><span class="mono">Flota</span>TK Elevator</p>
+          <p><span class="mono">Escenografía</span>CIRSA</p>
+          <p><span class="mono">Llave en mano</span>Janssen</p>
+          <p><span class="mono">Pop-up store</span>Venca</p>
+        </div>
+      </div>
+      <div class="reel-c__top">
+        <h2 class="reel-c__title">Una producción <span class="acc">Unical</span></h2>
+        <button class="reel-c__btn btn" type="button" data-reel>Ver con sonido de fondo apagado · 0:25<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- D · Puzzle de 9 piezas -->
+  <div class="variant reel-d" data-v="D" data-name="Puzzle" data-theme="dark" hidden>
+    <div class="reel-d__pin">
+      <div class="reel-d__head">
+        <p class="label mono">(Showreel)</p>
+        <h2 class="reel-d__title">Pieza a pieza.</h2>
+      </div>
+      <div class="reel-d__grid" data-cursor="Play" aria-label="Showreel">
+        <div class="reel-d__cell" style="--i:0;--c:0;--r:0" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:1;--c:1;--r:0" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:2;--c:2;--r:0" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:3;--c:0;--r:1" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:4;--c:1;--r:1" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:5;--c:2;--r:1" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:6;--c:0;--r:2" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:7;--c:1;--r:2" aria-hidden="true"></div>
+        <div class="reel-d__cell" style="--i:8;--c:2;--r:2" aria-hidden="true"></div>
+        <video class="reel-d__video" src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <button class="reel-play" type="button" data-reel aria-label="Ver el showreel a pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Vídeo que sigue al cursor -->
+  <div class="variant reel-e" data-v="E" data-name="Cursor vídeo" data-theme="dark" hidden>
+    <div class="reel-e__stage" data-reel role="button" tabindex="0" aria-label="Ver el showreel a pantalla completa">
+      <p class="label mono reel-e__label">(Showreel 2026 · 0:25)</p>
+      <h2 class="reel-e__title" aria-hidden="true">
+        <span class="reel-e__row">Mira</span>
+        <span class="reel-e__row reel-e__row--r"><span class="acc">lo que</span></span>
+        <span class="reel-e__row">hacemos</span>
+      </h2>
+      <span class="sr-only">Mira lo que hacemos</span>
+      <div class="reel-e__ball" aria-hidden="true">
+        <video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none"></video>
+        <span class="reel-e__play mono">Play</span>
+      </div>
+      <p class="reel-e__hint mono" aria-hidden="true">Haz clic en cualquier parte</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04-services.html ===== -->
+<section class="opt-sec" id="servicios" data-sec="services" data-label="Servicios">
+
+  <!-- A · Paneles apilados (adaptado de «Services Stack», 21st.dev) -->
+  <div class="variant services-a" data-v="A" data-name="Paneles apilados" data-theme="dark">
+    <div class="services-a__bg" aria-hidden="true">
+      <div class="services-a__sticky">
+        <img class="on" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+        <img src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
+        <img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
+        <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+        <div class="services-a__grain"></div>
+        <div class="services-a__shade"></div>
+        <div class="services-a__side">
+          <p class="services-a__eyebrow">Bajo un mismo techo,<br>producimos</p>
+          <div class="services-a__titles">
+            <span class="on">Gran formato &amp; exterior</span>
+            <span>Vehículos &amp; flotas</span>
+            <span>Stands &amp; eventos</span>
+            <span>Retail &amp; interiorismo</span>
+          </div>
+          <p class="services-a__count mono"><b>01</b> / 04</p>
+        </div>
+      </div>
+    </div>
+    <h2 class="sr-only">Servicios</h2>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Gran formato &amp; exterior</h3>
+        <div class="services-a__art" data-art="print"></div>
+        <div class="services-a__body">
+          <p>Lonas de fachada, vinilos, textil y rígidos hasta 5 m de ancho. Impresos en nuestra planta e instalados con grúa si hace falta.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Lonas y mesh</li><li>Vinilo impreso</li><li>Textil tensado</li><li>Rígidos y forex</li><li>Vallas</li><li>Instalación en altura</li></ul>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Vehículos &amp; flotas</h3>
+        <div class="services-a__art" data-art="van"></div>
+        <div class="services-a__body">
+          <p>Del primer render 3D al último vehículo rotulado. Car wrapping, cambio de color y flotas de decenas de unidades con un acabado idéntico.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Toma de medidas</li><li>Diseño 3D</li><li>Car wrapping</li><li>Cambio de color</li><li>Flotas</li><li>Láminas solares</li></ul>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Stands &amp; eventos</h3>
+        <div class="services-a__art" data-art="stand"></div>
+        <div class="services-a__body">
+          <p>Stands llave en mano para ferias y congresos, escenografía y photocalls. Diseñamos, fabricamos, transportamos y montamos.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>Diseño del stand</li><li>Estructura</li><li>Gráfica</li><li>Iluminación</li><li>Transporte</li><li>Montaje y desmontaje</li></ul>
+        </div>
+      </article>
+    </div>
+    <div class="services-a__panel" data-panel>
+      <article class="services-a__card">
+        <h3 class="services-a__mtitle">Retail &amp; interiorismo</h3>
+        <div class="services-a__art" data-art="store"></div>
+        <div class="services-a__body">
+          <p>PLV, escaparates, pop-up stores, señalética y vinilos decorativos. Renovamos hoteles, restaurantes y oficinas sin obras.</p>
+          <p class="services-a__covers mono">Lo que incluye</p>
+          <ul class="services-a__chips"><li>PLV y displays</li><li>Escaparates</li><li>Pop-up stores</li><li>Señalética</li><li>Corpóreos</li><li>Vinilos decorativos</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- B · Acordeón a pantalla completa -->
+  <div class="variant services-b" data-v="B" data-name="Acordeón" data-theme="dark" hidden>
+    <header class="services-b__head wrap">
+      <p class="mono label">(Servicios)</p>
+      <h2 class="big">Todo lo visual, <span class="acc">en casa.</span></h2>
+    </header>
+    <div class="services-b__cols" role="list">
+      <button type="button" class="services-b__col on" role="listitem" aria-expanded="true">
+        <img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+        <span class="services-b__n mono">01</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Gran formato</span>
+          <span class="services-b__d">Lonas, vinilos, textil y rígidos hasta 5 m de ancho, impresos en nuestra planta.</span>
+          <span class="services-b__chips"><i>Lonas</i><i>Vinilo</i><i>Textil</i><i>Vallas</i></span>
+        </span>
+      </button>
+      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
+        <img src="assets/img/servicios/car-wrapping.webp" alt="" loading="lazy">
+        <span class="services-b__n mono">02</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Car wrapping</span>
+          <span class="services-b__d">Cambio de color y wrapping integral reversible con vinilos 3M y Avery.</span>
+          <span class="services-b__chips"><i>Wrapping</i><i>Cambio de color</i><i>Láminas solares</i></span>
+        </span>
+      </button>
+      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
+        <img src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
+        <span class="services-b__n mono">03</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Flotas</span>
+          <span class="services-b__d">Decenas de vehículos con un acabado idéntico, en cualquier punto de España.</span>
+          <span class="services-b__chips"><i>Furgonetas</i><i>Camiones</i><i>Coordinación</i></span>
+        </span>
+      </button>
+      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
+        <img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
+        <span class="services-b__n mono">04</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Stands</span>
+          <span class="services-b__d">Llave en mano para ferias y congresos: diseño, fabricación, transporte y montaje.</span>
+          <span class="services-b__chips"><i>Diseño</i><i>Estructura</i><i>Montaje</i></span>
+        </span>
+      </button>
+      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
+        <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+        <span class="services-b__n mono">05</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Retail &amp; PLV</span>
+          <span class="services-b__d">Escaparates, pop-up stores, displays y visual merchandising que venden.</span>
+          <span class="services-b__chips"><i>PLV</i><i>Pop-up</i><i>Escaparates</i></span>
+        </span>
+      </button>
+      <button type="button" class="services-b__col" role="listitem" aria-expanded="false">
+        <img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy">
+        <span class="services-b__n mono">06</span>
+        <span class="services-b__in">
+          <span class="services-b__t">Interiorismo</span>
+          <span class="services-b__d">Murales, vinilos decorativos y señalética para oficinas, hoteles y restaurantes.</span>
+          <span class="services-b__chips"><i>Murales</i><i>Vinilos</i><i>Señalética</i></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- C · Lista gigante con media que sigue al cursor -->
+  <div class="variant services-c" data-v="C" data-name="Lista gigante" data-theme="light" hidden>
+    <header class="services-c__head wrap">
+      <p class="mono label">(Qué hacemos)</p>
+      <p class="lead">Pasa el cursor por cada servicio. Todo se produce en nuestra planta de 1.000 m² y lo instalan equipos propios.</p>
+    </header>
+    <h2 class="sr-only">Servicios</h2>
+    <ol class="services-c__list wrap">
+      <li><a href="#contacto" data-media="assets/img/servicios/gran-formato.webp"><span class="services-c__n mono">01</span><span class="services-c__t">Gran formato</span><span class="services-c__tag mono">Lonas · vinilo · textil</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/video/v-lexus-1.mp4" data-type="video"><span class="services-c__n mono">02</span><span class="services-c__t">Car <span class="acc">wrapping</span></span><span class="services-c__tag mono">Cambio de color</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/tke.webp"><span class="services-c__n mono">03</span><span class="services-c__t">Flotas</span><span class="services-c__tag mono">Rotulación de vehículos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/eversense.webp"><span class="services-c__n mono">04</span><span class="services-c__t">Stands</span><span class="services-c__tag mono">Ferias y congresos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/video/evento-cirsa.mp4" data-type="video"><span class="services-c__n mono">05</span><span class="services-c__t">Eventos</span><span class="services-c__tag mono">Escenografía · photocall</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/venca.webp"><span class="services-c__n mono">06</span><span class="services-c__t">Retail <span class="acc">&amp; PLV</span></span><span class="services-c__tag mono">Pop-up · escaparates</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/servicios/senaletica.webp"><span class="services-c__n mono">07</span><span class="services-c__t">Señalética</span><span class="services-c__tag mono">Corpóreos · rótulos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/mcdonalds.webp"><span class="services-c__n mono">08</span><span class="services-c__t">Interiorismo</span><span class="services-c__tag mono">Murales · vinilos</span><span class="services-c__arr" aria-hidden="true">↗</span></a></li>
+    </ol>
+    <div class="services-c__float" aria-hidden="true"><div class="services-c__float-in"></div></div>
+  </div>
+
+  <!-- D · Carrusel 3D que gira con el scroll -->
+  <div class="variant services-d" data-v="D" data-name="Carrusel 3D" data-theme="dark" hidden>
+    <div class="services-d__pin">
+      <header class="services-d__head">
+        <p class="mono label">(Servicios)</p>
+        <h2 class="big">Gira y <span class="acc">elige.</span></h2>
+      </header>
+      <div class="services-d__stage" data-cursor="Arrastra">
+        <div class="services-d__ring">
+          <article class="services-d__card"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy"><div><span class="mono">01</span><h3>Gran formato</h3><p>Lonas, vinilo y textil hasta 5 m.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/servicios/car-wrapping.webp" alt="Car wrapping" loading="lazy"><div><span class="mono">02</span><h3>Car wrapping</h3><p>Cambio de color reversible.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta TKE rotulada" loading="lazy"><div><span class="mono">03</span><h3>Flotas</h3><p>Decenas de vehículos, un acabado.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense" loading="lazy"><div><span class="mono">04</span><h3>Stands</h3><p>Llave en mano para ferias.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/disney.webp" alt="Evento de Disney" loading="lazy"><div><span class="mono">05</span><h3>Eventos</h3><p>Escenografía y photocalls.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"><div><span class="mono">06</span><h3>Retail &amp; PLV</h3><p>Pop-ups, escaparates, displays.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/servicios/senaletica.webp" alt="Señalética corporativa" loading="lazy"><div><span class="mono">07</span><h3>Señalética</h3><p>Corpóreos y rótulos.</p></div></article>
+          <article class="services-d__card"><img src="assets/img/proyectos/mcdonalds.webp" alt="Murales de McDonald's" loading="lazy"><div><span class="mono">08</span><h3>Interiorismo</h3><p>Murales y vinilos.</p></div></article>
+        </div>
+      </div>
+      <p class="services-d__hint mono">Desliza o arrastra para girar</p>
+    </div>
+  </div>
+
+  <!-- E · Bento con vídeo -->
+  <div class="variant services-e" data-v="E" data-name="Bento vídeo" data-theme="dark" hidden>
+    <div class="wrap">
+      <header class="services-e__head">
+        <p class="mono label">(Servicios 360°)</p>
+        <h2 class="big">Un taller. <span class="acc">Todo el oficio.</span></h2>
+      </header>
+      <div class="services-e__grid">
+        <a href="#contacto" class="services-e__cell services-e__cell--xl" data-cursor="Ver">
+          <video src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
+          <span class="services-e__info"><span class="mono">01 · Vehículos</span><b>Car wrapping &amp; flotas</b><span class="services-e__d">Del render 3D al último vehículo rotulado, con vinilos 3M y Avery.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell services-e__cell--tall" data-cursor="Ver">
+          <video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
+          <span class="services-e__info"><span class="mono">02 · Detalle</span><b>Cambio de color</b><span class="services-e__d">Reversible, sin tocar la pintura original.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy">
+          <span class="services-e__info"><span class="mono">03</span><b>Gran formato</b><span class="services-e__d">Hasta 5 m de ancho.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy">
+          <span class="services-e__info"><span class="mono">04</span><b>Stands</b><span class="services-e__d">Llave en mano.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell services-e__cell--wide" data-cursor="Ver">
+          <video src="assets/video/evento-cirsa.mp4" poster="assets/video/evento-cirsa.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
+          <span class="services-e__info"><span class="mono">05 · Eventos</span><b>Escenografía &amp; photocall</b><span class="services-e__d">Producción e instalación para eventos corporativos.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy">
+          <span class="services-e__info"><span class="mono">06</span><b>Retail &amp; PLV</b><span class="services-e__d">Pop-ups y escaparates.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/proyectos/3cat.webp" alt="Mural de 3cat" loading="lazy">
+          <span class="services-e__info"><span class="mono">07</span><b>Interiorismo</b><span class="services-e__d">Murales y vinilos.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell services-e__cell--cta services-e__cell--wide">
+          <span class="services-e__info"><span class="mono">¿Otro proyecto?</span><b>Si se puede imprimir, lo producimos.</b><span class="services-e__go" aria-hidden="true">→</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/servicios/senaletica.webp" alt="Señalética corporativa" loading="lazy">
+          <span class="services-e__info"><span class="mono">08</span><b>Señalética</b><span class="services-e__d">Corpóreos y rótulos.</span></span>
+        </a>
+        <a href="#contacto" class="services-e__cell" data-cursor="Ver">
+          <img src="assets/img/proyectos/jpujol.webp" alt="Flota de J.Pujol rotulada" loading="lazy">
+          <span class="services-e__info"><span class="mono">09</span><b>Flotas</b><span class="services-e__d">Decenas de vehículos, un acabado.</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05-numbers.html ===== -->
+<section class="opt-sec" id="cifras" data-sec="numbers" data-label="Cifras">
+
+  <!-- A · Recorrido horizontal -->
+  <div class="variant num-a" data-v="A" data-name="Horizontal" data-theme="dark">
+    <div class="num-a__pin">
+      <div class="num-a__track">
+        <div class="num-a__intro">
+          <p class="mono label">(En cifras)</p>
+          <h2 class="big">Hechos,<br><span class="acc">no promesas.</span></h2>
+        </div>
+        <div class="num-a__num"><b data-count="25" data-count-manual>25</b><sup>+</sup><span>años de oficio en Barcelona</span></div>
+        <figure class="num-a__clip"><video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Lexus · wrapping integral</figcaption></figure>
+        <div class="num-a__num"><b data-count="5000" data-count-manual>5.000</b><sup>+</sup><span>proyectos producidos e instalados</span></div>
+        <figure class="num-a__clip num-a__clip--wide"><img src="assets/img/proyectos/disney.webp" alt="Evento Disney producido por Unical" loading="lazy"><figcaption class="mono">Disney · evento</figcaption></figure>
+        <div class="num-a__num"><b data-count="1000" data-count-manual>1.000</b><sup>m²</sup><span>de planta de producción propia</span></div>
+        <figure class="num-a__clip"><video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Showroom Lexus</figcaption></figure>
+        <div class="num-a__num"><b data-count="500" data-count-manual>500</b><sup>+</sup><span>marcas que repiten</span></div>
+        <div class="num-a__partners">
+          <p class="mono">Instaladores y materiales certificados</p>
+          <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"><img src="assets/img/partners/orafol.svg" alt="Orafol" loading="lazy"><img src="assets/img/partners/hp.svg" alt="HP" loading="lazy"><img src="assets/img/partners/hexis.svg" alt="Hexis" loading="lazy"><img src="assets/img/partners/mactac.svg" alt="Mactac" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="num-a__progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <!-- B · Rejilla 2×2 con barras -->
+  <div class="variant num-b" data-v="B" data-name="Rejilla 2×2" data-theme="light" hidden>
+    <div class="wrap">
+      <header class="num-b__head">
+        <p class="mono label">(En cifras)</p>
+        <h2 class="big rv">Hechos, <span class="acc">no promesas.</span></h2>
+      </header>
+      <div class="num-b__grid">
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="25">0</b><sup>+</sup></p>
+          <p class="num-b__t">años de oficio en Barcelona</p>
+          <div class="num-b__bar" style="--to:.25"><i></i></div>
+          <p class="num-b__f mono">Taller en Cabrera de Mar</p>
+        </article>
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="5000">0</b><sup>+</sup></p>
+          <p class="num-b__t">proyectos producidos e instalados</p>
+          <div class="num-b__dots" aria-hidden="true"></div>
+          <p class="num-b__f mono">Cada punto, 50 proyectos</p>
+        </article>
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="1000">0</b><sup>m²</sup></p>
+          <p class="num-b__t">de planta de producción propia</p>
+          <div class="num-b__plan" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <p class="num-b__f mono">Impresión · corte · laminado · taller</p>
+        </article>
+        <article class="num-b__cell rv">
+          <p class="num-b__n"><b data-count="500">0</b><sup>+</sup></p>
+          <p class="num-b__t">marcas que repiten</p>
+          <div class="num-b__ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50"/><circle class="num-b__arc" cx="60" cy="60" r="50"/></svg><span class="mono">3M · Avery</span></div>
+          <p class="num-b__f mono">Instaladores certificados</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Odómetro sobre vídeo -->
+  <div class="variant num-c" data-v="C" data-name="Odómetro" data-theme="dark" hidden>
+    <video class="num-c__bg" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+    <div class="num-c__shade" aria-hidden="true"></div>
+    <div class="wrap num-c__in">
+      <p class="mono label">(Contador en marcha)</p>
+      <h2 class="big num-c__title">Seguimos <span class="acc">sumando.</span></h2>
+      <div class="num-c__list">
+        <div class="num-c__row"><div class="num-c__odo" data-odo="25" data-suffix="+" aria-label="Más de 25"></div><p>años de oficio en Barcelona</p></div>
+        <div class="num-c__row"><div class="num-c__odo" data-odo="5000" data-suffix="+" aria-label="Más de 5.000"></div><p>proyectos producidos e instalados</p></div>
+        <div class="num-c__row"><div class="num-c__odo" data-odo="1000" data-suffix="m²" aria-label="1.000 metros cuadrados"></div><p>de planta de producción propia</p></div>
+        <div class="num-c__row"><div class="num-c__odo" data-odo="500" data-suffix="+" aria-label="Más de 500"></div><p>marcas que repiten</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D · Una cifra por pantalla -->
+  <div class="variant num-d" data-v="D" data-name="Pantalla a pantalla" data-theme="dark" hidden>
+    <h2 class="sr-only">Unical en cifras</h2>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">25+</span><span class="num-d__f">25+</span></p>
+        <div class="num-d__txt"><p class="mono label">01 / 04</p><p class="num-d__t"><b>Más de 25 años</b> de oficio en Barcelona.</p></div>
+      </div>
+    </div>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">5.000</span><span class="num-d__f">5.000</span></p>
+        <div class="num-d__txt"><p class="mono label">02 / 04</p><p class="num-d__t"><b>Más de 5.000 proyectos</b> producidos e instalados.</p></div>
+      </div>
+    </div>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">1.000</span><span class="num-d__f">1.000</span></p>
+        <div class="num-d__txt"><p class="mono label">03 / 04</p><p class="num-d__t"><b>1.000 m²</b> de planta de producción propia.</p></div>
+      </div>
+    </div>
+    <div class="num-d__slide">
+      <div class="num-d__pin">
+        <img class="num-d__img" src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">500+</span><span class="num-d__f">500+</span></p>
+        <div class="num-d__txt"><p class="mono label">04 / 04</p><p class="num-d__t"><b>Más de 500 marcas</b> que repiten.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Baraja en abanico -->
+  <div class="variant num-e" data-v="E" data-name="Baraja" data-theme="dark" hidden>
+    <div class="wrap num-e__in">
+      <header class="num-e__head">
+        <p class="mono label">(En cifras)</p>
+        <h2 class="big">Cuatro cartas <span class="acc">ganadoras.</span></h2>
+      </header>
+      <div class="num-e__deck">
+        <article class="num-e__card" style="--i:0">
+          <div class="num-e__img"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="25">0</b><sup>+</sup></p><p class="num-e__t">años de oficio</p>
+        </article>
+        <article class="num-e__card" style="--i:1">
+          <div class="num-e__img"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="5000">0</b><sup>+</sup></p><p class="num-e__t">proyectos instalados</p>
+        </article>
+        <article class="num-e__card" style="--i:2">
+          <div class="num-e__img"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión en gran formato" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="1000">0</b><sup>m²</sup></p><p class="num-e__t">de planta propia</p>
+        </article>
+        <article class="num-e__card" style="--i:3">
+          <div class="num-e__img"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"></div>
+          <p class="num-e__n"><b data-count="500">0</b><sup>+</sup></p><p class="num-e__t">marcas que repiten</p>
+        </article>
+      </div>
+      <div class="num-e__partners">
+        <p class="mono">Certificados por</p>
         <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"><img src="assets/img/partners/orafol.svg" alt="Orafol" loading="lazy"><img src="assets/img/partners/hp.svg" alt="HP" loading="lazy"><img src="assets/img/partners/hexis.svg" alt="Hexis" loading="lazy"><img src="assets/img/partners/mactac.svg" alt="Mactac" loading="lazy"></div>
       </div>
     </div>
-    <div class="hz__progress" aria-hidden="true"><i></i></div>
   </div>
 </section>
 
-<!-- ============ 04 · PROYECTOS ============ -->
-<section class="work" id="proyectos" data-chapter="3">
-  <header class="work__head">
-    <p class="mono label">(Proyectos seleccionados)</p>
-    <h2 class="big"><span class="split-lines">Trabajo real.</span> <em class="serif">Marcas reales.</em></h2>
-  </header>
-  <ol class="work__list">
-    <li><a href="#contacto" data-media="assets/video/v-lexus-1.mp4" data-type="video"><span class="n mono">01</span><span class="t">Lexus</span><span class="d">Car wrapping · Black Panther</span><span class="y mono">Vehículos</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/eversense.webp"><span class="n mono">02</span><span class="t">Eversense</span><span class="d">Stand para congreso médico</span><span class="y mono">Stands</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/mcdonalds.webp"><span class="n mono">03</span><span class="t">McDonald’s</span><span class="d">Murales y vinilos interiores</span><span class="y mono">Interiorismo</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/tke.webp"><span class="n mono">04</span><span class="t">TK Elevator</span><span class="d">Rotulación de vehículo corporativo</span><span class="y mono">Flotas</span></a></li>
-    <li><a href="#contacto" data-media="assets/video/evento-cirsa.mp4" data-type="video"><span class="n mono">05</span><span class="t">CIRSA</span><span class="d">Escenografía «La ilusión une»</span><span class="y mono">Eventos</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/janssen.webp"><span class="n mono">06</span><span class="t">Janssen</span><span class="d">Stand oncología llave en mano</span><span class="y mono">Stands</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/venca.webp"><span class="n mono">07</span><span class="t">Venca</span><span class="d">Pop-up store</span><span class="y mono">Retail</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/3cat.webp"><span class="n mono">08</span><span class="t">3cat</span><span class="d">Mural corporativo interior</span><span class="y mono">Interiorismo</span></a></li>
-    <li><a href="#contacto" data-media="assets/img/proyectos/tibau.webp"><span class="n mono">09</span><span class="t">Tibau Team</span><span class="d">Camiones Dakar · Rally Assistance</span><span class="y mono">Flotas</span></a></li>
-  </ol>
-  <div class="work__float" aria-hidden="true"><div class="work__float-in"></div></div>
+<!-- ===== 06-work.html ===== -->
+<section class="opt-sec" id="proyectos" data-sec="work" data-label="Proyectos">
 
-  <div class="gallery" aria-label="Galería">
-    <figure class="g g1"><div class="g__m"><img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos en el Tibidabo" loading="lazy"></div></figure>
-    <figure class="g g2"><div class="g__m"><img src="assets/img/proyectos/five-guys.webp" alt="Interior de Five Guys" loading="lazy"></div></figure>
-    <figure class="g g3"><div class="g__m"><img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy"></div></figure>
-    <figure class="g g4"><div class="g__m"><img src="assets/img/proyectos/lexus.webp" alt="Imagen corporativa Lexus" loading="lazy"></div></figure>
-    <figure class="g g5"><div class="g__m"><img src="assets/img/proyectos/goofretti.webp" alt="Food truck Goofretti" loading="lazy"></div></figure>
-  </div>
-</section>
-
-<!-- ============ 05 · PROCESO ============ -->
-<section class="proc" id="proceso" data-chapter="4">
-  <header class="proc__head">
-    <p class="mono label">(Cómo trabajamos)</p>
-    <h2 class="big">Un solo interlocutor.<br><em class="serif">Cuatro pasos.</em></h2>
-  </header>
-  <div class="proc__wrap">
-    <svg class="proc__wave" viewBox="0 0 1200 1600" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M600 0 C 1100 200, 100 400, 600 600 S 1100 1000, 600 1200 S 100 1500, 600 1600"/>
-    </svg>
-    <ol class="proc__steps">
-      <li><span class="proc__n">01</span><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></li>
-      <li><span class="proc__n">02</span><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></li>
-      <li><span class="proc__n">03</span><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta con tecnología de última generación.</p></li>
-      <li><span class="proc__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></li>
+  <!-- A · Índice con media flotante + galería con profundidad -->
+  <div class="variant work-a" data-v="A" data-name="Índice flotante" data-theme="light">
+    <header class="work-a__head wrap">
+      <p class="mono label">(Proyectos seleccionados)</p>
+      <h2 class="big">Trabajo real. <span class="acc">Marcas reales.</span></h2>
+    </header>
+    <ol class="work-a__list wrap">
+      <li><a href="#contacto" data-media="assets/video/v-lexus-1.mp4" data-type="video"><span class="work-a__n mono">01</span><span class="work-a__t">Lexus</span><span class="work-a__d">Car wrapping · Black Panther</span><span class="work-a__y mono">Vehículos</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/eversense.webp"><span class="work-a__n mono">02</span><span class="work-a__t">Eversense</span><span class="work-a__d">Stand para congreso médico</span><span class="work-a__y mono">Stands</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/mcdonalds.webp"><span class="work-a__n mono">03</span><span class="work-a__t">McDonald’s</span><span class="work-a__d">Murales y vinilos interiores</span><span class="work-a__y mono">Interiorismo</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/tke.webp"><span class="work-a__n mono">04</span><span class="work-a__t">TK Elevator</span><span class="work-a__d">Rotulación de vehículo corporativo</span><span class="work-a__y mono">Flotas</span></a></li>
+      <li><a href="#contacto" data-media="assets/video/evento-cirsa.mp4" data-type="video"><span class="work-a__n mono">05</span><span class="work-a__t">CIRSA</span><span class="work-a__d">Escenografía «La ilusión une»</span><span class="work-a__y mono">Eventos</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/janssen.webp"><span class="work-a__n mono">06</span><span class="work-a__t">Janssen</span><span class="work-a__d">Stand oncología llave en mano</span><span class="work-a__y mono">Stands</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/venca.webp"><span class="work-a__n mono">07</span><span class="work-a__t">Venca</span><span class="work-a__d">Pop-up store</span><span class="work-a__y mono">Retail</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/3cat.webp"><span class="work-a__n mono">08</span><span class="work-a__t">3cat</span><span class="work-a__d">Mural corporativo interior</span><span class="work-a__y mono">Interiorismo</span></a></li>
+      <li><a href="#contacto" data-media="assets/img/proyectos/tibau.webp"><span class="work-a__n mono">09</span><span class="work-a__t">Tibau Team</span><span class="work-a__d">Camiones Dakar · Rally Assistance</span><span class="work-a__y mono">Flotas</span></a></li>
     </ol>
+    <div class="work-a__float" aria-hidden="true"><div class="work-a__float-in"></div></div>
+    <div class="work-a__gallery wrap" aria-label="Galería">
+      <figure class="work-a__g work-a__g1"><div class="work-a__m"><img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos en el Tibidabo" loading="lazy"></div></figure>
+      <figure class="work-a__g work-a__g2"><div class="work-a__m"><img src="assets/img/proyectos/five-guys.webp" alt="Interior de Five Guys" loading="lazy"></div></figure>
+      <figure class="work-a__g work-a__g3"><div class="work-a__m"><img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy"></div></figure>
+      <figure class="work-a__g work-a__g4"><div class="work-a__m"><img src="assets/img/proyectos/lexus.webp" alt="Imagen corporativa Lexus" loading="lazy"></div></figure>
+      <figure class="work-a__g work-a__g5"><div class="work-a__m"><img src="assets/img/proyectos/goofretti.webp" alt="Food truck Goofretti rotulado" loading="lazy"></div></figure>
+    </div>
+  </div>
+
+  <!-- B · Galería horizontal fijada -->
+  <div class="variant work-b" data-v="B" data-name="Galería horizontal" data-theme="dark" hidden>
+    <div class="work-b__pin">
+      <header class="work-b__head">
+        <p class="mono label">(Proyectos seleccionados)</p>
+        <h2 class="work-b__h">Seis proyectos, <span class="acc">seis retos.</span></h2>
+        <p class="work-b__count mono"><b>01</b> / 06</p>
+      </header>
+      <div class="work-b__track">
+        <article class="work-b__card"><a href="#contacto" class="work-b__frame" data-cursor="Ver"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense en congreso médico" loading="lazy"></a><div class="work-b__meta"><span class="mono">01 · Stands</span><h3 class="work-b__t">Eversense</h3><p>Stand para congreso médico</p></div></article>
+        <article class="work-b__card"><a href="#contacto" class="work-b__frame" data-cursor="Ver"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator con wrapping degradado" loading="lazy"></a><div class="work-b__meta"><span class="mono">02 · Flotas</span><h3 class="work-b__t">TK Elevator</h3><p>Rotulación de vehículo corporativo</p></div></article>
+        <article class="work-b__card"><a href="#contacto" class="work-b__frame" data-cursor="Ver"><img src="assets/img/proyectos/mcdonalds.webp" alt="Murales en restaurante McDonald's" loading="lazy"></a><div class="work-b__meta"><span class="mono">03 · Interiorismo</span><h3 class="work-b__t">McDonald’s</h3><p>Murales y vinilos interiores</p></div></article>
+        <article class="work-b__card"><a href="#contacto" class="work-b__frame" data-cursor="Ver"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen Oncology" loading="lazy"></a><div class="work-b__meta"><span class="mono">04 · Stands</span><h3 class="work-b__t">Janssen</h3><p>Stand oncología llave en mano</p></div></article>
+        <article class="work-b__card"><a href="#contacto" class="work-b__frame" data-cursor="Ver"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca de noche" loading="lazy"></a><div class="work-b__meta"><span class="mono">05 · Retail</span><h3 class="work-b__t">Venca</h3><p>Pop-up store</p></div></article>
+        <article class="work-b__card"><a href="#contacto" class="work-b__frame" data-cursor="Ver"><img src="assets/img/proyectos/tibau.webp" alt="Camión de asistencia de Tibau Team rotulado" loading="lazy"></a><div class="work-b__meta"><span class="mono">06 · Flotas</span><h3 class="work-b__t">Tibau Team</h3><p>Camiones Dakar · Rally Assistance</p></div></article>
+        <a class="work-b__end" href="#contacto" data-magnetic><span>¿El siguiente<br><span class="acc">es el tuyo?</span></span><i aria-hidden="true">→</i></a>
+      </div>
+      <div class="work-b__bar" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <!-- C · Rejilla con filtros (FLIP) -->
+  <div class="variant work-c" data-v="C" data-name="Filtros por sector" data-theme="light" hidden>
+    <div class="wrap">
+      <header class="work-c__head">
+        <div><p class="mono label">(Proyectos)</p><h2 class="big">Filtra por <span class="acc">lo que necesitas.</span></h2></div>
+        <div class="work-c__filters" role="group" aria-label="Filtrar proyectos por sector">
+          <button type="button" aria-pressed="true" data-f="*">Todos <sup>12</sup></button>
+          <button type="button" aria-pressed="false" data-f="stands">Stands</button>
+          <button type="button" aria-pressed="false" data-f="vehiculos">Vehículos</button>
+          <button type="button" aria-pressed="false" data-f="interior">Interiorismo</button>
+          <button type="button" aria-pressed="false" data-f="retail">Retail</button>
+          <button type="button" aria-pressed="false" data-f="exterior">Exterior y eventos</button>
+        </div>
+      </header>
+      <div class="work-c__grid">
+        <a href="#contacto" class="work-c__item work-c__item--tall" data-s="stands"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense" loading="lazy"><span class="work-c__cap"><b>Eversense</b><i class="mono">Stands</i></span></a>
+        <a href="#contacto" class="work-c__item work-c__item--wide" data-s="interior"><img src="assets/img/proyectos/mcdonalds.webp" alt="Murales de McDonald's" loading="lazy"><span class="work-c__cap"><b>McDonald’s</b><i class="mono">Interiorismo</i></span></a>
+        <a href="#contacto" class="work-c__item work-c__item--tall" data-s="vehiculos"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator" loading="lazy"><span class="work-c__cap"><b>TK Elevator</b><i class="mono">Vehículos</i></span></a>
+        <a href="#contacto" class="work-c__item" data-s="stands"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy"><span class="work-c__cap"><b>Janssen</b><i class="mono">Stands</i></span></a>
+        <a href="#contacto" class="work-c__item" data-s="retail"><img src="assets/img/proyectos/venca.webp" alt="Pop-up de Venca" loading="lazy"><span class="work-c__cap"><b>Venca</b><i class="mono">Retail</i></span></a>
+        <a href="#contacto" class="work-c__item work-c__item--tall" data-s="vehiculos"><img src="assets/img/proyectos/tibau.webp" alt="Camión de Tibau Team" loading="lazy"><span class="work-c__cap"><b>Tibau Team</b><i class="mono">Vehículos</i></span></a>
+        <a href="#contacto" class="work-c__item" data-s="exterior"><img src="assets/img/proyectos/disney.webp" alt="Evento de Disney" loading="lazy"><span class="work-c__cap"><b>Disney</b><i class="mono">Eventos</i></span></a>
+        <a href="#contacto" class="work-c__item" data-s="interior"><img src="assets/img/proyectos/five-guys.webp" alt="Interior de Five Guys" loading="lazy"><span class="work-c__cap"><b>Five Guys</b><i class="mono">Interiorismo</i></span></a>
+        <a href="#contacto" class="work-c__item work-c__item--tall" data-s="exterior"><img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos del Tibidabo" loading="lazy"><span class="work-c__cap"><b>Tibidabo</b><i class="mono">Exterior</i></span></a>
+        <a href="#contacto" class="work-c__item work-c__item--wide" data-s="interior"><img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy"><span class="work-c__cap"><b>3cat</b><i class="mono">Interiorismo</i></span></a>
+        <a href="#contacto" class="work-c__item" data-s="stands"><img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy"><span class="work-c__cap"><b>Cava Pharma</b><i class="mono">Stands</i></span></a>
+        <a href="#contacto" class="work-c__item" data-s="retail"><img src="assets/img/proyectos/lexus.webp" alt="Imagen corporativa Lexus" loading="lazy"><span class="work-c__cap"><b>Lexus</b><i class="mono">Retail</i></span></a>
+      </div>
+      <p class="work-c__live sr-only" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- D · Caso destacado -->
+  <div class="variant work-d" data-v="D" data-name="Caso destacado" data-theme="dark" hidden>
+    <div class="work-d__stage">
+      <div class="work-d__media" aria-hidden="true"></div>
+      <div class="work-d__shade"></div>
+      <div class="work-d__curtain" aria-hidden="true"></div>
+      <div class="work-d__in">
+        <p class="mono label">(Caso destacado)</p>
+        <h2 class="work-d__title"></h2>
+        <dl class="work-d__sheet">
+          <div><dt class="mono">Cliente</dt><dd data-k="cliente"></dd></div>
+          <div><dt class="mono">Servicio</dt><dd data-k="servicio"></dd></div>
+          <div><dt class="mono">El reto</dt><dd data-k="reto"></dd></div>
+          <div><dt class="mono">Lo que hicimos</dt><dd data-k="hicimos"></dd></div>
+        </dl>
+        <a class="btn" href="#contacto" data-magnetic>Quiero algo así <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="work-d__thumbs" role="tablist" aria-label="Elegir proyecto"></div>
+    </div>
+  </div>
+
+  <!-- E · Cilindro 3D -->
+  <div class="variant work-e" data-v="E" data-name="Cilindro 3D" data-theme="dark" hidden>
+    <div class="work-e__pin">
+      <header class="work-e__head">
+        <p class="mono label">(Proyectos)</p>
+        <p class="work-e__hint mono">Desliza o arrastra para girar</p>
+      </header>
+      <div class="work-e__scene" data-cursor="Arrastra">
+        <div class="work-e__ring">
+          <figure class="work-e__p" data-t="Eversense" data-s="Stand para congreso"><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="McDonald’s" data-s="Murales interiores"><img src="assets/img/proyectos/mcdonalds.webp" alt="Murales de McDonald's" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="TK Elevator" data-s="Rotulación de vehículo"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Janssen" data-s="Stand llave en mano"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Venca" data-s="Pop-up store"><img src="assets/img/proyectos/venca.webp" alt="Pop-up de Venca" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Tibau Team" data-s="Camiones Dakar"><img src="assets/img/proyectos/tibau.webp" alt="Camión de Tibau Team" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Disney" data-s="Evento"><img src="assets/img/proyectos/disney.webp" alt="Evento de Disney" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Five Guys" data-s="Interior e imagen"><img src="assets/img/proyectos/five-guys.webp" alt="Interior de Five Guys" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Tibidabo" data-s="Cubos corporativos"><img src="assets/img/proyectos/tibidabo.webp" alt="Cubos del Tibidabo" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="3cat" data-s="Mural corporativo"><img src="assets/img/proyectos/3cat.webp" alt="Mural de 3cat" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="Cava Pharma" data-s="Stand ferial"><img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy" draggable="false"></figure>
+          <figure class="work-e__p" data-t="J.Pujol" data-s="Flota JACK"><img src="assets/img/proyectos/jpujol.webp" alt="Furgoneta de J.Pujol" loading="lazy" draggable="false"></figure>
+        </div>
+      </div>
+      <div class="work-e__label" aria-live="polite"><h2 class="work-e__t">Eversense</h2><p class="mono work-e__s">Stand para congreso</p></div>
+    </div>
   </div>
 </section>
 
-<!-- ============ CLIENTES ============ -->
-<section class="clients" aria-label="Clientes">
-  <p class="mono label center">(Confían en nosotros)</p>
-  <div class="vmarquee" data-velocity><div class="vmarquee__track" data-logos="a"></div></div>
-  <div class="vmarquee vmarquee--rev" data-velocity><div class="vmarquee__track" data-logos="b"></div></div>
-</section>
+<!-- ===== 07-process.html ===== -->
+<section class="opt-sec" id="proceso" data-sec="process" data-label="Proceso">
 
-<!-- ============ OPINIONES ============ -->
-<section class="quotes" aria-label="Opiniones">
-  <div class="quotes__in">
-    <p class="mono label">(Lo que dicen)</p>
-    <div class="quotes__stage" aria-live="polite">
-      <figure class="q on"><blockquote>“La rotulación de nuestra flota fue impecable. Coordinaron más de 30 vehículos en diferentes ubicaciones con un resultado uniforme.”</blockquote><figcaption><b>Jordi Puig</b> · Toyota España</figcaption></figure>
-      <figure class="q"><blockquote>“Montaron nuestro stand para el MWC en tiempo récord. El diseño y la producción superaron todas nuestras expectativas.”</blockquote><figcaption><b>Pedro Fernández</b> · AstraZeneca</figcaption></figure>
-      <figure class="q"><blockquote>“Llevamos 5 años confiando en Unical. Calidad excepcional y siempre cumplen, incluso con plazos imposibles.”</blockquote><figcaption><b>Laura Martínez</b> · Agencia Creativa Bloom</figcaption></figure>
-      <figure class="q"><blockquote>“Desde la publicidad exterior hasta la decoración interior de nuestros restaurantes, entienden perfectamente nuestra marca.”</blockquote><figcaption><b>Ana García</b> · Five Guys Spain</figcaption></figure>
+  <!-- A · Trazo ondulado -->
+  <div class="variant process-a" data-v="A" data-name="Trazo ondulado" data-theme="light">
+    <header class="process-a__head">
+      <p class="mono label">(Cómo trabajamos)</p>
+      <h2 class="big">Un solo interlocutor.<br><span class="acc">Cuatro pasos.</span></h2>
+    </header>
+    <div class="process-a__wrap">
+      <svg class="process-a__wave" viewBox="0 0 1200 1600" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M600 0 C 1100 200, 100 400, 600 600 S 1100 1000, 600 1200 S 100 1500, 600 1600"/>
+      </svg>
+      <ol class="process-a__steps">
+        <li><span class="process-a__n">01</span><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></li>
+        <li><span class="process-a__n">02</span><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></li>
+        <li><span class="process-a__n">03</span><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</p></li>
+        <li><span class="process-a__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></li>
+      </ol>
     </div>
-    <div class="quotes__nav">
-      <button type="button" data-q="-1" aria-label="Opinión anterior" data-magnetic>←</button>
-      <span class="mono" data-qc>01 / 04</span>
-      <button type="button" data-q="1" aria-label="Opinión siguiente" data-magnetic>→</button>
-      <span class="quotes__g mono">★ 4,9 en Google · +120 reseñas</span>
+  </div>
+
+  <!-- B · Línea horizontal fijada -->
+  <div class="variant process-b" data-v="B" data-name="Línea horizontal" data-theme="dark" hidden>
+    <div class="process-b__pin">
+      <div class="process-b__top">
+        <p class="mono label">(Cómo trabajamos)</p>
+        <h2 class="process-b__h">De la idea a la <span class="acc">instalación</span></h2>
+        <ol class="process-b__rail" aria-hidden="true">
+          <li><span>01</span>Presupuesto</li><li><span>02</span>Diseño</li><li><span>03</span>Producción</li><li><span>04</span>Instalación</li>
+          <i class="process-b__fill"></i>
+        </ol>
+      </div>
+      <ol class="process-b__track">
+        <li class="process-b__step">
+          <span class="process-b__n">01</span>
+          <div class="process-b__txt"><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></div>
+          <figure class="process-b__img"><img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy"></figure>
+        </li>
+        <li class="process-b__step">
+          <span class="process-b__n">02</span>
+          <div class="process-b__txt"><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></div>
+          <figure class="process-b__img"><img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy"></figure>
+        </li>
+        <li class="process-b__step">
+          <span class="process-b__n">03</span>
+          <div class="process-b__txt"><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</p></div>
+          <figure class="process-b__img"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy"></figure>
+        </li>
+        <li class="process-b__step">
+          <span class="process-b__n">04</span>
+          <div class="process-b__txt"><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></div>
+          <figure class="process-b__img"><img src="assets/img/proyectos/jpujol.webp" alt="Furgoneta J.Pujol rotulada" loading="lazy"></figure>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- C · Tarjetas que se voltean -->
+  <div class="variant process-c" data-v="C" data-name="Tarjetas flip" data-theme="light" hidden>
+    <div class="wrap">
+      <header class="process-c__head">
+        <p class="mono label">(Cómo trabajamos)</p>
+        <h2 class="big">Cuatro pasos, <span class="acc">cero sorpresas.</span></h2>
+        <p class="lead">Pasa el cursor o pulsa cada tarjeta para ver el detalle.</p>
+      </header>
+      <ol class="process-c__grid">
+        <li><button type="button" class="process-c__card" aria-pressed="false">
+          <span class="process-c__face process-c__front">
+            <span class="process-c__n mono">01</span>
+            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 14h44l18 18v74H30z"/><path d="M74 14v18h18"/><path d="M44 52h34M44 66h34M44 80h20"/><circle class="a" cx="84" cy="88" r="12"/></svg>
+            <span class="process-c__t">Presupuesto</span>
+          </span>
+          <span class="process-c__face process-c__back">
+            <span class="process-c__n mono">01 · Presupuesto</span>
+            <span class="process-c__p">Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</span>
+            <span class="process-c__tag mono">Gratis · sin compromiso</span>
+          </span>
+        </button></li>
+        <li><button type="button" class="process-c__card" aria-pressed="false">
+          <span class="process-c__face process-c__front">
+            <span class="process-c__n mono">02</span>
+            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><path d="M16 96C40 30 80 30 104 96"/><path d="M16 96h88"/><circle class="a" cx="60" cy="47" r="7"/><path d="M60 47L60 14"/><rect x="52" y="8" width="16" height="10" rx="2"/></svg>
+            <span class="process-c__t">Diseño</span>
+          </span>
+          <span class="process-c__face process-c__back">
+            <span class="process-c__n mono">02 · Diseño</span>
+            <span class="process-c__p">Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</span>
+            <span class="process-c__tag mono">Render 3D · prueba de color</span>
+          </span>
+        </button></li>
+        <li><button type="button" class="process-c__card" aria-pressed="false">
+          <span class="process-c__face process-c__front">
+            <span class="process-c__n mono">03</span>
+            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><rect x="14" y="40" width="92" height="40" rx="6"/><path d="M32 40V16h56v24"/><path d="M32 70v36h56V70"/><path class="a" d="M42 84h36M42 94h24"/></svg>
+            <span class="process-c__t">Producción</span>
+          </span>
+          <span class="process-c__face process-c__back">
+            <span class="process-c__n mono">03 · Producción</span>
+            <span class="process-c__p">Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</span>
+            <span class="process-c__tag mono">Planta propia</span>
+          </span>
+        </button></li>
+        <li><button type="button" class="process-c__card" aria-pressed="false">
+          <span class="process-c__face process-c__front">
+            <span class="process-c__n mono">04</span>
+            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><path d="M34 108L52 12M86 108L68 12"/><path d="M45 48h30M41 72h38M49 26h22"/><path class="a" d="M14 92c14-8 24 8 38 0s24 8 38 0 16 6 16 6"/></svg>
+            <span class="process-c__t">Instalación</span>
+          </span>
+          <span class="process-c__face process-c__back">
+            <span class="process-c__n mono">04 · Instalación</span>
+            <span class="process-c__p">Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</span>
+            <span class="process-c__tag mono">Toda España</span>
+          </span>
+        </button></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- D · Historias -->
+  <div class="variant process-d" data-v="D" data-name="Historias" data-theme="dark" hidden>
+    <div class="wrap process-d__in">
+      <div class="process-d__copy">
+        <p class="mono label">(Cómo trabajamos)</p>
+        <div class="process-d__bars" role="tablist" aria-label="Pasos del proceso">
+          <button type="button" role="tab" aria-selected="true"><i></i>Presupuesto</button>
+          <button type="button" role="tab" aria-selected="false"><i></i>Diseño</button>
+          <button type="button" role="tab" aria-selected="false"><i></i>Producción</button>
+          <button type="button" role="tab" aria-selected="false"><i></i>Instalación</button>
+        </div>
+        <div class="process-d__slides" aria-live="polite">
+          <div class="process-d__slide on"><span class="process-d__n">01</span><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></div>
+          <div class="process-d__slide"><span class="process-d__n">02</span><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></div>
+          <div class="process-d__slide"><span class="process-d__n">03</span><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</p></div>
+          <div class="process-d__slide"><span class="process-d__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></div>
+        </div>
+      </div>
+      <div class="process-d__phone">
+        <img class="on" src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy">
+        <img src="assets/img/proyectos/3cat.webp" alt="Mural de 3cat" loading="lazy">
+        <img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy">
+        <video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="process-d__badge mono">Unical · <b>01</b>/04</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Progreso circular -->
+  <div class="variant process-e" data-v="E" data-name="Progreso circular" data-theme="dark" hidden>
+    <div class="process-e__pin">
+      <p class="mono label process-e__label">(Cómo trabajamos)</p>
+      <div class="process-e__ring" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="88"/><circle class="fg" cx="100" cy="100" r="88"/></svg>
+        <div class="process-e__pct"><b>0</b><span>%</span></div>
+      </div>
+      <h2 class="sr-only">Cómo trabajamos: cuatro pasos</h2>
+      <ol class="process-e__stairs">
+        <li><span class="process-e__n">01</span><h3>Presupuesto</h3><p>Valoración detallada en menos de 24 h laborables.</p></li>
+        <li><span class="process-e__n">02</span><h3>Diseño</h3><p>Renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></li>
+        <li><span class="process-e__n">03</span><h3>Producción</h3><p>Impresión y fabricación en nuestra planta de 1.000 m².</p></li>
+        <li><span class="process-e__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery en toda España.</p></li>
+      </ol>
     </div>
   </div>
 </section>
 
-<!-- ============ 06 · CONTACTO ============ -->
-<section class="cta" id="contacto" data-chapter="5">
-  <video class="cta__video" src="assets/video/evento-cirsa.mp4" muted loop playsinline preload="none" data-lazyplay aria-hidden="true"></video>
-  <div class="cta__shade"></div>
-  <div class="cta__in">
-    <p class="mono label">(¿Hablamos?)</p>
-    <h2 class="cta__title"><span class="fill" data-fill>Hagámoslo</span><br><em class="serif fill" data-fill>realidad.</em></h2>
-    <div class="cta__grid">
-      <form class="form" data-form novalidate>
-        <div class="field"><input id="f-n" name="nombre" placeholder=" " autocomplete="name" required><label for="f-n">Nombre</label><span class="err">Escribe tu nombre</span></div>
-        <div class="field"><input id="f-c" name="contacto" placeholder=" " autocomplete="email" required><label for="f-c">Email o teléfono</label><span class="err">Necesitamos un email o teléfono</span></div>
-        <div class="field field--full"><textarea id="f-m" name="mensaje" placeholder=" " rows="3"></textarea><label for="f-m">¿Qué quieres producir?</label></div>
-        <button class="btn-big" type="submit" data-magnetic><span>Solicitar presupuesto</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <p class="form__ok" role="status" hidden>Se abrirá tu correo con el mensaje listo. (Versión de prueba.)</p>
+<!-- ===== 08-clients.html ===== -->
+<section class="opt-sec" id="clientes" data-sec="clients" data-label="Clientes">
+
+  <!-- A · Marquesinas que reaccionan a la velocidad -->
+  <div class="variant clients-a" data-v="A" data-name="Marquesina veloz" data-theme="light">
+    <div class="wrap clients-a__head">
+      <p class="mono label">(Confían en nosotros)</p>
+      <h2 class="clients-a__h">Más de <span data-count="500">500</span> marcas <span class="acc">repiten.</span></h2>
+    </div>
+    <div class="clients-a__row"><div class="clients-a__track" data-logos="a"></div></div>
+    <div class="clients-a__row"><div class="clients-a__track" data-logos="b"></div></div>
+  </div>
+
+  <!-- B · Foco de luz -->
+  <div class="variant clients-b" data-v="B" data-name="Foco de luz" data-theme="dark" hidden>
+    <div class="wrap">
+      <div class="clients-b__head">
+        <p class="mono label">(Clientes)</p>
+        <h2 class="big">Ilumina a quien <span class="acc">confía en nosotros.</span></h2>
+        <p class="lead">Pasa el cursor: detrás de cada marca hay un proyecto producido e instalado por Unical.</p>
+      </div>
+      <div class="clients-b__stage" data-cursor="Luz">
+        <ul class="clients-b__grid clients-b__grid--base" aria-label="Clientes"></ul>
+        <ul class="clients-b__grid clients-b__grid--lit" aria-hidden="true"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Contador con logos que rotan -->
+  <div class="variant clients-c" data-v="C" data-name="Contador + huecos" data-theme="light" hidden>
+    <div class="wrap clients-c__in">
+      <div class="clients-c__slots clients-c__slots--l" aria-hidden="true"></div>
+      <div class="clients-c__center">
+        <p class="mono label">(Clientes)</p>
+        <p class="clients-c__big"><span>+</span><b data-count="500">500</b></p>
+        <h2 class="clients-c__h">marcas ya han producido <span class="acc">su imagen con nosotros.</span></h2>
+        <a class="btn btn--dark" href="#contacto" data-magnetic>Sé la siguiente <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="clients-c__slots clients-c__slots--r" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- D · Muro de estadio en perspectiva -->
+  <div class="variant clients-d" data-v="D" data-name="Muro de estadio" data-theme="dark" hidden>
+    <div class="clients-d__head wrap">
+      <p class="mono label">(Clientes)</p>
+      <h2 class="big">En primera fila <span class="acc">de grandes marcas.</span></h2>
+    </div>
+    <div class="clients-d__view" aria-hidden="true">
+      <div class="clients-d__wall"></div>
+    </div>
+    <p class="sr-only">Clientes: Toyota, Coca-Cola, Bankinter, Generali, Sony Music, Monster Energy, Philip Morris, Mitsubishi Electric, Otis, Porcelanosa, Rituals, Wella, Los40, RFEF, Cruz Roja, Ávoris, Catai, CSL Vifor, Dial, Elanco, Fibratel, LEO Pharma, Longi, Straumann y UCB.</p>
+  </div>
+
+  <!-- E · Por sector con pestañas -->
+  <div class="variant clients-e" data-v="E" data-name="Por sector" data-theme="light" hidden>
+    <div class="wrap clients-e__in">
+      <div class="clients-e__side">
+        <p class="mono label">(Clientes por sector)</p>
+        <h2 class="big">Cada sector, <span class="acc">su lenguaje.</span></h2>
+        <div class="clients-e__tabs" role="tablist" aria-label="Sectores">
+          <button type="button" role="tab" id="ce-t1" aria-controls="ce-p1" aria-selected="true">Farma y salud <sup>06</sup></button>
+          <button type="button" role="tab" id="ce-t2" aria-controls="ce-p2" aria-selected="false" tabindex="-1">Automoción e industria <sup>05</sup></button>
+          <button type="button" role="tab" id="ce-t3" aria-controls="ce-p3" aria-selected="false" tabindex="-1">Gran consumo y retail <sup>07</sup></button>
+          <button type="button" role="tab" id="ce-t4" aria-controls="ce-p4" aria-selected="false" tabindex="-1">Servicios, ocio y medios <sup>07</sup></button>
+        </div>
+      </div>
+      <div class="clients-e__panels">
+        <div class="clients-e__panel" role="tabpanel" id="ce-p1" aria-labelledby="ce-t1" data-l="csl-vifor,elanco,leo-pharma,straumann,ucb,cruz-roja"></div>
+        <div class="clients-e__panel" role="tabpanel" id="ce-p2" aria-labelledby="ce-t2" data-l="toyota,mitsubishi-electric,otis,longi,fibratel" hidden></div>
+        <div class="clients-e__panel" role="tabpanel" id="ce-p3" aria-labelledby="ce-t3" data-l="coca-cola,monster-energy,philip-morris,wella,rituals,dial,porcelanosa" hidden></div>
+        <div class="clients-e__panel" role="tabpanel" id="ce-p4" aria-labelledby="ce-t4" data-l="bankinter,generali,sony-music,los40,rfef,avoris,catai" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09-quotes.html ===== -->
+<section class="opt-sec" id="opiniones" data-sec="quotes" data-label="Opiniones">
+
+  <!-- A · Cita grande (v2) -->
+  <div class="variant quotes-a" data-v="A" data-name="Cita grande" data-theme="dark">
+    <div class="quotes-a__in wrap">
+      <p class="mono label">(Lo que dicen)</p>
+      <div class="quotes-a__stage" aria-live="polite" data-q-render="a"></div>
+      <div class="quotes-a__nav">
+        <button type="button" class="quotes-a__btn" data-dir="-1" aria-label="Opinión anterior" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <span class="mono quotes-a__count" data-count-label>01 / 05</span>
+        <button type="button" class="quotes-a__btn" data-dir="1" aria-label="Opinión siguiente" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <span class="quotes-a__g mono"><span aria-hidden="true">★</span> 4,9 en Google · +120 reseñas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B · Baraja -->
+  <div class="variant quotes-b" data-v="B" data-name="Baraja" data-theme="dark" hidden>
+    <div class="quotes-b__in wrap">
+      <div class="quotes-b__head">
+        <p class="mono label">(Lo que dicen)</p>
+        <h2 class="big">Clientes que <span class="acc">repiten.</span></h2>
+        <p class="lead">Arrastra las tarjetas a un lado o usa las flechas.</p>
+        <p class="quotes-b__g mono"><span aria-hidden="true">★★★★★</span> 4,9 en Google · +120 reseñas</p>
+      </div>
+      <div class="quotes-b__deck-wrap">
+        <div class="quotes-b__deck" data-q-render="b" aria-live="polite"></div>
+        <div class="quotes-b__nav">
+          <button type="button" class="quotes-b__btn" data-throw="-1" aria-label="Siguiente opinión, hacia la izquierda" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <span class="mono" data-count-label>01 / 05</span>
+          <button type="button" class="quotes-b__btn" data-throw="1" aria-label="Siguiente opinión, hacia la derecha" data-magnetic><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Muro -->
+  <div class="variant quotes-c" data-v="C" data-name="Muro en movimiento" data-theme="light" hidden>
+    <div class="quotes-c__in wrap">
+      <div class="quotes-c__head">
+        <div>
+          <p class="mono label">(Lo que dicen)</p>
+          <h2 class="big">Opiniones <span class="acc">reales.</span></h2>
+        </div>
+        <div class="quotes-c__side">
+          <p class="quotes-c__score"><b>4,9</b><span class="quotes-c__stars" aria-hidden="true">★★★★★</span></p>
+          <p class="mono">Google · +120 reseñas</p>
+          <button type="button" class="quotes-c__pause" aria-pressed="false" data-pause>Pausar movimiento</button>
+        </div>
+      </div>
+      <div class="quotes-c__wall" data-q-render="c"></div>
+    </div>
+  </div>
+
+  <!-- D · Pantalla completa -->
+  <div class="variant quotes-d" data-v="D" data-name="Pantalla completa" data-theme="dark" hidden>
+    <div class="quotes-d__stage" data-q-render="d" aria-live="polite"></div>
+    <div class="quotes-d__ui wrap">
+      <p class="mono label">(Lo que dicen)</p>
+      <div class="quotes-d__nav">
+        <div class="quotes-d__dots" role="tablist" aria-label="Elegir opinión"></div>
+        <span class="mono quotes-d__g"><span aria-hidden="true">★</span> 4,9 en Google · +120 reseñas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Valoración -->
+  <div class="variant quotes-e" data-v="E" data-name="Valoración 4,9" data-theme="light" hidden>
+    <div class="quotes-e__in wrap">
+      <div class="quotes-e__score">
+        <p class="mono label">(Valoración media en Google)</p>
+        <p class="quotes-e__num" aria-label="4,9 sobre 5"><span data-score>4,9</span><small>/5</small></p>
+        <div class="quotes-e__stars" aria-hidden="true">
+          <span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i data-last></i></span>
+        </div>
+        <p class="quotes-e__based">Basado en <b>+120 reseñas</b> de empresas que ya han producido con nosotros.</p>
+      </div>
+      <div class="quotes-e__type">
+        <span class="quotes-e__mark" aria-hidden="true">“</span>
+        <blockquote class="quotes-e__q" aria-live="polite"><span data-type></span><i class="quotes-e__caret" aria-hidden="true"></i></blockquote>
+        <p class="quotes-e__who" data-who></p>
+        <div class="quotes-e__bars" data-bars></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10-contact.html ===== -->
+<section class="opt-sec" id="contacto" data-sec="contact" data-label="Contacto">
+
+  <!-- A · Vídeo + formulario (v2) -->
+  <div class="variant contact-a" data-v="A" data-name="Vídeo + formulario" data-theme="dark">
+    <video class="contact-a__video" src="assets/video/evento-cirsa.mp4" poster="assets/video/evento-cirsa.jpg" muted loop playsinline preload="none" data-autoplay aria-hidden="true"></video>
+    <div class="contact-a__shade"></div>
+    <div class="contact-a__in wrap">
+      <p class="mono label">(¿Hablamos?)</p>
+      <h2 class="contact-a__title"><span class="contact-a__fill">Hagámoslo</span><br><span class="contact-a__fill contact-a__fill--acc">realidad.</span></h2>
+      <div class="contact-a__grid">
+        <form class="contact-a__form" data-form novalidate>
+          <div class="field contact-f"><input id="ca-n" name="nombre" placeholder=" " autocomplete="name" required><label for="ca-n">Nombre</label><span class="contact-f__err">Escribe tu nombre</span></div>
+          <div class="field contact-f"><input id="ca-c" name="contacto" placeholder=" " autocomplete="email" required><label for="ca-c">Email o teléfono</label><span class="contact-f__err">Necesitamos un email o teléfono</span></div>
+          <div class="field contact-f contact-f--full"><textarea id="ca-m" name="mensaje" placeholder=" " rows="3"></textarea><label for="ca-m">¿Qué quieres producir?</label></div>
+          <button class="btn contact-a__send" type="submit" data-magnetic><span>Solicitar presupuesto</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="contact-ok" data-ok role="status" hidden>Se abrirá tu correo con el mensaje listo. (Versión de prueba.)</p>
+        </form>
+        <div class="contact-a__ch">
+          <a href="tel:+34937502304" data-magnetic><span class="mono">Teléfono</span>937 50 23 04</a>
+          <a href="https://wa.me/34663512014" target="_blank" rel="noopener" data-magnetic><span class="mono">WhatsApp</span>Respuesta rápida</a>
+          <a href="mailto:nico@unical.es" data-magnetic><span class="mono">Email</span>nico@unical.es</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B · Presupuesto por pasos -->
+  <div class="variant contact-b" data-v="B" data-name="Por pasos" data-theme="light" hidden>
+    <div class="contact-b__in wrap">
+      <div class="contact-b__head">
+        <p class="mono label">(Presupuesto en 1 minuto)</p>
+        <h2 class="big">Cuéntanos qué <span class="acc">necesitas.</span></h2>
+      </div>
+      <form class="contact-b__wiz" data-form novalidate>
+        <div class="contact-b__top">
+          <span class="mono" data-step-label>Paso 1 de 3</span>
+          <div class="contact-b__bar" aria-hidden="true"><i></i></div>
+        </div>
+        <div class="contact-b__viewport">
+          <fieldset class="contact-b__pane" data-pane="0">
+            <legend class="contact-b__q">¿Qué quieres producir?</legend>
+            <div class="contact-b__picks">
+              <label class="contact-b__pick"><input type="radio" name="servicio" value="Rotulación de vehículos"><span><img src="assets/img/servicios/rotulacion-vehiculos.webp" alt="" loading="lazy"><b>Vehículos y flotas</b></span></label>
+              <label class="contact-b__pick"><input type="radio" name="servicio" value="Stand para feria"><span><img src="assets/img/servicios/stands.webp" alt="" loading="lazy"><b>Stand o evento</b></span></label>
+              <label class="contact-b__pick"><input type="radio" name="servicio" value="Impresión gran formato"><span><img src="assets/img/servicios/gran-formato.webp" alt="" loading="lazy"><b>Gran formato</b></span></label>
+              <label class="contact-b__pick"><input type="radio" name="servicio" value="Retail, PLV o interiorismo"><span><img src="assets/img/servicios/plv-retail.webp" alt="" loading="lazy"><b>Retail e interiorismo</b></span></label>
+            </div>
+          </fieldset>
+          <fieldset class="contact-b__pane" data-pane="1" hidden>
+            <legend class="contact-b__q">¿Para cuándo lo necesitas?</legend>
+            <div class="contact-b__picks contact-b__picks--text">
+              <label class="contact-b__pick"><input type="radio" name="plazo" value="Urgente (menos de 1 semana)"><span><b>Urgente</b><small>menos de 1 semana</small></span></label>
+              <label class="contact-b__pick"><input type="radio" name="plazo" value="2–4 semanas"><span><b>2–4 semanas</b><small>lo habitual</small></span></label>
+              <label class="contact-b__pick"><input type="radio" name="plazo" value="1–3 meses"><span><b>1–3 meses</b><small>con calma</small></span></label>
+              <label class="contact-b__pick"><input type="radio" name="plazo" value="Sin fecha cerrada"><span><b>Sin fecha</b><small>estoy explorando</small></span></label>
+            </div>
+          </fieldset>
+          <fieldset class="contact-b__pane" data-pane="2" hidden>
+            <legend class="contact-b__q">¿Dónde te enviamos el presupuesto?</legend>
+            <div class="contact-b__fields">
+              <div class="field contact-g"><label for="cb-n">Nombre</label><input id="cb-n" name="nombre" autocomplete="name" required><span class="contact-f__err">Escribe tu nombre</span></div>
+              <div class="field contact-g"><label for="cb-c">Email o teléfono</label><input id="cb-c" name="contacto" autocomplete="email" required><span class="contact-f__err">Necesitamos un email o teléfono</span></div>
+              <div class="field contact-g contact-g--full"><label for="cb-m">Detalles (opcional)</label><textarea id="cb-m" name="mensaje" rows="3"></textarea></div>
+            </div>
+            <p class="contact-ok contact-ok--dark" data-ok role="status" hidden>Se abrirá tu correo con el resumen listo. (Versión de prueba.)</p>
+          </fieldset>
+        </div>
+        <div class="contact-b__foot">
+          <button type="button" class="contact-b__back" data-back hidden>← Atrás</button>
+          <button type="button" class="btn btn--dark contact-b__next" data-next><span>Siguiente</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button type="submit" class="btn btn--dark contact-b__next" data-submit hidden><span>Enviar solicitud</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </form>
-      <div class="cta__ch">
-        <a href="tel:+34937502304" data-magnetic><span class="mono">Teléfono</span>937 50 23 04</a>
-        <a href="https://wa.me/34663512014" target="_blank" rel="noopener" data-magnetic><span class="mono">WhatsApp</span>Respuesta rápida</a>
-        <a href="mailto:nico@unical.es" data-magnetic><span class="mono">Email</span>nico@unical.es</a>
+    </div>
+  </div>
+
+  <!-- C · Hablemos -->
+  <div class="variant contact-c" data-v="C" data-name="Botón gigante" data-theme="dark" hidden>
+    <div class="contact-c__marquee" aria-hidden="true">
+      <div class="contact-c__row"><span>Rotulación · Stands · Gran formato · PLV · Señalética · Vinilos · Eventos · </span><span>Rotulación · Stands · Gran formato · PLV · Señalética · Vinilos · Eventos · </span></div>
+      <div class="contact-c__row contact-c__row--rev"><span>Car wrapping · Flotas · Publicidad exterior · Interiorismo · Car wrapping · Flotas · </span><span>Car wrapping · Flotas · Publicidad exterior · Interiorismo · Car wrapping · Flotas · </span></div>
+      <div class="contact-c__row"><span>Barcelona · Toda España · Producción propia · Montaje · Barcelona · Toda España · </span><span>Barcelona · Toda España · Producción propia · Montaje · Barcelona · Toda España · </span></div>
+    </div>
+    <div class="contact-c__in wrap">
+      <p class="mono label">(Contacto)</p>
+      <h2 class="contact-c__title">¿Tienes un proyecto?<br><span class="acc">Hagámoslo realidad.</span></h2>
+      <a class="contact-c__btn" href="mailto:nico@unical.es?subject=Solicitud%20de%20presupuesto" data-cursor="Escríbenos"><span>Hablemos</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <div class="contact-c__ch">
+        <a href="tel:+34937502304"><span class="mono">01 · Teléfono</span><b>937 50 23 04</b></a>
+        <a href="https://wa.me/34663512014" target="_blank" rel="noopener"><span class="mono">02 · WhatsApp</span><b>Respuesta rápida</b></a>
+        <a href="mailto:nico@unical.es"><span class="mono">03 · Email</span><b>nico@unical.es</b></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- D · Mapa -->
+  <div class="variant contact-d" data-v="D" data-name="Mapa + formulario" data-theme="dark" hidden>
+    <div class="contact-d__grid">
+      <div class="contact-d__map">
+        <svg viewBox="0 0 600 520" role="img" aria-label="Mapa de España con Unical en Cabrera de Mar y conexiones a Madrid, Valencia, Sevilla, Bilbao, Zaragoza, Málaga y A Coruña">
+          <defs>
+            <pattern id="contactDots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#99C4E4" opacity=".35"/></pattern>
+            <radialGradient id="contactGlow"><stop offset="0" stop-color="#99C4E4" stop-opacity=".55"/><stop offset="1" stop-color="#99C4E4" stop-opacity="0"/></radialGradient>
+          </defs>
+          <path class="contact-d__land" d="M70 120 L130 92 L205 98 L262 86 L330 92 L398 104 L452 118 L508 128 L536 150 L520 178 L488 196 L470 228 L452 262 L432 300 L414 338 L386 376 L340 404 L292 424 L238 432 L190 420 L150 396 L118 368 L104 330 L92 290 L76 250 L62 206 L56 160 Z"/>
+          <path class="contact-d__land contact-d__land--pt" d="M56 160 L62 206 L76 250 L92 290 L104 330 L86 344 L66 300 L50 250 L44 200 Z"/>
+          <g class="contact-d__routes">
+            <path d="M506 166 Q 400 150 300 236"/><path d="M506 166 Q 470 230 430 286"/><path d="M506 166 Q 380 260 190 372"/>
+            <path d="M506 166 Q 400 100 300 120"/><path d="M506 166 Q 450 150 392 170"/><path d="M506 166 Q 400 300 248 410"/><path d="M506 166 Q 300 60 96 116"/>
+          </g>
+          <g class="contact-d__cities">
+            <circle cx="300" cy="236" r="5"/><circle cx="430" cy="286" r="5"/><circle cx="190" cy="372" r="5"/><circle cx="300" cy="120" r="5"/><circle cx="392" cy="170" r="5"/><circle cx="248" cy="410" r="5"/><circle cx="96" cy="116" r="5"/>
+          </g>
+          <g class="contact-d__labels">
+            <text x="300" y="258">Madrid</text><text x="430" y="308">Valencia</text><text x="190" y="394">Sevilla</text><text x="300" y="110">Bilbao</text><text x="392" y="192">Zaragoza</text><text x="248" y="448">Málaga</text><text x="96" y="106">A Coruña</text>
+          </g>
+          <circle class="contact-d__glow" cx="506" cy="166" r="70" fill="url(#contactGlow)"/>
+          <circle class="contact-d__ping" cx="506" cy="166" r="10"/>
+          <circle class="contact-d__home" cx="506" cy="166" r="9"/>
+          <text class="contact-d__here" x="520" y="150">Unical</text>
+        </svg>
+        <div class="contact-d__addr">
+          <p class="mono">Estudio y planta</p>
+          <p><b>Passatge la Carola, 2</b><br>08349 Cabrera de Mar, Barcelona</p>
+          <p class="contact-d__note">Producimos aquí. Instalamos en toda España.</p>
+        </div>
+      </div>
+      <div class="contact-d__form-wrap">
+        <p class="mono label">(Contacto)</p>
+        <h2 class="contact-d__title">Estés donde estés, <span class="acc">llegamos.</span></h2>
+        <form class="contact-d__form" data-form novalidate>
+          <div class="field contact-g"><label for="cd-n">Nombre</label><input id="cd-n" name="nombre" autocomplete="name" required><span class="contact-f__err">Escribe tu nombre</span></div>
+          <div class="field contact-g"><label for="cd-c">Email o teléfono</label><input id="cd-c" name="contacto" autocomplete="email" required><span class="contact-f__err">Necesitamos un email o teléfono</span></div>
+          <div class="field contact-g"><label for="cd-l">¿Dónde es el proyecto?</label><input id="cd-l" name="ubicacion" placeholder="Ciudad o provincia"></div>
+          <div class="field contact-g contact-g--full"><label for="cd-m">¿Qué necesitas?</label><textarea id="cd-m" name="mensaje" rows="3"></textarea></div>
+          <button class="btn contact-d__send" type="submit" data-magnetic><span>Pedir presupuesto</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="contact-ok" data-ok role="status" hidden>Se abrirá tu correo con el mensaje listo. (Versión de prueba.)</p>
+        </form>
+        <p class="contact-d__alt">¿Prefieres hablar? <a href="tel:+34937502304">937 50 23 04</a> · <a href="https://wa.me/34663512014" target="_blank" rel="noopener">WhatsApp</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Chat -->
+  <div class="variant contact-e" data-v="E" data-name="Chat" data-theme="light" hidden>
+    <div class="contact-e__in wrap">
+      <div class="contact-e__head">
+        <p class="mono label">(Contacto)</p>
+        <h2 class="big">Hablemos como <span class="acc">personas.</span></h2>
+        <p class="lead">Tres preguntas rápidas y te preparamos el mensaje para enviarlo por email o WhatsApp.</p>
+        <ul class="contact-e__facts">
+          <li><b>&lt; 24 h</b><span>respuesta laborable</span></li>
+          <li><b>937 50 23 04</b><span>si prefieres llamar</span></li>
+        </ul>
+      </div>
+      <div class="contact-e__phone">
+        <div class="contact-e__bar">
+          <img src="assets/img/logo/logo-unical.png" alt="Unical Graphic" width="800" height="98">
+          <span class="contact-e__status"><i></i>En línea</span>
+        </div>
+        <div class="contact-e__log" data-log aria-live="polite"></div>
+        <form class="contact-e__input" data-chat-form hidden>
+          <label class="sr-only" for="ce-in" data-input-label>Tu respuesta</label>
+          <input id="ce-in" autocomplete="off" placeholder="Escribe aquí…">
+          <button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
       </div>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="ft">
+<footer class="ft" data-theme="dark">
   <div class="ft__top">
     <div><p class="mono">Estudio y planta</p><p>Passatge la Carola, 2<br>08349 Cabrera de Mar, Barcelona</p></div>
     <div><p class="mono">Social</p><p><a href="https://www.instagram.com/unical_graphic/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/unical-graphic-sl" target="_blank" rel="noopener">LinkedIn</a></p></div>
-    <div><p class="mono">Otras versiones</p><p><a href="opciones.html">Versión con opciones A/B/C</a><br><a href="https://www.unical.es" target="_blank" rel="noopener">Web actual</a></p></div>
+    <div><p class="mono">Otras versiones</p><p><a href="opciones.html">Versión 1 (opciones A/B/C)</a><br><a href="https://www.unical.es" target="_blank" rel="noopener">Web actual</a></p></div>
     <div class="ft__up"><a href="#top" data-magnetic>Volver arriba ↑</a></div>
   </div>
   <img class="ft__logo" src="assets/img/logo/logo-unical-light-xl.png" alt="Unical Graphic" width="1800" height="236" loading="lazy">
   <div class="ft__legal mono"><span>© 2026 Unical Graphic S.L. · CIF B-60670809</span><span>Versión de prueba «Pro Max» · no indexada</span></div>
 </footer>
 
-<!-- Modal showreel -->
+<!-- Selector de versiones -->
+<div class="dock" role="region" aria-label="Selector de versiones">
+  <span class="dock__sec"></span>
+  <div class="dock__btns" role="group"></div>
+  <span class="dock__name"></span>
+  <button class="dock__all" type="button" aria-expanded="false" aria-controls="board">Todas</button>
+</div>
+<div class="board" id="board" hidden>
+  <p class="board__t">Tu combinación</p>
+  <ol class="board__list"></ol>
+  <div class="board__row"><button type="button" data-copy>Copiar enlace</button><button type="button" data-clean>Ocultar selector</button></div>
+</div>
+
 <div class="modal" hidden role="dialog" aria-modal="true" aria-label="Showreel">
   <button class="modal__x" type="button" aria-label="Cerrar">×</button>
   <video class="modal__v" src="assets/video/showreel.mp4" controls playsinline preload="none"></video>
@@ -338,6 +1464,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/pro.js?v=3"></script>
+<script src="js/core.js?v=20261009101303"></script>
+<script src="js/sections/hero.js?v=20261009101303"></script>
+<script src="js/sections/manifesto.js?v=20261009101303"></script>
+<script src="js/sections/reel.js?v=20261009101303"></script>
+<script src="js/sections/services.js?v=20261009101303"></script>
+<script src="js/sections/numbers.js?v=20261009101303"></script>
+<script src="js/sections/work.js?v=20261009101303"></script>
+<script src="js/sections/process.js?v=20261009101303"></script>
+<script src="js/sections/clients.js?v=20261009101303"></script>
+<script src="js/sections/quotes.js?v=20261009101303"></script>
+<script src="js/sections/contact.js?v=20261009101303"></script>
 </body>
 </html>

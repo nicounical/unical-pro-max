@@ -1,0 +1,75 @@
+<section class="opt-sec" id="clientes" data-sec="clients" data-label="Clientes">
+
+  <!-- A · Marquesinas que reaccionan a la velocidad -->
+  <div class="variant clients-a" data-v="A" data-name="Marquesina veloz" data-theme="light">
+    <div class="wrap clients-a__head">
+      <p class="mono label">(Confían en nosotros)</p>
+      <h2 class="clients-a__h">Más de <span data-count="500">500</span> marcas <span class="acc">repiten.</span></h2>
+    </div>
+    <div class="clients-a__row"><div class="clients-a__track" data-logos="a"></div></div>
+    <div class="clients-a__row"><div class="clients-a__track" data-logos="b"></div></div>
+  </div>
+
+  <!-- B · Foco de luz -->
+  <div class="variant clients-b" data-v="B" data-name="Foco de luz" data-theme="dark" hidden>
+    <div class="wrap">
+      <div class="clients-b__head">
+        <p class="mono label">(Clientes)</p>
+        <h2 class="big">Ilumina a quien <span class="acc">confía en nosotros.</span></h2>
+        <p class="lead">Pasa el cursor: detrás de cada marca hay un proyecto producido e instalado por Unical.</p>
+      </div>
+      <div class="clients-b__stage" data-cursor="Luz">
+        <ul class="clients-b__grid clients-b__grid--base" aria-label="Clientes"></ul>
+        <ul class="clients-b__grid clients-b__grid--lit" aria-hidden="true"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Contador con logos que rotan -->
+  <div class="variant clients-c" data-v="C" data-name="Contador + huecos" data-theme="light" hidden>
+    <div class="wrap clients-c__in">
+      <div class="clients-c__slots clients-c__slots--l" aria-hidden="true"></div>
+      <div class="clients-c__center">
+        <p class="mono label">(Clientes)</p>
+        <p class="clients-c__big"><span>+</span><b data-count="500">500</b></p>
+        <h2 class="clients-c__h">marcas ya han producido <span class="acc">su imagen con nosotros.</span></h2>
+        <a class="btn btn--dark" href="#contacto" data-magnetic>Sé la siguiente <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="clients-c__slots clients-c__slots--r" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- D · Muro de estadio en perspectiva -->
+  <div class="variant clients-d" data-v="D" data-name="Muro de estadio" data-theme="dark" hidden>
+    <div class="clients-d__head wrap">
+      <p class="mono label">(Clientes)</p>
+      <h2 class="big">En primera fila <span class="acc">de grandes marcas.</span></h2>
+    </div>
+    <div class="clients-d__view" aria-hidden="true">
+      <div class="clients-d__wall"></div>
+    </div>
+    <p class="sr-only">Clientes: Toyota, Coca-Cola, Bankinter, Generali, Sony Music, Monster Energy, Philip Morris, Mitsubishi Electric, Otis, Porcelanosa, Rituals, Wella, Los40, RFEF, Cruz Roja, Ávoris, Catai, CSL Vifor, Dial, Elanco, Fibratel, LEO Pharma, Longi, Straumann y UCB.</p>
+  </div>
+
+  <!-- E · Por sector con pestañas -->
+  <div class="variant clients-e" data-v="E" data-name="Por sector" data-theme="light" hidden>
+    <div class="wrap clients-e__in">
+      <div class="clients-e__side">
+        <p class="mono label">(Clientes por sector)</p>
+        <h2 class="big">Cada sector, <span class="acc">su lenguaje.</span></h2>
+        <div class="clients-e__tabs" role="tablist" aria-label="Sectores">
+          <button type="button" role="tab" id="ce-t1" aria-controls="ce-p1" aria-selected="true">Farma y salud <sup>06</sup></button>
+          <button type="button" role="tab" id="ce-t2" aria-controls="ce-p2" aria-selected="false" tabindex="-1">Automoción e industria <sup>05</sup></button>
+          <button type="button" role="tab" id="ce-t3" aria-controls="ce-p3" aria-selected="false" tabindex="-1">Gran consumo y retail <sup>07</sup></button>
+          <button type="button" role="tab" id="ce-t4" aria-controls="ce-p4" aria-selected="false" tabindex="-1">Servicios, ocio y medios <sup>07</sup></button>
+        </div>
+      </div>
+      <div class="clients-e__panels">
+        <div class="clients-e__panel" role="tabpanel" id="ce-p1" aria-labelledby="ce-t1" data-l="csl-vifor,elanco,leo-pharma,straumann,ucb,cruz-roja"></div>
+        <div class="clients-e__panel" role="tabpanel" id="ce-p2" aria-labelledby="ce-t2" data-l="toyota,mitsubishi-electric,otis,longi,fibratel" hidden></div>
+        <div class="clients-e__panel" role="tabpanel" id="ce-p3" aria-labelledby="ce-t3" data-l="coca-cola,monster-energy,philip-morris,wella,rituals,dial,porcelanosa" hidden></div>
+        <div class="clients-e__panel" role="tabpanel" id="ce-p4" aria-labelledby="ce-t4" data-l="bankinter,generali,sony-music,los40,rfef,avoris,catai" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
