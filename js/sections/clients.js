@@ -243,4 +243,96 @@
     const loop = canvasLoop(root, cv, draw);
     return () => { loop.stop(); st && st.kill(); root.removeEventListener("pointermove", pm); };
   });
+
+  /* ===== Ronda «Impacto sin tecnología» (G–K) ===== */
+  const byName = ALL.slice().sort((a, b) => name(a).localeCompare(name(b), "es"));
+
+  /* ---------- G · Cartel tipográfico: los nombres se entintan al bajar ---------- */
+  register("clients", "G", (root, ux) => {
+    fillList(root);
+    const poster = $(".clients-g__poster", root);
+    poster.innerHTML = ALL.map((n, i) => `<span class="clients-g__w">${name(n)}${i < ALL.length - 1 ? '<span class="clients-g__sep">/</span>' : ""}</span>`).join(" ");
+    const words = $$(".clients-g__w", root);
+    if (ux.reduce) { words.forEach(w => w.classList.add("is-on")); return; }
+    let last = -1;
+    ScrollTrigger.create({
+      trigger: poster, start: "top 78%", end: "bottom 55%", scrub: true,
+      onUpdate: self => {
+        const n = Math.round(self.progress * words.length);
+        if (n === last) return; last = n;
+        words.forEach((w, i) => w.classList.toggle("is-on", i < n));
+      }
+    });
+    gsap.from($$(".clients-g__head > *", root), { y: 40, opacity: 0, stagger: .08, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
+  });
+
+  /* ---------- H · Pared de carteles pegados ---------- */
+  register("clients", "H", (root, ux) => {
+    fillList(root);
+    const rnd = seeded(7), tones = ["", "--navy", "", "--blue", "--ink", "", "--navy"];
+    const wall = $(".clients-h__wall", root);
+    wall.innerHTML = ALL.map((n, i) => {
+      const t = tones[Math.floor(rnd() * tones.length)];
+      return `<div class="clients-h__p${t ? " clients-h__p" + t : ""}" data-r="${(rnd() * 6 - 3).toFixed(2)}"><span class="clients-h__n">Nº ${String(i + 1).padStart(2, "0")}</span><span class="clients-h__name">${name(n)}</span><span class="clients-h__sec">${SECTOR[n] || ""}</span></div>`;
+    }).join("");
+    const ps = $$(".clients-h__p", root);
+    ps.forEach(p => gsap.set(p, { rotation: +p.dataset.r }));
+    if (ux.reduce) return;
+    gsap.set(ps, { opacity: 0 });
+    // Cada cartel se «pega» en la pared: cae girado y se asienta
+    ScrollTrigger.batch(ps, {
+      start: "top 92%", once: true,
+      onEnter: b => gsap.fromTo(b, { opacity: 0, y: -60, scale: 1.12, rotation: i => +b[i].dataset.r * 4 }, { opacity: 1, y: 0, scale: 1, rotation: i => +b[i].dataset.r, duration: .9, stagger: .07, ease: "back.out(1.4)" })
+    });
+    const en = e => gsap.to(e.currentTarget, { rotation: 0, y: -8, scale: 1.04, duration: .45, ease: "power3.out", overwrite: "auto" });
+    const lv = e => gsap.to(e.currentTarget, { rotation: +e.currentTarget.dataset.r, y: 0, scale: 1, duration: .6, ease: "power3.out", overwrite: "auto" });
+    ps.forEach(p => { p.addEventListener("pointerenter", en); p.addEventListener("pointerleave", lv); });
+    return () => ps.forEach(p => { p.removeEventListener("pointerenter", en); p.removeEventListener("pointerleave", lv); });
+  });
+
+  /* ---------- I · Créditos: el nombre del centro de la pantalla crece ---------- */
+  register("clients", "I", (root, ux) => {
+    const list = $(".clients-i__list", root);
+    list.innerHTML = byName.map(n => `<li class="clients-i__item">${name(n)} <small>${SECTOR[n] || ""}</small></li>`).join("");
+    const items = $$(".clients-i__item", root);
+    if (ux.reduce) { root.classList.add("is-static"); return; }
+    root.classList.remove("is-static");
+    let cur = null;
+    const tick = () => {
+      if (!onScreen(root)) return;
+      const mid = innerHeight / 2, R = innerHeight * .42;
+      let best = null, bd = 1e9;
+      items.forEach(el => {
+        const r = el.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid), k = Math.max(0, 1 - d / R);
+        el.style.transform = `scale(${(.72 + .28 * k * k).toFixed(3)})`;
+        el.style.color = `rgba(244,246,250,${(.16 + .84 * k * k).toFixed(3)})`;
+        if (d < bd) { bd = d; best = el; }
+      });
+      if (best !== cur) { cur && cur.classList.remove("is-on"); best.classList.add("is-on"); cur = best; }
+    };
+    gsap.ticker.add(tick);
+    return () => gsap.ticker.remove(tick);
+  });
+
+  /* ---------- J · Revista: doble página con foto en parallax ---------- */
+  register("clients", "J", (root, ux) => {
+    $(".clients-j__cols", root).innerHTML = byName.map(n => `<li><b>${name(n)}</b><span>${SECTOR[n] || ""}</span></li>`).join("");
+    if (ux.reduce) return;
+    gsap.fromTo($(".clients-j__img img", root), { yPercent: -14 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.from($(".clients-j__img", root), { clipPath: "inset(100% 0 0 0)", duration: 1.4, ease: "expo.inOut", scrollTrigger: { trigger: root, start: "top 70%" } });
+    gsap.from($$(".clients-j__text > *:not(ol)", root), { y: 50, opacity: 0, stagger: .1, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: $(".clients-j__text", root), start: "top 80%" } });
+    gsap.from($$(".clients-j__cols li", root), { y: 20, opacity: 0, stagger: .03, duration: .7, ease: "power3.out", scrollTrigger: { trigger: $(".clients-j__cols", root), start: "top 85%" } });
+  });
+
+  /* ---------- K · Índice A–Z ---------- */
+  register("clients", "K", (root, ux) => {
+    const groups = {};
+    byName.forEach(n => { const l = name(n)[0].normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase(); (groups[l] = groups[l] || []).push(n); });
+    $(".clients-k__index", root).innerHTML = Object.keys(groups).map(l => `<div class="clients-k__g"><span class="clients-k__l" aria-hidden="true">${l}</span><ul>${groups[l].map(n => `<li>${name(n)}<span>${SECTOR[n] || ""}</span></li>`).join("")}</ul></div>`).join("");
+    if (ux.reduce) return;
+    const gs = $$(".clients-k__g", root);
+    gsap.set(gs, { opacity: 0, y: 40 });
+    ScrollTrigger.batch(gs, { start: "top 92%", once: true, onEnter: b => gsap.to(b, { opacity: 1, y: 0, stagger: .06, duration: .9, ease: "expo.out" }) });
+    gsap.from($$(".clients-k__head > *", root), { y: 40, opacity: 0, stagger: .08, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
+  });
 })();

@@ -167,4 +167,68 @@
     document.fonts && document.fonts.ready.then(() => build());
     return () => { stop(); removeEventListener("resize", rs); cv.parentElement.removeEventListener("pointermove", mv); cv.parentElement.removeEventListener("pointerleave", lv); };
   });
+
+  /* =========== Ronda «Impacto sin tecnología» · G–K =========== */
+
+  /* G · Cartel suizo: la cifra gigante sube por máscara y se desplaza con el scroll */
+  register("numbers", "G", (root, ux) => {
+    if (ux.reduce) return;
+    const giant = ux.$(".num-g__giant", root);
+    const chars = ux.splitChars(ux.$(".num-g__digits", root));
+    const tl = gsap.timeline({ scrollTrigger: { trigger: giant, start: "top 85%", once: true } });
+    tl.from(ux.$(".num-g__plus", root), { yPercent: 60, opacity: 0, duration: .9, ease: "expo.out" })
+      .from(chars, { yPercent: 100, opacity: 0, duration: 1.1, stagger: .07, ease: "expo.out" }, "<.05")
+      .from(ux.$(".num-g__cap", root), { y: 24, opacity: 0, duration: .8, ease: "expo.out" }, "<.3");
+    gsap.fromTo(giant, { xPercent: 4 }, { xPercent: -6, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.from(ux.$$(".num-g__rule", root), { scaleX: 0, duration: 1.2, stagger: .12, ease: "expo.inOut", scrollTrigger: { trigger: ux.$(".num-g__row", root), start: "top 88%", once: true } });
+    gsap.from(ux.$$(".num-g__row b, .num-g__row li > span", root), { y: 30, opacity: 0, duration: .9, stagger: .06, ease: "expo.out", delay: .3, scrollTrigger: { trigger: ux.$(".num-g__row", root), start: "top 88%", once: true } });
+  });
+
+  /* H · Columnas de foto: cortinas que se abren de abajo arriba con zoom de la foto */
+  register("numbers", "H", (root, ux) => {
+    if (ux.reduce) return;
+    const cols = ux.$$(".num-h__col", root);
+    const tl = gsap.timeline({ scrollTrigger: { trigger: ux.$(".num-h__cols", root), start: "top 80%", once: true } });
+    cols.forEach((c, i) => {
+      tl.fromTo(ux.$(".num-h__ph", c), { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "expo.inOut" }, i * .12)
+        .fromTo(ux.$("img", c), { scale: 1.35 }, { scale: 1.05, duration: 1.8, ease: "expo.out" }, i * .12)
+        .from(ux.$$(".num-h__txt > *", c), { y: 40, opacity: 0, duration: .9, stagger: .08, ease: "expo.out" }, i * .12 + .6);
+    });
+    cols.forEach((c, i) => gsap.to(ux.$("img", c), { yPercent: i % 2 ? -6 : 6, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } }));
+  });
+
+  /* I · Revista: foto con parallax dentro del marco y texto que entra por líneas */
+  register("numbers", "I", (root, ux) => {
+    if (ux.reduce) return;
+    const img = ux.$(".num-i__frame img", root);
+    gsap.fromTo(img, { yPercent: -12 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(ux.$(".num-i__frame", root), { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "expo.inOut", scrollTrigger: { trigger: root, start: "top 75%", once: true } });
+    const words = ux.splitWords(ux.$(".num-i__title", root));
+    gsap.from(words, { yPercent: 60, opacity: 0, duration: 1, stagger: .04, ease: "expo.out", scrollTrigger: { trigger: ux.$(".num-i__title", root), start: "top 85%", once: true } });
+    gsap.from(ux.$(".num-i__big", root), { xPercent: -30, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ux.$(".num-i__drop", root), start: "top 85%", once: true } });
+    gsap.from(ux.$$(".num-i__body, .num-i__facts li", root), { y: 30, opacity: 0, duration: .9, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: ux.$(".num-i__drop", root), start: "top 85%", once: true } });
+  });
+
+  /* J · Pliegos apilados: cada pliego se queda pegado y el anterior se hunde un poco */
+  register("numbers", "J", (root, ux) => {
+    if (ux.reduce) return;
+    const sheets = ux.$$(".num-j__sheet", root);
+    sheets.forEach((s, i) => {
+      const next = sheets[i + 1];
+      if (next) gsap.to(s, { scale: .94, filter: "brightness(.7)", ease: "none", scrollTrigger: { trigger: next, start: "top 75%", end: "top 20%", scrub: true } });
+      gsap.from(ux.$("img", s), { scale: 1.25, ease: "none", scrollTrigger: { trigger: s, start: "top bottom", end: "top 30%", scrub: true } });
+      gsap.from(ux.$(".num-j__n b", s), { yPercent: 40, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 70%", once: true } });
+    });
+  });
+
+  /* K · Marquesina con fotos: las filas se desplazan en sentidos opuestos con el scroll */
+  register("numbers", "K", (root, ux) => {
+    if (ux.reduce) return;
+    ux.$$(".num-k__row", root).forEach((r, i) => {
+      const dir = +r.dataset.dir || 1;
+      const dist = () => Math.max(0, r.scrollWidth - root.clientWidth);
+      gsap.fromTo(r, { x: () => dir > 0 ? -dist() * .9 : 0 }, { x: () => dir > 0 ? 0 : -dist() * .9, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: .6, invalidateOnRefresh: true } });
+    });
+    gsap.from(ux.$$(".num-k__row i", root), { scale: 0, duration: 1, stagger: .05, ease: "back.out(1.6)", scrollTrigger: { trigger: ux.$(".num-k__rows", root), start: "top 85%", once: true } });
+  });
 })();

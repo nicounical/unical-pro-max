@@ -174,4 +174,70 @@
     }
     return () => { stop(); cancel(); root.removeEventListener("pointermove", pm); num.removeEventListener("pointerenter", hot); num.removeEventListener("pointerleave", cold); num.removeEventListener("focus", hot); num.removeEventListener("blur", cold); };
   });
+
+  /* ===== Ronda «Impacto sin tecnología» (G–K) ===== */
+  const revealUp = (els, trigger, o = {}) => gsap.from(els, Object.assign({ y: 50, opacity: 0, stagger: .1, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger, start: "top 80%" } }, o));
+
+  /* ---------- G · Foto a sangre: la foto se abre y se asienta con el scroll ---------- */
+  register("contact", "G", (root, ux) => {
+    if (ux.reduce) return;
+    const img = $(".contact-g__media img", root);
+    gsap.fromTo(img, { scale: 1.3, yPercent: -6 }, { scale: 1, yPercent: 4, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom bottom", scrub: true } });
+    const lines = $(".contact-g__title", root);
+    gsap.from(ux.splitWords(lines), { yPercent: 110, opacity: 0, duration: 1.1, stagger: .05, ease: "expo.out", scrollTrigger: { trigger: lines, start: "top 85%" } });
+    revealUp($$(".contact-g__lead, .contact-g__ctas, .contact-g__bar a", root), $(".contact-g__lead", root), { delay: .2 });
+  });
+
+  /* ---------- H · Cartel suizo: filetes que se trazan y bloques que encajan ---------- */
+  register("contact", "H", (root, ux) => {
+    if (ux.reduce) return;
+    gsap.from($$(".contact-h__rule", root), { scaleX: 0, duration: 1.4, stagger: .2, ease: "expo.inOut", scrollTrigger: { trigger: root, start: "top 75%" } });
+    const t = $(".contact-h__title", root);
+    gsap.from(t, { yPercent: 30, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: t, start: "top 85%" } });
+    gsap.from($$(".contact-h__blk", root), { yPercent: 40, opacity: 0, stagger: .09, duration: 1, ease: "expo.out", scrollTrigger: { trigger: $(".contact-h__grid", root), start: "top 88%" } });
+    // El titular se desplaza un poco en horizontal con el scroll (cartel en movimiento)
+    gsap.fromTo(t, { x: "4vw" }, { x: "-2vw", ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+  });
+
+  /* ---------- I · Tres puertas: la que miras se abre ---------- */
+  register("contact", "I", (root, ux) => {
+    const ds = $$(".contact-i__d", root);
+    const open = d => ds.forEach(x => x.classList.toggle("is-open", x === d));
+    open(ds[0]);
+    const on = e => open(e.currentTarget);
+    ds.forEach(d => { d.addEventListener("pointerenter", on); d.addEventListener("focus", on); });
+    if (!ux.reduce) revealUp(ds, $(".contact-i__doors", root), { y: 80, stagger: .12 });
+    return () => ds.forEach(d => { d.removeEventListener("pointerenter", on); d.removeEventListener("focus", on); d.classList.remove("is-open"); });
+  });
+
+  /* ---------- J · Mapa dibujado: costa y carretera se dibujan a tinta ---------- */
+  register("contact", "J", (root, ux) => {
+    if (ux.reduce) return;
+    const paths = $$(".contact-j__coast, .contact-j__road", root);
+    paths.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = p.classList.contains("contact-j__road") ? "7 7" : L; });
+    const coast = $(".contact-j__coast", root), L = coast.getTotalLength();
+    const tl = gsap.timeline({ scrollTrigger: { trigger: $(".contact-j__map", root), start: "top 75%" } });
+    tl.from($(".contact-j__map", root), { y: 60, rotation: -4, opacity: 0, duration: 1.1, ease: "expo.out" })
+      .fromTo(coast, { strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" }, .3)
+      .from($(".contact-j__sea", root), { opacity: 0, duration: 1 }, .9)
+      .from($(".contact-j__road", root), { opacity: 0, duration: .8 }, 1.2)
+      .from($$(".contact-j__towns circle, .contact-j__towns text, .contact-j__c32, .contact-j__mar", root), { opacity: 0, y: 6, stagger: .06, duration: .5 }, 1.3)
+      .from($(".contact-j__pin", root), { y: -60, opacity: 0, duration: .9, ease: "bounce.out" }, 1.7);
+    revealUp($$(".contact-j__text > *", root), $(".contact-j__text", root), { stagger: .08 });
+    return () => paths.forEach(p => (p.style.strokeDasharray = ""));
+  });
+
+  /* ---------- K · Collage: fotos pegadas que flotan a distinta velocidad ---------- */
+  register("contact", "K", (root, ux) => {
+    const ph = $$(".contact-k__ph", root), rot = [-5, 4, -2];
+    ph.forEach((p, i) => gsap.set(p, { rotation: rot[i] }));
+    if (ux.reduce) return;
+    const path = $(".contact-k__u path", root), L = path.getTotalLength();
+    gsap.fromTo(path, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut", delay: .5, scrollTrigger: { trigger: $(".contact-k__title", root), start: "top 80%" } });
+    revealUp($$(".contact-k__text > .label, .contact-k__title, .contact-k__links li", root), $(".contact-k__text", root), { stagger: .08 });
+    ph.forEach((p, i) => {
+      gsap.from(p, { y: 120, rotation: rot[i] * 3, opacity: 0, duration: 1.2, delay: i * .15, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
+      gsap.to(p, { yPercent: [-14, 10, -22][i], ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+  });
 })();

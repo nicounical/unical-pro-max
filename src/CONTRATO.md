@@ -112,3 +112,14 @@ Petición: «manteniendo ya las que he seleccionado antes que sean fijas, dame 5
 - Cada versión debe verse bien a 1440×860 y 390×844, sin errores de consola, con `prefers-reduced-motion`.
 
 **Pruebas sin saturar la memoria del equipo:** servidor ya activo en http://localhost:8765 (no lo arranques ni lo pares). Lanza `tools/shot.mjs` de uno en uno (nunca en paralelo), pocas capturas por versión. No hagas commit ni push. No toques ficheros de otras secciones ni el núcleo.
+
+## Ronda «Impacto sin tecnología» (2026-10-09) — manda sobre lo anterior
+Petición: «Has hecho cosas muy interesantes, pero puede que sea demasiado futurista y tecnológico para mi sector. Me interesa hacer cosas así de impactantes pero no tan tecnológicas, dame otras 5 versiones diferentes».
+
+- **No borres nada.** A (favorita) y B–F (futuristas) se quedan tal cual. Añade **5 versiones nuevas G, H, I, J, K** por sección (`data-v="G"`… con `hidden`, clases `xxx-g__`, `register("sec","G")`).
+- **Prohibido en esta ronda:** HUD, terminal/consola, escáner/láser, partículas, radar, holograma, glitch, scanlines, neón/glow, rejillas en perspectiva tipo Tron, texto que se «decodifica», cristal esmerilado como recurso principal, mono como protagonista.
+- **Dirección:** impacto de agencia premium pero **humano, físico y editorial**, ligado a un taller de impresión y rotulación: fotografía grande a sangre y vídeo real como protagonistas, tipografía gigante editorial (Poppins 800–900, composición tipo revista/cartel), collage y recortes, papel, tinta, vinilo, lona, cartón pluma, maquetas, montaje en obra, luz natural, sombras suaves, movimiento cinematográfico con scroll (reveals de máscara, parallax de capas, zoom de foto, cortinas, apilados, marquesinas tipográficas, galerías horizontales), cursor con foto, hover con imagen. Referencias: Pentagram, Collins, Locomotive, Studio Dumbar, Aesop, Apple (fotografía de producto), revistas como Kinfolk/Wallpaper, carteles suizos.
+- Fondos: puedes usar claros (`--u-paper #F4F6FA`, blanco, crema muy suave) además de navy/night; alterna con criterio. Acento azul de marca.
+- **No repitas ideas ya dadas** en rondas anteriores (revisa `git log -p` de tus ficheros: polaroids, vinilos que se despegan, muestrario Pantone, rollo de lona, persianas, split-flap, sellos, cinta transportadora, línea de metro, expediente, plotter, dominó, sobre, tarjeta 3D, orden de trabajo, etc.).
+- Mismo contenido/datos reales de la favorita A. Rendimiento, accesibilidad, 1440/390 y reduced-motion como siempre.
+- Pruebas: servidor en http://localhost:8765 ya activo (no lo arranques/pares; si se cae, usa uno propio en otro puerto 88xx y ciérralo al acabar). Capturas de una en una. Sin commit.

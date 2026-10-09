@@ -249,4 +249,80 @@
     });
     gsap.from(ux.$(".sec-f__laser i", root), { scaleX: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-f__body", root), start: "top 60%", once: true } });
   });
+
+  /* =========== Ronda «Impacto sin tecnología» · G–K =========== */
+
+  /* G · Índice con foto: lista editorial y una foto que sigue al cursor */
+  register("sectors", "G", (root, ux) => {
+    const rows = ux.$$(".sec-g__row", root);
+    if (!ux.reduce) gsap.from(rows, { y: 50, opacity: 0, duration: 1, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-g__list", root), start: "top 85%", once: true } });
+    if (!ux.fine) return;
+    const fl = ux.$(".sec-g__float", root), imgs = ux.$$("img", fl);
+    gsap.set(fl, { xPercent: -50, yPercent: -50, scale: .6 });
+    const qx = gsap.quickTo(fl, "x", { duration: .6, ease: "power3" }), qy = gsap.quickTo(fl, "y", { duration: .6, ease: "power3" });
+    const mv = e => { const r = root.getBoundingClientRect(); qx(e.clientX - r.left); qy(e.clientY - r.top); };
+    const on = i => { imgs.forEach((m, k) => m.classList.toggle("is-on", k === i)); gsap.to(fl, { opacity: 1, scale: 1, rotate: (i % 2 ? 4 : -4), duration: .5, ease: "expo.out" }); };
+    const off = () => gsap.to(fl, { opacity: 0, scale: .6, duration: .4, ease: "power2.in" });
+    const list = ux.$(".sec-g__list", root);
+    const enters = rows.map((r, i) => { const f = () => on(i); r.addEventListener("pointerenter", f); return f; });
+    root.addEventListener("pointermove", mv); list.addEventListener("pointerleave", off);
+    return () => { root.removeEventListener("pointermove", mv); list.removeEventListener("pointerleave", off); rows.forEach((r, i) => r.removeEventListener("pointerenter", enters[i])); };
+  });
+
+  /* H · Galería horizontal: la sección se fija y las fotos pasan de lado con el scroll */
+  register("sectors", "H", (root, ux) => {
+    if (ux.reduce || innerWidth <= 860) return;
+    const pin = ux.$(".sec-h__pin", root), track = ux.$(".sec-h__track", root);
+    const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+    gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .8, invalidateOnRefresh: true } });
+    gsap.from(ux.$$(".sec-h__card", root), { y: 80, opacity: 0, duration: 1.1, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: pin, start: "top 70%", once: true } });
+  });
+
+  /* I · Mosaico editorial: cada foto se destapa desde un lado distinto */
+  register("sectors", "I", (root, ux) => {
+    if (ux.reduce) return;
+    const from = ["inset(0% 100% 0% 0%)", "inset(100% 0% 0% 0%)", "inset(0% 0% 100% 0%)", "inset(0% 0% 0% 100%)"];
+    ux.$$(".sec-i__t", root).forEach((t, i) => {
+      const st = { trigger: t, start: "top 90%", once: true };
+      gsap.fromTo(t, { clipPath: from[i % 4] }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "expo.inOut", delay: (i % 3) * .08, scrollTrigger: st });
+      gsap.fromTo(ux.$(".sec-i__ph", t), { scale: 1.3 }, { scale: 1, duration: 1.8, ease: "expo.out", delay: (i % 3) * .08, scrollTrigger: st });
+      gsap.from(ux.$(".sec-i__name", t), { y: 30, opacity: 0, duration: .9, ease: "expo.out", delay: .5 + (i % 3) * .08, scrollTrigger: st });
+    });
+  });
+
+  /* J · Acordeón de fotos: se abre el sector con el ratón, el foco o un toque; avanza solo hasta que interactúas */
+  register("sectors", "J", (root, ux) => {
+    const items = ux.$$(".sec-j__s", root);
+    let cur = 0, timer = 0, touched = false;
+    const set = i => { cur = i; items.forEach((s, k) => { s.classList.toggle("is-on", k === i); ux.$(".sec-j__btn", s).setAttribute("aria-expanded", k === i ? "true" : "false"); }); };
+    const stopAuto = () => { touched = true; clearInterval(timer); };
+    const hs = items.map((s, i) => {
+      const b = ux.$(".sec-j__btn", s);
+      const act = () => { stopAuto(); set(i); };
+      b.addEventListener("click", act); b.addEventListener("focus", act);
+      if (ux.fine) s.addEventListener("pointerenter", act);
+      return { s, b, act };
+    });
+    if (!ux.reduce) {
+      const io = new IntersectionObserver(([e]) => { clearInterval(timer); if (e.isIntersecting && !touched) timer = setInterval(() => set((cur + 1) % items.length), 3200); });
+      io.observe(root);
+      gsap.from(items, { y: 60, opacity: 0, duration: 1, stagger: .05, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-j__row", root), start: "top 85%", once: true } });
+      return () => { io.disconnect(); clearInterval(timer); hs.forEach(({ s, b, act }) => { b.removeEventListener("click", act); b.removeEventListener("focus", act); s.removeEventListener("pointerenter", act); }); };
+    }
+    return () => hs.forEach(({ s, b, act }) => { b.removeEventListener("click", act); b.removeEventListener("focus", act); s.removeEventListener("pointerenter", act); });
+  });
+
+  /* K · Fotos a sangre: la foto fija a la izquierda cambia con un barrido según el sector que pasa por el centro */
+  register("sectors", "K", (root, ux) => {
+    const imgs = ux.$$(".sec-k__img", root), items = ux.$$(".sec-k__it", root), n = ux.$(".sec-k__count b", root);
+    let cur = -1;
+    const set = i => {
+      if (i === cur) return;
+      imgs.forEach((m, k) => { m.classList.toggle("was-on", k === cur); m.classList.toggle("is-on", k === i); });
+      items.forEach((it, k) => it.classList.toggle("is-on", k === i));
+      n.textContent = String(i + 1).padStart(2, "0"); cur = i;
+    };
+    set(0);
+    items.forEach((it, i) => ScrollTrigger.create({ trigger: it, start: "top 55%", end: "bottom 55%", onToggle: s => s.isActive && set(i) }));
+  });
 })();

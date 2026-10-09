@@ -171,6 +171,8 @@
     dBtns.setAttribute("aria-label", `Versión de ${curSec.dataset.label}`);
     dBtns.innerHTML = vs.map(x => `<button type="button" data-v="${x.dataset.v}" aria-pressed="${x.dataset.v === v}" title="${x.dataset.name}">${x.dataset.v}</button>`).join("");
     dName.textContent = vs.find(x => x.dataset.v === v)?.dataset.name || "";
+    const on = dBtns.querySelector('[aria-pressed="true"]');
+    if (on && dBtns.scrollWidth > dBtns.clientWidth) dBtns.scrollLeft = on.offsetLeft - dBtns.offsetLeft - dBtns.clientWidth / 2;
   }
   dBtns.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(curSec, b.dataset.v, true); });
   const pickSection = () => {

@@ -211,3 +211,95 @@
     return () => { off(); cards.forEach(c => c.removeEventListener("pointerleave", reset)); io.disconnect(); ro.disconnect(); cancelAnimationFrame(raf); run = false; root.removeEventListener("pointermove", pm); };
   });
 })();
+
+/* Proyectos · G–K: impacto editorial, sin recursos tecnológicos */
+(() => {
+  const { register, $, $$ } = UX;
+
+  /* ---------- G · Pliegos apilados ---------- */
+  register("work", "G", (root, ux) => {
+    const sheets = $$(".work-g__sheet", root);
+    if (ux.reduce) return;
+    sheets.forEach((s, i) => {
+      const next = sheets[i + 1];
+      if (next) gsap.to(s, { scale: .93, ease: "none", scrollTrigger: { trigger: next, start: "top bottom", end: () => "top " + (parseFloat(getComputedStyle(next).top) || 96) + "px", scrub: true, invalidateOnRefresh: true } });
+      gsap.from($("img", s), { scale: 1.18, ease: "none", scrollTrigger: { trigger: s, start: "top bottom", end: "top 30%", scrub: true } });
+    });
+  });
+
+  /* ---------- H · Zoom a sangre ---------- */
+  register("work", "H", (root, ux) => {
+    const pin = $(".work-h__pin", root), tiles = $$(".work-h__t", root), center = $(".work-h__t--c", root);
+    if (ux.reduce) { root.classList.add("is-static"); return () => root.classList.remove("is-static"); }
+    const gap = () => Math.max(10, innerWidth * .012);
+    const off = (t, k) => { const i = +t.dataset.i, c = i % 3 - 1, r = Math.floor(i / 3) - 1; return { x: c * (t.offsetWidth + gap()) * k, y: r * (t.offsetHeight + gap()) * k }; };
+    tiles.forEach(t => gsap.set(t, off(t, 1)));
+    const cover = () => Math.max(pin.offsetWidth / center.offsetWidth, pin.offsetHeight / center.offsetHeight) * 1.02;
+    const tl = gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: "+=170%", pin: true, scrub: .7, invalidateOnRefresh: true,
+      onRefresh: () => tiles.forEach(t => t !== center && gsap.set(t, off(t, 1))) } });
+    tl.to($(".work-h__head", root), { autoAlpha: 0, y: -40, duration: .25 }, 0)
+      .to(tiles.filter(t => t !== center), { x: (i, t) => off(t, 3.2).x, y: (i, t) => off(t, 3.2).y, autoAlpha: 0, duration: .7, ease: "power2.in" }, 0)
+      .to(center, { scale: cover, y: () => pin.offsetHeight * .5 - (center.offsetTop + center.offsetHeight / 2), borderRadius: 0, duration: .8, ease: "power2.inOut" }, .05)
+      .to($(".work-h__shade", root), { opacity: 1, duration: .3 }, .6)
+      .fromTo($(".work-h__over", root), { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .3 }, .7);
+    gsap.from($(".work-h__grid", root), { scale: .9, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: pin, start: "top 75%" } });
+  });
+
+  /* ---------- I · Collage recortado ---------- */
+  register("work", "I", (root, ux) => {
+    const cuts = $$(".work-i__cut", root);
+    if (ux.reduce) return;
+    gsap.from(cuts, { y: 90, rotate: (i) => (i % 2 ? 8 : -8), opacity: 0, duration: 1.1, stagger: .08, ease: "expo.out", clearProps: "opacity", scrollTrigger: { trigger: $(".work-i__board", root), start: "top 80%" } });
+    const mm = gsap.matchMedia();
+    mm.add("(min-width:801px)", () => {
+      cuts.forEach((c, i) => {
+        const s = [.6, -.4, 1, -.7, .3, .9, -.5, .5][i] || .4;
+        gsap.fromTo(c, { yPercent: s * 14 }, { yPercent: -s * 14, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+      });
+      gsap.fromTo($(".work-i__bg", root), { xPercent: -42 }, { xPercent: -58, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+    return () => mm.revert();
+  });
+
+  /* ---------- J · Doble marquesina ---------- */
+  register("work", "J", (root, ux) => {
+    const rows = $$(".work-j__row", root).map(r => ({ r, t: $(".work-j__track", r), set: $(".work-j__set", r), dir: +r.dataset.dir, x: 0, hold: false }));
+    if (ux.reduce) { rows.forEach(o => { o.r.style.overflowX = "auto"; }); return () => rows.forEach(o => { o.r.style.overflowX = ""; }); }
+    let vel = 0, on = false;
+    const st = ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onUpdate: s => { vel = Math.min(Math.abs(s.getVelocity()) / 250, 8); } });
+    const ent = [], lv = [];
+    rows.forEach(o => {
+      const a = () => o.hold = true, b = () => o.hold = false;
+      o.r.addEventListener("pointerenter", a); o.r.addEventListener("pointerleave", b);
+      o.r.addEventListener("focusin", a); o.r.addEventListener("focusout", b);
+      ent.push([o.r, a, b]);
+    });
+    const tick = (t, dt) => {
+      if (!on) return;
+      vel *= .92;
+      rows.forEach((o, i) => {
+        const w = o.set.offsetWidth; if (!w) return;
+        const base = o.r.classList.contains("work-j__row--type") ? .9 : .55;
+        const sp = o.hold ? 0 : base * (1 + vel) * (dt / 16.7);
+        o.x = (o.x + o.dir * sp) % w;
+        const x = o.dir < 0 ? o.x : o.x - w;
+        o.t.style.transform = `translate3d(${x}px,0,0)`;
+      });
+    };
+    gsap.ticker.add(tick);
+    const io = new IntersectionObserver(([e]) => on = e.isIntersecting); io.observe(root);
+    return () => { gsap.ticker.remove(tick); io.disconnect(); st.kill(); ent.forEach(([r, a, b]) => { r.removeEventListener("pointerenter", a); r.removeEventListener("pointerleave", b); r.removeEventListener("focusin", a); r.removeEventListener("focusout", b); }); };
+  });
+
+  /* ---------- K · Muro editorial ---------- */
+  register("work", "K", (root, ux) => {
+    if (ux.reduce) return;
+    gsap.from($(".work-k__head", root), { opacity: 0, y: 40, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
+    $$(".work-k__ph", root).forEach(ph => {
+      gsap.timeline({ scrollTrigger: { trigger: ph, start: "top 90%" } })
+        .fromTo(ph, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "expo.inOut" })
+        .fromTo($("img", ph), { scale: 1.3, transition: "none" }, { scale: 1, duration: 1.6, ease: "expo.out", clearProps: "transform,transition" }, .1);
+    });
+    $$(".work-k__q", root).forEach(q => gsap.from(q.children.length ? q.firstElementChild : q, { yPercent: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: q, start: "top 85%" } }));
+  });
+})();

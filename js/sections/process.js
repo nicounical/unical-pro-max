@@ -203,3 +203,76 @@
     return () => { loop.stop(); items.forEach(li => li.classList.remove("on")); };
   });
 })();
+
+/* Cómo trabajamos · G–K: impacto editorial, sin recursos tecnológicos */
+(() => {
+  const { register, $, $$ } = UX;
+
+  /* ---------- G · Carteles numerados ---------- */
+  register("process", "G", (root, ux) => {
+    const ps = $$(".process-g__p", root);
+    const open = p => ps.forEach(q => { const on = q === p; q.classList.toggle("is-on", on); $(".process-g__btn", q).setAttribute("aria-expanded", on); });
+    const offs = [];
+    ps.forEach(p => {
+      const b = $(".process-g__btn", p), c = () => open(p), h = () => ux.fine && open(p);
+      b.addEventListener("click", c); p.addEventListener("pointerenter", h);
+      offs.push(() => { b.removeEventListener("click", c); p.removeEventListener("pointerenter", h); });
+    });
+    if (!ux.reduce) gsap.from(ps, { y: 80, opacity: 0, duration: 1.1, stagger: .09, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: $(".process-g__row", root), start: "top 82%" } });
+    return () => offs.forEach(f => f());
+  });
+
+  /* ---------- H · Relato con foto fija ---------- */
+  register("process", "H", (root, ux) => {
+    const steps = $$(".process-h__step", root), phs = $$(".process-h__ph", root), cap = $(".process-h__cap b", root);
+    const set = i => { steps.forEach((s, k) => s.classList.toggle("is-on", k === i)); phs.forEach((p, k) => p.classList.toggle("is-on", k <= i)); cap.textContent = "0" + (i + 1); };
+    set(0);
+    steps.forEach((s, i) => ScrollTrigger.create({ trigger: s, start: "top 55%", end: "bottom 55%", onToggle: e => e.isActive && set(i) }));
+  });
+
+  /* ---------- I · Palabras gigantes ---------- */
+  register("process", "I", (root, ux) => {
+    const pin = $(".process-i__pin", root), track = $(".process-i__track", root);
+    if (ux.reduce) { root.classList.add("is-static"); return () => root.classList.remove("is-static"); }
+    const mm = gsap.matchMedia();
+    mm.add("(max-width:800px)", () => {
+      root.classList.add("is-static");
+      $$(".process-i__panel", root).forEach(p => gsap.from(p, { y: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 85%" } }));
+      return () => root.classList.remove("is-static");
+    });
+    mm.add("(min-width:801px)", () => {
+      const dist = () => Math.max(0, track.scrollWidth - pin.offsetWidth);
+      gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true } })
+        .to(track, { x: () => -dist(), ease: "none" }, 0)
+        .to($(".process-i__bar i", root), { scaleX: 1, ease: "none" }, 0);
+    });
+    return () => mm.revert();
+  });
+
+  /* ---------- J · Bandas impresas ---------- */
+  register("process", "J", (root, ux) => {
+    const rows = $$(".process-j__row", root);
+    if (ux.reduce) { rows.forEach(r => { r.classList.add("is-on"); $(".process-j__band", r).style.clipPath = "inset(0 0 0 0)"; }); return; }
+    rows.forEach(r => {
+      gsap.fromTo($(".process-j__band", r), { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none",
+        scrollTrigger: { trigger: r, start: "top 78%", end: "top 38%", scrub: .5, onUpdate: s => r.classList.toggle("is-on", s.progress > .5) } });
+      gsap.fromTo($("img", r), { scale: 1.25 }, { scale: 1, ease: "none", scrollTrigger: { trigger: r, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+  });
+
+  /* ---------- K · Registro CMYK ---------- */
+  register("process", "K", (root, ux) => {
+    const pin = $(".process-k__pin", root), steps = $$(".process-k__step", root), pct = $(".process-k__sheet figcaption b", root);
+    const [c, m, y] = ["c", "m", "y"].map(k => $(".process-k__pl--" + k, root));
+    const set = i => steps.forEach((s, k) => s.classList.toggle("is-on", k === i));
+    if (ux.reduce) { root.classList.add("is-static"); set(3); pct.textContent = "100%"; return () => root.classList.remove("is-static"); }
+    set(0);
+    const o = () => Math.max(14, pin.offsetWidth * .022);
+    const tl = gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: "+=260%", pin: true, scrub: .6, invalidateOnRefresh: true,
+      onUpdate: s => { set(Math.min(3, Math.floor(s.progress * 4))); pct.textContent = Math.round(s.progress * 100) + "%"; } } });
+    tl.fromTo(c, { opacity: 0, x: () => -o() * 2, y: () => -o() }, { opacity: 1, x: () => -o(), y: () => -o() * .6, duration: 1 }, 0)
+      .fromTo(m, { opacity: 0, x: () => o() * 2, y: () => o() }, { opacity: 1, x: () => o(), y: () => o() * .5, duration: 1 }, 1)
+      .fromTo(y, { opacity: 0, x: () => o() * .4, y: () => o() * 2 }, { opacity: 1, x: () => -o() * .3, y: () => o(), duration: 1 }, 2)
+      .to([c, m, y], { x: 0, y: 0, duration: 1, ease: "power2.inOut" }, 3);
+  });
+})();

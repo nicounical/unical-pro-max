@@ -151,4 +151,95 @@
     gsap.from(nodes, { autoAlpha: 0, scale: .9, duration: 1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: stage, start: "top 70%" } });
     return () => offs.forEach(f => f());
   });
+
+  /* =====================================================================
+     Ronda «Impacto sin tecnología» · G–K
+     ===================================================================== */
+  const isDesk = () => matchMedia("(min-width: 861px)").matches;
+
+  /* ---------- G · Acordeón de fotos ---------- */
+  register("manifesto", "G", (root, ux) => {
+    const panels = ux.$$(".man-acc__panel", root);
+    const open = p => panels.forEach(x => x.classList.toggle("is-open", x === p));
+    const offs = [];
+    panels.forEach(p => {
+      const on = () => open(p);
+      p.addEventListener("pointerenter", on); p.addEventListener("focus", on); p.addEventListener("click", on);
+      offs.push(() => { p.removeEventListener("pointerenter", on); p.removeEventListener("focus", on); p.removeEventListener("click", on); });
+    });
+    if (!ux.reduce) {
+      gsap.from(panels, { clipPath: "inset(100% 0% 0% 0% round 18px)", duration: 1.3, stagger: .1, ease: "expo.inOut", scrollTrigger: { trigger: ux.$(".man-acc__row", root), start: "top 80%" } });
+    }
+    return () => offs.forEach(f => f());
+  });
+
+  /* ---------- H · Galería horizontal ---------- */
+  register("manifesto", "H", (root, ux) => {
+    const pin = ux.$(".man-gal__pin", root), track = ux.$(".man-gal__track", root), bar = ux.$(".man-gal__bar i", root);
+    if (ux.reduce || !isDesk()) { root.classList.add("man-gal--static"); return () => root.classList.remove("man-gal--static"); }
+    const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+    const tw = gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: {
+      trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true,
+      onUpdate: s => gsap.set(bar, { scaleX: s.progress })
+    } });
+    // Cada foto se «asienta» (zoom de 1.15 a 1) al cruzar la pantalla
+    ux.$$(".man-gal__card img", root).forEach(img => {
+      gsap.to(img, { scale: 1, ease: "none", scrollTrigger: { trigger: img, containerAnimation: tw, start: "left right", end: "center center", scrub: true } });
+    });
+    gsap.from(ux.$$(".man-gal__intro > *", root), { y: 40, autoAlpha: 0, duration: 1, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
+  });
+
+  /* ---------- I · Láminas apiladas ---------- */
+  register("manifesto", "I", (root, ux) => {
+    const cards = ux.$$(".man-stack__card", root);
+    if (ux.reduce) return;
+    // Cuando llega la siguiente lámina, la anterior se hunde un poco hacia el fondo
+    cards.slice(0, -1).forEach((c, i) => {
+      gsap.to(c, { scale: .95, filter: "brightness(.92)", ease: "none", scrollTrigger: { trigger: cards[i + 1], start: "top bottom", end: () => `top ${96 + (i + 1) * 22}px`, scrub: true } });
+    });
+    cards.forEach(c => {
+      const img = ux.$("img", c);
+      gsap.fromTo(img, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: c, start: "top bottom", end: "top 30%", scrub: true } });
+    });
+  });
+
+  /* ---------- J · Lista con foto al cursor ---------- */
+  register("manifesto", "J", (root, ux) => {
+    const items = ux.$$(".man-list__it", root), list = ux.$(".man-list__items", root);
+    const float = ux.$(".man-list__float", root), img = ux.$("img", float);
+    if (!ux.fine || !isDesk()) return;
+    const qx = gsap.quickTo(float, "x", { duration: .7, ease: "power3" }), qy = gsap.quickTo(float, "y", { duration: .7, ease: "power3" });
+    const qr = gsap.quickTo(float, "rotation", { duration: .9, ease: "power3" });
+    let lastX = 0;
+    const move = e => {
+      const w = float.offsetWidth, h = float.offsetHeight;
+      qx(e.clientX - w / 2); qy(e.clientY - h / 2); qr(gsap.utils.clamp(-10, 10, (e.clientX - lastX) * .6)); lastX = e.clientX;
+    };
+    const show = it => () => {
+      if (img.getAttribute("src") !== it.dataset.img) img.src = it.dataset.img;
+      gsap.to(float, { autoAlpha: 1, scale: 1, duration: .5, ease: "expo.out", overwrite: "auto" });
+    };
+    const hide = () => gsap.to(float, { autoAlpha: 0, scale: .6, duration: .4, ease: "power2.in", overwrite: "auto" });
+    gsap.set(float, { scale: .6 });
+    const offs = items.map(it => { const f = show(it); it.addEventListener("pointerenter", f); return () => it.removeEventListener("pointerenter", f); });
+    list.addEventListener("pointerleave", hide);
+    addEventListener("pointermove", move, { passive: true });
+    addEventListener("scroll", hide, { passive: true });
+    return () => { offs.forEach(f => f()); list.removeEventListener("pointerleave", hide); removeEventListener("pointermove", move); removeEventListener("scroll", hide); gsap.set(float, { autoAlpha: 0 }); };
+  });
+
+  /* ---------- K · Ventana que se abre ---------- */
+  register("manifesto", "K", (root, ux) => {
+    if (ux.reduce || !isDesk()) { root.classList.add("man-win--static"); return () => root.classList.remove("man-win--static"); }
+    const win = ux.$(".man-win__window", root), img = ux.$("img", win);
+    const [l, r] = ux.$$(".man-win__half", root), over = ux.$(".man-win__over", root);
+    gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .7 } })
+      .to(l, { yPercent: -160, autoAlpha: 0, ease: "power2.in", duration: .5 }, .05)
+      .to(r, { yPercent: 160, autoAlpha: 0, ease: "power2.in", duration: .5 }, .05)
+      .to(win, { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "power2.inOut", duration: .6 }, 0)
+      .to(img, { scale: 1, ease: "none", duration: .8 }, 0)
+      .to(ux.$(".man-win__shade", root), { opacity: 1, duration: .25 }, .5)
+      .to(over, { autoAlpha: 1, duration: .2 }, .58)
+      .from(ux.$$(".man-win__label, .man-win__grid li, .man-win__foot", root), { y: 40, autoAlpha: 0, stagger: .04, duration: .25 }, .6);
+  });
 })();

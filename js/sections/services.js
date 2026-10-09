@@ -273,4 +273,93 @@
     } else drawn = true;
     return () => { ac.abort(); ro.disconnect(); g.innerHTML = ""; };
   });
+
+  /* ===== Ronda «Impacto sin tecnología» ===== */
+
+  /* G · Revista: la foto se descubre con una máscara y hace un zoom lento; el texto entra por líneas */
+  register("services", "G", (root, ux) => {
+    if (ux.reduce) return;
+    ux.$$(".services-g__spread", root).forEach((sp, i) => {
+      const fig = ux.$(".services-g__fig", sp), img = ux.$("img", sp);
+      const from = sp.classList.contains("services-g__spread--r") ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)";
+      gsap.fromTo(fig, { clipPath: from }, { clipPath: "inset(0 0% 0 0%)", duration: 1.4, ease: "expo.inOut", scrollTrigger: { trigger: sp, start: "top 78%" } });
+      gsap.fromTo(img, { scale: 1.3 }, { scale: 1, duration: 2, ease: "expo.out", scrollTrigger: { trigger: sp, start: "top 78%" } });
+      gsap.fromTo(img, { yPercent: -4 }, { yPercent: 4, ease: "none", scrollTrigger: { trigger: sp, start: "top bottom", end: "bottom top", scrub: true } });
+      gsap.from(ux.$$(".services-g__txt > *", sp), { y: 50, opacity: 0, duration: 1, stagger: .08, ease: "expo.out", delay: .35, scrollTrigger: { trigger: sp, start: "top 78%" } });
+    });
+  });
+
+  /* H · Marquesina con foto: cada fila corre en su sentido y se acelera con el scroll */
+  register("services", "H", (root, ux) => {
+    const rows = ux.$$(".services-h__row", root);
+    if (ux.reduce) return;
+    const ac = new AbortController(), sig = { signal: ac.signal };
+    const tweens = rows.map((r, i) => {
+      const tr = ux.$(".services-h__track", r);
+      const dir = i % 2 ? 1 : -1;
+      const tw = gsap.fromTo(tr, { xPercent: dir < 0 ? 0 : -50 }, { xPercent: dir < 0 ? -50 : 0, duration: 26 + i * 3, ease: "none", repeat: -1 });
+      const a = ux.$("a", r);
+      a.addEventListener("pointerenter", () => gsap.to(tw, { timeScale: .15, duration: .6 }), sig);
+      a.addEventListener("pointerleave", () => gsap.to(tw, { timeScale: 1, duration: .6 }), sig);
+      return tw;
+    });
+    let boost = 0;
+    ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onUpdate: s => {
+      const v = Math.min(Math.abs(s.getVelocity()) / 400, 4);
+      if (v > boost) { boost = v; tweens.forEach(t => t.timeScale(1 + v)); gsap.to({}, { duration: .5, onComplete: () => { boost = 0; tweens.forEach(t => gsap.to(t, { timeScale: 1, duration: .8 })); } }); }
+    } });
+    ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onToggle: s => tweens.forEach(t => s.isActive ? t.play() : t.pause()) });
+    gsap.from(rows, { yPercent: 100, opacity: 0, duration: 1.1, stagger: .07, ease: "expo.out", scrollTrigger: { trigger: ux.$(".services-h__list", root), start: "top 80%" } });
+    return () => ac.abort();
+  });
+
+  /* I · Zoom de capítulos: la ventana de cada foto se abre hasta llenar la pantalla */
+  register("services", "I", (root, ux) => {
+    const chs = ux.$$(".services-i__ch", root), nav = ux.$$(".services-i__nav li", root);
+    const pin = ux.$(".services-i__pin", root);
+    const setNav = n => nav.forEach((li, i) => li.classList.toggle("is-on", i === n));
+    setNav(0);
+    if (ux.reduce || innerWidth <= 860) {
+      if (!ux.reduce) chs.forEach(ch => gsap.from(ch, { y: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ch, start: "top 85%" } }));
+      return;
+    }
+    const wins = chs.map(c => ux.$(".services-i__win", c)), imgs = chs.map(c => ux.$("img", c)), caps = chs.map(c => ux.$(".services-i__cap", c));
+    gsap.set(wins, { "--ct": "30%", "--cs": "37%", "--cb": "30%" });
+    gsap.set(imgs, { "--sc": 1.3 });
+    gsap.set(caps, { autoAlpha: 0, y: 40 });
+    gsap.set(chs, { zIndex: i => i + 1 });
+    gsap.set(chs.slice(1), { autoAlpha: 0 });
+    const tl = gsap.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + innerHeight * chs.length * 1.1, pin: true, scrub: .6, invalidateOnRefresh: true,
+      onUpdate: s => setNav(Math.min(chs.length - 1, Math.floor(s.progress * chs.length * .999))) } });
+    chs.forEach((ch, i) => {
+      const t = i * 1;
+      if (i) tl.to(ch, { autoAlpha: 1, duration: .05 }, t);
+      tl.to(wins[i], { "--ct": "0%", "--cs": "0%", "--cb": "0%", duration: .55 }, t)
+        .to(imgs[i], { "--sc": 1, duration: .8 }, t)
+        .to(caps[i], { autoAlpha: 1, y: 0, duration: .25 }, t + .45);
+      if (i < chs.length - 1) tl.to(caps[i], { autoAlpha: 0, y: -30, duration: .15 }, t + .85);
+    });
+  });
+
+  /* J · Galería horizontal: el carril se desplaza de lado mientras la sección queda fija */
+  register("services", "J", (root, ux) => {
+    const rail = ux.$(".services-j__rail", root), pin = ux.$(".services-j__pin", root);
+    const imgs = ux.$$(".services-j__img img", root);
+    if (ux.reduce || innerWidth <= 860 || !ux.fine && innerWidth < 1024) return;
+    const dist = () => Math.max(0, rail.scrollWidth - innerWidth);
+    const tw = gsap.to(rail, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .8, invalidateOnRefresh: true } });
+    imgs.forEach(img => gsap.fromTo(img, { xPercent: 6 }, { xPercent: -6, ease: "none", scrollTrigger: { trigger: img.closest("li"), containerAnimation: tw, start: "left right", end: "right left", scrub: true } }));
+    gsap.from(ux.$$(".services-j__card", root), { y: 80, opacity: 0, duration: 1.1, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: pin, start: "top 70%" } });
+  });
+
+  /* K · Pliegos de imprenta: los pliegos salen de la máquina uno tras otro y se asientan torcidos */
+  register("services", "K", (root, ux) => {
+    if (ux.reduce) return;
+    const sheets = ux.$$(".services-k__sheet", root);
+    sheets.forEach((s, i) => {
+      gsap.fromTo(s, { y: 160, rotate: (i % 2 ? 6 : -6), opacity: 0 }, { y: 0, rotate: 0, opacity: 1, duration: 1.2, delay: (i % 3) * .12, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 92%" } });
+      const img = ux.$(".services-k__img img", s);
+      gsap.fromTo(img, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 1.3, delay: .25 + (i % 3) * .12, ease: "power2.inOut", scrollTrigger: { trigger: s, start: "top 92%" } });
+    });
+  });
 })();

@@ -190,4 +190,62 @@
     const stop = whileVisible(stage, draw, v);
     return () => { off(); stop(); };
   });
+
+  /* ===== Ronda «Impacto sin tecnología» ===== */
+
+  /* G · Telón: los dos paños se abren con el scroll y el vídeo se acerca */
+  register("reel", "G", (root, ux) => {
+    const pin = ux.$(".reel-g__pin", root), L = ux.$(".reel-g__curtain--l", root), R = ux.$(".reel-g__curtain--r", root);
+    const vid = ux.$(".reel-g__video video", root), mid = ux.$(".reel-g__mid", root);
+    if (ux.reduce) { gsap.set([L, R], { autoAlpha: 0 }); gsap.set(vid, { scale: 1 }); return; }
+    gsap.set(mid, { autoAlpha: 0, y: 30 });
+    gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: "+=130%", pin: true, scrub: .8 } })
+      .to(L, { xPercent: -101, skewY: 2, ease: "power2.inOut", duration: 1 }, 0)
+      .to(R, { xPercent: 101, skewY: -2, ease: "power2.inOut", duration: 1 }, 0)
+      .to(vid, { scale: 1, ease: "power2.out", duration: 1 }, 0)
+      .to(mid, { autoAlpha: 1, y: 0, duration: .3 }, .75);
+  });
+
+  /* H · Hoja de contactos: la hoja entra, los fotogramas se revelan y el lápiz rodea el reel */
+  register("reel", "H", (root, ux) => {
+    const path = ux.$(".reel-h__mark path", root), cells = ux.$$(".reel-h__cell", root);
+    if (ux.reduce) return;
+    gsap.set(path, { strokeDashoffset: 1 });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: ux.$(".reel-h__sheet", root), start: "top 72%" } });
+    tl.from(ux.$(".reel-h__sheet", root), { y: 80, rotate: -3, opacity: 0, duration: 1.2, ease: "expo.out" })
+      .from(cells, { opacity: 0, filter: "brightness(3)", duration: .7, stagger: { each: .06, from: "random" }, ease: "power2.out" }, .3)
+      .to(path, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, "-=.2")
+      .from(ux.$(".reel-h__play", root), { scale: 0, duration: .5, ease: "back.out(2)" }, "-=.3");
+  });
+
+  /* I · Cartel de estreno: el cartel cae al sitio y los créditos aparecen uno a uno */
+  register("reel", "I", (root, ux) => {
+    if (ux.reduce) return;
+    const poster = ux.$(".reel-i__poster", root);
+    gsap.from(poster, { clipPath: "inset(100% 0 0 0)", duration: 1.4, ease: "expo.inOut", scrollTrigger: { trigger: root, start: "top 70%" } });
+    gsap.from(ux.$("video", poster), { scale: 1.35, duration: 2, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
+    gsap.from(ux.$$(".reel-i__credits > div", root), { y: 30, opacity: 0, duration: .8, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: ux.$(".reel-i__credits", root), start: "top 85%" } });
+    gsap.fromTo(ux.$(".reel-i__ptitle", root), { yPercent: 30 }, { yPercent: -10, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
+  });
+
+  /* J · Subtítulos: frases que se suceden sobre el vídeo fijo */
+  register("reel", "J", (root, ux) => {
+    const lines = ux.$$(".reel-j__line", root), pin = ux.$(".reel-j__pin", root);
+    if (ux.reduce) return;
+    gsap.set(lines, { autoAlpha: 0, yPercent: 40 });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + innerHeight * 2.4, pin: true, scrub: .6, invalidateOnRefresh: true } });
+    lines.forEach((l, i) => {
+      tl.to(l, { autoAlpha: 1, yPercent: 0, duration: .4, ease: "power2.out" }, i);
+      if (i < lines.length - 1) tl.to(l, { autoAlpha: 0, yPercent: -40, duration: .35, ease: "power2.in" }, i + .65);
+    });
+    tl.to(ux.$(".reel-j__video video", root), { scale: 1.12, ease: "none", duration: lines.length }, 0);
+  });
+
+  /* K · Galería de arte: el cuadro se cuelga con un leve balanceo y la cartela llega después */
+  register("reel", "K", (root, ux) => {
+    if (ux.reduce) return;
+    const fr = ux.$(".reel-k__frame", root);
+    gsap.from(fr, { y: -60, rotate: -2.5, opacity: 0, duration: 1.6, ease: "elastic.out(1,.55)", transformOrigin: "50% 0%", scrollTrigger: { trigger: fr, start: "top 80%" } });
+    gsap.from(ux.$(".reel-k__card", root), { x: 40, opacity: 0, duration: 1, delay: .5, ease: "expo.out", scrollTrigger: { trigger: fr, start: "top 80%" } });
+  });
 })();

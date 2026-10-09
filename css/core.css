@@ -158,3 +158,5 @@ body.no-dock .dock,body.no-dock .board{display:none!important}
   .rv{opacity:1;transform:none}
 }
 .no-gsap .rv{opacity:1;transform:none}
+/* Con 11 versiones el selector no cabe en móvil: botones algo menores y difuminado lateral que indica que se desliza */
+@media (max-width:600px){.dock__btns{gap:1px;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent);padding-right:18px}.dock__btns button{width:31px;height:34px}}
