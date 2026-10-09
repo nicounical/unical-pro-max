@@ -23,22 +23,37 @@
 
   /* ---------- B · Vídeo en letras ---------- */
   register("hero", "B", (root, ux) => {
-    const knock = ux.$(".hero-b__knock", root), words = ux.$$(".hero-b__word", root);
+    const layers = ux.$$(".hero-b__knock, .hero-b__stroke", root), stroke = ux.$(".hero-b__stroke", root);
+    const words = ux.$$(".hero-b__word", root), img = ux.$(".hero-b__img", root);
     const copy = ux.$$(".hero-b__kicker, .hero-b__h1, .hero-b__ctas", root);
     if (ux.reduce) return;
     gsap.set(words, { yPercent: 40, autoAlpha: 0 });
     gsap.set(copy, { y: 30, autoAlpha: 0 });
+    // Vídeo del Lexus: arranca desde el principio al terminar la precarga, con un zoom de entrada
+    gsap.set(img, { scale: 1.18 });
+    const breathe = { kill() {} };
     const intro = gsap.timeline({ paused: true })
-      .to(words, { yPercent: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: "expo.out" })
-      .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, "<.5");
-    // La primera imagen dentro de las letras es siempre el Lexus: el vídeo arranca desde 0 al terminar la precarga
-    const vid = ux.$(".hero-b__video", root);
-    ux.onIntro(() => { if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); } intro.play(); });
+      .add(() => { img.currentTime = 0; img.play().catch(() => {}); })
+      .to(img, { scale: 1.04, duration: 2.6, ease: "expo.out" }, 0)
+      .to(words, { yPercent: 0, autoAlpha: 1, duration: 1.4, stagger: .06, ease: "expo.out" }, .1)
+      .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, .6);
+    ux.onIntro(() => intro.play());
+    // Parallax suave con el ratón
+    let off;
+    if (ux.fine) {
+      const mx = gsap.quickTo(ux.$(".hero-b__media", root), "x", { duration: 1.2, ease: "power3" });
+      const my = gsap.quickTo(ux.$(".hero-b__media", root), "y", { duration: 1.2, ease: "power3" });
+      const move = e => { mx((e.clientX / innerWidth - .5) * -26); my((e.clientY / innerHeight - .5) * -18); };
+      addEventListener("pointermove", move, { passive: true });
+      off = () => removeEventListener("pointermove", move);
+    }
     gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .6 } })
-      .to(knock, { scale: 28, ease: "power2.in", duration: 1 }, 0)
-      .to(knock, { autoAlpha: 0, duration: .15 }, .85)
+      .to(layers, { scale: 28, ease: "power2.in", duration: 1 }, 0)
+      .to(stroke, { autoAlpha: 0, duration: .2 }, .25)
+      .to(layers, { autoAlpha: 0, duration: .15 }, .85)
       .to(ux.$(".hero-b__hint", root), { autoAlpha: 0, duration: .2 }, 0)
       .to(copy, { y: -20, ease: "none", duration: 1 }, 0);
+    return () => { off && off(); breathe.kill(); };
   });
 
   /* ---------- C · Mosaico ---------- */

@@ -1,146 +1,131 @@
-<section class="opt-sec" id="cifras" data-sec="numbers" data-label="Cifras" data-default="C">
+<section class="opt-sec" id="cifras" data-sec="numbers" data-label="Cifras">
 
-  <!-- A · Recorrido horizontal -->
-  <div class="variant num-a" data-v="A" data-name="Horizontal" data-theme="dark">
-    <div class="num-a__pin">
-      <div class="num-a__track">
-        <div class="num-a__intro">
+  <!-- A · Odómetro (la favorita) -->
+  <div class="variant num-a" data-v="A" data-name="Odómetro" data-theme="dark">
+    <video class="num-a__bg" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+    <div class="num-a__shade" aria-hidden="true"></div>
+    <div class="wrap num-a__in">
+      <p class="mono label">Por qué elegirnos</p>
+      <h2 class="big num-a__title num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+      <p class="lead num-a__lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+      <div class="num-a__list">
+        <div class="num-a__row"><div class="num-a__odo" data-odo="25" data-suffix="+" aria-label="Más de 25"></div><p>años de experiencia</p></div>
+        <div class="num-a__row"><div class="num-a__odo" data-odo="3000" data-suffix="+" aria-label="Más de 3.000"></div><p>proyectos entregados</p></div>
+        <div class="num-a__row"><div class="num-a__odo" data-odo="40" data-suffix="+" aria-label="Más de 40"></div><p>sectores atendidos</p></div>
+        <div class="num-a__row"><p class="num-a__word">3M <span class="acc">·</span> Avery</p><p>instaladores certificados</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B · Etiquetas de plotter -->
+  <div class="variant num-b" data-v="B" data-name="Plotter" data-theme="light" hidden>
+    <div class="wrap">
+      <div class="num-b__head">
+        <div>
           <p class="mono label">Por qué elegirnos</p>
           <h2 class="big num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
-          <p class="lead num-lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
         </div>
-        <div class="num-a__num"><b data-count="25" data-count-manual>25</b><sup>+</sup><span>años de experiencia</span></div>
-        <figure class="num-a__clip"><video src="assets/video/v-lexus-2.mp4" poster="assets/video/v-lexus-2.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Lexus · wrapping integral</figcaption></figure>
-        <div class="num-a__num"><b data-count="3000" data-count-manual>3.000</b><sup>+</sup><span>proyectos entregados</span></div>
-        <figure class="num-a__clip num-a__clip--wide"><img src="assets/img/proyectos/disney.webp" alt="Evento Disney producido por Unical" loading="lazy"><figcaption class="mono">Disney · evento</figcaption></figure>
-        <div class="num-a__num"><b data-count="40" data-count-manual>40</b><sup>+</sup><span>sectores atendidos</span></div>
-        <figure class="num-a__clip"><video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><figcaption class="mono">Showroom Lexus</figcaption></figure>
-        <div class="num-a__cert">
-          <p class="num-a__certn">3M <span class="acc">·</span> Avery</p>
-          <p class="mono">Instaladores certificados</p>
-          <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"></div>
-        </div>
+        <p class="lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
       </div>
-      <div class="num-a__progress" aria-hidden="true"><i></i></div>
+      <div class="num-b__machine" aria-hidden="true">
+        <div class="num-b__rail"><span class="num-b__brand mono">UNICAL · PLOTTER 01</span><span class="num-b__led"></span></div>
+        <div class="num-b__head-print"><i></i></div>
+      </div>
+      <ul class="num-b__labels">
+        <li class="num-b__label"><span class="num-b__tape" aria-hidden="true"></span><span class="mono num-b__lot">Lote 01 · Oficio</span><b><span data-count="25" data-count-manual>25</span><sup>+</sup></b><span class="num-b__txt">años de experiencia</span><span class="num-b__bar" aria-hidden="true"></span></li>
+        <li class="num-b__label"><span class="num-b__tape" aria-hidden="true"></span><span class="mono num-b__lot">Lote 02 · Entregas</span><b><span data-count="3000" data-count-manual>3.000</span><sup>+</sup></b><span class="num-b__txt">proyectos entregados</span><span class="num-b__bar" aria-hidden="true"></span></li>
+        <li class="num-b__label"><span class="num-b__tape" aria-hidden="true"></span><span class="mono num-b__lot">Lote 03 · Sectores</span><b><span data-count="40" data-count-manual>40</span><sup>+</sup></b><span class="num-b__txt">sectores atendidos</span><span class="num-b__bar" aria-hidden="true"></span></li>
+        <li class="num-b__label num-b__label--cert"><span class="num-b__tape" aria-hidden="true"></span><span class="mono num-b__lot">Lote 04 · Certificado</span><b>3M · Avery</b><span class="num-b__txt">instaladores certificados</span><span class="num-b__bar" aria-hidden="true"></span></li>
+      </ul>
     </div>
   </div>
 
-  <!-- B · Rejilla 2×2 con gráficos -->
-  <div class="variant num-b" data-v="B" data-name="Rejilla 2×2" data-theme="light" hidden>
+  <!-- C · Cifras con foto dentro -->
+  <div class="variant num-c" data-v="C" data-name="Foto en cifras" data-theme="dark" hidden>
     <div class="wrap">
-      <header class="num-b__head">
-        <p class="mono label">Por qué elegirnos</p>
-        <h2 class="big rv num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
-        <p class="lead rv num-lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
-      </header>
-      <div class="num-b__grid">
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="25">0</b><sup>+</sup></p>
-          <p class="num-b__t">años de experiencia</p>
-          <div class="num-b__bar" style="--to:.25"><i></i></div>
-          <p class="num-b__f mono">Taller en Cabrera de Mar</p>
-        </article>
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="3000">0</b><sup>+</sup></p>
-          <p class="num-b__t">proyectos entregados</p>
-          <div class="num-b__dots" data-n="100" aria-hidden="true"></div>
-          <p class="num-b__f mono">Cada punto, 30 proyectos</p>
-        </article>
-        <article class="num-b__cell rv">
-          <p class="num-b__n"><b data-count="40">0</b><sup>+</sup></p>
-          <p class="num-b__t">sectores atendidos</p>
-          <div class="num-b__dots num-b__dots--sq" data-n="40" aria-hidden="true"></div>
-          <p class="num-b__f mono">Vehículos · ferias · retail · pharma…</p>
-        </article>
-        <article class="num-b__cell num-b__cell--cert rv">
-          <p class="num-b__word">3M <span class="acc">·</span> Avery</p>
-          <p class="num-b__t">instaladores certificados</p>
-          <div class="num-b__ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50"/><circle class="num-b__arc" cx="60" cy="60" r="50"/></svg><span class="mono">Certificado</span></div>
-          <p class="num-b__f mono">Acabados con garantía de fabricante</p>
-        </article>
-      </div>
-    </div>
-  </div>
-
-  <!-- C · Odómetro sobre vídeo -->
-  <div class="variant num-c" data-v="C" data-name="Odómetro" data-theme="dark" hidden>
-    <video class="num-c__bg" src="assets/video/hero-lexus.mp4" poster="assets/video/hero-lexus.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
-    <div class="num-c__shade" aria-hidden="true"></div>
-    <div class="wrap num-c__in">
       <p class="mono label">Por qué elegirnos</p>
-      <h2 class="big num-c__title num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+      <h2 class="big num-title num-c__title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
       <p class="lead num-c__lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
-      <div class="num-c__list">
-        <div class="num-c__row"><div class="num-c__odo" data-odo="25" data-suffix="+" aria-label="Más de 25"></div><p>años de experiencia</p></div>
-        <div class="num-c__row"><div class="num-c__odo" data-odo="3000" data-suffix="+" aria-label="Más de 3.000"></div><p>proyectos entregados</p></div>
-        <div class="num-c__row"><div class="num-c__odo" data-odo="40" data-suffix="+" aria-label="Más de 40"></div><p>sectores atendidos</p></div>
-        <div class="num-c__row"><p class="num-c__word">3M <span class="acc">·</span> Avery</p><p>instaladores certificados</p></div>
-      </div>
+      <ul class="num-c__rows">
+        <li class="num-c__row"><span class="num-c__big" style="background-image:url(assets/img/hero/lexus-marvel.webp)" aria-hidden="true">+25</span><span class="sr-only">Más de 25</span><span class="num-c__txt"><b>años</b> de experiencia</span></li>
+        <li class="num-c__row"><span class="num-c__big" style="background-image:url(assets/img/proyectos/eversense.webp)" aria-hidden="true">+3.000</span><span class="sr-only">Más de 3.000</span><span class="num-c__txt"><b>proyectos</b> entregados</span></li>
+        <li class="num-c__row"><span class="num-c__big" style="background-image:url(assets/img/proyectos/venca.webp)" aria-hidden="true">+40</span><span class="sr-only">Más de 40</span><span class="num-c__txt"><b>sectores</b> atendidos</span></li>
+        <li class="num-c__row num-c__row--cert"><span class="num-c__big num-c__big--line">3M · Avery</span><span class="num-c__txt"><b>instaladores</b> certificados</span></li>
+      </ul>
     </div>
   </div>
 
-  <!-- D · Una cifra por pantalla -->
-  <div class="variant num-d" data-v="D" data-name="Pantalla a pantalla" data-theme="dark" hidden>
-    <h2 class="sr-only">+25 años haciendo lo imposible una realidad</h2>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">25+</span><span class="num-d__f">25+</span></p>
-        <div class="num-d__txt"><p class="mono label">01 / 04 · Por qué elegirnos</p><p class="num-d__t"><b>Más de 25 años</b> de experiencia haciendo lo imposible una realidad.</p></div>
-      </div>
-    </div>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/proyectos/jpujol.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">3.000</span><span class="num-d__f">3.000</span></p>
-        <div class="num-d__txt"><p class="mono label">02 / 04</p><p class="num-d__t"><b>Más de 3.000 proyectos</b> entregados.</p></div>
-      </div>
-    </div>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
-        <p class="num-d__big" aria-hidden="true"><span class="num-d__o">40+</span><span class="num-d__f">40+</span></p>
-        <div class="num-d__txt"><p class="mono label">03 / 04</p><p class="num-d__t"><b>Más de 40 sectores</b> atendidos.</p></div>
-      </div>
-    </div>
-    <div class="num-d__slide">
-      <div class="num-d__pin">
-        <img class="num-d__img" src="assets/img/servicios/car-wrapping.webp" alt="" loading="lazy">
-        <p class="num-d__big num-d__big--word" aria-hidden="true"><span class="num-d__o">3M·AVERY</span><span class="num-d__f">3M·AVERY</span></p>
-        <div class="num-d__txt"><p class="mono label">04 / 04</p><p class="num-d__t"><b>Instaladores certificados</b> 3M &amp; Avery, con producción propia en Cabrera de Mar y cobertura en toda España.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- E · Baraja en abanico -->
-  <div class="variant num-e" data-v="E" data-name="Baraja" data-theme="dark" hidden>
-    <div class="wrap num-e__in">
-      <header class="num-e__head">
+  <!-- D · Panel de aeropuerto (split-flap) -->
+  <div class="variant num-d" data-v="D" data-name="Panel split-flap" data-theme="dark" hidden>
+    <div class="wrap">
+      <div class="num-d__head">
         <p class="mono label">Por qué elegirnos</p>
         <h2 class="big num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
-        <p class="lead num-e__lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
-      </header>
-      <div class="num-e__deck">
-        <article class="num-e__card" style="--i:0">
-          <div class="num-e__img"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="25">0</b><sup>+</sup></p><p class="num-e__t">años de experiencia</p>
-        </article>
-        <article class="num-e__card" style="--i:1">
-          <div class="num-e__img"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="3000">0</b><sup>+</sup></p><p class="num-e__t">proyectos entregados</p>
-        </article>
-        <article class="num-e__card" style="--i:2">
-          <div class="num-e__img"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"></div>
-          <p class="num-e__n"><b data-count="40">0</b><sup>+</sup></p><p class="num-e__t">sectores atendidos</p>
-        </article>
-        <article class="num-e__card" style="--i:3">
-          <div class="num-e__img"><img src="assets/img/servicios/car-wrapping.webp" alt="Car wrapping con vinilo certificado" loading="lazy"></div>
-          <p class="num-e__n num-e__n--word"><b>3M·Avery</b></p><p class="num-e__t">instaladores certificados</p>
-        </article>
+        <p class="lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
       </div>
-      <div class="num-e__partners">
-        <p class="mono">Certificados por</p>
-        <div><img src="assets/img/partners/3m.svg" alt="3M" loading="lazy"><img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" loading="lazy"></div>
+      <div class="num-d__board" role="list">
+        <div class="num-d__top mono" aria-hidden="true"><span>Concepto</span><span>Dato</span><span>Estado</span></div>
+        <div class="num-d__row" role="listitem" aria-label="Más de 25 años de experiencia"><span class="num-d__flap" data-flap="AÑOS DE EXPERIENCIA"></span><span class="num-d__flap num-d__flap--val" data-flap="+25"></span><span class="num-d__ok mono" aria-hidden="true">OK</span></div>
+        <div class="num-d__row" role="listitem" aria-label="Más de 3.000 proyectos entregados"><span class="num-d__flap" data-flap="PROYECTOS ENTREGADOS"></span><span class="num-d__flap num-d__flap--val" data-flap="+3.000"></span><span class="num-d__ok mono" aria-hidden="true">OK</span></div>
+        <div class="num-d__row" role="listitem" aria-label="Más de 40 sectores atendidos"><span class="num-d__flap" data-flap="SECTORES ATENDIDOS"></span><span class="num-d__flap num-d__flap--val" data-flap="+40"></span><span class="num-d__ok mono" aria-hidden="true">OK</span></div>
+        <div class="num-d__row" role="listitem" aria-label="Instaladores certificados 3M y Avery"><span class="num-d__flap" data-flap="INSTALADORES CERTIF."></span><span class="num-d__flap num-d__flap--val" data-flap="3M·AVERY"></span><span class="num-d__ok mono" aria-hidden="true">OK</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Línea de tiempo con el scroll -->
+  <div class="variant num-e" data-v="E" data-name="Línea de tiempo" data-theme="dark" hidden>
+    <div class="num-e__track">
+      <div class="num-e__stick">
+        <div class="wrap num-e__in">
+          <div class="num-e__head">
+            <p class="mono label">Por qué elegirnos</p>
+            <h2 class="big num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+          </div>
+          <div class="num-e__stats">
+            <div><b><span class="num-e__v" data-to="25">25</span><sup>+</sup></b><span>años de experiencia</span></div>
+            <div><b><span class="num-e__v" data-to="3000">3.000</span><sup>+</sup></b><span>proyectos entregados</span></div>
+            <div><b><span class="num-e__v" data-to="40">40</span><sup>+</sup></b><span>sectores atendidos</span></div>
+          </div>
+          <div class="num-e__line" aria-hidden="true">
+            <div class="num-e__ticks"></div>
+            <div class="num-e__fill"></div>
+            <div class="num-e__dot"><span class="mono">Año <b class="num-e__year">1</b></span></div>
+            <div class="num-e__ends mono"><span>Año 1</span><span>Hoy</span></div>
+          </div>
+          <div class="num-e__foot">
+            <p class="lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+            <p class="num-e__cert"><span class="mono">Certificados</span> 3M <span class="acc">·</span> Avery</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- F · Partículas + sello -->
+  <div class="variant num-f" data-v="F" data-name="Partículas + sello" data-theme="dark" hidden>
+    <div class="wrap num-f__in">
+      <div class="num-f__copy">
+        <p class="mono label">Por qué elegirnos</p>
+        <h2 class="big num-title">+25 años haciendo <span class="acc">lo imposible</span> una realidad.</h2>
+        <p class="lead">Producción propia en Cabrera de Mar, instaladores certificados y cobertura en toda España.</p>
+        <ul class="num-f__chips" role="tablist" aria-label="Cifras">
+          <li><button type="button" role="tab" aria-selected="true" data-i="0"><b>+25</b> años de experiencia</button></li>
+          <li><button type="button" role="tab" aria-selected="false" data-i="1"><b>+3.000</b> proyectos entregados</button></li>
+          <li><button type="button" role="tab" aria-selected="false" data-i="2"><b>+40</b> sectores atendidos</button></li>
+          <li><button type="button" role="tab" aria-selected="false" data-i="3"><b>3M · Avery</b> instaladores certificados</button></li>
+        </ul>
+      </div>
+      <div class="num-f__stage">
+        <canvas class="num-f__cv" aria-hidden="true"></canvas>
+        <p class="num-f__static" aria-live="polite">+25</p>
+        <div class="num-f__seal" aria-hidden="true">
+          <svg viewBox="0 0 200 200"><defs><path id="numFseal" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+            <circle cx="100" cy="100" r="96" class="num-f__ring"/><circle cx="100" cy="100" r="60" class="num-f__ring2"/>
+            <text><textPath href="#numFseal">INSTALADORES CERTIFICADOS · 3M · AVERY · CABRERA DE MAR · </textPath></text>
+          </svg>
+          <span class="num-f__sealmid">3M<br><small>·</small>Avery</span>
+        </div>
       </div>
     </div>
   </div>

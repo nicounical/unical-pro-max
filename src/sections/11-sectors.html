@@ -1,6 +1,6 @@
 <section class="opt-sec" id="sectores" data-sec="sectors" data-label="Sectores">
 
-  <!-- A · Bolas con física -->
+  <!-- A · Bolas con física (solo texto) -->
   <div class="variant sec-a" data-v="A" data-name="Bolas" data-theme="dark">
     <div class="wrap sec-a__head">
       <div>
@@ -12,144 +12,128 @@
         <p class="sec-a__hint mono"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5m0-1a2 2 0 0 1 4 0v2m0-1a2 2 0 0 1 4 0v4a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-3-5a2 2 0 0 1 3-2l2 2"/></svg>Arrastra las bolas</p>
       </div>
     </div>
-    <ul class="sr-only">
-      <li>Vehículos</li><li>Stands y Ferias</li><li>Retail y PLV</li><li>Hostelería</li><li>Oficinas</li><li>Publicidad Exterior</li><li>Eventos Deportivos</li><li>Pharma</li>
-    </ul>
+    <ul class="sr-only"><li>Vehículos</li><li>Stands y Ferias</li><li>Retail y PLV</li><li>Hostelería</li><li>Oficinas</li><li>Publicidad Exterior</li><li>Eventos Deportivos</li><li>Pharma</li></ul>
     <div class="wrap">
       <div class="sec-a__box" aria-hidden="true">
         <span class="sec-ball sec-ball--blue" data-r="1.15">Vehículos</span>
         <span class="sec-ball sec-ball--paper" data-r="1.1">Stands y Ferias</span>
-        <span class="sec-ball sec-ball--strong" data-r="1">Retail y PLV</span>
-        <span class="sec-ball sec-ball--line" data-r=".95">Hostelería</span>
-        <span class="sec-ball sec-ball--paper" data-r=".88">Oficinas</span>
+        <span class="sec-ball sec-ball--strong" data-r="1.0">Retail y PLV</span>
+        <span class="sec-ball sec-ball--line" data-r="0.98">Hostelería</span>
+        <span class="sec-ball sec-ball--paper" data-r="0.92">Oficinas</span>
         <span class="sec-ball sec-ball--blue" data-r="1.08">Publicidad Exterior</span>
         <span class="sec-ball sec-ball--strong" data-r="1.05">Eventos Deportivos</span>
-        <span class="sec-ball sec-ball--line" data-r=".85">Pharma</span>
-        <span class="sec-ball sec-ball--img" data-r=".55" style="background-image:url(assets/img/proyectos/tke.webp)"></span>
-        <span class="sec-ball sec-ball--img" data-r=".5" style="background-image:url(assets/img/proyectos/eversense.webp)"></span>
-        <span class="sec-ball sec-ball--img" data-r=".46" style="background-image:url(assets/img/proyectos/venca.webp)"></span>
-        <span class="sec-ball sec-ball--img" data-r=".5" style="background-image:url(assets/img/proyectos/five-guys.webp)"></span>
-        <span class="sec-ball sec-ball--img" data-r=".42" style="background-image:url(assets/img/proyectos/tibau.webp)"></span>
-        <span class="sec-ball sec-ball--img" data-r=".48" style="background-image:url(assets/img/proyectos/janssen.webp)"></span>
+        <span class="sec-ball sec-ball--line" data-r="0.9">Pharma</span>
       </div>
     </div>
   </div>
 
-  <!-- B · Lista con imagen fija -->
-  <div class="variant sec-b" data-v="B" data-name="Lista + imagen" data-theme="dark" hidden>
+  <!-- B · Dial giratorio -->
+  <div class="variant sec-b" data-v="B" data-name="Dial" data-theme="dark" hidden>
     <div class="wrap sec-b__grid">
-      <div class="sec-b__left">
+      <div class="sec-b__dialwrap">
+        <div class="sec-b__dial" tabindex="0" role="listbox" aria-label="Sectores: usa las flechas para girar el dial" aria-activedescendant="secb-0">
+          <div class="sec-b__wheel">
+            <span class="sec-b__item" id="secb-0" role="option" aria-selected="true" style="--i:0" data-i="0"><span>Vehículos</span></span>
+            <span class="sec-b__item" id="secb-1" role="option" aria-selected="false" style="--i:1" data-i="1"><span>Stands y Ferias</span></span>
+            <span class="sec-b__item" id="secb-2" role="option" aria-selected="false" style="--i:2" data-i="2"><span>Retail y PLV</span></span>
+            <span class="sec-b__item" id="secb-3" role="option" aria-selected="false" style="--i:3" data-i="3"><span>Hostelería</span></span>
+            <span class="sec-b__item" id="secb-4" role="option" aria-selected="false" style="--i:4" data-i="4"><span>Oficinas</span></span>
+            <span class="sec-b__item" id="secb-5" role="option" aria-selected="false" style="--i:5" data-i="5"><span>Publicidad Exterior</span></span>
+            <span class="sec-b__item" id="secb-6" role="option" aria-selected="false" style="--i:6" data-i="6"><span>Eventos Deportivos</span></span>
+            <span class="sec-b__item" id="secb-7" role="option" aria-selected="false" style="--i:7" data-i="7"><span>Pharma</span></span>
+            <span class="sec-b__ticks" aria-hidden="true"></span>
+          </div>
+          <div class="sec-b__core" aria-hidden="true">
+            <img src="assets/img/proyectos/tke.webp" alt="" loading="lazy" class="is-on">
+            <img src="assets/img/hubs/eventos/stand-feria.webp" alt="" loading="lazy">
+            <img src="assets/img/proyectos/venca.webp" alt="" loading="lazy">
+            <img src="assets/img/proyectos/five-guys.webp" alt="" loading="lazy">
+            <img src="assets/img/hubs/rotulacion/senaletica-oficina.webp" alt="" loading="lazy">
+            <img src="assets/img/hubs/impresion/lona-fachada.webp" alt="" loading="lazy">
+            <img src="assets/img/hubs/eventos/funrun.webp" alt="" loading="lazy">
+            <img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy">
+          </div>
+          <span class="sec-b__ptr" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="sec-b__info">
         <p class="mono label">Sectores</p>
         <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
         <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-        <ol class="sec-b__list">
-          <li><button type="button" class="is-on" aria-pressed="true"><span class="mono">01</span><b>Vehículos</b><em>Rotulación de vehículos y flotas, car wrapping y cambio de color.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">02</span><b>Stands y Ferias</b><em>Stands llave en mano para ferias y congresos en toda España.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">03</span><b>Retail y PLV</b><em>PLV, escaparates y pop-up stores para el punto de venta.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">04</span><b>Hostelería</b><em>Murales, decoración y señalética para restaurantes y hoteles.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">05</span><b>Oficinas</b><em>Vinilos decorativos, murales corporativos y señalética interior.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">06</span><b>Publicidad Exterior</b><em>Lonas de fachada, vallas y grandes formatos de exterior.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">07</span><b>Eventos Deportivos</b><em>Gráfica y rotulación para equipos, competiciones y eventos.</em></button></li>
-          <li><button type="button" aria-pressed="false"><span class="mono">08</span><b>Pharma</b><em>Stands, congresos y material para la industria farmacéutica.</em></button></li>
-        </ol>
-      </div>
-      <div class="sec-b__media">
-        <div class="sec-b__frame">
-          <figure class="is-on"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada por Unical" loading="lazy"><figcaption class="mono">TK Elevator · rotulación</figcaption></figure>
-          <figure><img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense en congreso médico" loading="lazy"><figcaption class="mono">Eversense · stand</figcaption></figure>
-          <figure><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"><figcaption class="mono">Venca · pop-up store</figcaption></figure>
-          <figure><img src="assets/img/proyectos/five-guys.webp" alt="Interior de restaurante Five Guys" loading="lazy"><figcaption class="mono">Five Guys · interiorismo</figcaption></figure>
-          <figure><img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy"><figcaption class="mono">3cat · mural corporativo</figcaption></figure>
-          <figure><img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos en el Tibidabo" loading="lazy"><figcaption class="mono">Tibidabo · exterior</figcaption></figure>
-          <figure><img src="assets/img/proyectos/tibau.webp" alt="Camión de asistencia rally de Tibau Team" loading="lazy"><figcaption class="mono">Tibau Team · Dakar</figcaption></figure>
-          <figure><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen Oncology" loading="lazy"><figcaption class="mono">Janssen · congreso</figcaption></figure>
-        </div>
-        <p class="sec-b__count mono"><b>01</b> / 08</p>
+        <div class="sec-b__now" aria-live="polite"><span class="mono sec-b__n">01 / 08</span><b class="sec-b__name">Vehículos</b><p class="sec-b__desc">Rotulación de vehículos y flotas, car wrapping y cambio de color.</p></div>
+        <div class="sec-b__ctrl"><button type="button" data-d="-1" aria-label="Sector anterior" data-magnetic>←</button><button type="button" data-d="1" aria-label="Sector siguiente" data-magnetic>→</button><span class="mono">Arrastra o usa las flechas</span></div>
       </div>
     </div>
   </div>
 
-  <!-- C · Tarjetas -->
-  <div class="variant sec-c" data-v="C" data-name="Tarjetas" data-theme="light" hidden>
+  <!-- C · Iconos de línea que se dibujan -->
+  <div class="variant sec-c" data-v="C" data-name="Iconos de línea" data-theme="light" hidden>
     <div class="wrap">
-      <header class="sec-c__head">
-        <p class="mono label">Sectores</p>
-        <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+      <div class="sec-c__head">
+        <div><p class="mono label">Sectores</p><h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div>
         <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-      </header>
+      </div>
       <ul class="sec-c__grid">
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"><video src="assets/video/v-lexus-1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><div class="sec-c__txt"><span class="mono">01</span><h3>Vehículos</h3><p>Rotulación de vehículos y flotas, car wrapping y cambio de color.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/eversense.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">02</span><h3>Stands y Ferias</h3><p>Stands llave en mano para ferias y congresos en toda España.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">03</span><h3>Retail y PLV</h3><p>PLV, escaparates y pop-up stores para el punto de venta.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/five-guys.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">04</span><h3>Hostelería</h3><p>Murales, decoración y señalética para restaurantes y hoteles.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/3cat.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">05</span><h3>Oficinas</h3><p>Vinilos decorativos, murales corporativos y señalética interior.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/tibidabo.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">06</span><h3>Publicidad Exterior</h3><p>Lonas de fachada, vallas y grandes formatos de exterior.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/tibau.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">07</span><h3>Eventos Deportivos</h3><p>Gráfica y rotulación para equipos, competiciones y eventos.</p></div></li>
-        <li class="sec-c__card" tabindex="0"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"><div class="sec-c__txt"><span class="mono">08</span><h3>Pharma</h3><p>Stands, congresos y material para la industria farmacéutica.</p></div></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">01</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 32V16a2 2 0 0 1 2-2h22l8 8h6a2 2 0 0 1 2 2v8h-4M4 32h4m8 0h16M28 14v8h12"/><circle cx="12" cy="33" r="4"/><circle cx="36" cy="33" r="4"/></svg><h3>Vehículos</h3><p>Rotulación de vehículos y flotas, car wrapping y cambio de color.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">02</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40V10h32v30M8 16h32M14 40V24h20v16M4 40h40"/></svg><h3>Stands y Ferias</h3><p>Stands llave en mano para ferias y congresos en toda España.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">03</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 16h28l-2 26H12zM18 16v-4a6 6 0 0 1 12 0v4"/></svg><h3>Retail y PLV</h3><p>PLV, escaparates y pop-up stores para el punto de venta.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">04</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h22v10a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9zM32 21h3a4 4 0 0 1 0 8h-3M15 7c0 3 3 3 3 6M22 7c0 3 3 3 3 6M8 42h28"/></svg><h3>Hostelería</h3><p>Murales, decoración y señalética para restaurantes y hoteles.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">05</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 10h36v22H6zM18 40h12M24 32v8M12 16h14M12 22h20"/></svg><h3>Oficinas</h3><p>Vinilos decorativos, murales corporativos y señalética interior.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">06</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 8h36v20H6zM16 28v14M32 28v14M10 42h28M12 14h14M12 20h20"/></svg><h3>Publicidad Exterior</h3><p>Lonas de fachada, vallas y grandes formatos de exterior.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">07</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8h16v10a8 8 0 0 1-16 0zM16 12H9a6 6 0 0 0 7 8M32 12h7a6 6 0 0 1-7 8M24 26v8M19 34h10v8H19zM15 42h18"/></svg><h3>Eventos Deportivos</h3><p>Gráfica y rotulación para equipos, competiciones y eventos.</p></li>
+        <li class="sec-c__tile" tabindex="0"><span class="mono sec-c__n">08</span><svg class="sec-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M15 33 33 15a6.4 6.4 0 0 0-9-9L6 24a6.4 6.4 0 0 0 9 9zM15 15l9 9M36 30v12M30 36h12"/></svg><h3>Pharma</h3><p>Stands, congresos y material para la industria farmacéutica.</p></li>
       </ul>
     </div>
   </div>
 
-  <!-- D · Marquesina de iconos -->
-  <div class="variant sec-d" data-v="D" data-name="Marquesina iconos" data-theme="dark" hidden>
-    <header class="wrap sec-d__head">
-      <p class="mono label">Sectores</p>
-      <h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
-      <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-    </header>
-    <div class="sec-d__rows">
-      <div class="sec-d__row"><ul class="sec-d__track">
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 21v-5l3-6h14l4 6h3v5h-3M4 21h3M12 21h8"/><circle cx="9.5" cy="21.5" r="2.5"/><circle cx="22.5" cy="21.5" r="2.5"/></svg>Vehículos</li>
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26h24M7 26V7h18v19M7 12h18M12 26v-8h8v8"/></svg>Stands y Ferias</li>
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 11h18l-1.5 15h-15zM12 11V9a4 4 0 0 1 8 0v2"/></svg>Retail y PLV</li>
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 12h16v6a8 8 0 0 1-16 0zM22 14h2a3 3 0 0 1 0 6h-2M10 4v4M14 4v4M18 4v4"/></svg>Hostelería</li>
-      </ul></div>
-      <div class="sec-d__row sec-d__row--rev"><ul class="sec-d__track">
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 28V5h12v23M19 12h6v16M4 28h24M11 9h4M11 14h4M11 19h4"/></svg>Oficinas</li>
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6h24v13H4zM10 19v9M22 19v9M8 10h10M8 14h6"/></svg>Publicidad Exterior</li>
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 5h12v6a6 6 0 0 1-12 0zM10 7H6v2a4 4 0 0 0 4 4M22 7h4v2a4 4 0 0 1-4 4M16 17v5M11 27h10l-1-5h-8z"/></svg>Eventos Deportivos</li>
-        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11.5 20.5l9-9a4.95 4.95 0 0 1 7 7l-9 9a4.95 4.95 0 0 1-7-7zM16 16l7 7"/></svg>Pharma</li>
-      </ul></div>
+  <!-- D · Nube tipográfica -->
+  <div class="variant sec-d" data-v="D" data-name="Nube de palabras" data-theme="dark" hidden>
+    <div class="wrap">
+      <div class="sec-d__head"><p class="mono label">Sectores</p><h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2><p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p></div>
+      <ul class="sec-d__cloud">
+        <li><button type="button" class="sec-d__w sec-d__w--xl" data-img="assets/img/proyectos/tke.webp" data-desc="Rotulación de vehículos y flotas, car wrapping y cambio de color.">Vehículos</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--m sec-d__w--line" data-img="assets/img/hubs/eventos/stand-feria.webp" data-desc="Stands llave en mano para ferias y congresos en toda España.">Stands y Ferias</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--l" data-img="assets/img/proyectos/venca.webp" data-desc="PLV, escaparates y pop-up stores para el punto de venta.">Retail y PLV</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--s" data-img="assets/img/proyectos/five-guys.webp" data-desc="Murales, decoración y señalética para restaurantes y hoteles.">Hostelería</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--m sec-d__w--line" data-img="assets/img/hubs/rotulacion/senaletica-oficina.webp" data-desc="Vinilos decorativos, murales corporativos y señalética interior.">Oficinas</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--l" data-img="assets/img/hubs/impresion/lona-fachada.webp" data-desc="Lonas de fachada, vallas y grandes formatos de exterior.">Publicidad Exterior</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--m" data-img="assets/img/hubs/eventos/funrun.webp" data-desc="Gráfica y rotulación para equipos, competiciones y eventos.">Eventos Deportivos</button></li>
+        <li><button type="button" class="sec-d__w sec-d__w--xl sec-d__w--line" data-img="assets/img/proyectos/janssen.webp" data-desc="Stands, congresos y material para la industria farmacéutica.">Pharma</button></li>
+      </ul>
+      <p class="sec-d__desc" aria-live="polite">Pasa el cursor o toca un sector.</p>
+    </div>
+    <figure class="sec-d__float" aria-hidden="true"><img alt="" src="assets/img/proyectos/tke.webp"></figure>
+  </div>
+
+  <!-- E · Fichas de dominó -->
+  <div class="variant sec-e" data-v="E" data-name="Dominó" data-theme="light" hidden>
+    <div class="wrap">
+      <div class="sec-e__head"><div><p class="mono label">Sectores</p><h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div><p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p></div>
+      <ul class="sec-e__row">
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada por Unical" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i></span><span class="mono sec-e__n">01</span><h3>Vehículos</h3><p>Rotulación de vehículos y flotas, car wrapping y cambio de color.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="Stand de feria producido por Unical" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i><i></i></span><span class="mono sec-e__n">02</span><h3>Stands y Ferias</h3><p>Stands llave en mano para ferias y congresos en toda España.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mono sec-e__n">03</span><h3>Retail y PLV</h3><p>PLV, escaparates y pop-up stores para el punto de venta.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/proyectos/five-guys.webp" alt="Interior de Five Guys decorado por Unical" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="mono sec-e__n">04</span><h3>Hostelería</h3><p>Murales, decoración y señalética para restaurantes y hoteles.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/hubs/rotulacion/senaletica-oficina.webp" alt="Señalética de oficina producida por Unical" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="mono sec-e__n">05</span><h3>Oficinas</h3><p>Vinilos decorativos, murales corporativos y señalética interior.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/hubs/impresion/lona-fachada.webp" alt="Lona de gran formato en fachada" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="mono sec-e__n">06</span><h3>Publicidad Exterior</h3><p>Lonas de fachada, vallas y grandes formatos de exterior.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/hubs/eventos/funrun.webp" alt="Evento deportivo con gráfica de Unical" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i></span><span class="mono sec-e__n">07</span><h3>Eventos Deportivos</h3><p>Gráfica y rotulación para equipos, competiciones y eventos.</p></div></li>
+        <li class="sec-e__tile"><div class="sec-e__face"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen en congreso" loading="lazy"><span class="sec-e__dots" aria-hidden="true"><i></i><i></i></span><span class="mono sec-e__n">08</span><h3>Pharma</h3><p>Stands, congresos y material para la industria farmacéutica.</p></div></li>
+      </ul>
     </div>
   </div>
 
-  <!-- E · Pestañas -->
-  <div class="variant sec-e" data-v="E" data-name="Pestañas" data-theme="dark" hidden>
-    <div class="wrap">
-      <header class="sec-e__head">
-        <div><p class="mono label">Sectores</p><h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div>
-        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-      </header>
-      <div class="sec-e__ui">
-        <div class="sec-e__tabs" role="tablist" aria-label="Sectores">
-          <button role="tab" id="sec-e-t0" aria-controls="sec-e-p" aria-selected="true" tabindex="0">Vehículos</button>
-          <button role="tab" id="sec-e-t1" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Stands y Ferias</button>
-          <button role="tab" id="sec-e-t2" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Retail y PLV</button>
-          <button role="tab" id="sec-e-t3" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Hostelería</button>
-          <button role="tab" id="sec-e-t4" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Oficinas</button>
-          <button role="tab" id="sec-e-t5" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Publicidad Exterior</button>
-          <button role="tab" id="sec-e-t6" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Eventos Deportivos</button>
-          <button role="tab" id="sec-e-t7" aria-controls="sec-e-p" aria-selected="false" tabindex="-1">Pharma</button>
-        </div>
-        <div class="sec-e__panel" id="sec-e-p" role="tabpanel" aria-labelledby="sec-e-t0">
-          <div class="sec-e__imgs">
-            <img class="is-on" src="assets/img/proyectos/tke.webp" alt="Furgoneta de TK Elevator rotulada" loading="lazy">
-            <img src="assets/img/proyectos/eversense.webp" alt="Stand de Eversense" loading="lazy">
-            <img src="assets/img/proyectos/venca.webp" alt="Pop-up store de Venca" loading="lazy">
-            <img src="assets/img/proyectos/mcdonalds.webp" alt="Murales en restaurante McDonald's" loading="lazy">
-            <img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy">
-            <img src="assets/img/proyectos/tibidabo.webp" alt="Cubos corporativos en el Tibidabo" loading="lazy">
-            <img src="assets/img/proyectos/tibau.webp" alt="Camión de Tibau Team para el Dakar" loading="lazy">
-            <img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy">
-          </div>
-          <div class="sec-e__info">
-            <p class="sec-e__n mono"><b>01</b> / 08</p>
-            <h3 class="sec-e__name">Vehículos</h3>
-            <p class="sec-e__desc">Rotulación de vehículos y flotas, car wrapping y cambio de color.</p>
-            <p class="sec-e__proj mono">Proyectos: <span>Lexus · TK Elevator · J.Pujol</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- F · Franjas diagonales -->
+  <div class="variant sec-f" data-v="F" data-name="Franjas diagonales" data-theme="dark" hidden>
+    <div class="wrap sec-f__head"><div><p class="mono label">Sectores</p><h2 class="big sec-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div><p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p></div>
+    <ul class="sec-f__strips">
+      <li class="sec-f__s is-on"><button type="button" aria-expanded="true"><span class="sec-f__img"><img src="assets/img/proyectos/tke.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">01</span><b>Vehículos</b><em>Rotulación de vehículos y flotas, car wrapping y cambio de color.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">02</span><b>Stands y Ferias</b><em>Stands llave en mano para ferias y congresos en toda España.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">03</span><b>Retail y PLV</b><em>PLV, escaparates y pop-up stores para el punto de venta.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/proyectos/five-guys.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">04</span><b>Hostelería</b><em>Murales, decoración y señalética para restaurantes y hoteles.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/hubs/rotulacion/senaletica-oficina.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">05</span><b>Oficinas</b><em>Vinilos decorativos, murales corporativos y señalética interior.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/hubs/impresion/lona-fachada.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">06</span><b>Publicidad Exterior</b><em>Lonas de fachada, vallas y grandes formatos de exterior.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/hubs/eventos/funrun.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">07</span><b>Eventos Deportivos</b><em>Gráfica y rotulación para equipos, competiciones y eventos.</em></span></button></li>
+      <li class="sec-f__s"><button type="button" aria-expanded="false"><span class="sec-f__img"><img src="assets/img/proyectos/janssen.webp" alt="" loading="lazy"></span><span class="sec-f__txt"><span class="mono">08</span><b>Pharma</b><em>Stands, congresos y material para la industria farmacéutica.</em></span></button></li>
+    </ul>
   </div>
 </section>

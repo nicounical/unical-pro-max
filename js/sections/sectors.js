@@ -1,17 +1,6 @@
-/* 11 · Sectores — 5 versiones */
+/* 11 · Sectores — A favorita (bolas de texto) + 5 nuevas */
 (() => {
   const { register } = UX;
-
-  const SECTORS = [
-    { name: "Vehículos", desc: "Rotulación de vehículos y flotas, car wrapping y cambio de color.", proj: "Lexus · TK Elevator · J.Pujol" },
-    { name: "Stands y Ferias", desc: "Stands llave en mano para ferias y congresos en toda España.", proj: "Eversense · Janssen · Cava Pharma" },
-    { name: "Retail y PLV", desc: "PLV, escaparates y pop-up stores para el punto de venta.", proj: "Venca" },
-    { name: "Hostelería", desc: "Murales, decoración y señalética para restaurantes y hoteles.", proj: "McDonald's · Five Guys" },
-    { name: "Oficinas", desc: "Vinilos decorativos, murales corporativos y señalética interior.", proj: "3cat" },
-    { name: "Publicidad Exterior", desc: "Lonas de fachada, vallas y grandes formatos de exterior.", proj: "Tibidabo" },
-    { name: "Eventos Deportivos", desc: "Gráfica y rotulación para equipos, competiciones y eventos.", proj: "Tibau Team" },
-    { name: "Pharma", desc: "Stands, congresos y material para la industria farmacéutica.", proj: "Janssen · Eversense · Cava Pharma" }
-  ];
 
   /* ---------- A · Bolas con física (arrastrables) ---------- */
   register("sectors", "A", (root, ux) => {
@@ -26,7 +15,7 @@
 
     const size = () => {
       W = box.clientWidth; H = box.clientHeight;
-      const base = Math.max(44, Math.min(98, W * .085));
+      const base = Math.max(52, Math.min(120, W * .105));
       balls.forEach(b => {
         b.r = base * b.k;
         const label = b.el.textContent.trim();
@@ -123,114 +112,113 @@
     };
   });
 
-  /* ---------- B · Lista con imagen fija ---------- */
+
+  /* ---------- B · Dial giratorio ---------- */
   register("sectors", "B", (root, ux) => {
-    const btns = ux.$$(".sec-b__list button", root), figs = ux.$$(".sec-b__frame figure", root), count = ux.$(".sec-b__count b", root);
-    let cur = 0;
-    figs.forEach((f, j) => { f.classList.remove("was"); f.classList.toggle("is-on", j === 0); });
-    btns.forEach((b, j) => { b.classList.toggle("is-on", j === 0); b.setAttribute("aria-pressed", j === 0); });
-    count.textContent = "01";
-    const set = i => {
-      if (i === cur) return;
-      figs.forEach(f => f.classList.remove("was"));
-      figs[cur].classList.replace("is-on", "was");
-      figs[i].classList.add("is-on");
-      btns.forEach((b, j) => { b.classList.toggle("is-on", j === i); b.setAttribute("aria-pressed", j === i); });
-      count.textContent = String(i + 1).padStart(2, "0");
+    const dial = ux.$(".sec-b__dial", root), wheel = ux.$(".sec-b__wheel", root);
+    const items = ux.$$(".sec-b__item", root), imgs = ux.$$(".sec-b__core img", root);
+    const nEl = ux.$(".sec-b__n", root), nameEl = ux.$(".sec-b__name", root), descEl = ux.$(".sec-b__desc", root);
+    const DESCS = ["Rotulación de vehículos y flotas, car wrapping y cambio de color.", "Stands llave en mano para ferias y congresos en toda España.", "PLV, escaparates y pop-up stores para el punto de venta.", "Murales, decoración y señalética para restaurantes y hoteles.", "Vinilos decorativos, murales corporativos y señalética interior.", "Lonas de fachada, vallas y grandes formatos de exterior.", "Gráfica y rotulación para equipos, competiciones y eventos.", "Stands, congresos y material para la industria farmacéutica."];
+    const N = items.length, STEP = 360 / N;
+    let rot = 0, cur = 0;
+    const rotObj = { r: 0 };
+    const apply = r => wheel.style.setProperty("--rot", r + "deg");
+    const select = i => {
+      i = ((i % N) + N) % N; if (i === cur && nameEl.textContent === items[i].textContent) return;
       cur = i;
+      items.forEach((it, k) => it.setAttribute("aria-selected", k === i));
+      imgs.forEach((im, k) => im.classList.toggle("is-on", k === i));
+      dial.setAttribute("aria-activedescendant", items[i].id);
+      nEl.textContent = `${String(i + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
+      nameEl.textContent = items[i].textContent; descEl.textContent = DESCS[i];
+      if (!ux.reduce) gsap.fromTo([nameEl, descEl], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: .06, ease: "expo.out", overwrite: "auto" });
     };
-    const handlers = btns.map((b, i) => {
-      const h = () => set(i);
-      b.addEventListener("click", h); b.addEventListener("focus", h);
-      if (ux.fine) b.addEventListener("pointerenter", h);
-      return h;
-    });
-    if (!ux.reduce) gsap.from(ux.$$(".sec-b__list li", root), { y: 40, opacity: 0, duration: 1, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-b__list", root), start: "top 85%" } });
-    return () => btns.forEach((b, i) => { b.removeEventListener("click", handlers[i]); b.removeEventListener("focus", handlers[i]); b.removeEventListener("pointerenter", handlers[i]); });
-  });
-
-  /* ---------- C · Tarjetas ---------- */
-  register("sectors", "C", (root, ux) => {
-    const cards = ux.$$(".sec-c__card", root);
-    const vids = cards.filter(c => ux.$("video", c));
-    const on = e => { const c = e.currentTarget, v = ux.$("video", c); if (v.preload === "none") v.preload = "auto"; v.play().then(() => c.classList.add("is-vid")).catch(() => {}); };
-    const off = e => { const c = e.currentTarget, v = ux.$("video", c); v.pause(); c.classList.remove("is-vid"); };
-    if (!ux.reduce) {
-      vids.forEach(c => { c.addEventListener("pointerenter", on); c.addEventListener("pointerleave", off); c.addEventListener("focus", on); c.addEventListener("blur", off); });
-      gsap.from(cards, { clipPath: "inset(100% 0 0 0 round 20px)", duration: 1.3, stagger: .07, ease: "expo.inOut", scrollTrigger: { trigger: ux.$(".sec-c__grid", root), start: "top 85%" } });
-      gsap.from(ux.$$(".sec-c__card img", root), { scale: 1.3, duration: 1.8, stagger: .07, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-c__grid", root), start: "top 85%" } });
-    }
-    return () => vids.forEach(c => { c.removeEventListener("pointerenter", on); c.removeEventListener("pointerleave", off); c.removeEventListener("focus", on); c.removeEventListener("blur", off); });
-  });
-
-  /* ---------- D · Marquesina de iconos (acelera con el scroll) ---------- */
-  register("sectors", "D", (root, ux) => {
-    const tracks = ux.$$(".sec-d__track", root);
-    tracks.forEach(t => {
-      if (t.dataset.dup) return;
-      const items = [...t.children];
-      for (let k = 0; k < 2; k++) items.forEach(li => { const c = li.cloneNode(true); c.setAttribute("aria-hidden", "true"); t.append(c); });
-      t.dataset.dup = "1";
-    });
-    if (ux.reduce) return;
-    gsap.from(ux.$$(".sec-d__row", root), { y: 60, opacity: 0, duration: 1.2, stagger: .12, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
-    const rows = tracks.map((el, i) => ({ el, x: i % 2 ? -el.scrollWidth / 3 : 0, dir: i % 2 ? 1 : -1 }));
-    let vel = 0, visible = false;
-    const onLenis = e => (vel = e.velocity || 0);
-    const unsub = ux.lenis ? ux.lenis.on("scroll", onLenis) : null;
-    ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onToggle: s => (visible = s.isActive) });
-    const tick = () => {
-      if (!visible) return;
-      const boost = Math.min(Math.abs(vel) * .3, 14);
-      rows.forEach(r => {
-        const third = r.el.scrollWidth / 3; if (!third) return;
-        r.x += (.7 + boost) * r.dir;
-        if (r.x <= -third) r.x += third; if (r.x > 0) r.x -= third;
-        r.el.style.transform = `translate3d(${r.x}px,0,0)`;
-      });
-      vel *= .9;
+    const goTo = (target, animate = true) => {
+      rot = target;
+      const idx = Math.round(-rot / STEP);
+      select(idx);
+      if (ux.reduce || !animate) { rotObj.r = rot; apply(rot); return; }
+      gsap.to(rotObj, { r: rot, duration: .8, ease: "expo.out", overwrite: true, onUpdate: () => apply(rotObj.r) });
     };
-    gsap.ticker.add(tick);
-    return () => { gsap.ticker.remove(tick); if (typeof unsub === "function") unsub(); else if (ux.lenis && ux.lenis.off) ux.lenis.off("scroll", onLenis); };
-  });
-
-  /* ---------- E · Pestañas ---------- */
-  register("sectors", "E", (root, ux) => {
-    const tabs = ux.$$('[role="tab"]', root), imgs = ux.$$(".sec-e__imgs img", root), panel = ux.$(".sec-e__panel", root);
-    const n = ux.$(".sec-e__n b", root), name = ux.$(".sec-e__name", root), desc = ux.$(".sec-e__desc", root), proj = ux.$(".sec-e__proj span", root);
-    const info = [n.parentElement, name, desc, proj.parentElement];
-    let cur = 0, timer = 0, touched = false, inView = false;
-    imgs.forEach((im, j) => { im.classList.remove("was"); im.classList.toggle("is-on", j === 0); });
-    tabs.forEach((t, j) => { t.setAttribute("aria-selected", j === 0); t.tabIndex = j === 0 ? 0 : -1; });
-    n.textContent = "01"; name.textContent = SECTORS[0].name; desc.textContent = SECTORS[0].desc; proj.textContent = SECTORS[0].proj;
-    const set = (i, focus) => {
-      if (i === cur) return;
-      imgs.forEach(im => im.classList.remove("was"));
-      imgs[cur].classList.replace("is-on", "was"); imgs[i].classList.add("is-on");
-      tabs.forEach((t, j) => { t.setAttribute("aria-selected", j === i); t.tabIndex = j === i ? 0 : -1; });
-      panel.setAttribute("aria-labelledby", tabs[i].id);
-      if (focus) tabs[i].focus();
-      const s = SECTORS[i];
-      const apply = () => { n.textContent = String(i + 1).padStart(2, "0"); name.textContent = s.name; desc.textContent = s.desc; proj.textContent = s.proj; };
-      if (ux.reduce) apply();
-      else gsap.timeline().to(info, { y: -16, opacity: 0, duration: .25, stagger: .03, ease: "power2.in" }).add(apply).fromTo(info, { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .05, ease: "expo.out" });
-      cur = i;
-    };
-    const auto = () => { clearInterval(timer); if (!ux.reduce && !touched && inView) timer = setInterval(() => set((cur + 1) % tabs.length), 5000); };
-    const stopAuto = () => { touched = true; clearInterval(timer); };
-    const onClick = e => { const i = tabs.indexOf(e.currentTarget); stopAuto(); set(i); };
+    const step = d => goTo(Math.round(rot / STEP) * STEP - d * STEP);
+    const onBtn = e => { const b = e.target.closest(".sec-b__ctrl button"); if (b) step(+b.dataset.d); };
     const onKey = e => {
-      const i = tabs.indexOf(document.activeElement); if (i < 0) return;
-      const map = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
-      if (e.key in map) { e.preventDefault(); stopAuto(); set((i + map[e.key] + tabs.length) % tabs.length, true); }
-      if (e.key === "Home") { e.preventDefault(); stopAuto(); set(0, true); }
-      if (e.key === "End") { e.preventDefault(); stopAuto(); set(tabs.length - 1, true); }
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); step(1); }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); step(-1); }
     };
-    tabs.forEach(t => t.addEventListener("click", onClick));
-    const tl = ux.$(".sec-e__tabs", root); tl.addEventListener("keydown", onKey);
-    root.addEventListener("pointerenter", stopAuto);
-    ScrollTrigger.create({ trigger: root, start: "top 70%", end: "bottom 30%", onToggle: s => { inView = s.isActive; auto(); if (!inView) clearInterval(timer); } });
-    if (!ux.reduce) gsap.from(tabs, { x: -30, opacity: 0, duration: .9, stagger: .05, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
-    return () => { clearInterval(timer); tabs.forEach(t => t.removeEventListener("click", onClick)); tl.removeEventListener("keydown", onKey); root.removeEventListener("pointerenter", stopAuto); };
+    const onItem = e => { const it = e.target.closest(".sec-b__item"); if (!it || moved > 6) return; const i = +it.dataset.i; let d = (i - cur) % N; if (d > N / 2) d -= N; if (d < -N / 2) d += N; step(d); };
+    // Arrastre circular
+    let dragging = false, a0 = 0, r0 = 0, moved = 0;
+    const ang = e => { const r = dial.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; };
+    const down = e => { dragging = true; moved = 0; a0 = ang(e); r0 = rotObj.r; dial.classList.add("is-grab"); dial.setPointerCapture(e.pointerId); gsap.killTweensOf(rotObj); };
+    const move = e => { if (!dragging) return; let d = ang(e) - a0; if (d > 180) d -= 360; if (d < -180) d += 360; moved = Math.max(moved, Math.abs(d)); rotObj.r = r0 + d; apply(rotObj.r); select(Math.round(-rotObj.r / STEP)); };
+    const up = () => { if (!dragging) return; dragging = false; dial.classList.remove("is-grab"); goTo(Math.round(rotObj.r / STEP) * STEP); };
+    root.addEventListener("click", onBtn); dial.addEventListener("keydown", onKey); dial.addEventListener("click", onItem);
+    dial.addEventListener("pointerdown", down); dial.addEventListener("pointermove", move); dial.addEventListener("pointerup", up); dial.addEventListener("pointercancel", up);
+    apply(0);
+    if (!ux.reduce) {
+      gsap.fromTo(rotObj, { r: 90 }, { r: 0, duration: 1.6, ease: "expo.out", onUpdate: () => apply(rotObj.r), scrollTrigger: { trigger: dial, start: "top 80%", once: true } });
+      gsap.from(ux.$(".sec-b__core", root), { scale: .6, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: dial, start: "top 80%", once: true } });
+    }
+    return () => {
+      root.removeEventListener("click", onBtn); dial.removeEventListener("keydown", onKey); dial.removeEventListener("click", onItem);
+      dial.removeEventListener("pointerdown", down); dial.removeEventListener("pointermove", move); dial.removeEventListener("pointerup", up); dial.removeEventListener("pointercancel", up);
+    };
+  });
+
+  /* ---------- C · Iconos de línea que se dibujan ---------- */
+  register("sectors", "C", (root, ux) => {
+    const tiles = ux.$$(".sec-c__tile", root);
+    const shapes = tile => ux.$$(".sec-ico path, .sec-ico circle", tile);
+    tiles.forEach(t => shapes(t).forEach(s => s.setAttribute("pathLength", 1)));
+    if (ux.reduce) return;
+    tiles.forEach(t => gsap.set(shapes(t), { strokeDasharray: "1 1", strokeDashoffset: 1 }));
+    ScrollTrigger.batch(tiles, { start: "top 85%", once: true, onEnter: b => b.forEach((t, k) => gsap.to(shapes(t), { strokeDashoffset: 0, duration: 1.4, delay: k * .12, ease: "power2.inOut" })) });
+    const redraw = e => { const t = e.currentTarget; gsap.fromTo(shapes(t), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .9, ease: "power2.inOut", overwrite: true }); };
+    tiles.forEach(t => { t.addEventListener("pointerenter", redraw); t.addEventListener("focus", redraw); });
+    return () => tiles.forEach(t => { t.removeEventListener("pointerenter", redraw); t.removeEventListener("focus", redraw); });
+  });
+
+  /* ---------- D · Nube tipográfica con foto flotante ---------- */
+  register("sectors", "D", (root, ux) => {
+    const cloud = ux.$(".sec-d__cloud", root), words = ux.$$(".sec-d__w", root);
+    const desc = ux.$(".sec-d__desc", root), fl = ux.$(".sec-d__float", root), flImg = ux.$("img", fl);
+    const DEF = desc.textContent;
+    const on = w => {
+      cloud.classList.add("is-hover"); words.forEach(x => x.classList.toggle("is-on", x === w));
+      desc.textContent = `${w.textContent} — ${w.dataset.desc}`;
+      if (flImg.getAttribute("src") !== w.dataset.img) flImg.src = w.dataset.img;
+      if (ux.fine) fl.classList.add("is-on");
+    };
+    const off = () => { cloud.classList.remove("is-hover"); words.forEach(x => x.classList.remove("is-on")); desc.textContent = DEF; fl.classList.remove("is-on"); };
+    const enter = e => on(e.currentTarget);
+    words.forEach(w => { w.addEventListener("pointerenter", enter); w.addEventListener("focus", enter); w.addEventListener("click", enter); });
+    cloud.addEventListener("pointerleave", off); cloud.addEventListener("focusout", e => { if (!cloud.contains(e.relatedTarget)) off(); });
+    let xTo, yTo, pm;
+    if (ux.fine && !ux.reduce) {
+      xTo = gsap.quickTo(fl, "x", { duration: .5, ease: "power3" }); yTo = gsap.quickTo(fl, "y", { duration: .5, ease: "power3" });
+      pm = e => { xTo(e.clientX + 24); yTo(e.clientY - fl.offsetHeight / 2); };
+      addEventListener("pointermove", pm);
+    }
+    if (!ux.reduce) gsap.from(ux.$$("li", cloud), { yPercent: 80, opacity: 0, rotate: () => gsap.utils.random(-8, 8), duration: 1.2, stagger: { each: .07, from: "random" }, ease: "expo.out", scrollTrigger: { trigger: cloud, start: "top 80%", once: true } });
+    return () => { if (pm) removeEventListener("pointermove", pm); words.forEach(w => { w.removeEventListener("pointerenter", enter); w.removeEventListener("focus", enter); w.removeEventListener("click", enter); }); cloud.removeEventListener("pointerleave", off); fl.classList.remove("is-on"); };
+  });
+
+  /* ---------- E · Fichas de dominó que caen en cadena ---------- */
+  register("sectors", "E", (root, ux) => {
+    const tiles = ux.$$(".sec-e__tile", root);
+    if (ux.reduce) return;
+    gsap.set(tiles, { rotateX: -88, opacity: 0, transformPerspective: 1200 });
+    gsap.to(tiles, { rotateX: 0, opacity: 1, duration: .9, ease: "bounce.out", stagger: .11, scrollTrigger: { trigger: ux.$(".sec-e__row", root), start: "top 78%", once: true } });
+  });
+
+  /* ---------- F · Franjas diagonales ---------- */
+  register("sectors", "F", (root, ux) => {
+    const strips = ux.$$(".sec-f__s", root);
+    const set = s => strips.forEach(x => { const on = x === s; x.classList.toggle("is-on", on); ux.$("button", x).setAttribute("aria-expanded", on); });
+    const h = e => set(e.currentTarget.closest(".sec-f__s"));
+    strips.forEach(s => { const b = ux.$("button", s); b.addEventListener("click", h); b.addEventListener("focus", h); if (ux.fine) s.addEventListener("pointerenter", h); });
+    if (!ux.reduce) gsap.from(strips, { yPercent: 110, opacity: 0, duration: 1.1, stagger: .07, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-f__strips", root), start: "top 80%", once: true } });
+    return () => strips.forEach(s => { const b = ux.$("button", s); b.removeEventListener("click", h); b.removeEventListener("focus", h); s.removeEventListener("pointerenter", h); });
   });
 })();

@@ -1,164 +1,165 @@
-<section class="opt-sec" id="proceso" data-sec="process" data-label="Proceso" data-default="E">
+<section class="opt-sec" id="proceso" data-sec="process" data-label="Cómo trabajamos">
 
-  <!-- A · Trazo ondulado -->
-  <div class="variant process-a" data-v="A" data-name="Trazo ondulado" data-theme="light">
-    <header class="process-a__head">
-      <p class="mono label">(Cómo trabajamos)</p>
-      <h2 class="big">Un solo interlocutor.<br><span class="acc">Cuatro pasos.</span></h2>
-    </header>
-    <div class="process-a__wrap">
-      <svg class="process-a__wave" viewBox="0 0 1200 1600" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M600 0 C 1100 200, 100 400, 600 600 S 1100 1000, 600 1200 S 100 1500, 600 1600"/>
-      </svg>
-      <ol class="process-a__steps">
-        <li><span class="process-a__n">01</span><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></li>
-        <li><span class="process-a__n">02</span><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></li>
-        <li><span class="process-a__n">03</span><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</p></li>
-        <li><span class="process-a__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></li>
+  <!-- A · Progreso circular (la favorita del usuario) -->
+  <div class="variant process-a" data-v="A" data-name="Progreso circular" data-theme="dark">
+    <div class="process-a__pin">
+      <div class="process-a__head">
+        <p class="mono label">(Cómo trabajamos)</p>
+        <h2 class="process-a__title">Del concepto <span class="acc">a la realidad.</span></h2>
+      </div>
+      <div class="process-a__ring" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="88"/><circle class="fg" cx="100" cy="100" r="88"/></svg>
+        <div class="process-a__pct"><b>0</b><span>%</span></div>
+      </div>
+      <ol class="process-a__stairs">
+        <li><span class="process-a__n">Fase 01</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li>
+        <li><span class="process-a__n">Fase 02</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li>
+        <li><span class="process-a__n">Fase 03</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li>
+        <li><span class="process-a__n">Fase 04</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li>
       </ol>
     </div>
   </div>
 
-  <!-- B · Línea horizontal fijada -->
-  <div class="variant process-b" data-v="B" data-name="Línea horizontal" data-theme="dark" hidden>
+  <!-- B · Cinta transportadora -->
+  <div class="variant process-b" data-v="B" data-name="Cinta transportadora" data-theme="dark" hidden>
     <div class="process-b__pin">
-      <div class="process-b__top">
+      <header class="process-b__head">
         <p class="mono label">(Cómo trabajamos)</p>
-        <h2 class="process-b__h">De la idea a la <span class="acc">instalación</span></h2>
-        <ol class="process-b__rail" aria-hidden="true">
-          <li><span>01</span>Presupuesto</li><li><span>02</span>Diseño</li><li><span>03</span>Producción</li><li><span>04</span>Instalación</li>
-          <i class="process-b__fill"></i>
+        <h2 class="process-b__title">Del concepto <span class="acc">a la realidad.</span></h2>
+        <p class="process-b__intro">Un único interlocutor de principio a fin: diseñamos, producimos e instalamos con equipo y maquinaria propios.</p>
+      </header>
+      <div class="process-b__stage">
+        <ol class="process-b__stations">
+          <li class="process-b__st"><div class="process-b__machine" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="10" y="14" width="44" height="36" rx="4"/><path d="M18 24h28M18 32h20M18 40h12"/><circle cx="46" cy="40" r="5"/></svg></div><span class="mono">01 · Presupuesto</span></li>
+          <li class="process-b__st"><div class="process-b__machine" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="32" rx="3"/><path d="M26 52h12M32 44v8"/><path d="M16 36l10-12 8 8 6-6 8 10"/></svg></div><span class="mono">02 · Diseño</span></li>
+          <li class="process-b__st"><div class="process-b__machine" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="6" y="20" width="52" height="22" rx="3"/><path d="M12 42v8h40v-8M14 28h36"/><rect x="18" y="12" width="28" height="8"/></svg></div><span class="mono">03 · Producción</span></li>
+          <li class="process-b__st"><div class="process-b__machine" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M8 44V30l6-10h26l10 10h6v14z"/><circle cx="18" cy="46" r="5"/><circle cx="46" cy="46" r="5"/><path d="M10 34h44"/></svg></div><span class="mono">04 · Instalación</span></li>
+        </ol>
+        <div class="process-b__belt" aria-hidden="true"><i></i></div>
+        <div class="process-b__piece" aria-hidden="true">
+          <div class="process-b__s process-b__s--0"><span>?</span><i></i><i></i></div>
+          <div class="process-b__s process-b__s--1"><svg viewBox="0 0 160 110"><path d="M14 80 C 50 40, 90 100, 146 30"/><path d="M14 92h132M14 18h60"/><circle cx="120" cy="40" r="12"/></svg></div>
+          <div class="process-b__s process-b__s--2"><svg viewBox="0 0 160 110" preserveAspectRatio="none"><path d="M0 70 C 40 30, 90 110, 160 40 V110 H0Z"/></svg><b>UNICAL</b></div>
+          <div class="process-b__s process-b__s--3"><img src="assets/img/hubs/rotulacion/coche-wrap.webp" alt=""></div>
+        </div>
+      </div>
+      <div class="process-b__info" aria-live="polite">
+        <article class="process-b__card on"><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p><ul class="process-tags"><li>Briefing</li><li>Medición</li><li>Sin compromiso</li></ul></article>
+        <article class="process-b__card"><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p><ul class="process-tags"><li>Originales</li><li>Adaptación de marca</li><li>Mockup</li></ul></article>
+        <article class="process-b__card"><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p><ul class="process-tags"><li>Gran formato</li><li>Corte CNC</li><li>Control de calidad</li></ul></article>
+        <article class="process-b__card"><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p><ul class="process-tags"><li>Equipo propio</li><li>Cobertura nacional</li><li>Llave en mano</li></ul></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Orden de trabajo con sellos -->
+  <div class="variant process-c" data-v="C" data-name="Orden con sellos" data-theme="light" hidden>
+    <div class="wrap process-c__grid">
+      <div class="process-c__side">
+        <p class="mono label">(Cómo trabajamos)</p>
+        <h2 class="big process-c__title">Del concepto <span class="acc">a la realidad.</span></h2>
+        <p class="lead">Un único interlocutor de principio a fin: diseñamos, producimos e instalamos con equipo y maquinaria propios. Sin intermediarios y sin sorpresas en el plazo.</p>
+        <a class="btn btn--dark" href="#contacto" data-magnetic>Abrir mi orden <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="process-c__doc">
+        <div class="process-c__docHead">
+          <img src="assets/img/logo/logo-unical.png" alt="Unical Graphic" width="800" height="98">
+          <span class="mono">Orden de trabajo · Tu proyecto</span>
+        </div>
+        <ol class="process-c__rows">
+          <li class="process-c__row"><span class="process-c__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><span class="mono process-c__n">Fase 01</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p><ul class="process-tags"><li>Briefing</li><li>Medición</li><li>Sin compromiso</li></ul></div><span class="process-c__stamp" aria-hidden="true">Valorado</span></li>
+          <li class="process-c__row"><span class="process-c__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><span class="mono process-c__n">Fase 02</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p><ul class="process-tags"><li>Originales</li><li>Adaptación de marca</li><li>Mockup</li></ul></div><span class="process-c__stamp" aria-hidden="true">Aprobado</span></li>
+          <li class="process-c__row"><span class="process-c__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><span class="mono process-c__n">Fase 03</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p><ul class="process-tags"><li>Gran formato</li><li>Corte CNC</li><li>Control de calidad</li></ul></div><span class="process-c__stamp" aria-hidden="true">Fabricado</span></li>
+          <li class="process-c__row"><span class="process-c__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><span class="mono process-c__n">Fase 04</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p><ul class="process-tags"><li>Equipo propio</li><li>Cobertura nacional</li><li>Llave en mano</li></ul></div><span class="process-c__stamp process-c__stamp--ok" aria-hidden="true">Instalado</span></li>
         </ol>
       </div>
-      <ol class="process-b__track">
-        <li class="process-b__step">
-          <span class="process-b__n">01</span>
-          <div class="process-b__txt"><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></div>
-          <figure class="process-b__img"><img src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy"></figure>
-        </li>
-        <li class="process-b__step">
-          <span class="process-b__n">02</span>
-          <div class="process-b__txt"><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></div>
-          <figure class="process-b__img"><img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo de 3cat" loading="lazy"></figure>
-        </li>
-        <li class="process-b__step">
-          <span class="process-b__n">03</span>
-          <div class="process-b__txt"><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</p></div>
-          <figure class="process-b__img"><img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy"></figure>
-        </li>
-        <li class="process-b__step">
-          <span class="process-b__n">04</span>
-          <div class="process-b__txt"><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></div>
-          <figure class="process-b__img"><img src="assets/img/proyectos/jpujol.webp" alt="Furgoneta J.Pujol rotulada" loading="lazy"></figure>
-        </li>
-      </ol>
     </div>
   </div>
 
-  <!-- C · Tarjetas que se voltean -->
-  <div class="variant process-c" data-v="C" data-name="Tarjetas flip" data-theme="light" hidden>
+  <!-- D · Del plano a la realidad -->
+  <div class="variant process-d" data-v="D" data-name="Del plano a la foto" data-theme="dark" hidden>
+    <div class="process-d__pin">
+      <div class="process-d__text">
+        <p class="mono label">(Cómo trabajamos)</p>
+        <h2 class="process-d__title">Del concepto <span class="acc">a la realidad.</span></h2>
+        <ol class="process-d__steps">
+          <li class="on"><span class="mono">01</span><div><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></div></li>
+          <li><span class="mono">02</span><div><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></div></li>
+          <li><span class="mono">03</span><div><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></div></li>
+          <li><span class="mono">04</span><div><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></div></li>
+        </ol>
+      </div>
+      <figure class="process-d__frame">
+        <div class="process-d__layer process-d__layer--0">
+          <img src="assets/img/hubs/eventos/stand-feria.webp" alt="" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true"><path d="M40 260H360M40 252v16M360 252v16M24 40V250M16 40h16M16 250h16"/><text x="200" y="285">ANCHO</text><text x="10" y="150" transform="rotate(-90 10 150)">ALTO</text></svg>
+        </div>
+        <div class="process-d__layer process-d__layer--1"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 75H400M0 150H400M0 225H400M100 0V300M200 0V300M300 0V300"/></svg></div>
+        <div class="process-d__layer process-d__layer--2"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="" aria-hidden="true"></div>
+        <div class="process-d__layer process-d__layer--3"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="Stand para feria instalado por Unical"></div>
+        <i class="process-d__scan" aria-hidden="true"></i>
+        <figcaption class="mono process-d__cap"><b>Fase 01</b> · <span>Medición</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- E · Línea de metro -->
+  <div class="variant process-e" data-v="E" data-name="Línea de metro" data-theme="light" hidden>
     <div class="wrap">
-      <header class="process-c__head">
-        <p class="mono label">(Cómo trabajamos)</p>
-        <h2 class="big">Cuatro pasos, <span class="acc">cero sorpresas.</span></h2>
-        <p class="lead">Pasa el cursor o pulsa cada tarjeta para ver el detalle.</p>
+      <header class="process-e__head">
+        <div><p class="mono label">(Cómo trabajamos)</p><h2 class="big">Del concepto <span class="acc">a la realidad.</span></h2></div>
+        <p class="process-e__badge mono"><span>U1</span> Línea directa · sin transbordos</p>
       </header>
-      <ol class="process-c__grid">
-        <li><button type="button" class="process-c__card" aria-pressed="false">
-          <span class="process-c__face process-c__front">
-            <span class="process-c__n mono">01</span>
-            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 14h44l18 18v74H30z"/><path d="M74 14v18h18"/><path d="M44 52h34M44 66h34M44 80h20"/><circle class="a" cx="84" cy="88" r="12"/></svg>
-            <span class="process-c__t">Presupuesto</span>
-          </span>
-          <span class="process-c__face process-c__back">
-            <span class="process-c__n mono">01 · Presupuesto</span>
-            <span class="process-c__p">Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</span>
-            <span class="process-c__tag mono">Gratis · sin compromiso</span>
-          </span>
-        </button></li>
-        <li><button type="button" class="process-c__card" aria-pressed="false">
-          <span class="process-c__face process-c__front">
-            <span class="process-c__n mono">02</span>
-            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><path d="M16 96C40 30 80 30 104 96"/><path d="M16 96h88"/><circle class="a" cx="60" cy="47" r="7"/><path d="M60 47L60 14"/><rect x="52" y="8" width="16" height="10" rx="2"/></svg>
-            <span class="process-c__t">Diseño</span>
-          </span>
-          <span class="process-c__face process-c__back">
-            <span class="process-c__n mono">02 · Diseño</span>
-            <span class="process-c__p">Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</span>
-            <span class="process-c__tag mono">Render 3D · prueba de color</span>
-          </span>
-        </button></li>
-        <li><button type="button" class="process-c__card" aria-pressed="false">
-          <span class="process-c__face process-c__front">
-            <span class="process-c__n mono">03</span>
-            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><rect x="14" y="40" width="92" height="40" rx="6"/><path d="M32 40V16h56v24"/><path d="M32 70v36h56V70"/><path class="a" d="M42 84h36M42 94h24"/></svg>
-            <span class="process-c__t">Producción</span>
-          </span>
-          <span class="process-c__face process-c__back">
-            <span class="process-c__n mono">03 · Producción</span>
-            <span class="process-c__p">Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</span>
-            <span class="process-c__tag mono">Planta propia</span>
-          </span>
-        </button></li>
-        <li><button type="button" class="process-c__card" aria-pressed="false">
-          <span class="process-c__face process-c__front">
-            <span class="process-c__n mono">04</span>
-            <svg class="process-c__ico" viewBox="0 0 120 120" aria-hidden="true"><path d="M34 108L52 12M86 108L68 12"/><path d="M45 48h30M41 72h38M49 26h22"/><path class="a" d="M14 92c14-8 24 8 38 0s24 8 38 0 16 6 16 6"/></svg>
-            <span class="process-c__t">Instalación</span>
-          </span>
-          <span class="process-c__face process-c__back">
-            <span class="process-c__n mono">04 · Instalación</span>
-            <span class="process-c__p">Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</span>
-            <span class="process-c__tag mono">Toda España</span>
-          </span>
-        </button></li>
-      </ol>
+      <div class="process-e__map">
+        <svg class="process-e__svg" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
+          <path class="process-e__track" d="M150 80 C 300 10, 300 150, 450 80 S 600 10, 750 80 S 900 150, 1050 80"/>
+          <path class="process-e__done" d="M150 80 C 300 10, 300 150, 450 80 S 600 10, 750 80 S 900 150, 1050 80"/>
+        </svg>
+        <div class="process-e__train" aria-hidden="true"><span></span></div>
+        <ol class="process-e__stops">
+          <li><span class="process-e__dot" aria-hidden="true"></span><span class="mono process-e__n">Parada 01</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p><ul class="process-tags"><li>Briefing</li><li>Medición</li><li>Sin compromiso</li></ul></li>
+          <li><span class="process-e__dot" aria-hidden="true"></span><span class="mono process-e__n">Parada 02</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p><ul class="process-tags"><li>Originales</li><li>Adaptación de marca</li><li>Mockup</li></ul></li>
+          <li><span class="process-e__dot" aria-hidden="true"></span><span class="mono process-e__n">Parada 03</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p><ul class="process-tags"><li>Gran formato</li><li>Corte CNC</li><li>Control de calidad</li></ul></li>
+          <li><span class="process-e__dot" aria-hidden="true"></span><span class="mono process-e__n">Final de trayecto</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p><ul class="process-tags"><li>Equipo propio</li><li>Cobertura nacional</li><li>Llave en mano</li></ul></li>
+        </ol>
+      </div>
     </div>
   </div>
 
-  <!-- D · Historias -->
-  <div class="variant process-d" data-v="D" data-name="Historias" data-theme="dark" hidden>
-    <div class="wrap process-d__in">
-      <div class="process-d__copy">
+  <!-- F · Expediente con pestañas -->
+  <div class="variant process-f" data-v="F" data-name="Expediente" data-theme="dark" hidden>
+    <div class="wrap process-f__grid">
+      <div class="process-f__side">
         <p class="mono label">(Cómo trabajamos)</p>
-        <div class="process-d__bars" role="tablist" aria-label="Pasos del proceso">
-          <button type="button" role="tab" aria-selected="true"><i></i>Presupuesto</button>
-          <button type="button" role="tab" aria-selected="false"><i></i>Diseño</button>
-          <button type="button" role="tab" aria-selected="false"><i></i>Producción</button>
-          <button type="button" role="tab" aria-selected="false"><i></i>Instalación</button>
+        <h2 class="big">Del concepto <span class="acc">a la realidad.</span></h2>
+        <p class="lead">Cada proyecto tiene su expediente: un único interlocutor lo lleva de la primera llamada a la instalación final.</p>
+      </div>
+      <div class="process-f__cabinet">
+        <div class="process-f__tabs" role="tablist" aria-label="Fases del proceso">
+          <button type="button" role="tab" id="pf-t1" aria-controls="pf-p1" aria-selected="true">01 Presupuesto</button>
+          <button type="button" role="tab" id="pf-t2" aria-controls="pf-p2" aria-selected="false" tabindex="-1">02 Diseño</button>
+          <button type="button" role="tab" id="pf-t3" aria-controls="pf-p3" aria-selected="false" tabindex="-1">03 Producción</button>
+          <button type="button" role="tab" id="pf-t4" aria-controls="pf-p4" aria-selected="false" tabindex="-1">04 Instalación</button>
         </div>
-        <div class="process-d__slides" aria-live="polite">
-          <div class="process-d__slide on"><span class="process-d__n">01</span><h3>Presupuesto</h3><p>Escuchamos qué necesitas y te enviamos una valoración detallada en menos de 24 h laborables.</p></div>
-          <div class="process-d__slide"><span class="process-d__n">02</span><h3>Diseño</h3><p>Originales, renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></div>
-          <div class="process-d__slide"><span class="process-d__n">03</span><h3>Producción</h3><p>Imprimimos, cortamos, laminamos y fabricamos en nuestra planta de 1.000 m².</p></div>
-          <div class="process-d__slide"><span class="process-d__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery hacen realidad el boceto, en cualquier punto de España.</p></div>
+        <div class="process-f__stack">
+          <article class="process-f__folder" id="pf-p1" role="tabpanel" aria-labelledby="pf-t1">
+            <div class="process-f__body"><span class="process-f__big" aria-hidden="true">01</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p><ul class="process-tags"><li>Briefing</li><li>Medición</li><li>Sin compromiso</li></ul></div>
+            <figure class="process-f__photo"><img src="assets/img/proyectos/janssen.webp" alt="Stand de Janssen medido y valorado por Unical" loading="lazy"></figure>
+          </article>
+          <article class="process-f__folder" id="pf-p2" role="tabpanel" aria-labelledby="pf-t2" hidden>
+            <div class="process-f__body"><span class="process-f__big" aria-hidden="true">02</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p><ul class="process-tags"><li>Originales</li><li>Adaptación de marca</li><li>Mockup</li></ul></div>
+            <figure class="process-f__photo"><img src="assets/img/proyectos/3cat.webp" alt="Mural corporativo diseñado para 3cat" loading="lazy"></figure>
+          </article>
+          <article class="process-f__folder" id="pf-p3" role="tabpanel" aria-labelledby="pf-t3" hidden>
+            <div class="process-f__body"><span class="process-f__big" aria-hidden="true">03</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p><ul class="process-tags"><li>Gran formato</li><li>Corte CNC</li><li>Control de calidad</li></ul></div>
+            <figure class="process-f__photo"><img src="assets/img/servicios/gran-formato.webp" alt="Pieza impresa en gran formato" loading="lazy"></figure>
+          </article>
+          <article class="process-f__folder" id="pf-p4" role="tabpanel" aria-labelledby="pf-t4" hidden>
+            <div class="process-f__body"><span class="process-f__big" aria-hidden="true">04</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p><ul class="process-tags"><li>Equipo propio</li><li>Cobertura nacional</li><li>Llave en mano</li></ul></div>
+            <figure class="process-f__photo"><img src="assets/img/hubs/rotulacion/flota-furgonetas.webp" alt="Flota de furgonetas rotulada e instalada" loading="lazy"></figure>
+          </article>
         </div>
       </div>
-      <div class="process-d__phone">
-        <img class="on" src="assets/img/proyectos/cava-pharma.webp" alt="Stand de Cava Pharma" loading="lazy">
-        <img src="assets/img/proyectos/3cat.webp" alt="Mural de 3cat" loading="lazy">
-        <img src="assets/img/servicios/gran-formato.webp" alt="Impresión de gran formato" loading="lazy">
-        <video src="assets/video/v-lexus-3.mp4" poster="assets/video/v-lexus-3.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
-        <span class="process-d__badge mono">Unical · <b>01</b>/04</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- E · Progreso circular -->
-  <div class="variant process-e" data-v="E" data-name="Progreso circular" data-theme="dark" hidden>
-    <div class="process-e__pin">
-      <p class="mono label process-e__label">(Cómo trabajamos)</p>
-      <div class="process-e__ring" aria-hidden="true">
-        <svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="88"/><circle class="fg" cx="100" cy="100" r="88"/></svg>
-        <div class="process-e__pct"><b>0</b><span>%</span></div>
-      </div>
-      <h2 class="sr-only">Cómo trabajamos: cuatro pasos</h2>
-      <ol class="process-e__stairs">
-        <li><span class="process-e__n">01</span><h3>Presupuesto</h3><p>Valoración detallada en menos de 24 h laborables.</p></li>
-        <li><span class="process-e__n">02</span><h3>Diseño</h3><p>Renders 3D y pruebas de color. Nada se imprime sin tu aprobación.</p></li>
-        <li><span class="process-e__n">03</span><h3>Producción</h3><p>Impresión y fabricación en nuestra planta de 1.000 m².</p></li>
-        <li><span class="process-e__n">04</span><h3>Instalación</h3><p>Instaladores certificados 3M &amp; Avery en toda España.</p></li>
-      </ol>
     </div>
   </div>
 </section>

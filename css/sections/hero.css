@@ -25,11 +25,15 @@
 /* ---------- B · Vídeo en letras ---------- */
 .hero-b{height:220vh;background:var(--u-night)}
 .hero-b__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
-.hero-b__video{position:absolute;inset:0;width:100%;height:100%!important;object-fit:cover}
-.hero-b__knock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--u-night);color:#fff;mix-blend-mode:multiply;padding-bottom:16vh;font-family:var(--f-head);font-weight:900;line-height:.82;letter-spacing:-.06em;transform-origin:50% 46%;will-change:transform}
-.hero-b__word{display:block;font-size:clamp(5rem,min(17vw,30vh),20rem)}
-.hero-b__word:first-child{font-size:clamp(5rem,min(22vw,38vh),26rem)}
-.hero-b__copy{position:absolute;left:0;right:0;bottom:0;padding:clamp(60px,10vh,120px) var(--pad) clamp(90px,12vh,130px);background:linear-gradient(0deg,rgba(16,16,29,.92),rgba(16,16,29,.55) 60%,transparent);display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.hero-b__media{position:absolute;inset:-4%;overflow:hidden}
+.hero-b__img{width:100%;height:100%!important;object-fit:cover;object-position:50% 45%;will-change:transform}
+/* Capa de letras (la imagen solo se ve a través de ellas) y capa de filete blanco encima, con la misma geometría */
+.hero-b__knock,.hero-b__stroke{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(70px,9vh,100px) 0 31vh;font-family:var(--f-head);font-weight:900;line-height:.82;letter-spacing:-.06em;transform-origin:50% 38%;will-change:transform}
+.hero-b__knock{background:var(--u-night);color:#fff;mix-blend-mode:multiply}
+.hero-b__stroke{color:transparent;-webkit-text-stroke:1.6px rgba(255,255,255,.92);pointer-events:none}
+.hero-b__word{display:block;font-size:clamp(4.5rem,min(15.5vw,23vh),17rem)}
+.hero-b__word:first-child{font-size:clamp(5rem,min(20vw,30vh),22rem)}
+.hero-b__copy{position:absolute;left:0;right:0;bottom:0;padding:clamp(40px,6vh,80px) var(--pad) clamp(96px,12vh,130px);background:linear-gradient(0deg,rgba(16,16,29,.92),rgba(16,16,29,.55) 60%,transparent);display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .hero-b__kicker{color:var(--u-blue);margin-bottom:.8rem}
 .hero-b__h1{font-weight:var(--w-head);font-size:clamp(1.3rem,2.2vw,2.1rem);line-height:1.12;max-width:24ch}
 .hero-b__ctas{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
@@ -111,15 +115,27 @@
   .hero-c__loop{animation:none}
 }
 @media (max-width:700px){
-  .hero-b__knock{justify-content:flex-start;padding-top:20vh;transform-origin:50% 30%}
+  .hero-b__knock,.hero-b__stroke{justify-content:flex-start;padding-top:20vh;transform-origin:50% 30%}
   .hero-b__word{font-size:26vw}.hero-b__word:first-child{font-size:34vw}
 }
 
 /* Texto v29 en la portada B */
 .hero-b__sub{display:block;margin-top:.7rem;font-family:var(--f-body);font-weight:500;font-size:clamp(.95rem,1.05vw,1.08rem);line-height:1.5;letter-spacing:0;color:var(--u-muted);max-width:52ch}
 @media (max-width:700px){
-  .hero-b__knock{padding-top:12vh}
+  .hero-b__knock,.hero-b__stroke{padding-top:12vh}
   .hero-b__word{font-size:23vw}.hero-b__word:first-child{font-size:30vw}
   .hero-b__copy{padding-top:40px}
   .hero-b__hint{display:none}
 }
+
+.hero-b__stroke .hero-b__word{-webkit-text-stroke:inherit}
+@media (max-width:700px){.hero-b__stroke{-webkit-text-stroke-width:1.2px}}
+/* Bloque inferior compacto: textos a la izquierda, botones a la derecha */
+.hero-b__copy{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:2.5rem;align-items:end}
+.hero-b__kicker{grid-column:1;margin-bottom:.5rem}
+.hero-b__h1{grid-column:1;max-width:none}
+.hero-b__h1 .hero-b__sub{max-width:62ch}
+.hero-b__ctas{grid-column:2;grid-row:1 / span 2;justify-content:flex-end}
+@media (max-width:1100px){.hero-b__copy{grid-template-columns:1fr}.hero-b__ctas{grid-column:1;grid-row:auto;justify-content:flex-start;margin-top:1.2rem}}
+/* Que la tilde de LÍMITES no invada la línea de SIN */
+.hero-b__word + .hero-b__word{margin-top:.1em}
