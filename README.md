@@ -1,35 +1,36 @@
 # Unical Pro Max — web paralela (prueba)
 
-Versión experimental de la web de [Unical Graphic](https://www.unical.es), hecha para probar las skills **ui-ux-pro-max** y **unical-ui** y el MCP de **21st.dev**. No es la web definitiva y las páginas llevan `noindex`.
+Versión experimental de la web de [Unical Graphic](https://www.unical.es). No es la definitiva y las páginas llevan `noindex`.
 
-Es una web estática (HTML, CSS y JavaScript), sin dependencias ni compilación.
+- **`index.html`** — versión 2: narrativa con scroll, vídeo y animación (la principal).
+- **`opciones.html`** — versión 1: landing con 3 opciones (A/B/C) por sección.
 
-## Opciones por sección
-Cada sección de la portada tiene **3 opciones (A, B, C)** que se cambian en directo con el selector de arriba a la derecha de cada sección. La combinación elegida queda en la URL, por ejemplo:
+Web estática: HTML, CSS y JavaScript. Librerías por CDN: GSAP 3.12.5 + ScrollTrigger y Lenis 1.1.13 (scroll suave).
 
-```
-?hero=B&servicios=C&proyectos=C
-```
+## Cómo se ha hecho
+- **ui-ux-pro-max** (`--design-system`, variance 10 · motion 10 · density 2): patrón *Scroll-Triggered Storytelling* (capítulos con indicador de progreso, CTA final), tipografía editorial de acento y presets GSAP de pin, scrub y parallax. Adaptado a los colores de marca de Unical.
+- **21st.dev (MCP)**:
+  - Componente *Scroll media expansion hero* → sección **Showreel** (el vídeo crece a pantalla completa con el scroll).
+  - Componente *Services Stack* → sección **Servicios** (paneles apilados, foto de fondo con grano y un dibujo de línea por servicio sincronizado con sus chips).
+  - Proyecto de vídeo «Unical Graphic — Showreel» creado en 21st Video con nuestras fotos y clips. La exportación a MP4 requiere plan de pago, así que el showreel de la web se ha montado con ffmpeg a partir del mismo material.
+- **unical-ui**: logo, colores y voz de marca.
 
-El botón **Opciones** (abajo a la izquierda) resume la combinación, copia el enlace y permite ver la página sin los selectores.
+## Secciones
+1. Precarga con contador y telón
+2. Portada con vídeo real (Lexus, car wrapping) y titular letra a letra
+3. Manifiesto: las palabras se iluminan con el scroll, con fotos y vídeo dentro del texto
+4. Showreel que se expande
+5. Servicios en paneles apilados con ilustración animada
+6. Cifras en recorrido horizontal con clips verticales
+7. Proyectos: índice con vídeo/foto que sigue al cursor + galería con profundidad
+8. Proceso: el trazo ondulado del logo se dibuja con el scroll
+9. Clientes: marquesina que reacciona a la velocidad del scroll
+10. Opiniones, contacto con vídeo de fondo y pie con el logo gigante
 
-| Sección | A | B | C |
-|---|---|---|---|
-| Portada | Cinemático (foto a sangre, titular que cambia) | Abanico de proyectos | Linterna (el cursor descubre la foto) |
-| Clientes | Marquesina doble | Rejilla con brillo | Contador + logos que rotan |
-| Servicios | Bento | Lista + imagen que sigue al cursor | Scroll horizontal fijado |
-| Por qué Unical | Cifras animadas | Tarjetas apiladas | Acordeón + imagen |
-| Proyectos | Masonry con filtros | Carrusel arrastrable | Destacado con lista |
-| Proceso | Línea temporal | Paneles | Historias con progreso |
-| Opiniones | Cita grande | Muro en movimiento | Valoración + tarjetas |
-| Contacto | Banda + formulario | Presupuesto por pasos | Texto gigante + botón magnético |
+Respeta `prefers-reduced-motion`: sin animaciones, todo el contenido queda visible.
 
-## Estructura
-- `index.html` — la landing
-- `css/estilos.css` — estilos (tokens de marca de Unical en `:root`)
-- `js/datos.js` — textos, servicios, proyectos y opiniones
-- `js/sitio.js` — selector de opciones y animaciones
-- `assets/img/` — imágenes optimizadas (WebP) sacadas de la web actual
+## Vídeos (`assets/video/`)
+Recortados y comprimidos con ffmpeg (sin audio, H.264, `faststart`). `showreel.mp4` dura 25 s y pesa 2,9 MB.
 
 ## Verla en local
 ```
