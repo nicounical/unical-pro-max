@@ -139,3 +139,21 @@
 @media (max-width:1100px){.hero-b__copy{grid-template-columns:1fr}.hero-b__ctas{grid-column:1;grid-row:auto;justify-content:flex-start;margin-top:1.2rem}}
 /* Que la tilde de LÍMITES no invada la línea de SIN */
 .hero-b__word + .hero-b__word{margin-top:.1em}
+
+/* Legibilidad SIN LÍMITES: letras sin solaparse, tilde con aire, filete algo más marcado */
+.hero-b__knock,.hero-b__stroke{letter-spacing:0;line-height:.92}
+.hero-b__word{font-size:clamp(4.2rem,min(13.5vw,21vh),15rem)}
+.hero-b__word:first-child{font-size:clamp(4.8rem,min(18vw,28vh),20rem)}
+.hero-b__word + .hero-b__word{margin-top:.04em}
+.hero-b__stroke{-webkit-text-stroke:2px rgba(255,255,255,.95)}
+.hero-b__img{filter:brightness(1.12) saturate(1.12) contrast(1.04)}
+@media (max-width:700px){
+  .hero-b__word{font-size:18.5vw}.hero-b__word:first-child{font-size:27vw}
+  .hero-b__stroke{-webkit-text-stroke-width:1.4px}
+}
+/* Tilde de la Í dibujada aparte: la de Poppins Black queda desplazada y parece una pieza suelta */
+.hero-b__i{position:relative;display:inline-block}
+.hero-b__i::after{content:"";position:absolute;left:50%;top:-.07em;width:.2em;height:.085em;transform:translateX(-40%) rotate(-32deg);background:currentColor;border-radius:.015em}
+.hero-b__stroke .hero-b__i::after{background:transparent;border:2px solid rgba(255,255,255,.95)}
+@media (max-width:700px){.hero-b__stroke .hero-b__i::after{border-width:1.4px}}
+.hero-b__word + .hero-b__word{margin-top:.12em}
