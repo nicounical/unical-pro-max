@@ -1,4 +1,4 @@
-/* Cómo trabajamos · A (favorita: progreso circular) + 5 versiones nuevas */
+/* Cómo trabajamos · A (favorita: progreso circular) + 5 futuristas */
 (() => {
   const { register, $, $$ } = UX;
 
@@ -34,146 +34,172 @@
     return () => { items.forEach(li => { li.style.left = li.style.top = ""; }); };
   });
 
-  /* ---------- B · Cinta transportadora ---------- */
+
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+  /* Lienzo con DPR limitado que solo anima mientras se ve */
+  const canvasLoop = (cv, host, draw, ux) => {
+    const ctx = cv.getContext("2d"); let W = 0, H = 0, raf = 0, run = false;
+    const size = () => { const dpr = Math.min(2, devicePixelRatio || 1); W = cv.offsetWidth; H = cv.offsetHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); frame(performance.now(), true); };
+    const frame = (now, once) => { if (W && H) draw(ctx, W, H, now); if (run && !once) raf = requestAnimationFrame(frame); };
+    const io = new IntersectionObserver(([e]) => { run = e.isIntersecting && !ux.reduce; cancelAnimationFrame(raf); if (run) raf = requestAnimationFrame(frame); });
+    io.observe(host); const ro = new ResizeObserver(size); ro.observe(cv); size();
+    return { redraw: () => frame(performance.now(), true), stop: () => { run = false; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); } };
+  };
+
+  /* ---------- B · Secuencia de lanzamiento ---------- */
   register("process", "B", (root, ux) => {
-    const pin = $(".process-b__pin", root), stage = $(".process-b__stage", root), piece = $(".process-b__piece", root);
-    const sts = $$(".process-b__st", root), cards = $$(".process-b__card", root), states = $$(".process-b__s", root), belt = $(".process-b__belt i", root);
-    let cur = -1;
-    const setStep = i => {
-      if (i === cur) return; cur = i;
-      sts.forEach((s, j) => s.classList.toggle("on", j === i));
-      cards.forEach((c, j) => c.classList.toggle("on", j === i));
-      states.forEach((s, j) => s.classList.toggle("on", j === i));
-    };
-    if (ux.reduce) { root.classList.add("is-static"); setStep(0); cards.forEach(c => c.classList.add("on")); return () => root.classList.remove("is-static"); }
-    let xs = [];
-    const measure = () => {
-      const sr = stage.getBoundingClientRect(), pw = piece.offsetWidth;
-      xs = sts.map(s => { const r = $(".process-b__machine", s).getBoundingClientRect(); return r.left - sr.left + r.width / 2 - pw / 2; });
-    };
-    measure();
-    const render = p => {
-      // Se detiene un rato en cada estación y viaja entre ellas
-      const seg = p * (xs.length - 1), i = Math.min(xs.length - 2, Math.floor(seg)), t = seg - i;
-      const ease = t < .35 ? 0 : t > .85 ? 1 : (t - .35) / .5;
-      const e = ease * ease * (3 - 2 * ease);
-      const x = xs[i] + (xs[i + 1] - xs[i]) * e;
-      gsap.set(piece, { x, rotate: (ease > 0 && ease < 1) ? -2 : 0 });
-      belt.style.setProperty("--bx", (-x * 1.2) + "px");
-      setStep(Math.round(i + e));
-    };
-    setStep(0); render(0);
-    ScrollTrigger.create({
-      trigger: pin, start: "top top", end: "+=260%", pin: true, scrub: .5, invalidateOnRefresh: true,
-      onRefresh: () => measure(), onUpdate: s => render(s.progress)
-    });
-    gsap.from(sts, { y: 40, opacity: 0, duration: 1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
-  });
-
-  /* ---------- C · Orden de trabajo con sellos ---------- */
-  register("process", "C", (root, ux) => {
-    const rows = $$(".process-c__row", root);
-    rows.forEach(r => { const p = $(".process-c__box path", r); p.setAttribute("pathLength", 1); p.style.strokeDasharray = "1 1"; p.style.strokeDashoffset = 1; });
-    if (ux.reduce) { rows.forEach(r => { $(".process-c__box path", r).style.strokeDashoffset = 0; $(".process-c__stamp", r).style.opacity = .9; }); return; }
-    gsap.set($$(".process-c__row > div", root), { opacity: .35 });
-    rows.forEach(r => {
-      const tl = gsap.timeline({ scrollTrigger: { trigger: r, start: "top 72%" } });
-      tl.to($(".process-c__row > div", r), { opacity: 1, duration: .5 })
-        .to($(".process-c__box path", r), { strokeDashoffset: 0, duration: .45, ease: "power2.out" }, "<.1")
-        .fromTo($(".process-c__stamp", r), { scale: 2.4, opacity: 0, rotate: -24 }, { scale: 1, opacity: .9, rotate: -12, duration: .45, ease: "back.out(2.4)" }, ">-.05")
-        .fromTo($(".process-c__doc", root), { x: 0 }, { x: 3, duration: .05, yoyo: true, repeat: 3, ease: "none" }, "<.3");
-    });
-    gsap.from($(".process-c__doc", root), { y: 60, rotate: 1.5, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
-  });
-
-  /* ---------- D · Del plano a la realidad ---------- */
-  register("process", "D", (root, ux) => {
-    const pin = $(".process-d__pin", root), layers = $$(".process-d__layer", root), steps = $$(".process-d__steps li", root);
-    const scan = $(".process-d__scan", root), frame = $(".process-d__frame", root);
-    const capB = $(".process-d__cap b", root), capS = $(".process-d__cap span", root);
-    const caps = ["Medición", "Plano técnico", "Prueba de producción", "Instalado"];
-    let cur = -1;
-    const setStep = i => {
-      if (i === cur) return; cur = i;
-      steps.forEach((s, j) => s.classList.toggle("on", j === i));
-      capB.textContent = "Fase 0" + (i + 1); capS.textContent = caps[i];
-    };
-    setStep(0);
-    if (ux.reduce) { root.classList.add("is-static"); layers.forEach(l => (l.style.clipPath = "none")); setStep(3); steps.forEach(s => s.classList.add("on")); return () => root.classList.remove("is-static"); }
-    gsap.set(layers.slice(1), { clipPath: "inset(0 100% 0 0)" });
-    const render = p => {
-      const W = frame.offsetWidth;
-      let edge = -1;
-      layers.slice(1).forEach((l, k) => {
-        const a = k / 3, t = gsap.utils.clamp(0, 1, (p - a) * 3);
-        l.style.clipPath = `inset(0 ${100 - t * 100}% 0 0)`;
-        if (t > 0 && t < 1) edge = t;
+    const pin = $(".process-b__pin", root), mods = $$(".process-b__mods li", root), clock = $(".process-b__clock i", root);
+    const fill = $(".process-b__fill", root), dot = $(".process-b__head-dot", root);
+    const states = ["En espera", "En curso", "Completado"];
+    const setIdx = (idx, finished) => {
+      mods.forEach((li, i) => {
+        const st = finished || i < idx ? 2 : i === idx ? 1 : 0;
+        li.classList.toggle("on", st === 1); li.classList.toggle("done", st === 2);
+        $(".process-b__state", li).textContent = states[st];
       });
-      gsap.set(scan, { x: edge >= 0 ? edge * W - 1 : 0, opacity: edge >= 0 ? 1 : 0 });
-      setStep(Math.min(3, Math.floor(p * 3 + .5)));
+      clock.textContent = String(finished ? 0 : 4 - idx).padStart(2, "0");
     };
-    render(0);
-    ScrollTrigger.create({ trigger: pin, start: "top top", end: "+=240%", pin: true, scrub: .6, invalidateOnRefresh: true, onUpdate: s => render(s.progress) });
-    gsap.from(frame, { scale: .92, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
-  });
-
-  /* ---------- E · Línea de metro ---------- */
-  register("process", "E", (root, ux) => {
-    const map = $(".process-e__map", root), svg = $(".process-e__svg", root), done = $(".process-e__done", root);
-    const train = $(".process-e__train", root), stops = $$(".process-e__stops > li", root), list = $(".process-e__stops", root);
-    const len = done.getTotalLength();
-    done.style.strokeDasharray = `${len} ${len}`;
-    const stopsAt = [0, 1 / 3, 2 / 3, 1];
-    const render = p => {
-      done.style.strokeDashoffset = len * (1 - p);
-      const pt = done.getPointAtLength(len * p), vb = svg.viewBox.baseVal;
-      const sx = svg.clientWidth / vb.width, sy = svg.clientHeight / vb.height;
-      const ahead = done.getPointAtLength(Math.min(len, len * p + 2));
-      const ang = Math.atan2((ahead.y - pt.y) * sy, (ahead.x - pt.x) * sx) * 180 / Math.PI;
-      gsap.set(train, { x: pt.x * sx, y: pt.y * sy, rotate: ang });
-      list.style.setProperty("--p", p);
-      stops.forEach((s, i) => s.classList.toggle("on", p >= stopsAt[i] - .02));
-    };
-    if (ux.reduce) { root.classList.add("is-static"); render(1); return () => root.classList.remove("is-static"); }
-    render(0);
-    ScrollTrigger.create({ trigger: map, start: "top 75%", end: "bottom 45%", scrub: .8, onUpdate: s => render(s.progress), onRefresh: s => render(s.progress) });
-  });
-
-  /* ---------- F · Expediente con pestañas ---------- */
-  register("process", "F", (root, ux) => {
-    const tabs = $$('[role="tab"]', root), panels = $$('[role="tabpanel"]', root);
-    let cur = 0, timer = null, touched = false, inView = false, busy = false;
-    panels.forEach((p, i) => { p.hidden = i !== 0; gsap.set(p, { clearProps: "all" }); });
-    tabs.forEach((t, i) => { t.setAttribute("aria-selected", i === 0); t.tabIndex = i === 0 ? 0 : -1; });
-    const show = (i, focus) => {
-      if (i === cur || busy) return;
-      const prev = panels[cur], next = panels[i];
-      tabs.forEach((t, j) => { t.setAttribute("aria-selected", j === i); t.tabIndex = j === i ? 0 : -1; });
-      if (focus) tabs[i].focus();
-      cur = i;
-      if (ux.reduce) { prev.hidden = true; next.hidden = false; return; }
-      busy = true;
-      gsap.to(prev, { y: 60, rotate: 3, opacity: 0, duration: .35, ease: "power2.in", onComplete: () => {
-        prev.hidden = true; gsap.set(prev, { clearProps: "all" }); next.hidden = false;
-        gsap.fromTo(next, { y: -50, rotate: -2.5, opacity: 0 }, { y: 0, rotate: 0, opacity: 1, duration: .6, ease: "expo.out", onComplete: () => (busy = false) });
-        gsap.from($$(".process-f__body > *", next), { y: 20, opacity: 0, duration: .5, stagger: .05, ease: "power3.out", delay: .1 });
+    if (ux.reduce) { setIdx(4, true); gsap.set(fill, { scaleX: 1 }); gsap.set(dot, { left: "100%" }); return; }
+    setIdx(0);
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 901px)", () => {
+      let last = "";
+      ScrollTrigger.create({ trigger: pin, start: "top top", end: "+=200%", pin: true, scrub: .6, onUpdate: s => {
+        const p = s.progress; gsap.set(fill, { scaleX: p }); gsap.set(dot, { left: p * 100 + "%" });
+        const fin = p > .97, idx = Math.min(3, Math.floor(p * 4)), key = idx + "" + fin;
+        if (key !== last) { last = key; setIdx(idx, fin); }
       } });
-    };
-    tabs.forEach((t, i) => {
-      t.addEventListener("click", () => { touched = true; stop(); show(i); });
-      t.addEventListener("keydown", e => {
-        const k = e.key; let n = null;
-        if (k === "ArrowRight") n = (cur + 1) % tabs.length; else if (k === "ArrowLeft") n = (cur - 1 + tabs.length) % tabs.length;
-        else if (k === "Home") n = 0; else if (k === "End") n = tabs.length - 1;
-        if (n !== null) { e.preventDefault(); touched = true; stop(); show(n, true); }
-      });
+      gsap.from(mods, { y: 40, opacity: 0, duration: 1, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 60%" } });
     });
-    const stop = () => { clearInterval(timer); timer = null; };
-    const auto = () => { stop(); if (!ux.reduce && !touched && inView) timer = setInterval(() => show((cur + 1) % tabs.length), 4500); };
-    const io = new IntersectionObserver(([e]) => { inView = e.isIntersecting; auto(); }, { threshold: .4 });
-    io.observe(root);
-    root.addEventListener("pointerenter", stop); root.addEventListener("pointerleave", auto);
-    if (!ux.reduce) gsap.from($(".process-f__cabinet", root), { y: 70, rotate: -2, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
-    return () => { stop(); io.disconnect(); };
+    mm.add("(max-width: 900px)", () => {
+      mods.forEach((li, i) => ScrollTrigger.create({ trigger: li, start: "top 65%", end: "bottom 65%", onToggle: s => s.isActive && setIdx(i), onLeave: () => i === mods.length - 1 && setIdx(4, true), onEnterBack: () => setIdx(i) }));
+    });
+    return () => { mm.revert(); setIdx(0); };
+  });
+
+  /* ---------- C · Terminal de producción ---------- */
+  register("process", "C", (root, ux) => {
+    const jobs = $$(".process-c__job", root);
+    if (ux.reduce) { root.classList.add("is-done"); $$(".process-c__pct", root).forEach(p => (p.textContent = "100%")); return () => root.classList.remove("is-done"); }
+    const timers = [];
+    jobs.forEach(job => {
+      const t = $(".process-c__t", job), full = t.dataset.t, bar = $(".process-c__bars b", job), pct = $(".process-c__pct", job), ok = $(".process-c__ok", job);
+      const rest = [$("h3", job), $(".process-c__out", job)];
+      t.textContent = ""; gsap.set(rest, { opacity: 0, y: 10 });
+      ScrollTrigger.create({ trigger: job, start: "top 78%", once: true, onEnter: () => {
+        let i = 0;
+        const iv = setInterval(() => {
+          t.textContent = full.slice(0, ++i);
+          if (i < full.length) return;
+          clearInterval(iv);
+          const o = { v: 0 };
+          gsap.timeline()
+            .to(rest, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: "expo.out" })
+            .to(o, { v: 100, duration: 1.3, ease: "power2.inOut", onUpdate: () => { bar.style.clipPath = `inset(0 ${100 - o.v}% 0 0)`; pct.textContent = Math.round(o.v) + "%"; } }, .2)
+            .to(ok, { opacity: 1, duration: .3 });
+        }, 26);
+        timers.push(iv);
+      } });
+    });
+    gsap.from($(".process-c__win", root), { y: 60, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
+    return () => { timers.forEach(clearInterval); jobs.forEach(job => { const t = $(".process-c__t", job); t.textContent = t.dataset.t; $(".process-c__bars b", job).style.clipPath = ""; $(".process-c__pct", job).textContent = "0%"; }); };
+  });
+
+  /* ---------- D · Holograma 3D: puntos → malla → sólido → montado ---------- */
+  register("process", "D", (root, ux) => {
+    const cv = $(".process-d__cv", root), steps = $$(".process-d__steps li", root), hud = $(".process-d__phase", root), pctEl = $(".process-d__pct b", root);
+    const names = ["01 · Presupuesto", "02 · Diseño", "03 · Producción", "04 · Instalación"];
+    // Geometría: un stand (tarima, fondo, lateral y mostrador)
+    const boxes = [[-1.1, -.75, -.7, 2.2, .12, 1.4], [-1.1, -.63, -.7, 2.2, 1.35, .08], [-1.1, -.63, -.62, .08, 1.35, .75], [.15, -.63, .05, .7, .55, .4]];
+    const V = [], E = [], F = [];
+    boxes.forEach(([x, y, z, w, h, d]) => {
+      const o = V.length;
+      for (let i = 0; i < 8; i++) V.push([x + (i & 4 ? w : 0), y + (i & 2 ? h : 0), z + (i & 1 ? d : 0)]);
+      for (let a = 0; a < 8; a++) for (const b of [1, 2, 4]) if (!(a & b)) E.push([o + a, o + (a | b)]);
+      for (const bit of [1, 2, 4]) { const [b1, b2] = [1, 2, 4].filter(k => k !== bit); for (const val of [0, bit]) F.push([0, b1, b1 | b2, b2].map(k => o + (k | val))); }
+    });
+    const pts = [];
+    E.forEach(([a, b]) => { for (let k = 0; k < 7; k++) { const s = Math.random(); const r = 2.6 * Math.cbrt(Math.random()), th = Math.random() * 6.283, ph = Math.acos(2 * Math.random() - 1);
+      pts.push({ to: V[a].map((c, j) => c + (V[b][j] - c) * s), from: [r * Math.sin(ph) * Math.cos(th), r * Math.cos(ph), r * Math.sin(ph) * Math.sin(th)] }); } });
+    let T = ux.reduce ? 4 : 0, shown = 0;
+    const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+    const draw = (ctx, W, H, now) => {
+      shown += (T - shown) * .12; const t = shown;
+      const p0 = ease(clamp01(t)), p1 = clamp01(t - 1), p2 = clamp01(t - 2), p3 = clamp01(t - 3);
+      const ang = -.75 + (ux.reduce ? 0 : now * .00012) + t * .3, tx = .34, ca = Math.cos(ang), sa = Math.sin(ang), ct = Math.cos(tx), st = Math.sin(tx);
+      const f = Math.min(W, H) * 1.55, Dz = 5;
+      const P = ([x, y, z]) => { const x1 = x * ca - z * sa, z1 = x * sa + z * ca, y2 = y * ct - z1 * st, z2 = y * st + z1 * ct, k = f / (z2 + Dz); return [W / 2 + x1 * k, H * .56 - y2 * k, z2]; };
+      ctx.clearRect(0, 0, W, H);
+      // suelo
+      const ga = .07 + .22 * p3; ctx.lineWidth = 1; ctx.strokeStyle = `rgba(153,196,228,${ga})`; ctx.beginPath();
+      for (let g = -2; g <= 2.001; g += .4) { let a = P([g, -.75, -2]), b = P([g, -.75, 2]); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); a = P([-2, -.75, g]); b = P([2, -.75, g]); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); }
+      ctx.stroke();
+      // caras (sólido) con barrido de abajo arriba
+      if (p2 > 0) {
+        const ys = -.76 + p2 * 1.5;
+        F.map(q => ({ q, s: q.map(i => P(V[i])), minY: Math.min(...q.map(i => V[i][1])) })).sort((a, b) => b.s.reduce((m, v) => m + v[2], 0) - a.s.reduce((m, v) => m + v[2], 0))
+          .forEach(({ s, minY }) => { if (minY > ys) return; ctx.fillStyle = `rgba(${p3 ? "120,170,215" : "153,196,228"},${.13 + .1 * p3})`; ctx.beginPath(); s.forEach((v, i) => i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1])); ctx.closePath(); ctx.fill(); });
+        if (p2 < 1) { const c = [[-1.4, ys, -1], [1.4, ys, -1], [1.4, ys, 1], [-1.4, ys, 1]].map(P); ctx.fillStyle = "rgba(153,196,228,.08)"; ctx.strokeStyle = "rgba(221,238,255,.9)"; ctx.lineWidth = 1.5; ctx.beginPath(); c.forEach((v, i) => i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1])); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+      }
+      // aristas (malla) que se dibujan progresivamente
+      if (p1 > 0) {
+        ctx.lineWidth = 1.3; ctx.strokeStyle = `rgba(153,196,228,${.75 + .25 * p3})`; ctx.shadowColor = "rgba(153,196,228,.9)"; ctx.shadowBlur = 6 + 10 * p3; ctx.beginPath();
+        E.forEach(([a, b], i) => { const e = clamp01(p1 * 1.7 - i / E.length * .7); if (!e) return; const A = V[a], B = V[b], m = A.map((c, j) => c + (B[j] - c) * e); const s = P(A), d = P(m); ctx.moveTo(s[0], s[1]); ctx.lineTo(d[0], d[1]); });
+        ctx.stroke(); ctx.shadowBlur = 0;
+      }
+      // nube de puntos
+      const pa = .9 * (1 - .75 * p1);
+      if (pa > .02) { ctx.fillStyle = `rgba(221,238,255,${pa})`; pts.forEach(o => { const v = P(o.from.map((c, j) => c + (o.to[j] - c) * p0)); ctx.fillRect(v[0] - 1, v[1] - 1, 2, 2); }); }
+    };
+    const loop = canvasLoop(cv, root, draw, ux);
+    const setUI = t => { const i = Math.min(3, Math.floor(t)); steps.forEach((li, k) => li.classList.toggle("on", k === i)); hud.textContent = names[i]; pctEl.textContent = Math.round(t / 4 * 100); };
+    if (ux.reduce) { root.classList.add("is-static"); shown = 4; setUI(3.99); pctEl.textContent = "100"; loop.redraw(); return () => { loop.stop(); root.classList.remove("is-static"); }; }
+    setUI(0);
+    ScrollTrigger.create({ trigger: $(".process-d__steps", root), start: "top 65%", end: "bottom 75%", onUpdate: s => { T = s.progress * 4; setUI(Math.min(3.99, T)); } });
+    return () => loop.stop();
+  });
+
+  /* ---------- E · Bento con brillo ---------- */
+  register("process", "E", (root, ux) => {
+    const grid = $(".process-e__grid", root), cards = $$(".process-e__card", root);
+    const pm = e => cards.forEach(c => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px"); });
+    if (ux.fine) grid.addEventListener("pointermove", pm);
+    if (!ux.reduce) gsap.from(cards, { y: 60, opacity: 0, scale: .96, duration: 1.1, stagger: .1, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: grid, start: "top 85%" } });
+    return () => grid.removeEventListener("pointermove", pm);
+  });
+
+  /* ---------- F · Flujo de datos ---------- */
+  register("process", "F", (root, ux) => {
+    const flow = $(".process-f__flow", root), cv = $(".process-f__cv", root), items = $$(".process-f__nodes li", root), nodes = $$(".process-f__node", root);
+    let prog = ux.reduce ? 1 : 0, shown = prog;
+    const parts = Array.from({ length: 46 }, () => ({ s: Math.random(), v: .0009 + Math.random() * .0016, o: (Math.random() - .5) * 6, r: .8 + Math.random() * 1.6 }));
+    let last = 0;
+    const draw = (ctx, W, H, now) => {
+      const dt = Math.min(50, now - (last || now)); last = now;
+      shown += (prog - shown) * .1;
+      const fr = flow.getBoundingClientRect();
+      const C = nodes.map(n => { const r = n.getBoundingClientRect(); return [r.left - fr.left + r.width / 2, r.top - fr.top + r.height / 2]; });
+      const vertical = Math.abs(C[3][0] - C[0][0]) < 10;
+      const A = vertical ? [C[0][0], 0] : [0, C[0][1]], B = vertical ? [C[0][0], H] : [W, C[0][1]];
+      const L = vertical ? H : W, at = s => vertical ? [A[0], s * L] : [s * L, A[1]];
+      const fN = C.map(c => (vertical ? c[1] : c[0]) / L), head = fN[0] + (fN[3] - fN[0] + .06) * shown;
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineWidth = 1; ctx.strokeStyle = "rgba(153,196,228,.16)"; ctx.setLineDash([4, 6]); ctx.beginPath(); ctx.moveTo(...A); ctx.lineTo(...B); ctx.stroke(); ctx.setLineDash([]);
+      const g = vertical ? ctx.createLinearGradient(0, 0, 0, head * L) : ctx.createLinearGradient(0, 0, head * L, 0);
+      g.addColorStop(0, "rgba(46,108,160,0)"); g.addColorStop(.6, "rgba(153,196,228,.7)"); g.addColorStop(1, "rgba(221,238,255,1)");
+      ctx.strokeStyle = g; ctx.lineWidth = 2; ctx.shadowColor = "rgba(153,196,228,.9)"; ctx.shadowBlur = 12; ctx.beginPath(); ctx.moveTo(...A); ctx.lineTo(...at(Math.min(1, head))); ctx.stroke(); ctx.shadowBlur = 0;
+      parts.forEach(p => {
+        if (!ux.reduce) { p.s += p.v * dt * .06; if (p.s > head) p.s = Math.max(0, head - .35) * Math.random(); }
+        if (p.s > head) return;
+        const [x, y] = at(p.s), a = .25 + .75 * (p.s / Math.max(head, .01));
+        ctx.fillStyle = `rgba(221,238,255,${a})`; ctx.beginPath(); ctx.arc(vertical ? x + p.o : x, vertical ? y : y + p.o, p.r, 0, 6.283); ctx.fill();
+      });
+      items.forEach((li, i) => li.classList.toggle("on", head >= fN[i] - .005));
+    };
+    const loop = canvasLoop(cv, root, draw, ux);
+    if (ux.reduce) { items.forEach(li => li.classList.add("on")); loop.redraw(); return () => loop.stop(); }
+    ScrollTrigger.create({ trigger: flow, start: "top 80%", end: "bottom 55%", scrub: true, onUpdate: s => { prog = s.progress; } });
+    gsap.from(items, { y: 40, duration: 1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: flow, start: "top 85%" } });
+    return () => { loop.stop(); items.forEach(li => li.classList.remove("on")); };
   });
 })();

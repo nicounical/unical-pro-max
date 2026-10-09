@@ -85,3 +85,30 @@ La referencia de estructura y textos es la web que el usuario lleva semanas crea
 - Hubs: fragmentos `src/sections/hub-*.html` (con varias `<section class="opt-sec">` dentro, cada una con al menos 1 versión) + `hub-common` (estilos/JS compartidos de los hubs; el html puede ser solo un comentario).
 - Las fotos nuevas que se saquen de webunical se copian optimizadas (WebP, máx. 1600 px, calidad ~74) a `assets/img/hubs/<hub>/`.
 - Cifras de la v29: +25 años, +3.000 proyectos, +40 sectores, instaladores certificados 3M & Avery.
+
+## Ronda «Futurista» (2026-10-09) — manda sobre lo anterior
+Petición: «manteniendo ya las que he seleccionado antes que sean fijas, dame 5 nuevas versiones de todo. Inspírate en nuevas webs tecnológicas, quiero que sea futurista todo». Solo landing (index).
+
+**Por sección:** la favorita pasa a ser **A** (fija, idéntica visualmente; renombra sus clases `xxx-b__` → `xxx-a__`, su `register("sec","A")` y `data-v="A"`) y se **borran** las demás versiones antiguas (HTML, CSS y JS). Quita `data-default` de la `<section>` (A es la de por defecto). Luego **B–F = 5 versiones nuevas futuristas**, distintas entre sí en layout e interacción. No repetir ideas ya dadas (mira `git log -p` del fichero si dudas).
+
+| sección | favorita actual → A |
+|---|---|
+| hero | B «Lexus en letras» (SIN LÍMITES con vídeo hero-coche.mp4; NO tocar su aspecto: letras sin solape, tilde propia `.hero-b__i`, filete 2px) |
+| manifesto (id porque, «Por qué Unical») | B |
+| reel | E «Cursor vídeo» |
+| services | A |
+| work (id proyectos) | C «Filtros por sector» |
+| process | A |
+| numbers | A |
+| sectors | A |
+| clients | A |
+| contact | A (contacto también sale en los hubs: no rompas nada allí) |
+
+**Dirección futurista** (referencias: Apple Vision Pro, Tesla, Linear, Vercel, Nothing, Teenage Engineering, Lusion, Active Theory, Igloo Inc, Spline): HUD/FUI con líneas de 1px y marcadores de esquina, rejillas en perspectiva, escáner/láser, partículas y campos de puntos en `<canvas>` 2D (o WebGL crudo, sin librerías nuevas), cristal esmerilado (`backdrop-filter`), bordes con brillo que siguen al ratón (spotlight), texto que se «decodifica», glitch sutil, holograma/iridiscencia, terminal/CLI, bento con glow, 3D CSS (`perspective`), ruido/grano, scanlines tenues, mono JetBrains para datos.
+- **Paleta de marca, futurista:** fondos `--u-night #10101D` / casi negro; acento `--u-blue #99C4E4` como «neón» (glow con `box-shadow`/`text-shadow`), `--u-blue-strong #2E6CA0`; como mucho un toque iridiscente. Nada de verde Matrix ni magenta. Texto ≥ AA.
+- Tipografía gruesa igual (Poppins 700–900, `.big`, `.acc`).
+- Contenido y datos reales de la v29 (los mismos textos que la favorita de esa sección): +25 años, +3.000 proyectos, +40 sectores, 3M · Avery, tel 937 50 23 04, WhatsApp 34663512014, nico@unical.es.
+- Rendimiento: canvas con `requestAnimationFrame` que se **pausa fuera de pantalla** (IntersectionObserver) y se limpia en el cleanup; DPR máx. 2; máximo 1 pin por versión; sin pin en móvil si molesta.
+- Cada versión debe verse bien a 1440×860 y 390×844, sin errores de consola, con `prefers-reduced-motion`.
+
+**Pruebas sin saturar la memoria del equipo:** servidor ya activo en http://localhost:8765 (no lo arranques ni lo pares). Lanza `tools/shot.mjs` de uno en uno (nunca en paralelo), pocas capturas por versión. No hagas commit ni push. No toques ficheros de otras secciones ni el núcleo.

@@ -19,145 +19,108 @@
     </div>
   </div>
 
-  <!-- B · Sobre que se abre -->
-  <div class="variant contact-b" data-v="B" data-name="Sobre" data-theme="light" hidden>
+  <!-- B · Consola HUD -->
+  <div class="variant contact-b" data-v="B" data-name="Consola HUD" data-theme="dark" hidden>
+    <div class="contact-b__grid" aria-hidden="true"></div>
     <div class="contact-b__in wrap">
       <div class="contact-b__copy">
         <p class="mono label">(Contacto)</p>
-        <h2 class="big">Mándanos <span class="acc">tu idea.</span></h2>
-        <p class="lead">Escríbela como una carta. Te respondemos en menos de 24 h laborables con propuesta y presupuesto.</p>
-        <p class="contact-b__alt"><a href="tel:+34937502304">937 50 23 04</a> · <a href="https://wa.me/34663512014" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:nico@unical.es">nico@unical.es</a></p>
+        <h2 class="big">¿Tienes un proyecto? <span class="acc">Hagámoslo realidad.</span></h2>
+        <ul class="contact-b__mods">
+          <li><a href="tel:+34937502304"><span class="mono">CH-01 · Voz</span><b>937 50 23 04</b></a></li>
+          <li><a href="https://wa.me/34663512014" target="_blank" rel="noopener"><span class="mono">CH-02 · WhatsApp</span><b>Respuesta rápida</b></a></li>
+          <li><a href="mailto:nico@unical.es"><span class="mono">CH-03 · Email</span><b>nico@unical.es</b></a></li>
+        </ul>
       </div>
-      <div class="contact-b__env">
-        <div class="contact-b__back" aria-hidden="true"></div>
-        <form class="contact-b__letter" data-form novalidate>
-          <p class="contact-b__date mono">Cabrera de Mar · <span data-today></span></p>
-          <p class="contact-b__dear">Hola, equipo de Unical:</p>
-          <div class="contact-g field"><label for="cb-n">Me llamo</label><input id="cb-n" name="nombre" autocomplete="name" required></div>
-          <div class="contact-g field"><label for="cb-c">Podéis contestarme en (email o teléfono)</label><input id="cb-c" name="contacto" autocomplete="email" required></div>
-          <div class="contact-g"><label for="cb-m">Lo que queremos producir</label><textarea id="cb-m" name="mensaje" rows="3"></textarea></div>
-          <button class="btn btn--dark contact-b__send" type="submit">Enviar carta <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <p class="contact-ok contact-ok--dark" data-ok hidden>Se abrirá tu correo con la carta lista para enviar.</p>
-        </form>
-        <div class="contact-b__front" aria-hidden="true"><span class="contact-b__stamp">UNICAL<br><small>BCN</small></span></div>
-        <div class="contact-b__flap" aria-hidden="true"></div>
-      </div>
+      <form class="contact-b__panel" data-form novalidate>
+        <i class="contact-b__br contact-b__br--tl" aria-hidden="true"></i><i class="contact-b__br contact-b__br--tr" aria-hidden="true"></i><i class="contact-b__br contact-b__br--bl" aria-hidden="true"></i><i class="contact-b__br contact-b__br--br" aria-hidden="true"></i>
+        <span class="contact-b__scan" aria-hidden="true"></span>
+        <p class="contact-b__status mono"><span class="contact-b__led" aria-hidden="true"></span>Canal abierto · L–V 8–18 h</p>
+        <div class="contact-b__f field"><label class="mono" for="kb-n">› Nombre</label><input id="kb-n" name="nombre" autocomplete="name" required></div>
+        <div class="contact-b__f field"><label class="mono" for="kb-c">› Email o teléfono</label><input id="kb-c" name="contacto" autocomplete="email" required></div>
+        <div class="contact-b__f"><label class="mono" for="kb-s">› Servicio</label>
+          <select id="kb-s" name="servicio"><option>Rotulación</option><option>Impresión gran formato</option><option>Eventos y stands</option><option>Otro</option></select></div>
+        <div class="contact-b__f"><label class="mono" for="kb-m">› Proyecto</label><textarea id="kb-m" name="mensaje" rows="3"></textarea></div>
+        <button class="contact-b__send" type="submit"><span>Transmitir</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="contact-ok" data-ok hidden>Transmisión lista: se abrirá tu correo con el mensaje.</p>
+      </form>
     </div>
   </div>
 
-  <!-- C · Tarjeta de visita 3D -->
-  <div class="variant contact-c" data-v="C" data-name="Tarjeta 3D" data-theme="dark" hidden>
+  <!-- C · Portal -->
+  <div class="variant contact-c" data-v="C" data-name="Portal" data-theme="dark" hidden>
+    <canvas class="contact-c__cv" aria-hidden="true"></canvas>
     <div class="contact-c__in wrap">
-      <div class="contact-c__copy">
-        <p class="mono label">(Contacto)</p>
-        <h2 class="big">Guárdanos <span class="acc">en el bolsillo.</span></h2>
-        <p class="lead">Gira la tarjeta: detrás tienes un QR para escribirnos por WhatsApp desde el móvil.</p>
-        <div class="contact-c__btns">
-          <button class="btn" type="button" data-flip>Girar tarjeta <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <a class="btn btn--dark contact-c__vcf" href="#" download="unical-graphic.vcf" data-vcf>Guardar contacto</a>
-        </div>
-      </div>
-      <div class="contact-c__scene">
-        <div class="contact-c__card" data-cursor="Girar">
-          <div class="contact-c__face contact-c__face--front">
-            <img src="assets/img/logo/logo-unical-light.png" alt="Unical Graphic" width="800" height="105">
-            <p class="mono">Producción visual · Barcelona</p>
-            <span class="contact-c__chip" aria-hidden="true"></span>
-          </div>
-          <div class="contact-c__face contact-c__face--back">
-            <div>
-              <p class="contact-c__name">Unical Graphic S.L.</p>
-              <p><a href="tel:+34937502304">937 50 23 04</a><br><a href="mailto:nico@unical.es">nico@unical.es</a><br>Passatge la Carola, 2<br>08349 Cabrera de Mar</p>
-            </div>
-            <a class="contact-c__qr" href="https://wa.me/34663512014" target="_blank" rel="noopener"><img src="assets/img/contacto/qr-whatsapp.svg" alt="Código QR para escribir a Unical por WhatsApp" width="234" height="234"><span class="mono">WhatsApp</span></a>
-          </div>
-        </div>
+      <p class="mono label">(Contacto)</p>
+      <h2 class="contact-c__title">¿Tienes un proyecto? <span class="acc">Hagámoslo realidad.</span></h2>
+      <a class="contact-c__portal" href="mailto:nico@unical.es?subject=Solicitud%20de%20presupuesto" data-cursor="Entrar">
+        <span class="contact-c__ring" aria-hidden="true"></span><span class="contact-c__ring contact-c__ring--2" aria-hidden="true"></span>
+        <span class="contact-c__txt">Hablemos<small class="mono">nico@unical.es</small></span>
+      </a>
+      <div class="contact-c__ch">
+        <a href="tel:+34937502304"><span class="mono">Teléfono</span>937 50 23 04</a>
+        <a href="https://wa.me/34663512014" target="_blank" rel="noopener"><span class="mono">WhatsApp</span>Escríbenos</a>
+        <a href="https://maps.google.com/?q=Passatge+la+Carola+2+Cabrera+de+Mar" target="_blank" rel="noopener"><span class="mono">Planta</span>Cabrera de Mar</a>
       </div>
     </div>
   </div>
 
-  <!-- D · Orden de trabajo -->
-  <div class="variant contact-d" data-v="D" data-name="Orden de trabajo" data-theme="light" hidden>
+  <!-- D · Asistente -->
+  <div class="variant contact-d" data-v="D" data-name="Asistente" data-theme="dark" hidden>
     <div class="contact-d__in wrap">
       <div class="contact-d__copy">
         <p class="mono label">(Contacto)</p>
-        <h2 class="big">Abre tu <span class="acc">orden de trabajo.</span></h2>
-        <p class="lead">Rellénala como en el taller: marca lo que necesitas y la ponemos en marcha.</p>
-        <p class="contact-d__alt mono">¿Prefieres hablar? <a href="tel:+34937502304">937 50 23 04</a></p>
+        <h2 class="big">Cuéntanoslo <span class="acc">en 30 segundos.</span></h2>
+        <p class="lead">Cuatro preguntas y te dejamos el mensaje listo para enviar por email o WhatsApp. Te responde una persona del equipo.</p>
+        <p class="contact-d__alt">¿Prefieres hablar? <a href="tel:+34937502304">937 50 23 04</a></p>
       </div>
-      <form class="contact-d__sheet" data-form novalidate>
-        <div class="contact-d__top">
-          <img src="assets/img/logo/logo-unical.png" alt="Unical Graphic" width="800" height="98">
-          <div class="mono"><span>Orden nº</span><b data-order>—</b></div>
-        </div>
-        <fieldset class="contact-d__checks">
-          <legend class="mono">01 · Trabajo</legend><input type="hidden" name="trabajos" value="">
-          <label><input type="checkbox" data-trabajo value="Impresión"><span>Impresión</span></label>
-          <label><input type="checkbox" data-trabajo value="Rotulación"><span>Rotulación</span></label>
-          <label><input type="checkbox" data-trabajo value="Stand"><span>Stand</span></label>
-          <label><input type="checkbox" data-trabajo value="Evento"><span>Evento</span></label>
-          <label><input type="checkbox" data-trabajo value="Letras corpóreas"><span>Letras corpóreas</span></label>
-          <label><input type="checkbox" data-trabajo value="Retail / PLV"><span>Retail / PLV</span></label>
-        </fieldset>
-        <div class="contact-d__row">
-          <div class="contact-d__f field"><label for="cd-n" class="mono">02 · Cliente</label><input id="cd-n" name="nombre" autocomplete="name" required placeholder="Nombre y empresa"></div>
-          <div class="contact-d__f field"><label for="cd-c" class="mono">03 · Contacto</label><input id="cd-c" name="contacto" autocomplete="email" required placeholder="Email o teléfono"></div>
-        </div>
-        <div class="contact-d__f"><label for="cd-m" class="mono">04 · Observaciones</label><textarea id="cd-m" name="mensaje" rows="3" placeholder="Medidas, cantidades, fechas, ubicación…"></textarea></div>
-        <div class="contact-d__bottom">
-          <button class="btn btn--dark" type="submit">Abrir la orden <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <span class="contact-d__sign mono">Firma: Unical Graphic · Producción</span>
-        </div>
-        <p class="contact-ok contact-ok--dark" data-ok hidden>Se abrirá tu correo con la orden lista para enviar.</p>
-        <span class="contact-d__stamp" aria-hidden="true">RECIBIDO<small>Unical · BCN</small></span>
-      </form>
+      <div class="contact-d__app">
+        <div class="contact-d__top"><span class="contact-d__av" aria-hidden="true"><img src="assets/img/logo/logo-unical-light.png" alt="" width="800" height="105" loading="lazy"></span><div><b>Asistente Unical</b><span class="mono"><i aria-hidden="true"></i>En línea</span></div></div>
+        <div class="contact-d__log" role="log" aria-live="polite"></div>
+        <div class="contact-d__chips" role="group" aria-label="Respuestas rápidas"></div>
+        <form class="contact-d__bar" novalidate>
+          <label class="sr-only" for="kd-in">Tu respuesta</label>
+          <input id="kd-in" autocomplete="off" placeholder="Escribe aquí…">
+          <button type="submit" aria-label="Enviar respuesta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+      </div>
     </div>
   </div>
 
-  <!-- E · Teléfono gigante + abierto ahora -->
-  <div class="variant contact-e" data-v="E" data-name="Teléfono gigante" data-theme="dark" hidden>
+  <!-- E · Mapa holográfico -->
+  <div class="variant contact-e" data-v="E" data-name="Mapa holográfico" data-theme="dark" hidden>
+    <div class="contact-e__world" aria-hidden="true">
+      <div class="contact-e__floor"></div>
+      <div class="contact-e__pin"><i></i><i></i><i></i><span class="contact-e__beam"></span></div>
+      <p class="contact-e__coord mono">41.52° N · 2.39° E<br>Cabrera de Mar · BCN</p>
+    </div>
     <div class="contact-e__in wrap">
-      <p class="mono label">(Contacto)</p>
-      <p class="contact-e__status mono" aria-live="polite"><span class="contact-e__dot"></span><span data-status>Comprobando horario…</span></p>
-      <h2 class="sr-only">Llámanos al 937 50 23 04</h2>
-      <a class="contact-e__phone" href="tel:+34937502304" aria-label="Llamar al 937 50 23 04" data-cursor="Llamar">
-        <span>937</span><span>50</span><span>23</span><span>04</span>
-      </a>
-      <div class="contact-e__grid">
-        <div><p class="mono">Horario</p><p class="contact-e__big">Lunes a viernes<br>8:00 – 18:00</p></div>
-        <div><p class="mono">Cuenta atrás</p><p class="contact-e__big" data-count-down>—</p></div>
-        <div><p class="mono">Fuera de horario</p><p class="contact-e__big"><a href="https://wa.me/34663512014" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:nico@unical.es">Email</a></p></div>
+      <div class="contact-e__copy">
+        <p class="mono label">(Contacto)</p>
+        <h2 class="big">Estamos <span class="acc">aquí.</span></h2>
+        <p class="lead">Estudio y planta de producción propia en Cabrera de Mar (Barcelona). Montamos en toda España.</p>
       </div>
+      <ul class="contact-e__cards">
+        <li><a href="https://maps.google.com/?q=Passatge+la+Carola+2+Cabrera+de+Mar" target="_blank" rel="noopener"><span class="mono">Dirección</span><b>Passatge la Carola, 2</b><small>08349 Cabrera de Mar</small></a></li>
+        <li><a href="tel:+34937502304"><span class="mono">Teléfono</span><b>937 50 23 04</b><small>L–V · 8–18 h</small></a></li>
+        <li><a href="https://wa.me/34663512014" target="_blank" rel="noopener"><span class="mono">WhatsApp</span><b>Respuesta rápida</b><small>Fotos, planos, medidas</small></a></li>
+        <li><a href="mailto:nico@unical.es?subject=Solicitud%20de%20presupuesto"><span class="mono">Email</span><b>nico@unical.es</b><small>Solicitar presupuesto</small></a></li>
+      </ul>
     </div>
   </div>
 
-  <!-- F · Formulario en una frase -->
-  <div class="variant contact-s" data-v="F" data-name="Frase" data-theme="light" hidden>
-    <div class="contact-s__in wrap">
-      <p class="mono label">(Contacto)</p>
-      <form class="contact-s__form" data-form novalidate>
-        <p class="contact-s__sentence">
-          Hola, soy
-          <span class="contact-s__slot field"><label class="sr-only" for="cf-n">Tu nombre</label><input id="cf-n" name="nombre" autocomplete="name" required placeholder="tu nombre" size="9"></span>
-          de
-          <span class="contact-s__slot"><label class="sr-only" for="cf-e">Tu empresa</label><input id="cf-e" name="empresa" autocomplete="organization" placeholder="tu empresa" size="9"></span>
-          y necesito
-          <span class="contact-s__slot contact-s__slot--sel"><label class="sr-only" for="cf-s">Servicio</label><select id="cf-s" name="servicio">
-            <option>rotular vehículos</option><option>imprimir gran formato</option><option>un stand para una feria</option><option>montar un evento</option><option>letras corpóreas</option><option>PLV para tiendas</option><option>otra cosa</option>
-          </select></span>
-          para
-          <span class="contact-s__slot contact-s__slot--sel"><label class="sr-only" for="cf-p">Plazo</label><select id="cf-p" name="plazo">
-            <option>cuanto antes</option><option>este mes</option><option>los próximos meses</option><option>cuando sea posible</option>
-          </select></span>.
-          Escribidme a
-          <span class="contact-s__slot field"><label class="sr-only" for="cf-c">Email o teléfono</label><input id="cf-c" name="contacto" autocomplete="email" required placeholder="email o teléfono" size="14"></span>.
-        </p>
-        <div class="contact-s__actions">
-          <button class="btn btn--dark" type="submit">Enviar frase <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <a class="contact-s__wa" href="https://wa.me/34663512014" target="_blank" rel="noopener" data-wa>o mándala por WhatsApp →</a>
-        </div>
-        <p class="contact-ok contact-ok--dark" data-ok hidden>Se abrirá tu correo con la frase lista para enviar.</p>
-      </form>
+  <!-- F · Onda -->
+  <div class="variant contact-f" data-v="F" data-name="Onda" data-theme="dark" hidden>
+    <canvas class="contact-f__cv" aria-hidden="true"></canvas>
+    <div class="contact-f__in wrap">
+      <p class="mono label">(Contacto · Línea directa)</p>
+      <h2 class="contact-f__h">¿Tienes un proyecto? <span class="acc">Llámanos.</span></h2>
+      <a class="contact-f__num" href="tel:+34937502304" aria-label="Llamar al 937 50 23 04" data-cursor="Llamar"><span aria-hidden="true" data-num>937 50 23 04</span></a>
+      <div class="contact-f__btns">
+        <a class="btn" href="tel:+34937502304">Llamar ahora <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn contact-f__ghost" href="https://wa.me/34663512014" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn contact-f__ghost" href="mailto:nico@unical.es?subject=Solicitud%20de%20presupuesto">nico@unical.es</a>
+      </div>
     </div>
   </div>
 </section>

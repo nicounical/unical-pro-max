@@ -25,117 +25,153 @@
     return () => { root.removeEventListener("pointermove", move); root.removeEventListener("pointerleave", leave); };
   });
 
-  /* ---------- B · Sobre que se abre ---------- */
+
+  /* Lienzo nítido (DPR ≤ 2) + rAF que solo corre con la sección en pantalla */
+  const canvasLoop = (root, cv, draw) => {
+    const ctx = cv.getContext("2d");
+    let W = 0, H = 0, raf = 0, on = false; const t0 = performance.now();
+    const size = () => { const r = cv.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    const frame = now => { if (!on) return; draw(ctx, W, H, now - t0); raf = requestAnimationFrame(frame); };
+    const ro = new ResizeObserver(() => { size(); draw(ctx, W, H, performance.now() - t0); }); ro.observe(cv);
+    const io = new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) raf = requestAnimationFrame(frame); }, { rootMargin: "80px" });
+    io.observe(root);
+    size();
+    return () => { on = false; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); };
+  };
+
+  /* ---------- B · Consola HUD ---------- */
   register("contact", "B", (root, ux) => {
-    const today = $("[data-today]", root);
-    today.textContent = new Date().toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
-    const env = $(".contact-b__env", root), letter = $(".contact-b__letter", root), flap = $(".contact-b__flap", root);
-    const desktop = matchMedia("(min-width: 901px)").matches;
-    if (ux.reduce || !desktop) { gsap.set(letter, { zIndex: 5 }); return; }
-    // Estado inicial: sobre cerrado y carta dentro (la parte que asoma por debajo se recorta)
-    const LH = () => letter.offsetHeight, EH = () => env.offsetHeight;
-    const inside = () => LH() * .62;
-    gsap.set(flap, { rotateX: 0, zIndex: 4 });
-    gsap.set(letter, { y: inside, clipPath: () => `inset(0 0 ${inside()}px 0)`, zIndex: 2 });
-    const tl = gsap.timeline({ paused: true })
-      .to(flap, { rotateX: 180, duration: .8, ease: "power2.inOut" })
-      .set(flap, { zIndex: 1 })
-      .to(letter, { y: () => -(LH() - EH() * .55), clipPath: "inset(0 0 0px 0)", duration: 1.2, ease: "expo.out" })
-      .set(letter, { zIndex: 5 })
-      .to(letter, { y: () => -(LH() - EH() * .95), duration: .7, ease: "back.out(1.6)" });
-    ScrollTrigger.create({ trigger: env, start: "top 70%", once: true, onEnter: () => tl.play() });
-    gsap.from(env, { y: 80, rotate: -4, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: env, start: "top 90%" } });
+    if (ux.reduce) return;
+    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top 70%" } });
+    tl.from($$(".contact-b__br", root), { scale: 3, opacity: 0, duration: .8, ease: "expo.out", stagger: .06 })
+      .from($(".contact-b__panel", root), { clipPath: "inset(50% 0 50% 0)", duration: 1, ease: "expo.inOut" }, 0)
+      .from($$(".contact-b__f, .contact-b__status, .contact-b__send", root), { x: 30, opacity: 0, stagger: .07, duration: .7, ease: "expo.out" }, .5)
+      .from($$(".contact-b__mods li", root), { x: -40, opacity: 0, stagger: .1, duration: .8, ease: "expo.out" }, .2);
   });
 
-  /* ---------- C · Tarjeta de visita 3D ---------- */
+  /* ---------- C · Portal ---------- */
   register("contact", "C", (root, ux) => {
-    const card = $(".contact-c__card", root), scene = $(".contact-c__scene", root);
-    // vCard descargable con los datos reales
-    const vcf = ["BEGIN:VCARD", "VERSION:3.0", "FN:Unical Graphic", "ORG:Unical Graphic S.L.", "TEL;TYPE=WORK,VOICE:+34937502304", "TEL;TYPE=CELL:+34663512014", "EMAIL:nico@unical.es", "ADR;TYPE=WORK:;;Passatge la Carola 2;Cabrera de Mar;Barcelona;08349;España", "URL:https://www.unical.es", "END:VCARD"].join("\r\n");
-    $("[data-vcf]", root).href = "data:text/vcard;charset=utf-8," + encodeURIComponent(vcf);
-    let flipped = false;
-    const ry = () => (flipped ? 180 : 0);
-    const flip = () => { flipped = !flipped; gsap.to(card, { rotateY: ry(), duration: ux.reduce ? 0 : 1, ease: "back.out(1.4)" }); };
-    const onCard = e => { if (!e.target.closest("a")) flip(); };
-    card.addEventListener("click", onCard);
-    const btn = $("[data-flip]", root); btn.addEventListener("click", flip);
-    if (ux.reduce) return () => { card.removeEventListener("click", onCard); btn.removeEventListener("click", flip); };
-    gsap.from(card, { rotateY: -70, rotateX: 25, y: 80, opacity: 0, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: scene, start: "top 80%" } });
-    let move = null, leave = null;
-    if (ux.fine) {
-      const rxTo = gsap.quickTo(card, "rotateX", { duration: .6, ease: "power3" });
-      move = e => { const r = scene.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; rxTo(-py * 16); gsap.to(card, { rotateY: ry() + px * 22, duration: .6, ease: "power3", overwrite: "auto" }); };
-      leave = () => { rxTo(0); gsap.to(card, { rotateY: ry(), duration: .8, ease: "power3" }); };
-      scene.addEventListener("pointermove", move); scene.addEventListener("pointerleave", leave);
-    }
-    return () => { card.removeEventListener("click", onCard); btn.removeEventListener("click", flip); if (move) { scene.removeEventListener("pointermove", move); scene.removeEventListener("pointerleave", leave); } };
-  });
-
-  /* ---------- D · Orden de trabajo ---------- */
-  register("contact", "D", (root, ux) => {
-    const form = $(".contact-d__sheet", root), stamp = $(".contact-d__stamp", root), hidden = $('[name="trabajos"]', form);
-    const d = new Date();
-    $("[data-order]", root).textContent = `UG-${String(d.getFullYear()).slice(2)}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}-${String(Math.floor(Math.random() * 900) + 100)}`;
-    const sync = () => (hidden.value = $$("[data-trabajo]:checked", form).map(c => c.value).join(", "));
-    form.addEventListener("change", sync);
-    // El sello aparece si la orden está completa (el envío lo gestiona el núcleo)
-    const onSubmit = () => {
-      sync();
-      if (!requiredOk(form)) return;
-      gsap.fromTo(stamp, { opacity: 0, scale: 2.2, rotate: -24 }, { opacity: .9, scale: 1, rotate: -14, duration: ux.reduce ? 0 : .45, ease: "back.out(2.5)" });
+    const cv = $(".contact-c__cv", root), portal = $(".contact-c__portal", root);
+    const P = Array.from({ length: ux.reduce ? 0 : 220 }, () => ({ a: Math.random() * Math.PI * 2, r: .6 + Math.random() * 2.2, s: .4 + Math.random() * 1.2, v: .0015 + Math.random() * .003 }));
+    let pull = 0, target = 0;
+    const draw = (ctx, W, H) => {
+      ctx.clearRect(0, 0, W, H);
+      const pr = portal.getBoundingClientRect(), cr = cv.getBoundingClientRect();
+      const cx = pr.left - cr.left + pr.width / 2, cy = pr.top - cr.top + pr.height / 2, R = pr.width / 2;
+      pull += (target - pull) * .05;
+      P.forEach(p => {
+        p.a += p.v * (1 + pull * 3);
+        p.r -= (.0012 + pull * .012) * p.r; if (p.r < .95) { p.r = 1.6 + Math.random() * 1.4; p.a = Math.random() * Math.PI * 2; }
+        const x = cx + Math.cos(p.a) * p.r * R, y = cy + Math.sin(p.a) * p.r * R * .92;
+        const al = Math.min(1, (2.8 - p.r) * .5) * (.35 + pull * .5);
+        ctx.fillStyle = `rgba(153,196,228,${al})`; ctx.beginPath(); ctx.arc(x, y, p.s, 0, Math.PI * 2); ctx.fill();
+      });
     };
-    form.addEventListener("submit", onSubmit);
-    if (!ux.reduce) gsap.from(form, { y: 120, rotate: 3, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: form, start: "top 90%" } });
-    return () => { form.removeEventListener("change", sync); form.removeEventListener("submit", onSubmit); };
-  });
-
-  /* ---------- E · Teléfono gigante + abierto ahora ---------- */
-  register("contact", "E", (root, ux) => {
-    const status = $("[data-status]", root), down = $("[data-count-down]", root);
-    // Hora de Barcelona; horario L–V 8:00–18:00
-    const madrid = () => {
-      const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Madrid", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value]));
-      const days = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0 };
-      return { day: days[p.weekday], min: +p.hour * 60 + +p.minute };
-    };
-    const fmt = m => (m >= 1440 ? `${Math.floor(m / 1440)} d ${Math.floor((m % 1440) / 60)} h` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")} min`);
-    const update = () => {
-      const { day, min } = madrid(), work = day >= 1 && day <= 5, open = work && min >= 480 && min < 1080;
-      root.classList.toggle("is-open", open);
-      if (open) { status.textContent = "Abierto ahora · te atendemos al teléfono"; down.textContent = `Cerramos en ${fmt(1080 - min)}`; return; }
-      // Minutos hasta el próximo día laborable a las 8:00
-      let wait = 0, d = day, m = min;
-      if (work && m < 480) wait = 480 - m;
-      else { wait = 1440 - m + 480; d = (d + 1) % 7; while (d === 0 || d === 6) { wait += 1440; d = (d + 1) % 7; } }
-      status.textContent = "Cerrado ahora · escríbenos y te respondemos al abrir";
-      down.textContent = `Abrimos en ${fmt(wait)}`;
-    };
-    update();
-    const timer = setInterval(update, 30000);
-    if (!ux.reduce) gsap.from($$(".contact-e__phone span", root), { yPercent: 100, opacity: 0, duration: 1.2, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: $(".contact-e__phone", root), start: "top 85%" } });
-    return () => clearInterval(timer);
-  });
-
-  /* ---------- F · Formulario en una frase ---------- */
-  register("contact", "F", (root, ux) => {
-    const form = $(".contact-s__form", root), wa = $("[data-wa]", root);
-    const inputs = $$(".contact-s__slot input", root);
-    // Los huecos crecen con lo que se escribe
-    const grow = i => (i.size = Math.max(i.placeholder.length - 2, Math.min(28, i.value.length + 1)));
-    const onInput = e => { if (e.target.matches(".contact-s__slot input")) grow(e.target); };
-    inputs.forEach(grow);
-    form.addEventListener("input", onInput);
-    const sentence = () => {
-      const v = n => (form.elements[n].value || "").trim();
-      return `Hola, soy ${v("nombre") || "…"}${v("empresa") ? " de " + v("empresa") : ""} y necesito ${v("servicio")} para ${v("plazo")}. Podéis escribirme a ${v("contacto") || "…"}.`;
-    };
-    const onWa = () => (wa.href = "https://wa.me/34663512014?text=" + encodeURIComponent(sentence()));
-    wa.addEventListener("click", onWa);
+    const stop = canvasLoop(root, cv, draw);
+    const on = () => (target = 1), off = () => (target = 0);
+    portal.addEventListener("pointerenter", on); portal.addEventListener("pointerleave", off); portal.addEventListener("focus", on); portal.addEventListener("blur", off);
     if (!ux.reduce) {
-      const p = $(".contact-s__sentence", root);
-      gsap.from(p, { y: 60, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 85%" } });
-      gsap.from($$(".contact-s__slot", root), { scaleX: 0, transformOrigin: "0 50%", duration: .9, stagger: .12, ease: "expo.out", delay: .3, scrollTrigger: { trigger: p, start: "top 85%" } });
+      gsap.from(portal, { scale: .3, opacity: 0, rotate: -120, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: portal, start: "top 85%" } });
+      gsap.from(ux.splitWords($(".contact-c__title", root)), { yPercent: 100, opacity: 0, stagger: .05, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
     }
-    return () => { form.removeEventListener("input", onInput); wa.removeEventListener("click", onWa); };
+    return () => { stop(); portal.removeEventListener("pointerenter", on); portal.removeEventListener("pointerleave", off); portal.removeEventListener("focus", on); portal.removeEventListener("blur", off); };
+  });
+
+  /* ---------- D · Asistente ---------- */
+  register("contact", "D", (root, ux) => {
+    const log = $(".contact-d__log", root), chips = $(".contact-d__chips", root), bar = $(".contact-d__bar", root), input = $("input", bar);
+    const data = {}; let step = 0, timers = [], started = false;
+    const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const scroll = () => (log.scrollTop = log.scrollHeight);
+    const bubble = (html, me) => { const d = document.createElement("div"); d.className = "contact-d__msg contact-d__msg--" + (me ? "me" : "bot"); d.innerHTML = html; log.appendChild(d); if (!ux.reduce) gsap.from(d, { y: 14, opacity: 0, scale: .96, duration: .45, ease: "expo.out", transformOrigin: me ? "100% 100%" : "0 100%" }); scroll(); return d; };
+    const bot = (html, then) => {
+      if (ux.reduce) { bubble(html); then && then(); return; }
+      const t = bubble('<span class="contact-d__typing" aria-label="Escribiendo"><i></i><i></i><i></i></span>');
+      timers.push(setTimeout(() => { t.innerHTML = html; scroll(); then && then(); }, 650 + Math.min(900, html.length * 12)));
+    };
+    const setChips = list => { chips.innerHTML = list.map(c => `<button type="button">${c}</button>`).join(""); };
+    const steps = [
+      { q: "Hola, soy el asistente de Unical. ¿Qué necesitas producir?", key: "servicio", chips: ["Rotulación", "Impresión gran formato", "Eventos y stands", "Otro"], ph: "O escríbelo tú…" },
+      { q: "Perfecto. ¿Cómo te llamas?", key: "nombre", ph: "Tu nombre", req: true, ac: "name" },
+      { q: "¿En qué email o teléfono te respondemos?", key: "contacto", ph: "Email o teléfono", req: true, ac: "email" },
+      { q: "Último paso: cuéntanos el proyecto en una frase (medidas, fecha, ciudad…).", key: "mensaje", ph: "Opcional", chips: ["Lo hablamos por teléfono"] }
+    ];
+    const ask = () => {
+      const s = steps[step];
+      chips.innerHTML = "";
+      bot(s.q, () => { if (s.chips) setChips(s.chips); input.placeholder = s.ph; input.setAttribute("autocomplete", s.ac || "off"); });
+    };
+    const finish = () => {
+      chips.innerHTML = ""; bar.hidden = true;
+      const body = `Servicio: ${data.servicio}\nNombre: ${data.nombre}\nContacto: ${data.contacto}${data.mensaje ? "\nProyecto: " + data.mensaje : ""}`;
+      const mail = `mailto:nico@unical.es?subject=${encodeURIComponent("Solicitud de presupuesto · " + data.servicio)}&body=${encodeURIComponent(body)}`;
+      const wa = `https://wa.me/34663512014?text=${encodeURIComponent("Hola, soy " + data.nombre + ". Necesito: " + data.servicio + (data.mensaje ? ". " + data.mensaje : ""))}`;
+      bot(`Gracias, ${esc(data.nombre)}. Tu mensaje está listo:<div class="contact-d__sum"><a href="${mail}">Enviar por email</a><a href="${wa}" target="_blank" rel="noopener">Enviar por WhatsApp</a></div>`);
+    };
+    const answer = val => {
+      const s = steps[step]; val = val.trim();
+      if (!val && s.req) { input.setAttribute("aria-invalid", "true"); input.focus(); return; }
+      input.removeAttribute("aria-invalid");
+      data[s.key] = val; bubble(esc(val || "—"), true); input.value = "";
+      step++; step < steps.length ? ask() : finish();
+    };
+    const sub = e => { e.preventDefault(); answer(input.value); };
+    const chip = e => { const b = e.target.closest("button"); if (b) answer(b.textContent); };
+    bar.addEventListener("submit", sub); chips.addEventListener("click", chip);
+    const start = () => { if (started) return; started = true; ask(); };
+    const st = ScrollTrigger.create({ trigger: $(".contact-d__app", root), start: "top 80%", once: true, onEnter: start });
+    if (ux.reduce) start();
+    return () => { timers.forEach(clearTimeout); st.kill(); bar.removeEventListener("submit", sub); chips.removeEventListener("click", chip); };
+  });
+
+  /* ---------- E · Mapa holográfico ---------- */
+  register("contact", "E", (root, ux) => {
+    if (ux.reduce) return;
+    gsap.from($(".contact-e__beam", root), { scaleY: 0, transformOrigin: "50% 100%", duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 60%" } });
+    gsap.from($(".contact-e__coord", root), { opacity: 0, x: -20, duration: 1, delay: .6, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 60%" } });
+    gsap.from($$(".contact-e__cards li", root), { y: 40, opacity: 0, stagger: .08, duration: .9, ease: "expo.out", scrollTrigger: { trigger: $(".contact-e__cards", root), start: "top 90%" } });
+    if (!ux.fine) return;
+    const world = $(".contact-e__world", root);
+    const px = gsap.quickTo(world, "x", { duration: 1.2, ease: "power3" }), py = gsap.quickTo(world, "y", { duration: 1.2, ease: "power3" });
+    const mv = e => { const r = root.getBoundingClientRect(); px(((e.clientX - r.left) / r.width - .5) * -30); py(((e.clientY - r.top) / r.height - .5) * -16); };
+    root.addEventListener("pointermove", mv);
+    return () => root.removeEventListener("pointermove", mv);
+  });
+
+  /* ---------- F · Onda (osciloscopio) ---------- */
+  register("contact", "F", (root, ux) => {
+    const cv = $(".contact-f__cv", root), num = $(".contact-f__num", root), digits = $("[data-num]", root);
+    let amp = 0, ampT = .5, mx = .5;
+    const draw = (ctx, W, H, t) => {
+      ctx.clearRect(0, 0, W, H);
+      amp += (ampT - amp) * .05;
+      const cy = H * .52, layers = [[1, .9, 2], [.6, .45, 1.2], [.35, .25, 1]];
+      layers.forEach(([k, al, lw], j) => {
+        ctx.beginPath();
+        for (let x = 0; x <= W; x += 4) {
+          const u = x / W, env = Math.exp(-((u - mx) ** 2) / .08) * .85 + .15;
+          const y = cy + Math.sin(u * 22 + t * .003 * (1 + j * .4) + j) * Math.sin(u * 5 - t * .0012) * H * .16 * amp * k * env;
+          x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.strokeStyle = `rgba(153,196,228,${al * .55})`; ctx.lineWidth = lw; ctx.shadowColor = "#99C4E4"; ctx.shadowBlur = j ? 0 : 14; ctx.stroke();
+      });
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "rgba(153,196,228,.08)";
+      for (let x = 0; x < W; x += 48) ctx.fillRect(x, 0, 1, H);
+    };
+    const stop = canvasLoop(root, cv, ux.reduce ? (c, W, H) => { ampT = amp = .3; draw(c, W, H, 0); } : draw);
+    const pm = e => { const r = root.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width; };
+    const hot = () => (ampT = 1), cold = () => (ampT = .5);
+    root.addEventListener("pointermove", pm); num.addEventListener("pointerenter", hot); num.addEventListener("pointerleave", cold); num.addEventListener("focus", hot); num.addEventListener("blur", cold);
+    let cancel = () => {};
+    if (!ux.reduce) {
+      const txt = digits.textContent;
+      ScrollTrigger.create({ trigger: num, start: "top 85%", once: true, onEnter: () => {
+        const t0 = performance.now(); let raf;
+        const step = now => { const p = Math.min(1, (now - t0) / 1300), n = Math.floor(p * txt.length); digits.textContent = txt.slice(0, n) + [...txt.slice(n)].map(c => (c === " " ? " " : (Math.random() * 10) | 0)).join(""); if (p < 1) raf = requestAnimationFrame(step); };
+        raf = requestAnimationFrame(step); cancel = () => cancelAnimationFrame(raf);
+      } });
+    }
+    return () => { stop(); cancel(); root.removeEventListener("pointermove", pm); num.removeEventListener("pointerenter", hot); num.removeEventListener("pointerleave", cold); num.removeEventListener("focus", hot); num.removeEventListener("blur", cold); };
   });
 })();

@@ -35,191 +35,212 @@
     return () => gsap.ticker.remove(tick);
   });
 
-  /* ---------- B · Panel de salidas (split-flap) ---------- */
-  register("clients", "B", (root, ux) => {
-    const ROWS = 8, NAME_LEN = innerWidth < 600 ? 14 : 19, STATE = "A BORDO";
-    const CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ0123456789-.";
-    const rowsEl = $(".clients-b__rows", root);
-    const flaps = n => Array.from({ length: n }, () => `<span class="clients-b__flap"> </span>`).join("");
-    rowsEl.innerHTML = Array.from({ length: ROWS }, () =>
-      `<div class="clients-b__row" role="row"><span class="clients-b__flaps clients-b__num" role="cell">${flaps(2)}</span><span class="clients-b__flaps clients-b__name" role="cell">${flaps(NAME_LEN)}</span><span class="clients-b__flaps clients-b__state" role="cell">${flaps(STATE.length)}</span></div>`).join("");
-    const rows = $$(".clients-b__row:not(.clients-b__row--th)", root).map(r => ({
-      num: $$(".clients-b__num .clients-b__flap", r), name: $$(".clients-b__name .clients-b__flap", r), state: $$(".clients-b__state .clients-b__flap", r), row: r
-    }));
-    const pad = (s, n) => (s.toUpperCase() + " ".repeat(n)).slice(0, n);
-    let page = 0;
-    const targets = () => rows.map((r, i) => {
-      const idx = (page * ROWS + i) % ALL.length;
-      return { r, num: String(idx + 1).padStart(2, "0"), name: pad(name(ALL[idx]), NAME_LEN), state: STATE };
-    });
-    const write = (els, txt) => els.forEach((el, k) => (el.textContent = txt[k] || " "));
-    // Etiqueta accesible por fila (los flaps son visuales)
-    const label = () => targets().forEach(t => t.r.row.setAttribute("aria-label", `${t.num} ${t.name.trim()} ${t.state}`));
-    if (ux.reduce) { targets().forEach(t => { write(t.r.num, t.num); write(t.r.name, t.name); write(t.r.state, t.state); }); label(); return; }
-    // Cola de flaps animados: cada uno pasa por caracteres aleatorios antes de su letra final
-    let queue = [];
-    const flipTo = (els, txt, delay) => els.forEach((el, k) => queue.push({ el, final: txt[k] || " ", left: 3 + ((k * 7 + delay) % 9), wait: delay + k * .6 }));
-    let acc = 0;
-    const tick = (t, dt) => {
-      acc += dt; if (acc < 55) return; acc = 0;
-      queue = queue.filter(f => {
-        if (f.wait > 0) { f.wait -= 1; return true; }
-        if (f.left-- > 0) { f.el.textContent = CHARS[(Math.random() * CHARS.length) | 0]; }
-        else f.el.textContent = f.final;
-        f.el.classList.remove("is-flip"); void f.el.offsetWidth; f.el.classList.add("is-flip");
-        return f.left >= 0;
-      });
-    };
-    gsap.ticker.add(tick);
-    const show = () => { targets().forEach((t, i) => { flipTo(t.r.num, t.num, i * 2); flipTo(t.r.name, t.name, i * 2); flipTo(t.r.state, t.state, i * 2 + 6); }); label(); };
-    let timer = null, inView = false;
-    const io = new IntersectionObserver(([e]) => {
-      inView = e.isIntersecting;
-      clearInterval(timer);
-      if (inView) { show(); timer = setInterval(() => { page++; show(); }, 6500); }
-    }, { threshold: .25 });
+
+  /* Lienzo nítido (DPR ≤ 2) + bucle rAF que solo corre con la sección en pantalla */
+  const canvasLoop = (root, cv, draw) => {
+    const ctx = cv.getContext("2d");
+    let W = 0, H = 0, dpr = 1, raf = 0, on = false, t0 = performance.now();
+    const size = () => { const r = cv.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    const frame = now => { if (!on) return; draw(ctx, W, H, now - t0); raf = requestAnimationFrame(frame); };
+    const ro = new ResizeObserver(() => { size(); if (!on) draw(ctx, W, H, performance.now() - t0); }); ro.observe(cv);
+    const io = new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) raf = requestAnimationFrame(frame); }, { rootMargin: "80px" });
     io.observe(root);
-    return () => { io.disconnect(); clearInterval(timer); gsap.ticker.remove(tick); };
+    size();
+    return { ctx, stop: () => { on = false; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); }, size: () => [W, H] };
+  };
+  const SECTOR = { toyota: "automoción", "coca-cola": "bebidas", bankinter: "banca", generali: "seguros", "sony-music": "música", "monster-energy": "bebidas", "philip-morris": "gran consumo", "mitsubishi-electric": "climatización", otis: "ascensores", porcelanosa: "cerámica", rituals: "cosmética", wella: "belleza", los40: "radio", rfef: "deporte", "cruz-roja": "ONG", avoris: "viajes", catai: "viajes", "csl-vifor": "farma", dial: "radio", elanco: "salud animal", fibratel: "telecom", "leo-pharma": "farma", longi: "energía solar", straumann: "salud dental", ucb: "farma" };
+  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&/<>";
+  const decode = (el, text, dur = 700) => {
+    const t0 = performance.now(); let raf;
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur), n = Math.floor(p * text.length);
+      el.textContent = text.slice(0, n) + [...text.slice(n)].map(c => (c === " " ? " " : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  };
+
+  /* ---------- B · Radar ---------- */
+  register("clients", "B", (root, ux) => {
+    fillList(root);
+    const cv = $(".clients-b__cv", root), read = $("[data-read]", root);
+    const rnd = seeded(7);
+    const blips = ALL.map((n, i) => ({ n: name(n), a: (i / ALL.length) * Math.PI * 2 + rnd() * .2, r: .3 + rnd() * .62, lit: -1e9 }));
+    const SPEED = .0011; // rad/ms
+    let prev = 0;
+    const draw = (ctx, W, H, t) => {
+      const R = Math.min(W, H) / 2 - 8, cx = W / 2, cy = H / 2;
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineWidth = 1;
+      for (let k = 1; k <= 4; k++) { ctx.strokeStyle = `rgba(153,196,228,${k === 4 ? .45 : .16})`; ctx.beginPath(); ctx.arc(cx, cy, R * k / 4, 0, Math.PI * 2); ctx.stroke(); }
+      ctx.strokeStyle = "rgba(153,196,228,.12)";
+      ctx.beginPath(); ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy); ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R); ctx.stroke();
+      for (let d = 0; d < 72; d++) { const a = d / 72 * Math.PI * 2, l = d % 6 ? 5 : 11; ctx.strokeStyle = "rgba(153,196,228,.35)"; ctx.beginPath(); ctx.moveTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); ctx.lineTo(cx + Math.cos(a) * (R - l), cy + Math.sin(a) * (R - l)); ctx.stroke(); }
+      const sw = ux.reduce ? -Math.PI / 4 : (t * SPEED) % (Math.PI * 2);
+      // estela del barrido
+      for (let s = 0; s < 40; s++) {
+        const a1 = sw - s * .022, a0 = a1 - .024;
+        ctx.fillStyle = `rgba(153,196,228,${.22 * (1 - s / 40) ** 2})`;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, a0, a1); ctx.closePath(); ctx.fill();
+      }
+      ctx.strokeStyle = "rgba(200,225,245,.9)"; ctx.shadowColor = "#99C4E4"; ctx.shadowBlur = 12; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(sw) * R, cy + Math.sin(sw) * R); ctx.stroke(); ctx.shadowBlur = 0;
+      // impactos
+      const norm = a => ((a % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      let latest = null;
+      blips.forEach(b => {
+        if (!ux.reduce) { const d = norm(sw - b.a), dp = norm(prev - b.a); if (d < dp || (d < .05 && b.lit < 0)) { b.lit = t; latest = b; } }
+        const k = ux.reduce ? .7 : Math.exp(-(t - b.lit) / 1500);
+        const x = cx + Math.cos(b.a) * b.r * R, y = cy + Math.sin(b.a) * b.r * R;
+        ctx.fillStyle = `rgba(153,196,228,${.15 + k * .85})`;
+        ctx.beginPath(); ctx.arc(x, y, 2.5 + k * 2.5, 0, Math.PI * 2); ctx.fill();
+        if (k > .18) {
+          ctx.strokeStyle = `rgba(153,196,228,${k * .6})`; ctx.beginPath(); ctx.arc(x, y, 6 + (1 - k) * 18, 0, Math.PI * 2); ctx.stroke();
+          ctx.font = `700 ${W < 420 ? 11 : 13}px Poppins, sans-serif`; ctx.fillStyle = `rgba(255,255,255,${Math.min(1, k * 1.2)})`;
+          ctx.textAlign = x > cx ? "right" : "left"; ctx.fillText(b.n, x + (x > cx ? -10 : 10), y - 8);
+        }
+      });
+      ctx.lineWidth = 1;
+      prev = sw;
+      if (latest && read.textContent !== latest.n) read.textContent = latest.n;
+    };
+    const loop = canvasLoop(root, cv, draw);
+    if (ux.reduce) read.textContent = "25 marcas";
+    return loop.stop;
   });
 
-  /* ---------- C · Vinilos apilados ---------- */
+  /* ---------- C · Holograma (esfera de marcas) ---------- */
   register("clients", "C", (root, ux) => {
     fillList(root);
-    const stage = $(".clients-c__stage", root);
-    const picks = ALL.slice(0, 14);
-    const skins = ["navy", "blue", "paper", "strong"];
-    const rnd = seeded(11);
-    const small = innerWidth < 700;
-    stage.innerHTML = picks.map((n, i) => `<span class="clients-c__sticker clients-c__sticker--${skins[i % 4]}" style="font-size:${small ? 1.4 + rnd() * 1.4 : 2.2 + rnd() * 3.6}rem">${name(n)}</span>`).join("");
-    const stickers = $$(".clients-c__sticker", root);
-    if (ux.reduce) return;
-    // Posición pseudoaleatoria dentro de la zona libre (bajo el titular)
-    const place = () => {
-      const head = $(".clients-c__head", root), W = stage.clientWidth, H = stage.clientHeight, top = head.offsetTop + head.offsetHeight + 24, r = seeded(5);
-      stickers.forEach(s => {
-        const w = s.offsetWidth, h = s.offsetHeight;
-        const x = r() * Math.max(10, W - w - 20) + 10, y = top + r() * Math.max(10, H - top - h - 100);
-        gsap.set(s, { x, y, rotate: (r() - .5) * 22 });
-        s.dataset.r = gsap.getProperty(s, "rotate");
+    const stage = $(".clients-c__stage", root), globe = $(".clients-c__globe", root);
+    globe.innerHTML = ALL.map(n => `<span class="clients-c__item">${name(n)}</span>`).join("");
+    const N = ALL.length, golden = Math.PI * (3 - Math.sqrt(5));
+    const pts = $$(".clients-c__item", globe).map((el, i) => { const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i; return { el, x: Math.cos(th) * r, y, z: Math.sin(th) * r, w: 0, h: 0 }; });
+    const measure = () => pts.forEach(p => { p.w = p.el.offsetWidth; p.h = p.el.offsetHeight; });
+    measure();
+    let ry = 0, rx = -.25, vy = ux.reduce ? 0 : .0045, vx = 0, drag = null, raf = 0, on = false;
+    const render = () => {
+      const R = Math.min(stage.clientWidth * .38, stage.clientHeight * .42);
+      const cy = Math.cos(ry), sy = Math.sin(ry), cx = Math.cos(rx), sx = Math.sin(rx);
+      pts.forEach(p => {
+        const x1 = p.x * cy + p.z * sy, z1 = -p.x * sy + p.z * cy;
+        const y2 = p.y * cx - z1 * sx, z2 = p.y * sx + z1 * cx;
+        const s = .55 + (z2 + 1) * .35, o = .18 + (z2 + 1) * .41;
+        p.el.style.transform = `translate3d(${x1 * R - p.w / 2}px,${y2 * R * .9 - p.h / 2}px,0) scale(${s.toFixed(3)})`;
+        p.el.style.opacity = o.toFixed(3); p.el.style.zIndex = Math.round(z2 * 100) + 100;
+        p.el.style.filter = z2 < -.2 ? `blur(${(-z2 * 1.6).toFixed(1)}px)` : "none";
       });
     };
-    place();
-    gsap.set(stickers, { autoAlpha: 0 });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .5, invalidateOnRefresh: true, onRefresh: place } });
-    stickers.forEach((s, i) => {
-      const r = +s.dataset.r;
-      tl.fromTo(s, { autoAlpha: 0, scale: 1.6, rotate: r + 18, yPercent: -40 }, { autoAlpha: 1, scale: 1, rotate: r, yPercent: 0, duration: 1, ease: "back.out(2.2)" }, i * .7);
-    });
-    tl.to($(".clients-c__hint", root), { autoAlpha: 0, duration: 1 }, 0);
-    tl.to({}, { duration: 1.5 });
+    const tick = () => { if (!on) return; if (!drag) { ry += vy; rx += vx; vx *= .94; vy += ((ux.reduce ? 0 : .0045) - vy) * .02; rx += (-.25 - rx) * .01; } render(); raf = requestAnimationFrame(tick); };
+    const io = new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) raf = requestAnimationFrame(tick); });
+    io.observe(root);
+    const down = e => { drag = { x: e.clientX, y: e.clientY, ry, rx }; vy = 0; stage.setPointerCapture(e.pointerId); };
+    const move = e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; const nry = drag.ry + dx * .006, nrx = Math.max(-1, Math.min(1, drag.rx + dy * .004)); vy = nry - ry; vx = nrx - rx; ry = nry; rx = nrx; };
+    const up = () => { drag = null; };
+    stage.addEventListener("pointerdown", down); stage.addEventListener("pointermove", move); stage.addEventListener("pointerup", up); stage.addEventListener("pointercancel", up);
+    const onR = () => { measure(); render(); }; addEventListener("resize", onR);
+    document.fonts && document.fonts.ready.then(onR);
+    render();
+    if (!ux.reduce) gsap.from(globe, { scale: .2, opacity: 0, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: stage, start: "top 75%" } });
+    return () => { on = false; cancelAnimationFrame(raf); io.disconnect(); removeEventListener("resize", onR); stage.removeEventListener("pointerdown", down); stage.removeEventListener("pointermove", move); stage.removeEventListener("pointerup", up); stage.removeEventListener("pointercancel", up); };
   });
 
-  /* ---------- D · Constelación ---------- */
+  /* ---------- D · Terminal ---------- */
   register("clients", "D", (root, ux) => {
     fillList(root);
-    const sky = $(".clients-d__sky", root), cv = $(".clients-d__canvas", root), ctx = cv.getContext("2d"), box = $(".clients-d__names", root);
-    const mobile = innerWidth < 700;
-    const list = mobile ? ALL.slice(0, 14) : ALL;
-    const rnd = seeded(3);
-    box.innerHTML = `<span class="clients-d__node clients-d__node--hub">Unical</span>` + list.map(n => `<span class="clients-d__node">${name(n)}</span>`).join("");
-    const els = $$(".clients-d__node", root);
-    // Coordenadas normalizadas en elipse alrededor del centro, sin solapar demasiado
-    const nodes = els.map((el, i) => {
-      if (i === 0) return { el, bx: .5, by: .5, hub: true, ph: 0 };
-      const a = (i / list.length) * Math.PI * 2 + rnd() * .5, rr = .22 + rnd() * .26;
-      return { el, bx: .5 + Math.cos(a) * rr * (mobile ? .9 : 1.25) * .8, by: .5 + Math.sin(a) * rr * .95, ph: rnd() * 6.28, sp: .3 + rnd() * .5 };
-    });
-    let W = 0, H = 0, dpr = Math.min(2, devicePixelRatio || 1);
-    const size = () => { W = sky.clientWidth; H = sky.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-    // Relajación: separa los nodos que quedan demasiado cerca (en píxeles reales)
-    const relax = () => {
-      const pts = nodes.map(n => ({ x: n.bx * W, y: n.by * H, w: n.el.offsetWidth + 14, h: n.el.offsetHeight + 12, hub: n.hub }));
-      for (let it = 0; it < 120; it++) {
-        for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
-          const a = pts[i], b = pts[j], dx = b.x - a.x, dy = b.y - a.y;
-          const ox = (a.w + b.w) / 2 - Math.abs(dx), oy = (a.h + b.h) / 2 - Math.abs(dy);
-          if (ox > 0 && oy > 0) {
-            if (ox / a.w < oy / a.h) { const m = ox / 2 * Math.sign(dx || 1); if (!a.hub) a.x -= m; if (!b.hub) b.x += m; }
-            else { const m = oy / 2 * Math.sign(dy || 1); if (!a.hub) a.y -= m; if (!b.hub) b.y += m; }
-          }
-        }
-        pts.forEach(p => { p.x = Math.min(W - p.w / 2, Math.max(p.w / 2, p.x)); p.y = Math.min(H - p.h / 2, Math.max(p.h / 2, p.y)); });
-      }
-      pts.forEach((p, i) => { nodes[i].bx = p.x / W; nodes[i].by = p.y / H; });
+    const out = $(".clients-d__out", root), again = $(".clients-d__again", root);
+    const pad = (s, n) => (s + " ".repeat(n)).slice(0, n);
+    const lines = [
+      `<b>unical@bcn</b>:~/clientes$ <em>unical clients --list --verify</em>`,
+      `<small>conectando con el archivo de proyectos… ok</small>`,
+      `<small>+25 años · +3.000 proyectos · +40 sectores</small>`,
+      ``,
+      ...ALL.map((n, i) => `<b>[ OK ]</b> ${String(i + 1).padStart(2, "0")}  <em>${pad(name(n), 20)}</em><small>${SECTOR[n] || ""}</small>`),
+      ``,
+      `<small>verificado: instaladores certificados 3M · Avery</small>`,
+      `<b>›</b> <em>25 marcas cargadas.</em> Siguiente: <em>la tuya</em> <span class="clients-d__cur"></span>`
+    ];
+    let timers = [];
+    const clear = () => { timers.forEach(clearTimeout); timers = []; };
+    const add = html => { const d = document.createElement("div"); d.className = "clients-d__ln"; d.innerHTML = html || " "; out.appendChild(d); while (out.children.length > 60) out.firstChild.remove(); return d; };
+    const run = () => {
+      clear(); out.innerHTML = "";
+      if (ux.reduce) { lines.forEach(add); return; }
+      // la orden se teclea; el resto aparece línea a línea
+      const cmd = add(""), full = lines[0], plain = "unical clients --list --verify";
+      let i = 0;
+      const typeK = () => { i++; cmd.innerHTML = `<b>unical@bcn</b>:~/clientes$ <em>${plain.slice(0, i)}</em><span class="clients-d__cur"></span>`; if (i < plain.length) timers.push(setTimeout(typeK, 38 + Math.random() * 40)); else { cmd.innerHTML = full; timers.push(setTimeout(() => step(1), 380)); } };
+      const step = k => { if (k >= lines.length) return; add(lines[k]); timers.push(setTimeout(() => step(k + 1), k < 4 ? 300 : 85)); };
+      typeK();
     };
-    size(); relax();
-    let mx = -9999, my = -9999, t = 0;
-    const pos = n => ({ x: (n.bx + (n.hub ? 0 : Math.sin(t * n.sp + n.ph) * .004)) * W, y: (n.by + (n.hub ? 0 : Math.cos(t * n.sp * .8 + n.ph) * .008)) * H });
-    const draw = () => {
-      const P = nodes.map(pos);
-      ctx.clearRect(0, 0, W, H);
-      // Líneas: cada nodo con sus 2 vecinos más cercanos + algunas al centro
-      P.forEach((p, i) => {
-        if (i === 0) return;
-        const near = P.map((q, j) => ({ j, d: (q.x - p.x) ** 2 + (q.y - p.y) ** 2 })).filter(o => o.j !== i && o.j !== 0).sort((a, b) => a.d - b.d).slice(0, 2);
-        const hot = Math.hypot(p.x - mx, p.y - my) < 120;
-        near.forEach(o => { const q = P[o.j]; ctx.strokeStyle = `rgba(153,196,228,${hot ? .55 : .16})`; ctx.lineWidth = hot ? 1.4 : 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); });
-        if (i % 3 === 0 || hot) { ctx.strokeStyle = `rgba(153,196,228,${hot ? .5 : .08})`; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(P[0].x, P[0].y); ctx.stroke(); }
-      });
-      nodes.forEach((n, i) => {
-        const p = P[i];
-        n.el.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-50%)`;
-        if (!n.hub) n.el.classList.toggle("is-hot", Math.hypot(p.x - mx, p.y - my) < 80);
-      });
-    };
-    const move = e => { const r = sky.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; };
-    const leave = () => { mx = my = -9999; };
-    sky.addEventListener("pointermove", move); sky.addEventListener("pointerleave", leave);
-    addEventListener("resize", size);
-    if (ux.reduce) { draw(); return () => { removeEventListener("resize", size); }; }
-    gsap.from(els, { scale: 0, opacity: 0, duration: 1, stagger: .03, ease: "back.out(2)", scrollTrigger: { trigger: sky, start: "top 80%" } });
-    const tick = () => { if (!onScreen(sky)) return; t += .016; draw(); };
-    gsap.ticker.add(tick); draw();
-    return () => { gsap.ticker.remove(tick); removeEventListener("resize", size); };
+    const st = ScrollTrigger.create({ trigger: out, start: "top 80%", once: true, onEnter: run });
+    again.addEventListener("click", run);
+    if (ux.reduce) run();
+    return () => { clear(); st.kill(); again.removeEventListener("click", run); };
   });
 
-  /* ---------- E · Cinta de impresión ---------- */
+  /* ---------- E · Rejilla con foco ---------- */
   register("clients", "E", (root, ux) => {
     fillList(root);
-    const linesEl = $(".clients-e__lines", root), paper = $(".clients-e__paper", root), car = $(".clients-e__carriage", root);
-    const printed = $("[data-printed]", root);
-    linesEl.innerHTML = ALL.map((n, i) => `<div class="clients-e__line" aria-hidden="true"><span>${name(n)}</span><small>Nº ${String(i + 1).padStart(2, "0")}</small></div>`).join("");
-    const lines = $$(".clients-e__line", root);
-    if (ux.reduce) { lines.forEach(l => (l.style.clipPath = "none")); printed.textContent = ALL.length; return; }
-    let lineH = 0;
-    const measure = () => { lineH = lines[1].offsetTop - lines[0].offsetTop; };
-    measure();
-    const visible = () => Math.max(4, Math.floor(paper.clientHeight / lineH) - 2);
-    ScrollTrigger.create({
-      trigger: root, start: "top 70%", end: "bottom 40%", scrub: true, onRefresh: measure,
-      onUpdate: s => {
-        const f = s.progress * ALL.length, cur = Math.min(ALL.length - 1, Math.floor(f)), local = f - cur;
-        lines.forEach((l, i) => { const v = i < cur ? 1 : i === cur ? local : 0; l.style.clipPath = `inset(0 ${(1 - v) * 100}% 0 0)`; });
-        const pw = paper.clientWidth;
-        car.style.transform = `translateX(${local * (pw - 60)}px)`;
-        linesEl.style.transform = `translateY(${-Math.max(0, cur - visible()) * lineH}px)`;
-        printed.textContent = String(Math.min(ALL.length, Math.round(f))).padStart(2, "0");
+    const grid = $(".clients-e__grid", root);
+    grid.innerHTML = ALL.map(n => `<div class="clients-e__tile">${word(n, true)}</div>`).join("");
+    const tiles = $$(".clients-e__tile", grid);
+    const stops = [];
+    const move = e => {
+      tiles.forEach(t => { const r = t.getBoundingClientRect(); const x = e.clientX - r.left, y = e.clientY - r.top; t.style.setProperty("--x", x + "px"); t.style.setProperty("--y", y + "px"); t.classList.toggle("is-hot", x > -30 && y > -30 && x < r.width + 30 && y < r.height + 30); });
+    };
+    const leave = () => tiles.forEach(t => { t.style.setProperty("--x", "-999px"); t.style.setProperty("--y", "-999px"); t.classList.remove("is-hot"); });
+    const enter = e => { const t = e.target.closest(".clients-e__tile"); if (!t || t.dataset.busy) return; const w = $(".clients-word", t), txt = w.dataset.t || (w.dataset.t = w.textContent); t.dataset.busy = 1; stops.push(decode(w, txt, 500)); setTimeout(() => { delete t.dataset.busy; w.textContent = txt; }, 520); };
+    if (ux.fine) { grid.addEventListener("pointermove", move); grid.addEventListener("pointerleave", leave); grid.addEventListener("pointerover", enter); }
+    if (!ux.reduce) {
+      gsap.from(tiles, { opacity: 0, scale: .85, duration: .8, ease: "expo.out", stagger: { each: .03, from: "random" }, scrollTrigger: { trigger: grid, start: "top 82%" } });
+      ScrollTrigger.create({ trigger: grid, start: "top 75%", once: true, onEnter: () => tiles.forEach((t, i) => { const w = $(".clients-word", t), txt = w.textContent; w.dataset.t = txt; setTimeout(() => stops.push(decode(w, txt, 900)), i * 25); }) });
+      // sin ratón: un foco recorre la rejilla solo
+      if (!ux.fine) {
+        let k = 0; const iv = setInterval(() => { tiles.forEach(t => t.classList.remove("is-hot")); const t = tiles[k++ % tiles.length]; t.classList.add("is-hot"); t.style.setProperty("--x", "50%"); t.style.setProperty("--y", "50%"); }, 700);
+        stops.push(() => clearInterval(iv));
       }
-    });
+    }
+    return () => { stops.forEach(f => f()); grid.removeEventListener("pointermove", move); grid.removeEventListener("pointerleave", leave); grid.removeEventListener("pointerover", enter); };
   });
 
-  /* ---------- F · Placas de metacrilato ---------- */
+  /* ---------- F · Túnel warp ---------- */
   register("clients", "F", (root, ux) => {
-    const grid = $(".clients-f__grid", root);
-    grid.innerHTML = ALL.map(n => `<li class="clients-f__plate" tabindex="0">${word(n)}</li>`).join("");
-    const plates = $$(".clients-f__plate", root);
-    const on = p => p.classList.add("is-on"), off = p => p.classList.remove("is-on");
-    plates.forEach(p => { p.addEventListener("pointerenter", () => on(p)); p.addEventListener("pointerleave", () => off(p)); p.addEventListener("focus", () => on(p)); p.addEventListener("blur", () => off(p)); });
-    if (ux.reduce) { plates.slice(0, 6).forEach(on); return; }
-    gsap.from(plates, { y: 30, opacity: 0, duration: .9, stagger: { each: .03, from: "random" }, ease: "expo.out", scrollTrigger: { trigger: grid, start: "top 85%" } });
-    // Se encienden solas en grupos aleatorios mientras la sección está a la vista
-    let timer = null;
-    const cycle = () => {
-      plates.forEach(p => { if (!p.matches(":hover,:focus")) off(p); });
-      for (let k = 0; k < 4; k++) on(plates[(Math.random() * plates.length) | 0]);
+    fillList(root);
+    const cv = $(".clients-f__cv", root), rnd = Math.random;
+    const words = ALL.map((n, i) => ({ n: name(n), a: (i / ALL.length) * Math.PI * 2 + rnd() * .3, d: .35 + rnd() * .55, z: (i / ALL.length) }));
+    const stars = Array.from({ length: 260 }, () => ({ a: rnd() * Math.PI * 2, d: .05 + rnd() * .95, z: rnd() }));
+    let boost = 0, mx = 0, my = 0;
+    const st = ux.reduce ? null : ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onUpdate: s => { boost = Math.min(4, boost + Math.abs(s.getVelocity()) / 2500); } });
+    const pm = e => { const r = root.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5; };
+    if (ux.fine) root.addEventListener("pointermove", pm);
+    let last = 0, cx0 = 0, cy0 = 0;
+    const draw = (ctx, W, H, t) => {
+      const dt = Math.min(50, t - last || 16); last = t;
+      const sp = ux.reduce ? 0 : (.00009 + boost * .00035) * dt; boost *= .95;
+      if (!cx0) { cx0 = W / 2; cy0 = H / 2; }
+      cx0 += ((W / 2 - mx * W * .12) - cx0) * .06; cy0 += ((H / 2 - my * H * .12) - cy0) * .06;
+      const cx = cx0, cy = cy0, M = Math.max(W, H) * .75;
+      ctx.fillStyle = `rgba(7,7,15,${ux.reduce ? 1 : .32 + Math.max(0, .3 - boost * .08)})`; ctx.fillRect(0, 0, W, H);
+      const proj = (o, z) => { const k = 1 / (1.02 - z); return [cx + Math.cos(o.a) * o.d * M * k * .18, cy + Math.sin(o.a) * o.d * M * k * .18, k]; };
+      stars.forEach(s => {
+        const z0 = s.z; s.z += sp * 1.6; if (s.z >= 1) { s.z = 0; s.a = rnd() * Math.PI * 2; }
+        const [x, y, k] = proj(s, s.z), [x0, y0] = proj(s, z0);
+        ctx.strokeStyle = `rgba(153,196,228,${Math.min(.9, s.z * .9)})`; ctx.lineWidth = Math.min(2.2, k * .35);
+        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x, y); ctx.stroke();
+      });
+      words.slice().sort((a, b) => a.z - b.z).forEach(w => {
+        w.z += sp; if (w.z >= 1) { w.z = 0; w.a = rnd() * Math.PI * 2; w.d = .35 + rnd() * .55; }
+        const [x, y, k] = proj(w, w.z), fs = Math.min(140, 6 + k * 5);
+        const alpha = Math.min(1, w.z * 2.4) * Math.min(1, (1 - w.z) * 6);
+        if (fs < 7 || alpha <= 0) return;
+        ctx.font = `800 ${fs}px Poppins, sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillStyle = `rgba(255,255,255,${alpha * .92})`; ctx.shadowColor = "rgba(153,196,228,.8)"; ctx.shadowBlur = Math.min(24, k);
+        ctx.fillText(w.n, x, y); ctx.shadowBlur = 0;
+      });
     };
-    const io = new IntersectionObserver(([e]) => { clearInterval(timer); if (e.isIntersecting) { cycle(); timer = setInterval(cycle, 1400); } }, { threshold: .2 });
-    io.observe(root);
-    return () => { io.disconnect(); clearInterval(timer); };
+    const loop = canvasLoop(root, cv, draw);
+    return () => { loop.stop(); st && st.kill(); root.removeEventListener("pointermove", pm); };
   });
 })();

@@ -12,79 +12,81 @@
     <p class="sr-only" data-clients-list></p>
   </div>
 
-  <!-- B · Panel de salidas -->
-  <div class="variant clients-b" data-v="B" data-name="Panel de salidas" data-theme="dark" hidden>
+  <!-- B · Radar -->
+  <div class="variant clients-b" data-v="B" data-name="Radar" data-theme="dark" hidden>
+    <div class="clients-b__in wrap">
+      <div class="clients-b__copy">
+        <p class="mono label">(Clientes)</p>
+        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
+        <p class="lead">Marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
+        <div class="clients-b__read mono" aria-hidden="true">
+          <span class="clients-b__led"></span><span>Señal detectada</span><b data-read>Escaneando…</b>
+        </div>
+        <p class="sr-only" data-clients-list></p>
+      </div>
+      <div class="clients-b__scope" aria-hidden="true">
+        <canvas class="clients-b__cv"></canvas>
+        <i class="clients-b__br clients-b__br--tl"></i><i class="clients-b__br clients-b__br--tr"></i><i class="clients-b__br clients-b__br--bl"></i><i class="clients-b__br clients-b__br--br"></i>
+        <span class="clients-b__tag mono">RNG 25 · BCN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- C · Holograma -->
+  <div class="variant clients-c" data-v="C" data-name="Holograma" data-theme="dark" hidden>
+    <div class="clients-c__head wrap">
+      <p class="mono label">(Clientes)</p>
+      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
+    </div>
+    <div class="clients-c__stage" aria-hidden="true">
+      <div class="clients-c__base"><i></i><i></i><i></i></div>
+      <div class="clients-c__core"></div>
+      <div class="clients-c__globe"></div>
+      <p class="clients-c__hint mono">Arrastra para girar</p>
+    </div>
+    <p class="sr-only" data-clients-list></p>
+  </div>
+
+  <!-- D · Terminal -->
+  <div class="variant clients-d" data-v="D" data-name="Terminal" data-theme="dark" hidden>
+    <div class="clients-d__in wrap">
+      <div class="clients-d__copy">
+        <p class="mono label">(Clientes)</p>
+        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
+        <p class="lead">Marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
+        <button class="btn clients-d__again" type="button">Ejecutar de nuevo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="clients-d__win">
+        <div class="clients-d__bar mono" aria-hidden="true"><i></i><i></i><i></i><span>unical@bcn: ~/clientes</span></div>
+        <div class="clients-d__out mono" aria-hidden="true"></div>
+        <p class="sr-only" data-clients-list></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- E · Rejilla con foco -->
+  <div class="variant clients-e" data-v="E" data-name="Rejilla con foco" data-theme="dark" hidden>
     <div class="wrap">
-      <div class="clients-b__head">
+      <div class="clients-e__head">
         <div>
           <p class="mono label">(Clientes)</p>
           <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
         </div>
-        <p class="lead">Marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
+        <p class="lead">Pasa el cursor: cada marca se ilumina con la luz de la rejilla.</p>
       </div>
-      <div class="clients-b__board" role="table" aria-label="Algunos de nuestros clientes">
-        <div class="clients-b__row clients-b__row--th" role="row">
-          <span role="columnheader">Nº</span><span role="columnheader">Cliente</span><span role="columnheader">Estado</span>
-        </div>
-        <div class="clients-b__rows" role="rowgroup"></div>
-      </div>
-      <p class="clients-b__foot mono"><span class="clients-b__dot" aria-hidden="true"></span>Panel actualizado en tiempo real · Unical Graphic · Cabrera de Mar</p>
+      <div class="clients-e__grid" aria-hidden="true"></div>
+      <p class="sr-only" data-clients-list></p>
     </div>
   </div>
 
-  <!-- C · Vinilos apilados -->
-  <div class="variant clients-c" data-v="C" data-name="Vinilos apilados" data-theme="light" hidden>
-    <div class="clients-c__pin">
-      <div class="clients-c__head wrap">
-        <p class="mono label">(Clientes)</p>
-        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-      </div>
-      <div class="clients-c__stage" aria-hidden="true"></div>
-      <p class="clients-c__hint mono" aria-hidden="true">Sigue bajando: cada marca es un vinilo recién pegado</p>
-    </div>
-    <p class="sr-only" data-clients-list></p>
-  </div>
-
-  <!-- D · Constelación -->
-  <div class="variant clients-d" data-v="D" data-name="Constelación" data-theme="dark" hidden>
-    <div class="clients-d__head wrap">
+  <!-- F · Túnel warp -->
+  <div class="variant clients-f" data-v="F" data-name="Túnel warp" data-theme="dark" hidden>
+    <canvas class="clients-f__cv" aria-hidden="true"></canvas>
+    <div class="clients-f__in wrap">
       <p class="mono label">(Clientes)</p>
       <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-      <p class="lead">Una red de marcas conectadas por el mismo taller.</p>
-    </div>
-    <div class="clients-d__sky" aria-hidden="true">
-      <canvas class="clients-d__canvas"></canvas>
-      <div class="clients-d__names"></div>
+      <p class="clients-f__hint mono" aria-hidden="true">Haz scroll para acelerar</p>
     </div>
     <p class="sr-only" data-clients-list></p>
-  </div>
-
-  <!-- E · Cinta de impresión -->
-  <div class="variant clients-e" data-v="E" data-name="Cinta de impresión" data-theme="dark" hidden>
-    <div class="clients-e__in wrap">
-      <div class="clients-e__copy">
-        <p class="mono label">(Clientes)</p>
-        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="lead">Los imprimimos cada día: en lonas, vinilos, stands y flotas.</p>
-        <p class="clients-e__count mono"><b data-printed>00</b> / <span data-total>25</span> marcas impresas</p>
-      </div>
-      <div class="clients-e__printer" aria-hidden="true">
-        <div class="clients-e__head-unit"><span class="clients-e__led"></span><span class="mono">UNICAL · UV 5000</span><i class="clients-e__carriage"></i></div>
-        <div class="clients-e__paper"><div class="clients-e__lines"></div></div>
-      </div>
-    </div>
-    <p class="sr-only" data-clients-list></p>
-  </div>
-
-  <!-- F · Placas de metacrilato -->
-  <div class="variant clients-f" data-v="F" data-name="Placas iluminadas" data-theme="dark" hidden>
-    <div class="wrap">
-      <div class="clients-f__head">
-        <p class="mono label">(Clientes)</p>
-        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="lead">Cada nombre, en una placa de metacrilato retroiluminada como las que fabricamos.</p>
-      </div>
-      <ul class="clients-f__grid" aria-label="Clientes"></ul>
-    </div>
   </div>
 </section>

@@ -112,113 +112,141 @@
     };
   });
 
+  /* Bucle rAF que solo corre mientras el elemento está en pantalla */
+  const whileVisible = (el, frame) => {
+    let raf = 0, on = false;
+    const tick = t => { raf = 0; if (!on) return; frame(t); raf = requestAnimationFrame(tick); };
+    const io = new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on && !raf) raf = requestAnimationFrame(tick); });
+    io.observe(el);
+    return () => { on = false; io.disconnect(); cancelAnimationFrame(raf); };
+  };
 
-  /* ---------- B · Dial giratorio ---------- */
+  /* ---------- B · Radar: el barrido detecta cada sector ---------- */
   register("sectors", "B", (root, ux) => {
-    const dial = ux.$(".sec-b__dial", root), wheel = ux.$(".sec-b__wheel", root);
-    const items = ux.$$(".sec-b__item", root), imgs = ux.$$(".sec-b__core img", root);
-    const nEl = ux.$(".sec-b__n", root), nameEl = ux.$(".sec-b__name", root), descEl = ux.$(".sec-b__desc", root);
-    const DESCS = ["Rotulación de vehículos y flotas, car wrapping y cambio de color.", "Stands llave en mano para ferias y congresos en toda España.", "PLV, escaparates y pop-up stores para el punto de venta.", "Murales, decoración y señalética para restaurantes y hoteles.", "Vinilos decorativos, murales corporativos y señalética interior.", "Lonas de fachada, vallas y grandes formatos de exterior.", "Gráfica y rotulación para equipos, competiciones y eventos.", "Stands, congresos y material para la industria farmacéutica."];
-    const N = items.length, STEP = 360 / N;
-    let rot = 0, cur = 0;
-    const rotObj = { r: 0 };
-    const apply = r => wheel.style.setProperty("--rot", r + "deg");
-    const select = i => {
-      i = ((i % N) + N) % N; if (i === cur && nameEl.textContent === items[i].textContent) return;
-      cur = i;
-      items.forEach((it, k) => it.setAttribute("aria-selected", k === i));
-      imgs.forEach((im, k) => im.classList.toggle("is-on", k === i));
-      dial.setAttribute("aria-activedescendant", items[i].id);
-      nEl.textContent = `${String(i + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
-      nameEl.textContent = items[i].textContent; descEl.textContent = DESCS[i];
-      if (!ux.reduce) gsap.fromTo([nameEl, descEl], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: .06, ease: "expo.out", overwrite: "auto" });
+    const radar = ux.$(".sec-b__radar", root), sweep = ux.$(".sec-b__sweep", root), wrap = ux.$(".sec-b__blips", root);
+    const items = ux.$$(".sec-b__list li", root), read = ux.$(".sec-b__read b", root);
+    const names = items.map(li => li.lastChild.textContent.trim());
+    const pos = names.map((_, i) => ({ a: i * 45 + 18 + (i % 2) * 14, r: [.62, .38, .78, .5, .7, .3, .55, .82][i] }));
+    wrap.innerHTML = pos.map((p, i) => {
+      const rad = (p.a - 90) * Math.PI / 180;
+      return `<span class="sec-b__blip" style="left:${50 + Math.cos(rad) * p.r * 46}%;top:${50 + Math.sin(rad) * p.r * 46}%"><i></i><span>${String(i + 1).padStart(2, "0")}</span></span>`;
+    }).join("");
+    const blips = ux.$$(".sec-b__blip", wrap);
+    let pinned = -1, lastHit = -1;
+    const hit = i => {
+      blips[i].classList.remove("is-hit"); void blips[i].offsetWidth; blips[i].classList.add("is-hit");
+      setTimeout(() => blips[i] && pinned !== i && blips[i].classList.remove("is-hit"), 260);
+      if (pinned < 0) { items.forEach((li, k) => li.classList.toggle("is-on", k === i)); read.textContent = names[i]; }
+      lastHit = i;
     };
-    const goTo = (target, animate = true) => {
-      rot = target;
-      const idx = Math.round(-rot / STEP);
-      select(idx);
-      if (ux.reduce || !animate) { rotObj.r = rot; apply(rot); return; }
-      gsap.to(rotObj, { r: rot, duration: .8, ease: "expo.out", overwrite: true, onUpdate: () => apply(rotObj.r) });
-    };
-    const step = d => goTo(Math.round(rot / STEP) * STEP - d * STEP);
-    const onBtn = e => { const b = e.target.closest(".sec-b__ctrl button"); if (b) step(+b.dataset.d); };
-    const onKey = e => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); step(1); }
-      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); step(-1); }
-    };
-    const onItem = e => { const it = e.target.closest(".sec-b__item"); if (!it || moved > 6) return; const i = +it.dataset.i; let d = (i - cur) % N; if (d > N / 2) d -= N; if (d < -N / 2) d += N; step(d); };
-    // Arrastre circular
-    let dragging = false, a0 = 0, r0 = 0, moved = 0;
-    const ang = e => { const r = dial.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; };
-    const down = e => { dragging = true; moved = 0; a0 = ang(e); r0 = rotObj.r; dial.classList.add("is-grab"); dial.setPointerCapture(e.pointerId); gsap.killTweensOf(rotObj); };
-    const move = e => { if (!dragging) return; let d = ang(e) - a0; if (d > 180) d -= 360; if (d < -180) d += 360; moved = Math.max(moved, Math.abs(d)); rotObj.r = r0 + d; apply(rotObj.r); select(Math.round(-rotObj.r / STEP)); };
-    const up = () => { if (!dragging) return; dragging = false; dial.classList.remove("is-grab"); goTo(Math.round(rotObj.r / STEP) * STEP); };
-    root.addEventListener("click", onBtn); dial.addEventListener("keydown", onKey); dial.addEventListener("click", onItem);
-    dial.addEventListener("pointerdown", down); dial.addEventListener("pointermove", move); dial.addEventListener("pointerup", up); dial.addEventListener("pointercancel", up);
-    apply(0);
-    if (!ux.reduce) {
-      gsap.fromTo(rotObj, { r: 90 }, { r: 0, duration: 1.6, ease: "expo.out", onUpdate: () => apply(rotObj.r), scrollTrigger: { trigger: dial, start: "top 80%", once: true } });
-      gsap.from(ux.$(".sec-b__core", root), { scale: .6, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: dial, start: "top 80%", once: true } });
-    }
-    return () => {
-      root.removeEventListener("click", onBtn); dial.removeEventListener("keydown", onKey); dial.removeEventListener("click", onItem);
-      dial.removeEventListener("pointerdown", down); dial.removeEventListener("pointermove", move); dial.removeEventListener("pointerup", up); dial.removeEventListener("pointercancel", up);
-    };
+    const over = e => { const li = e.target.closest("li"); if (!li) return; pinned = +li.dataset.i; items.forEach((x, k) => x.classList.toggle("is-on", k === pinned)); blips.forEach((b, k) => b.classList.toggle("is-hit", k === pinned)); read.textContent = names[pinned]; };
+    const out = () => { pinned = -1; blips.forEach(b => b.classList.remove("is-hit")); };
+    const list = ux.$(".sec-b__list", root);
+    list.addEventListener("pointerover", over); list.addEventListener("pointerleave", out);
+    if (ux.reduce) { read.textContent = names[0]; items[0].classList.add("is-on"); blips.forEach(b => b.classList.add("is-hit")); return () => { list.removeEventListener("pointerover", over); list.removeEventListener("pointerleave", out); }; }
+    gsap.from(blips, { scale: 0, autoAlpha: 0, stagger: .08, duration: .6, ease: "back.out(2)", scrollTrigger: { trigger: radar, start: "top 80%", once: true } });
+    let ang = 0, last = 0;
+    const stop = whileVisible(radar, t => {
+      const dt = Math.min(50, t - (last || t)); last = t;
+      const prev = ang; ang = (ang + dt * .072) % 360;
+      sweep.style.setProperty("--a", ang + "deg");
+      pos.forEach((p, i) => { const a = p.a % 360; if ((prev <= a && a < ang) || (prev > ang && (a >= prev || a < ang))) hit(i); });
+    });
+    return () => { stop(); list.removeEventListener("pointerover", over); list.removeEventListener("pointerleave", out); };
   });
 
-  /* ---------- C · Iconos de línea que se dibujan ---------- */
+  /* ---------- C · Órbitas: los sectores giran alrededor del núcleo en 3D ---------- */
   register("sectors", "C", (root, ux) => {
-    const tiles = ux.$$(".sec-c__tile", root);
-    const shapes = tile => ux.$$(".sec-ico path, .sec-ico circle", tile);
-    tiles.forEach(t => shapes(t).forEach(s => s.setAttribute("pathLength", 1)));
-    if (ux.reduce) return;
-    tiles.forEach(t => gsap.set(shapes(t), { strokeDasharray: "1 1", strokeDashoffset: 1 }));
-    ScrollTrigger.batch(tiles, { start: "top 85%", once: true, onEnter: b => b.forEach((t, k) => gsap.to(shapes(t), { strokeDashoffset: 0, duration: 1.4, delay: k * .12, ease: "power2.inOut" })) });
-    const redraw = e => { const t = e.currentTarget; gsap.fromTo(shapes(t), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .9, ease: "power2.inOut", overwrite: true }); };
-    tiles.forEach(t => { t.addEventListener("pointerenter", redraw); t.addEventListener("focus", redraw); });
-    return () => tiles.forEach(t => { t.removeEventListener("pointerenter", redraw); t.removeEventListener("focus", redraw); });
+    const sys = ux.$(".sec-c__sys", root), chips = ux.$$(".sec-c__chip", root);
+    if (ux.reduce) { sys.classList.add("is-static"); return; }
+    sys.classList.remove("is-static");
+    let rot = 0, speed = 1, target = 1, last = 0, tilt = 0, tiltT = 0;
+    const orbit = chips.map((_, i) => ({ ring: i % 2, a: (i / chips.length) * Math.PI * 2 + (i % 2) * .4 }));
+    const enter = () => (target = .15), leave = () => (target = 1);
+    const mv = e => { const r = sys.getBoundingClientRect(); tiltT = ((e.clientY - r.top) / r.height - .5) * .6; };
+    sys.addEventListener("pointerenter", enter); sys.addEventListener("pointerleave", leave);
+    if (ux.fine) sys.addEventListener("pointermove", mv);
+    gsap.from(chips, { autoAlpha: 0, duration: 1, stagger: .08, scrollTrigger: { trigger: sys, start: "top 80%", once: true } });
+    gsap.from(ux.$(".sec-c__core", root), { scale: 0, duration: 1.4, ease: "elastic.out(1,.6)", scrollTrigger: { trigger: sys, start: "top 80%", once: true } });
+    const stop = whileVisible(sys, t => {
+      const dt = Math.min(50, t - (last || t)); last = t;
+      speed += (target - speed) * .05; tilt += (tiltT - tilt) * .05; rot += dt * .00022 * speed;
+      const W = sys.clientWidth, H = sys.clientHeight, mob = W < 700;
+      chips.forEach((c, i) => {
+        const o = orbit[i], a = o.a + rot * (o.ring ? -1.25 : 1);
+        const rx = mob ? W * (o.ring ? .2 : .3) : o.ring ? Math.min(350, W * .31) : Math.min(550, W * .46), ry = rx * ((mob ? .9 : .34) + tilt * .2);
+        const tiltRad = (o.ring ? 10 : -8) * Math.PI / 180;
+        const x0 = Math.cos(a) * rx, y0 = Math.sin(a) * ry;
+        const x = x0 * Math.cos(tiltRad) - y0 * Math.sin(tiltRad), y = x0 * Math.sin(tiltRad) + y0 * Math.cos(tiltRad);
+        const depth = Math.sin(a), s = .78 + (depth + 1) * .16;
+        c.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) scale(${s})`;
+        c.style.opacity = .45 + (depth + 1) * .275;
+        c.style.zIndex = depth > 0 ? 60 : 10;
+        c.style.filter = depth < -.3 ? `blur(${(-depth - .3) * 2.2}px)` : "none";
+      });
+    });
+    return () => { stop(); sys.removeEventListener("pointerenter", enter); sys.removeEventListener("pointerleave", leave); sys.removeEventListener("pointermove", mv); };
   });
 
-  /* ---------- D · Nube tipográfica con foto flotante ---------- */
+  /* ---------- D · Cristales: los paneles llegan desde el fondo ---------- */
   register("sectors", "D", (root, ux) => {
-    const cloud = ux.$(".sec-d__cloud", root), words = ux.$$(".sec-d__w", root);
-    const desc = ux.$(".sec-d__desc", root), fl = ux.$(".sec-d__float", root), flImg = ux.$("img", fl);
-    const DEF = desc.textContent;
-    const on = w => {
-      cloud.classList.add("is-hover"); words.forEach(x => x.classList.toggle("is-on", x === w));
-      desc.textContent = `${w.textContent} — ${w.dataset.desc}`;
-      if (flImg.getAttribute("src") !== w.dataset.img) flImg.src = w.dataset.img;
-      if (ux.fine) fl.classList.add("is-on");
-    };
-    const off = () => { cloud.classList.remove("is-hover"); words.forEach(x => x.classList.remove("is-on")); desc.textContent = DEF; fl.classList.remove("is-on"); };
-    const enter = e => on(e.currentTarget);
-    words.forEach(w => { w.addEventListener("pointerenter", enter); w.addEventListener("focus", enter); w.addEventListener("click", enter); });
-    cloud.addEventListener("pointerleave", off); cloud.addEventListener("focusout", e => { if (!cloud.contains(e.relatedTarget)) off(); });
-    let xTo, yTo, pm;
-    if (ux.fine && !ux.reduce) {
-      xTo = gsap.quickTo(fl, "x", { duration: .5, ease: "power3" }); yTo = gsap.quickTo(fl, "y", { duration: .5, ease: "power3" });
-      pm = e => { xTo(e.clientX + 24); yTo(e.clientY - fl.offsetHeight / 2); };
-      addEventListener("pointermove", pm);
-    }
-    if (!ux.reduce) gsap.from(ux.$$("li", cloud), { yPercent: 80, opacity: 0, rotate: () => gsap.utils.random(-8, 8), duration: 1.2, stagger: { each: .07, from: "random" }, ease: "expo.out", scrollTrigger: { trigger: cloud, start: "top 80%", once: true } });
-    return () => { if (pm) removeEventListener("pointermove", pm); words.forEach(w => { w.removeEventListener("pointerenter", enter); w.removeEventListener("focus", enter); w.removeEventListener("click", enter); }); cloud.removeEventListener("pointerleave", off); fl.classList.remove("is-on"); };
-  });
-
-  /* ---------- E · Fichas de dominó que caen en cadena ---------- */
-  register("sectors", "E", (root, ux) => {
-    const tiles = ux.$$(".sec-e__tile", root);
     if (ux.reduce) return;
-    gsap.set(tiles, { rotateX: -88, opacity: 0, transformPerspective: 1200 });
-    gsap.to(tiles, { rotateX: 0, opacity: 1, duration: .9, ease: "bounce.out", stagger: .11, scrollTrigger: { trigger: ux.$(".sec-e__row", root), start: "top 78%", once: true } });
+    const panes = ux.$$(".sec-d__p", root);
+    gsap.from(panes, { z: -900, autoAlpha: 0, rotationY: -70, stagger: .07, duration: 1.3, ease: "expo.out", clearProps: "transform,opacity,visibility", scrollTrigger: { trigger: ux.$(".sec-d__panes", root), start: "top 80%", once: true } });
   });
 
-  /* ---------- F · Franjas diagonales ---------- */
+  /* ---------- E · Túnel warp: el scroll te lanza a través de los sectores ---------- */
+  register("sectors", "E", (root, ux) => {
+    if (ux.reduce) return;
+    const track = ux.$(".sec-e__track", root), words = ux.$$(".sec-e__w", root), end = ux.$(".sec-e__end", root);
+    const cv = ux.$(".sec-e__cv", root), ctx = cv.getContext("2d"), spd = ux.$(".sec-e__hud b", root);
+    const N = words.length, DEPTH = 2600;
+    const place = words.map((_, i) => { const a = i * 2.4 + .6; return { x: Math.cos(a), y: Math.sin(a) }; });
+    let prog = 0, vel = 0;
+    const layout = p => {
+      const W = innerWidth, H = innerHeight, rx = Math.min(W * .26, 380), ry = Math.min(H * .22, 200);
+      words.forEach((w, i) => {
+        const z = -DEPTH + (p * (N + 1.2) - i) * (DEPTH / 2.2);
+        const o = z > 300 ? Math.max(0, 1 - (z - 300) / 250) : Math.min(1, (z + DEPTH) / 900);
+        w.style.transform = `translate(-50%,-50%) translate3d(${place[i].x * rx}px,${place[i].y * ry}px,${Math.min(z, 640)}px)`;
+        w.style.opacity = o;
+      });
+      const e = gsap.utils.clamp(0, 1, (p - .82) / .14);
+      end.style.opacity = e; end.style.transform = `scale(${.9 + e * .1})`;
+    };
+    // estrellas que se estiran según la velocidad
+    let W, H, dpr, stars = [];
+    const size = () => {
+      dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr;
+      stars = Array.from({ length: W < 700 ? 140 : 260 }, () => ({ a: Math.random() * 6.283, d: Math.random(), s: .3 + Math.random() * .9 }));
+    };
+    size();
+    const st = ScrollTrigger.create({ trigger: track, start: "top top", end: "bottom bottom", onUpdate: s => { prog = s.progress; vel = Math.abs(s.getVelocity()); layout(prog); } });
+    layout(0);
+    let v = 0;
+    const stop = whileVisible(cv, () => {
+      v += (Math.min(vel / 900, 6) - v) * .08; vel *= .9;
+      spd.textContent = Math.round(120 + v * 380) + " km/h";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      const cx = W / 2, cy = H / 2, R = Math.hypot(cx, cy);
+      ctx.lineCap = "round";
+      stars.forEach(s => {
+        s.d += .0025 * (1 + v * 3) * s.s; if (s.d > 1) { s.d = .02; s.a = Math.random() * 6.283; }
+        const r1 = Math.pow(s.d, 2.2) * R, r0 = Math.max(0, r1 - (6 + v * 70) * s.d);
+        ctx.strokeStyle = `rgba(170,210,240,${Math.min(1, s.d * 1.4) * (1 - prog * .5)})`; ctx.lineWidth = s.s * 1.6 * (s.d + .3);
+        ctx.beginPath(); ctx.moveTo(cx + Math.cos(s.a) * r0, cy + Math.sin(s.a) * r0); ctx.lineTo(cx + Math.cos(s.a) * r1, cy + Math.sin(s.a) * r1); ctx.stroke();
+      });
+    });
+    addEventListener("resize", size);
+    return () => { stop(); st.kill(); removeEventListener("resize", size); };
+  });
+
+  /* ---------- F · Escáner láser: cada sector se «imprime» al cruzar el láser ---------- */
   register("sectors", "F", (root, ux) => {
-    const strips = ux.$$(".sec-f__s", root);
-    const set = s => strips.forEach(x => { const on = x === s; x.classList.toggle("is-on", on); ux.$("button", x).setAttribute("aria-expanded", on); });
-    const h = e => set(e.currentTarget.closest(".sec-f__s"));
-    strips.forEach(s => { const b = ux.$("button", s); b.addEventListener("click", h); b.addEventListener("focus", h); if (ux.fine) s.addEventListener("pointerenter", h); });
-    if (!ux.reduce) gsap.from(strips, { yPercent: 110, opacity: 0, duration: 1.1, stagger: .07, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-f__strips", root), start: "top 80%", once: true } });
-    return () => strips.forEach(s => { const b = ux.$("button", s); b.removeEventListener("click", h); b.removeEventListener("focus", h); s.removeEventListener("pointerenter", h); });
+    if (ux.reduce) return;
+    ux.$$(".sec-f__n", root).forEach(n => {
+      gsap.fromTo(n, { "--f": "0%" }, { "--f": "100%", ease: "none", scrollTrigger: { trigger: n, start: "top 50%", end: "bottom 50%", scrub: true } });
+    });
+    gsap.from(ux.$(".sec-f__laser i", root), { scaleX: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ux.$(".sec-f__body", root), start: "top 60%", once: true } });
   });
 })();
