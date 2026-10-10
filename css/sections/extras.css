@@ -1,0 +1,221 @@
+/* === Variantes extra (L) por sección === */
+
+/* ---------- Portada L · Cartel editorial ---------- */
+.hero-ed{position:relative;background:#0F0F1A;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden}
+.hero-ed__top,.hero-ed__bot{display:flex;justify-content:space-between;align-items:center;padding:28px 48px;border-bottom:1px solid var(--u-line);color:var(--u-muted);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.hero-ed__bot{border-top:1px solid var(--u-line);border-bottom:0}
+.hero-ed__nick{color:var(--u-blue)}
+.hero-ed__main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:48px;padding:72px 48px;align-items:end}
+.hero-ed__big{font-family:var(--f-head);font-weight:900;font-size:clamp(3.5rem,13vw,13rem);line-height:.86;letter-spacing:-.055em;color:var(--u-paper);margin:0}
+.hero-ed__big em{font-style:italic;color:var(--u-blue);display:block}
+.hero-ed__big i{display:block;height:.14em;background:var(--u-blue);width:min(260px,22vw);margin:.12em 0}
+.hero-ed__meta{display:grid;gap:28px;padding-bottom:1rem;max-width:280px;justify-items:start}
+.hero-ed__meta .mono{color:var(--u-blue)}
+.hero-ed__meta p{color:var(--u-muted);font-size:.95rem;margin:0;line-height:1.55}
+.hero-ed__ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+.hero-ed__ctas a,.hero-ed__ctas button{all:unset;cursor:pointer;padding:14px 24px;border:1px solid var(--u-line);border-radius:999px;font-weight:600;color:var(--u-paper);transition:background .3s,color .3s}
+.hero-ed__ctas .btn-fill{background:var(--u-blue);color:var(--u-night);border-color:var(--u-blue)}
+.hero-ed__ctas a:hover,.hero-ed__ctas button:hover{background:var(--u-paper);color:var(--u-night)}
+@media (max-width:860px){.hero-ed__top,.hero-ed__bot{padding:16px 20px;font-size:.65rem}.hero-ed__main{grid-template-columns:1fr;padding:40px 20px;gap:28px}.hero-ed__meta{padding-bottom:0}}
+
+/* ---------- Servicios L · Tipográfico sin fotos ---------- */
+.services-l{background:#0F0F1A;padding:120px 0;position:relative;overflow:hidden}
+.services-l .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.services-l__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;gap:24px;flex-wrap:wrap}
+.services-l__head h2{margin:0}
+.services-l__list{list-style:none;padding:0;margin:0;border-top:1px solid var(--u-line)}
+.services-l__list>li{border-bottom:1px solid var(--u-line);padding:28px 0;display:grid;grid-template-columns:60px 1fr 1fr auto;gap:28px;align-items:center;position:relative;overflow:hidden;cursor:pointer;transition:padding-left .4s}
+.services-l__list>li::before{content:"";position:absolute;left:-100%;top:0;height:100%;width:100%;background:var(--u-blue);transition:left .5s cubic-bezier(.7,.1,.2,1);z-index:0}
+.services-l__list>li:hover{padding-left:28px}
+.services-l__list>li:hover::before{left:0}
+.services-l__list>li>*{position:relative;z-index:1;transition:color .3s}
+.services-l__list>li:hover>*,.services-l__list>li:hover h3{color:var(--u-night)}
+.services-l__n{font-family:var(--f-mono);color:var(--u-blue);font-size:.9rem}
+.services-l__t{font-family:var(--f-head);font-size:clamp(1.6rem,2.6vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1}
+.services-l__d{color:var(--u-muted);font-size:.95rem;max-width:40ch}
+.services-l__go{font-family:var(--f-mono);font-size:.78rem;color:var(--u-paper);letter-spacing:.08em}
+.services-l__go svg{width:20px;height:20px;vertical-align:middle;margin-left:8px;transition:transform .4s}
+.services-l__list>li:hover .services-l__go svg{transform:translateX(6px)}
+@media (max-width:860px){.services-l__list>li{grid-template-columns:1fr;gap:8px;padding:22px 0}.services-l__d{max-width:100%}.services-l__go{display:none}}
+
+/* ---------- Reel L · Trío suizo (inspirado en J) ---------- */
+.reel-l{background:#0E0E19;padding:140px 0;position:relative;overflow:hidden}
+.reel-l .wrap{max-width:1360px;margin:0 auto;padding:0 32px}
+.reel-l__band{display:grid;grid-template-columns:repeat(12,1fr);gap:0;align-items:center;position:relative;padding:40px 0}
+.reel-l__band+.reel-l__band{border-top:1px solid var(--u-line)}
+.reel-l__t{grid-column:1 / span 7;font-family:var(--f-head);font-weight:900;font-size:clamp(3rem,10vw,10rem);line-height:.9;letter-spacing:-.05em;margin:0;color:var(--u-paper)}
+.reel-l__band--mid .reel-l__t{grid-column:5 / span 8;text-align:right;color:var(--u-blue);font-style:italic}
+.reel-l__band--bot .reel-l__t{grid-column:1 / span 9}
+.reel-l__disc{grid-column:9 / span 4;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#000;position:relative;cursor:pointer;isolation:isolate}
+.reel-l__disc video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel-l__disc::after{content:"▶ VER";position:absolute;inset:0;display:grid;place-items:center;color:var(--u-paper);font-family:var(--f-mono);font-size:1rem;letter-spacing:.12em;background:radial-gradient(circle,rgba(0,0,0,.2),rgba(0,0,0,.65));opacity:.95;transition:opacity .3s}
+.reel-l__disc:hover::after{opacity:0}
+.reel-l__band--mid .reel-l__disc{grid-column:1 / span 4}
+.reel-l__band--bot .reel-l__disc{grid-column:10 / span 3}
+.reel-l__meta{grid-column:1 / -1;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.72rem;color:var(--u-muted);letter-spacing:.14em;text-transform:uppercase;margin-top:40px;padding-top:20px;border-top:1px solid var(--u-line)}
+.reel-l__meta b{color:var(--u-blue)}
+@media (max-width:860px){.reel-l__t,.reel-l__band--mid .reel-l__t,.reel-l__band--bot .reel-l__t{grid-column:1 / -1;text-align:left;font-size:clamp(2.4rem,10vw,4rem)}.reel-l__disc,.reel-l__band--mid .reel-l__disc,.reel-l__band--bot .reel-l__disc{grid-column:1 / -1;max-width:280px;margin-top:20px}}
+
+/* ---------- Proyectos L · Revista editorial ---------- */
+.work-l{background:var(--u-paper);color:var(--u-ink);padding:120px 0}
+.work-l .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.work-l__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;gap:30px;flex-wrap:wrap;border-bottom:2px solid var(--u-ink);padding-bottom:28px}
+.work-l__head h2{margin:0;color:var(--u-ink);font-weight:900;letter-spacing:-.05em;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.95}
+.work-l__head h2 em{font-style:italic;color:var(--u-blue-strong)}
+.work-l__meta{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--u-muted-dark);text-align:right}
+.work-l__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:30px}
+.work-l__card{display:block;color:inherit;text-decoration:none;position:relative}
+.work-l__card:nth-child(1){grid-column:1 / span 7;grid-row:span 2}
+.work-l__card:nth-child(2){grid-column:8 / span 5}
+.work-l__card:nth-child(3){grid-column:8 / span 5}
+.work-l__card:nth-child(4){grid-column:1 / span 4}
+.work-l__card:nth-child(5){grid-column:5 / span 4}
+.work-l__card:nth-child(6){grid-column:9 / span 4}
+.work-l__card figure{margin:0;overflow:hidden;background:var(--u-blue-tint)}
+.work-l__card img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;transition:transform .9s cubic-bezier(.2,.6,.2,1)}
+.work-l__card:nth-child(1) img{aspect-ratio:4/5}
+.work-l__card:hover img{transform:scale(1.04)}
+.work-l__card figcaption{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 0;border-top:1px solid var(--u-line-dark);margin-top:12px;gap:20px}
+.work-l__card figcaption h3{margin:0;font-size:1.1rem;font-weight:800}
+.work-l__card:nth-child(1) figcaption h3{font-size:1.6rem}
+.work-l__chip{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--u-muted-dark);white-space:nowrap}
+@media (max-width:860px){.work-l__grid{grid-template-columns:1fr;gap:40px}.work-l__card{grid-column:1 / -1 !important;grid-row:auto !important}}
+
+/* ---------- Proceso L · Construcción de stand (showcase) ---------- */
+.process-l{position:relative;background:#0E0E19;overflow:hidden}
+.process-l__wrap{min-height:260vh;position:relative}
+.process-l__pin{position:sticky;top:0;height:100vh;display:grid;place-items:center;padding:60px 32px}
+.process-l__grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:60px;align-items:center;max-width:1300px;width:100%}
+.process-l__text .label{color:var(--u-blue)}
+.process-l__text h2{margin:0 0 40px}
+.process-l__steps{list-style:none;padding:0;margin:0;display:grid;gap:26px;max-width:460px}
+.process-l__steps li{display:grid;gap:4px;opacity:.28;transition:opacity .5s;padding-left:28px;border-left:2px solid rgba(153,196,228,.15);padding-top:4px;padding-bottom:4px;transition:all .5s cubic-bezier(.2,.6,.2,1)}
+.process-l__steps li.on{opacity:1;border-left-color:var(--u-blue)}
+.process-l__steps li .mono{color:var(--u-blue)}
+.process-l__steps li h3{margin:4px 0;font-size:1.35rem;letter-spacing:-.02em}
+.process-l__steps li p{color:var(--u-muted);font-size:.95rem;margin:0}
+.process-l__stage{position:relative;aspect-ratio:5/4;background:linear-gradient(180deg,#161628 0%,#0A0A14 100%);border:1px solid var(--u-line);border-radius:14px;overflow:hidden}
+.process-l__ground{position:absolute;left:0;right:0;bottom:0;height:36%;background:
+  linear-gradient(180deg,transparent 0,rgba(153,196,228,.04) 100%),
+  repeating-linear-gradient(90deg,rgba(153,196,228,.1) 0 1px,transparent 1px 40px),
+  repeating-linear-gradient(0deg,rgba(153,196,228,.08) 0 1px,transparent 1px 24px);
+  perspective:400px;transform:rotateX(55deg);transform-origin:bottom}
+.process-l__svg{position:absolute;inset:8%;width:84%;height:84%;overflow:visible}
+.process-l__svg line,.process-l__svg path{fill:none;stroke:var(--u-blue);stroke-width:3;stroke-linecap:round}
+.process-l__svg .brace{stroke:var(--u-blue-deep);stroke-width:1.5;opacity:.55}
+.process-l__svg .pathed{stroke-dasharray:1;stroke-dashoffset:1}
+.process-l__svg .panel{fill:none;stroke:var(--u-paper);stroke-width:1.2;opacity:0}
+.process-l__svg .panel-fill{fill:url(#plFill);opacity:0}
+.process-l__photo{position:absolute;inset:8%;width:84%;height:84%;object-fit:cover;object-position:center;opacity:0;border-radius:8px;clip-path:inset(0 0 0 0)}
+.process-l__final{position:absolute;inset:0;background:#000;opacity:0;overflow:hidden;border-radius:14px}
+.process-l__final img{width:100%;height:100%;object-fit:cover;display:block}
+.process-l__final .mono{position:absolute;left:20px;bottom:16px;color:var(--u-paper);background:rgba(0,0,0,.5);padding:6px 12px;border-radius:999px}
+.process-l__cap{position:absolute;left:20px;bottom:14px;color:var(--u-blue);font-family:var(--f-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;z-index:5;pointer-events:none}
+.process-l__cap b{color:var(--u-paper);margin-right:6px}
+.process-l__scrollhint{position:absolute;right:20px;bottom:14px;color:var(--u-muted);font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;z-index:5}
+@media (max-width:860px){.process-l__pin{height:auto;position:relative;padding:40px 20px}.process-l__grid{grid-template-columns:1fr;gap:30px}.process-l__wrap{min-height:auto}}
+
+/* ---------- Cifras / Por qué elegirnos L · Carteles tipográficos ---------- */
+.num-l{background:#0F0F1A;padding:120px 0;position:relative;overflow:hidden}
+.num-l .wrap{max-width:1300px;margin:0 auto;padding:0 32px}
+.num-l__head{text-align:center;margin-bottom:64px}
+.num-l__head .label{color:var(--u-blue)}
+.num-l__head h2{margin:0;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.95;letter-spacing:-.05em}
+.num-l__head h2 em{font-style:italic;color:var(--u-blue)}
+.num-l__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.num-l__card{position:relative;padding:40px 28px;background:#15152a;border:1px solid var(--u-line);border-radius:12px;overflow:hidden;isolation:isolate;transition:transform .5s cubic-bezier(.2,.6,.2,1),background .5s;min-height:360px;display:flex;flex-direction:column;justify-content:space-between}
+.num-l__card::before{content:"";position:absolute;inset:0;background:var(--u-blue);transform:scaleY(0);transform-origin:bottom;transition:transform .6s cubic-bezier(.7,.1,.2,1);z-index:-1}
+.num-l__card:hover{transform:translateY(-6px)}
+.num-l__card:hover::before{transform:scaleY(1)}
+.num-l__card:hover h3,.num-l__card:hover .num-l__n,.num-l__card:hover p,.num-l__card:hover .num-l__ico{color:var(--u-night)}
+.num-l__n{font-family:var(--f-mono);font-size:.78rem;color:var(--u-blue);letter-spacing:.14em;transition:color .3s}
+.num-l__ico{width:48px;height:48px;color:var(--u-blue);transition:color .3s;margin:12px 0 20px}
+.num-l__ico svg{width:100%;height:100%}
+.num-l__card h3{font-family:var(--f-head);font-weight:900;font-size:clamp(1.8rem,2.4vw,2.4rem);line-height:.95;letter-spacing:-.03em;margin:0;color:var(--u-paper);transition:color .3s}
+.num-l__card p{color:var(--u-muted);font-size:.95rem;margin:14px 0 0;line-height:1.5;transition:color .3s}
+
+/* ---------- Sectores L · Lista editorial ---------- */
+.sectors-l{background:var(--u-paper);color:var(--u-ink);padding:120px 0}
+.sectors-l .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.sectors-l__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:20px}
+.sectors-l__head h2{margin:0;font-weight:900;letter-spacing:-.05em;font-size:clamp(2.2rem,5.5vw,4.6rem);line-height:.95}
+.sectors-l__head h2 em{font-style:italic;color:var(--u-blue-strong)}
+.sectors-l__list{list-style:none;padding:0;margin:0;border-top:1px solid var(--u-line-dark)}
+.sectors-l__list>li{border-bottom:1px solid var(--u-line-dark);padding:36px 0;display:grid;grid-template-columns:72px 1fr 1fr;gap:40px;align-items:center;position:relative;cursor:pointer;transition:padding .4s}
+.sectors-l__list>li:hover{padding-left:24px}
+.sectors-l__list>li:hover .sectors-l__t{color:var(--u-blue-strong)}
+.sectors-l__list>li .sectors-l__n{font-family:var(--f-mono);color:var(--u-muted-dark);font-size:.9rem}
+.sectors-l__list>li .sectors-l__t{font-family:var(--f-head);font-weight:800;font-size:clamp(1.6rem,2.8vw,2.6rem);letter-spacing:-.03em;transition:color .3s}
+.sectors-l__list>li .sectors-l__t em{font-style:italic;color:var(--u-blue-strong)}
+.sectors-l__list>li .sectors-l__d{color:var(--u-muted-dark);font-size:.95rem;max-width:40ch}
+.sectors-l__arrow{position:absolute;right:0;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;color:var(--u-blue-strong);transition:transform .4s;opacity:0}
+.sectors-l__list>li:hover .sectors-l__arrow{opacity:1;transform:translateX(0)}
+@media (max-width:860px){.sectors-l__list>li{grid-template-columns:1fr;gap:8px;padding:28px 0}}
+
+/* ---------- Manifesto L · Índice (K) con fondo nuevo ---------- */
+.man-l{position:relative;background:
+  radial-gradient(circle at 20% 10%,rgba(153,196,228,.18),transparent 55%),
+  radial-gradient(circle at 85% 85%,rgba(46,108,160,.22),transparent 55%),
+  linear-gradient(135deg,#0a0a14 0%,#1a1a2e 50%,#0a0a14 100%);
+  padding:140px 0;overflow:hidden;color:var(--u-paper);isolation:isolate}
+.man-l::before{content:"";position:absolute;inset:0;background-image:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 1px,transparent 1px 20px);
+  pointer-events:none;z-index:-1}
+.man-l::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence baseFrequency='.75'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/></svg>");opacity:.07;mix-blend-mode:overlay;pointer-events:none;z-index:-1}
+.man-l .wrap{max-width:1200px;margin:0 auto;padding:0 32px;position:relative}
+.man-l__head{text-align:center;margin-bottom:60px}
+.man-l__head h2{margin:0;font-weight:900;letter-spacing:-.05em;font-size:clamp(2.6rem,8vw,7rem);line-height:.9}
+.man-l__head h2 em{font-style:italic;color:var(--u-blue)}
+.man-l__index{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:0;border-top:1px solid var(--u-line);border-bottom:1px solid var(--u-line);padding:4px 0}
+.man-l__letter{aspect-ratio:1;display:grid;place-items:center;font-family:var(--f-head);font-weight:900;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--u-muted);cursor:pointer;transition:color .3s,background .3s;border-right:1px solid var(--u-line);position:relative}
+.man-l__letter:last-child{border-right:0}
+.man-l__letter:hover,.man-l__letter.on{color:var(--u-night);background:var(--u-blue)}
+.man-l__panel{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:280px}
+.man-l__panel .mono{color:var(--u-blue);display:block;margin-bottom:14px}
+.man-l__panel h3{font-family:var(--f-head);font-weight:900;font-size:clamp(2rem,4vw,3.6rem);line-height:.95;letter-spacing:-.04em;margin:0 0 20px}
+.man-l__panel h3 em{font-style:italic;color:var(--u-blue)}
+.man-l__panel p{color:var(--u-muted);font-size:1.08rem;line-height:1.55;margin:0}
+.man-l__big{font-family:var(--f-head);font-weight:900;font-size:clamp(8rem,20vw,22rem);line-height:1;color:var(--u-blue);text-align:center;letter-spacing:-.06em}
+@media (max-width:860px){.man-l__panel{grid-template-columns:1fr;gap:30px;text-align:center}.man-l__big{font-size:clamp(6rem,30vw,10rem)}}
+
+/* ---------- Clientes L · Marquesinas duales simples ---------- */
+.cli-l{background:#0E0E19;padding:120px 0;overflow:hidden}
+.cli-l .wrap{max-width:1240px;margin:0 auto 60px;padding:0 32px}
+.cli-l__head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
+.cli-l__head h2{margin:0;font-weight:900;letter-spacing:-.05em;font-size:clamp(2.2rem,5vw,4.4rem);line-height:.95}
+.cli-l__head h2 em{font-style:italic;color:var(--u-blue)}
+.cli-l__head p{color:var(--u-muted);max-width:40ch;margin:0}
+.cli-l__rows{display:grid;gap:14px}
+.cli-l__row{overflow:hidden;position:relative;padding:12px 0}
+.cli-l__row::before,.cli-l__row::after{content:"";position:absolute;top:0;bottom:0;width:140px;z-index:2;pointer-events:none}
+.cli-l__row::before{left:0;background:linear-gradient(90deg,#0E0E19,transparent)}
+.cli-l__row::after{right:0;background:linear-gradient(270deg,#0E0E19,transparent)}
+.cli-l__track{display:flex;gap:60px;width:max-content;animation:cliMarquee 44s linear infinite}
+.cli-l__row--rev .cli-l__track{animation-direction:reverse;animation-duration:52s}
+.cli-l__row:hover .cli-l__track{animation-play-state:paused}
+.cli-l__track span{font-family:var(--f-head);font-weight:800;font-size:clamp(2.2rem,5vw,4rem);color:var(--u-muted);letter-spacing:-.03em;white-space:nowrap;line-height:1;transition:color .3s;flex-shrink:0}
+.cli-l__track span:hover{color:var(--u-blue)}
+.cli-l__track span em{font-style:normal;color:var(--u-blue);margin:0 .25em}
+.cli-l__track span i{display:inline-block;width:.5em;height:.5em;background:var(--u-blue);border-radius:50%;vertical-align:middle;margin:0 .4em;transform:translateY(-.1em)}
+@keyframes cliMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- Contacto L · Tipografía gigante ---------- */
+.contact-l{background:#0E0E19;padding:120px 0;position:relative;overflow:hidden}
+.contact-l .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.contact-l__head{margin-bottom:60px;max-width:900px}
+.contact-l__head .label{color:var(--u-blue)}
+.contact-l__head h2{margin:0;font-family:var(--f-head);font-weight:900;font-size:clamp(3rem,10vw,10rem);line-height:.9;letter-spacing:-.055em}
+.contact-l__head h2 em{font-style:italic;color:var(--u-blue);display:block}
+.contact-l__grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact-l__info{display:grid;gap:40px}
+.contact-l__block .mono{color:var(--u-blue);margin-bottom:8px;display:block}
+.contact-l__block a,.contact-l__block p{color:var(--u-paper);font-size:clamp(1.2rem,1.8vw,1.6rem);text-decoration:none;line-height:1.3;display:block;font-family:var(--f-head);font-weight:600}
+.contact-l__block a:hover{color:var(--u-blue)}
+.contact-l__form{display:grid;gap:20px;padding:36px;background:#15152a;border:1px solid var(--u-line);border-radius:14px}
+.contact-l__form label{display:block;margin-bottom:4px;font-family:var(--f-mono);font-size:.72rem;color:var(--u-muted);letter-spacing:.1em;text-transform:uppercase}
+.contact-l__form input,.contact-l__form textarea{width:100%;padding:14px 0;background:transparent;border:0;border-bottom:1px solid var(--u-line);color:var(--u-paper);font-family:inherit;font-size:1.05rem;transition:border-color .3s}
+.contact-l__form input:focus,.contact-l__form textarea:focus{outline:none;border-color:var(--u-blue)}
+.contact-l__form textarea{resize:vertical;min-height:100px}
+.contact-l__form button{margin-top:14px;padding:16px 28px;background:var(--u-blue);color:var(--u-night);border:0;border-radius:999px;font-family:var(--f-head);font-weight:700;font-size:1rem;cursor:pointer;transition:background .3s,transform .3s}
+.contact-l__form button:hover{background:var(--u-paper);transform:translateX(6px)}
+@media (max-width:860px){.contact-l__grid{grid-template-columns:1fr;gap:40px}.contact-l__form{padding:24px}}
