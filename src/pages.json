@@ -14,8 +14,7 @@
       "11-sectors",
       "02-manifesto",
       "08-clients",
-      "10-contact",
-      "99-extras"
+      "10-contact"
     ]
   },
   {
@@ -27,8 +26,7 @@
       "hub-common",
       "hub-rotulacion",
       "09-quotes",
-      "10-contact",
-      "99-extras"
+      "10-contact"
     ]
   },
   {
@@ -40,8 +38,7 @@
       "hub-common",
       "hub-impresion",
       "09-quotes",
-      "10-contact",
-      "99-extras"
+      "10-contact"
     ]
   },
   {
@@ -53,8 +50,7 @@
       "hub-common",
       "hub-eventos",
       "09-quotes",
-      "10-contact",
-      "99-extras"
+      "10-contact"
     ]
   }
 ]
