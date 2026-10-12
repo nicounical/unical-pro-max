@@ -1,4 +1,4 @@
-/* ===== 06 · Proyectos · A (favorita) + 5 futuristas ===== */
+/* ===== 06 · Proyectos · A (favorita) + B–F (selección 3) ===== */
 (() => {
   const { register, $, $$ } = UX;
 
@@ -36,270 +36,128 @@
     return () => { bar.removeEventListener("click", onClick); items.forEach(it => (it.hidden = false)); btns.forEach((x, i) => x.setAttribute("aria-pressed", i === 0)); };
   });
 
+  /* Pseudoaleatorio estable por índice (las posiciones no saltan al recalcular) */
+  const rnd = (i, s = 1) => { const x = Math.sin(i * 127.1 + s * 311.7) * 43758.5453; return x - Math.floor(x); };
 
-  /* Texto que se «decodifica» (glifos aleatorios → texto real) */
-  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/<>_";
-  const decode = (el, text, dur = 700) => {
-    const t0 = performance.now(); let raf;
-    const step = now => {
-      const k = Math.min(1, (now - t0) / dur), n = Math.floor(k * text.length);
-      el.textContent = text.slice(0, n) + [...text.slice(n)].map(c => c === " " ? " " : GLYPHS[(Math.random() * GLYPHS.length) | 0]).join("");
-      if (k < 1) raf = requestAnimationFrame(step); else el.textContent = text;
-    };
-    raf = requestAnimationFrame(step);
-    return () => { cancelAnimationFrame(raf); el.textContent = text; };
-  };
-  /* Foco de luz que sigue al ratón dentro de cada tarjeta */
-  const spotlight = (cards, extra) => {
-    const fns = cards.map(c => {
-      const f = e => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px"); extra && extra(c, e, r); };
-      c.addEventListener("pointermove", f); return f;
-    });
-    return () => cards.forEach((c, i) => c.removeEventListener("pointermove", fns[i]));
-  };
-
-  /* ---------- B · Archivo HUD ---------- */
+  /* ---------- B · Historias: un proyecto a pantalla completa cada 5 s ---------- */
   register("work", "B", (root, ux) => {
-    const cards = $$(".work-b__card", root);
-    const off = spotlight(cards);
-    if (ux.reduce) return off;
-    gsap.from(cards, { y: 50, opacity: 0, filter: "brightness(2.2)", duration: 1.1, stagger: .06, ease: "expo.out", clearProps: "transform,opacity,filter", scrollTrigger: { trigger: $(".work-b__grid", root), start: "top 85%" } });
-    gsap.from($$(".work-b__stats div", root), { x: -20, opacity: 0, duration: .8, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
-    const ids = $$(".work-b__id", root); const stops = [];
-    ScrollTrigger.create({ trigger: $(".work-b__grid", root), start: "top 80%", once: true, onEnter: () => ids.forEach((el, i) => setTimeout(() => stops.push(decode(el.firstChild, el.firstChild.textContent, 600)), i * 60)) });
-    return () => { off(); stops.forEach(s => s()); };
+    const slides = $$(".work-b__slide", root), bars = $$(".work-b__bars b", root), frame = $(".work-b__frame", root), pause = $(".work-b__pause", root);
+    const DUR = 5000; let i = 0, el = 0, last = performance.now(), raf = 0, visible = false, hover = false, stopped = ux.reduce;
+    const go = n => {
+      i = (n + slides.length) % slides.length; el = 0;
+      slides.forEach((s, k) => { s.classList.toggle("is-on", k === i); s.setAttribute("aria-hidden", String(k !== i)); });
+      bars.forEach((b, k) => (b.style.transform = `scaleX(${k < i ? 1 : 0})`));
+    };
+    const tick = now => {
+      if (visible && !hover && !stopped) el += now - last;
+      last = now;
+      const p = Math.min(1, el / DUR); bars[i].style.transform = `scaleX(${p})`;
+      if (p >= 1) go(i + 1);
+      raf = requestAnimationFrame(tick);
+    };
+    const prev = () => go(i - 1), next = () => go(i + 1);
+    const setPause = v => { stopped = v; pause.setAttribute("aria-pressed", String(v)); pause.textContent = v ? "Reproducir" : "Pausa"; };
+    const onPause = () => setPause(!stopped);
+    const onKey = e => { if (e.key === "ArrowLeft") prev(); if (e.key === "ArrowRight") next(); };
+    const onEnter = () => (hover = true), onLeave = () => (hover = false);
+    $(".work-b__nav--prev", root).addEventListener("click", prev);
+    $(".work-b__nav--next", root).addEventListener("click", next);
+    pause.addEventListener("click", onPause); frame.addEventListener("keydown", onKey);
+    if (ux.fine) { frame.addEventListener("mouseenter", onEnter); frame.addEventListener("mouseleave", onLeave); }
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: .3 }); io.observe(frame);
+    go(0); if (ux.reduce) setPause(true);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf); io.disconnect();
+      $(".work-b__nav--prev", root).removeEventListener("click", prev); $(".work-b__nav--next", root).removeEventListener("click", next);
+      pause.removeEventListener("click", onPause); frame.removeEventListener("keydown", onKey);
+      frame.removeEventListener("mouseenter", onEnter); frame.removeEventListener("mouseleave", onLeave);
+    };
   });
 
-  /* ---------- C · Túnel 3D ---------- */
+  /* ---------- C · Rejilla que se ordena: de un montón sobre la mesa a una rejilla perfecta ---------- */
   register("work", "C", (root, ux) => {
-    const pin = $(".work-c__pin", root), world = $(".work-c__world", root), cards = $$(".work-c__card", root);
-    const count = $(".work-c__count b", root), name = $(".work-c__count span", root), floor = $(".work-c__floor", root);
-    const names = cards.map(c => $(".work-c__cap b", c).textContent);
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 760px)", () => {
-      if (ux.reduce) { root.classList.add("is-flat"); return () => root.classList.remove("is-flat"); }
-      const D = 700, N = cards.length;
-      const pos = cards.map((c, i) => ({ x: (i % 2 ? 1 : -1) * (180 + (i % 3) * 70), y: ((i % 3) - 1) * 70 }));
-      let last = -1;
-      const render = p => {
-        const cz = p * (N - 1) * D;
-        cards.forEach((c, i) => {
-          const z = -i * D + cz, w = c.offsetWidth, h = c.offsetHeight;
-          const o = z > 500 ? 0 : z > 150 ? 1 - (z - 150) / 350 : z < -3600 ? 0 : z < -2400 ? 1 - (-2400 - z) / 1200 : 1;
-          c.style.transform = `translate3d(${pos[i].x - w / 2}px,${pos[i].y - h / 2}px,${z}px) rotateY(${pos[i].x > 0 ? -12 : 12}deg)`;
-          c.style.opacity = o; c.style.pointerEvents = o > .5 ? "" : "none";
-          c.style.visibility = o <= 0 ? "hidden" : "";
-        });
-        const idx = Math.min(N - 1, Math.max(0, Math.round(p * (N - 1))));
-        if (idx !== last) { last = idx; count.textContent = String(idx + 1).padStart(2, "0"); name.textContent = names[idx]; }
-        floor.style.backgroundPosition = `0 ${p * 2400}px, 0 ${p * 2400}px`;
+    const items = $$(".work-c__item", root), grid = $(".work-c__grid", root), caps = $$(".work-c__cap", root);
+    if (ux.reduce) return;
+    if (innerWidth > 900) {
+      const off = (el, axis) => {
+        // posición de reposo (sin transform) a partir de offsetLeft/Top
+        const g = { left: 0, top: 0, width: grid.offsetWidth, height: grid.offsetHeight }, r = { left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight };
+        return axis === "x" ? (g.left + g.width / 2) - (r.left + r.width / 2) : (g.top + g.height / 2) - (r.top + r.height / 2);
       };
-      render(0);
-      ScrollTrigger.create({ trigger: pin, start: "top top", end: "+=" + (N * 55) + "%", pin: true, scrub: .8, onUpdate: s => render(s.progress), onRefresh: s => render(s.progress) });
-      return () => cards.forEach(c => { c.style.transform = c.style.opacity = c.style.pointerEvents = c.style.visibility = ""; });
-    });
-    mm.add("(max-width: 759px)", () => { root.classList.add("is-flat"); return () => root.classList.remove("is-flat"); });
-    return () => mm.revert();
-  });
-
-  /* ---------- D · Escáner ---------- */
-  register("work", "D", (root, ux) => {
-    const btns = $$(".work-d__list button", root), front = $(".work-d__img--front", root), back = $(".work-d__img--back", root);
-    const laser = $(".work-d__laser", root), bar = $(".work-d__bar i", root), nm = $(".work-d__name", root), sc = $(".work-d__sec", root);
-    const data = btns.map(b => ({ name: $("b", b).textContent, sec: $(".work-d__s", b).textContent, img: `assets/img/proyectos/${["eversense","mcdonalds","tke","janssen","venca","tibau","disney","five-guys","tibidabo","3cat","cava-pharma","lexus"][+b.dataset.i]}.webp` }));
-    const alts = ["Stand de Eversense","Murales de McDonald's","Furgoneta de TK Elevator","Stand de Janssen","Pop-up de Venca","Camión de Tibau Team","Evento de Disney","Interior de Five Guys","Cubos corporativos del Tibidabo","Mural corporativo de 3cat","Stand de Cava Pharma","Imagen corporativa Lexus"];
-    data.forEach(d => { const im = new Image(); im.src = d.img; }); // precarga
-    let cur = 0, tl, timer, stopName, stopSec, visible = false;
-    const go = i => {
-      if (i === cur && tl) return;
-      const prev = cur; cur = i;
-      btns.forEach((b, k) => b.setAttribute("aria-pressed", k === i));
-      tl && tl.kill(); stopName && stopName(); stopSec && stopSec();
-      back.src = data[prev].img; front.src = data[i].img; front.alt = alts[i];
-      if (ux.reduce) { nm.textContent = data[i].name; sc.textContent = data[i].sec; return; }
-      stopName = decode(nm, data[i].name, 600); stopSec = decode(sc, data[i].sec, 500);
-      tl = gsap.timeline()
-        .fromTo(front, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 1.1, ease: "power2.inOut" }, 0)
-        .fromTo(laser, { top: "0%", opacity: 1 }, { top: "100%", duration: 1.1, ease: "power2.inOut" }, 0)
-        .to(laser, { opacity: 0, duration: .2 }, 1.1);
-      restart();
-    };
-    const restart = () => {
-      if (ux.reduce) return;
-      gsap.killTweensOf(bar); clearTimeout(timer);
-      if (!visible) { gsap.set(bar, { scaleX: 0 }); return; }
-      gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: 5, ease: "none" });
-      timer = setTimeout(() => go((cur + 1) % data.length), 5000);
-    };
-    const onClick = e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); };
-    const list = $(".work-d__list", root); list.addEventListener("click", onClick);
-    const io = new IntersectionObserver(([en]) => { visible = en.isIntersecting; restart(); }, { threshold: .35 });
-    io.observe($(".work-d__stage", root));
-    if (!ux.reduce) gsap.from($$(".work-d__list li", root), { x: -30, opacity: 0, duration: .8, stagger: .04, ease: "expo.out", scrollTrigger: { trigger: list, start: "top 85%" } });
-    return () => { list.removeEventListener("click", onClick); io.disconnect(); clearTimeout(timer); tl && tl.kill(); stopName && stopName(); stopSec && stopSec(); };
-  });
-
-  /* ---------- E · Terminal ---------- */
-  register("work", "E", (root, ux) => {
-    const typed = $(".work-e__typed", root), out = $(".work-e__out", root), items = $$(".work-e__item", root), chips = $$(".work-e__chips button", root);
-    let typing, busy = 0;
-    const type = (txt, done) => {
-      clearInterval(typing);
-      if (ux.reduce) { typed.textContent = txt; return done(); }
-      let i = 0; typed.textContent = "";
-      typing = setInterval(() => { typed.textContent = txt.slice(0, ++i); if (i >= txt.length) { clearInterval(typing); done(); } }, 28);
-    };
-    const show = f => {
-      const tok = ++busy;
-      const cmd = f === "*" ? "unical ls proyectos" : `unical ls proyectos --sector=${f}`;
-      out.textContent = "…";
-      if (!ux.reduce) gsap.to(items.filter(it => !it.hidden), { opacity: 0, duration: .2 });
-      type(cmd, () => {
-        if (tok !== busy) return;
-        items.forEach(it => { it.hidden = !(f === "*" || it.dataset.s === f); });
-        const shown = items.filter(it => !it.hidden);
-        out.textContent = `→ ${shown.length} resultado${shown.length === 1 ? "" : "s"} · ordenados por fecha`;
-        if (!ux.reduce) gsap.fromTo(shown, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, stagger: .05, ease: "expo.out" });
-        else gsap.set(shown, { opacity: 1 });
-        ScrollTrigger.refresh();
-      });
-    };
-    const onClick = e => { const b = e.target.closest("button"); if (!b) return; chips.forEach(x => x.setAttribute("aria-pressed", x === b)); show(b.dataset.f); };
-    const bar = $(".work-e__chips", root); bar.addEventListener("click", onClick);
-    if (!ux.reduce) {
-      gsap.set(items, { opacity: 0 }); typed.textContent = "";
-      ScrollTrigger.create({ trigger: $(".work-e__win", root), start: "top 75%", once: true, onEnter: () => show("*") });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: $(".work-c__pin", root), start: "top top", end: "+=130%", pin: true, scrub: .8, invalidateOnRefresh: true } });
+      // fromTo con destino explícito: con from() + invalidateOnRefresh el destino se quedaría en el estado desordenado
+      gsap.set(items, { x: 0, y: 0, rotation: 0, scale: 1 });
+      tl.fromTo(items, {
+        x: (i, el) => off(el, "x") + (rnd(i) - .5) * 260,
+        y: (i, el) => off(el, "y") + (rnd(i, 2) - .5) * 160,
+        rotation: i => (rnd(i, 3) - .5) * 40, scale: .62
+      }, { x: 0, y: 0, rotation: 0, scale: 1, ease: "power2.inOut", duration: 1, stagger: { each: .025, from: "random" } })
+        .from(caps, { opacity: 0, y: 10, duration: .25, stagger: .015 }, ">-.1")
+        .to({}, { duration: .2 });
+    } else {
+      gsap.from(items, { y: 70, opacity: 0, rotation: i => (rnd(i) - .5) * 14, stagger: .05, ease: "power2.out",
+        scrollTrigger: { trigger: grid, start: "top 90%", end: "top 30%", scrub: .6 } });
     }
-    return () => { bar.removeEventListener("click", onClick); clearInterval(typing); busy++; items.forEach(it => { it.hidden = false; }); gsap.set(items, { clearProps: "opacity,transform" }); typed.textContent = "unical ls proyectos"; chips.forEach((x, i) => x.setAttribute("aria-pressed", i === 0)); };
   });
 
-  /* ---------- F · Cristal holográfico ---------- */
+  /* ---------- D · Sectores desplegables ---------- */
+  register("work", "D", (root, ux) => {
+    const rows = $$(".work-d__row", root);
+    const onClick = e => {
+      const b = e.target.closest(".work-d__row button"); if (!b) return;
+      const row = b.closest(".work-d__row"), open = !row.classList.contains("is-open");
+      rows.forEach(r => { const on = r === row && open; r.classList.toggle("is-open", on); $("button", r).setAttribute("aria-expanded", String(on)); });
+      setTimeout(() => ScrollTrigger.refresh(), 750);
+    };
+    const list = $(".work-d__list", root); list.addEventListener("click", onClick);
+    if (!ux.reduce) gsap.from(rows, { y: 40, opacity: 0, stagger: .08, duration: .9, ease: "power3.out", scrollTrigger: { trigger: list, start: "top 85%" } });
+    return () => list.removeEventListener("click", onClick);
+  });
+
+  /* ---------- E · Mazo: arrastra la carta de arriba (o usa las flechas) ---------- */
+  register("work", "E", (root, ux) => {
+    const cards = $$(".work-e__card", root), deck = $(".work-e__deck", root), cnt = $(".work-e__count", root);
+    const names = cards.map(c => $("b", c).textContent);
+    let order = cards.map((_, i) => i), busy = false;
+    const pose = k => ({ x: 0, y: Math.min(k, 3) * 14, rotation: k === 0 ? 0 : (k % 2 ? 1 : -1) * Math.min(k, 3) * 2.2, scale: 1 - Math.min(k, 3) * .045, opacity: k > 3 ? 0 : 1 });
+    const layout = (dur = .6, skipTop = false) => {
+      order.forEach((ci, k) => { const c = cards[ci]; if (skipTop && k === 0) return; c.style.zIndex = String(100 - k); c.setAttribute("aria-hidden", String(k !== 0)); gsap.to(c, { ...pose(k), duration: ux.reduce ? 0 : dur, ease: "power3.out", overwrite: "auto" }); });
+      const top = order[0]; cnt.innerHTML = `<b>${String(top + 1).padStart(2, "0")}</b> / ${cards.length} · <span>${names[top]}</span>`;
+    };
+    const throwTop = (dir = 1) => {
+      if (busy) return; busy = true; const c = cards[order[0]], w = deck.offsetWidth;
+      gsap.to(c, { x: dir * w * 1.3, y: 40, rotation: dir * 24, duration: ux.reduce ? 0 : .45, ease: "power2.in", onComplete: () => {
+        order.push(order.shift()); c.style.zIndex = "1"; gsap.set(c, { x: 0, ...pose(3), opacity: 0 }); layout(); busy = false; } });
+    };
+    const back = () => {
+      if (busy) return; busy = true; order.unshift(order.pop()); const c = cards[order[0]], w = deck.offsetWidth;
+      layout(.6, true); c.style.zIndex = "200"; c.setAttribute("aria-hidden", "false");
+      gsap.fromTo(c, { x: -w * 1.3, y: 40, rotation: -24, opacity: 1 }, { ...pose(0), duration: ux.reduce ? 0 : .5, ease: "power3.out", onComplete: () => { layout(0); busy = false; } });
+    };
+    // Arrastre de la carta superior
+    let drag = null;
+    const down = e => { const c = e.target.closest(".work-e__card"); if (!c || c !== cards[order[0]] || busy) return; drag = { c, x0: e.clientX, dx: 0 }; c.setPointerCapture(e.pointerId); };
+    const move = e => { if (!drag) return; drag.dx = e.clientX - drag.x0; gsap.set(drag.c, { x: drag.dx, rotation: drag.dx / 18 }); };
+    const up = () => { if (!drag) return; const { dx, c } = drag; drag = null;
+      if (Math.abs(dx) > deck.offsetWidth * .28) throwTop(Math.sign(dx)); else gsap.to(c, { x: 0, rotation: 0, duration: .5, ease: "back.out(2)" }); };
+    deck.addEventListener("pointerdown", down); deck.addEventListener("pointermove", move); deck.addEventListener("pointerup", up); deck.addEventListener("pointercancel", up);
+    const onBtn = e => { const b = e.target.closest(".work-e__btn"); if (!b) return; b.dataset.dir === "1" ? throwTop(1) : back(); };
+    const ctrl = $(".work-e__ctrl", root); ctrl.addEventListener("click", onBtn);
+    cards.forEach((c, k) => gsap.set(c, pose(k))); layout(0);
+    if (!ux.reduce) gsap.from(cards.slice(0, 4), { y: 120, opacity: 0, rotation: 8, stagger: .08, duration: 1, ease: "power3.out", scrollTrigger: { trigger: deck, start: "top 80%" } });
+    return () => {
+      deck.removeEventListener("pointerdown", down); deck.removeEventListener("pointermove", move); deck.removeEventListener("pointerup", up); deck.removeEventListener("pointercancel", up);
+      ctrl.removeEventListener("click", onBtn); cards.forEach(c => { c.style.zIndex = ""; c.removeAttribute("aria-hidden"); });
+    };
+  });
+
+  /* ---------- F · Columnas en contra: tres columnas de fotos que se cruzan con el scroll ---------- */
   register("work", "F", (root, ux) => {
-    const cards = $$(".work-f__card", root);
-    const off = spotlight(cards, ux.fine && !ux.reduce ? (c, e, r) => {
-      const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
-      c.style.setProperty("--ry", (px * 14) + "deg"); c.style.setProperty("--rx", (-py * 14) + "deg");
-    } : null);
-    const reset = e => { e.currentTarget.style.setProperty("--rx", "0deg"); e.currentTarget.style.setProperty("--ry", "0deg"); };
-    cards.forEach(c => c.addEventListener("pointerleave", reset));
-    // Campo de puntos que respira y se aparta del ratón
-    const cv = $(".work-f__field", root), ctx = cv.getContext("2d");
-    let W, H, dots = [], raf = 0, run = false, mx = -1e4, my = -1e4;
-    const size = () => {
-      const dpr = Math.min(2, devicePixelRatio || 1); W = cv.offsetWidth; H = cv.offsetHeight;
-      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      dots = []; const g = W < 700 ? 34 : 42;
-      for (let y = g / 2; y < H; y += g) for (let x = g / 2; x < W; x += g) dots.push({ x, y, p: Math.random() * 6.28 });
-    };
-    const draw = t => {
-      ctx.clearRect(0, 0, W, H);
-      for (const d of dots) {
-        const dx = d.x - mx, dy = d.y - my, dist = Math.hypot(dx, dy), push = Math.max(0, 1 - dist / 180);
-        const a = .12 + .1 * Math.sin(t / 900 + d.p + d.y / 140) + push * .6;
-        ctx.fillStyle = `rgba(153,196,228,${a})`;
-        ctx.beginPath(); ctx.arc(d.x + (dist ? dx / dist : 0) * push * 14, d.y + (dist ? dy / dist : 0) * push * 14, 1.1 + push * 1.6, 0, 6.283); ctx.fill();
-      }
-      if (run) raf = requestAnimationFrame(draw);
-    };
-    size();
-    const io = new IntersectionObserver(([en]) => { run = en.isIntersecting && !ux.reduce; cancelAnimationFrame(raf); if (run) raf = requestAnimationFrame(draw); else draw(0); });
-    io.observe(root);
-    const pm = e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; };
-    root.addEventListener("pointermove", pm);
-    const ro = new ResizeObserver(size); ro.observe(cv);
-    if (!ux.reduce) gsap.from(cards, { y: 80, rotateX: -25, opacity: 0, duration: 1.2, stagger: .06, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: $(".work-f__grid", root), start: "top 85%" } });
-    return () => { off(); cards.forEach(c => c.removeEventListener("pointerleave", reset)); io.disconnect(); ro.disconnect(); cancelAnimationFrame(raf); run = false; root.removeEventListener("pointermove", pm); };
-  });
-})();
-
-/* Proyectos · G–K: impacto editorial, sin recursos tecnológicos */
-(() => {
-  const { register, $, $$ } = UX;
-
-  /* ---------- G · Pliegos apilados ---------- */
-  register("work", "G", (root, ux) => {
-    const sheets = $$(".work-g__sheet", root);
-    if (ux.reduce) return;
-    sheets.forEach((s, i) => {
-      const next = sheets[i + 1];
-      if (next) gsap.to(s, { scale: .93, ease: "none", scrollTrigger: { trigger: next, start: "top bottom", end: () => "top " + (parseFloat(getComputedStyle(next).top) || 96) + "px", scrub: true, invalidateOnRefresh: true } });
-      gsap.from($("img", s), { scale: 1.18, ease: "none", scrollTrigger: { trigger: s, start: "top bottom", end: "top 30%", scrub: true } });
-    });
-  });
-
-  /* ---------- H · Zoom a sangre ---------- */
-  register("work", "H", (root, ux) => {
-    const pin = $(".work-h__pin", root), tiles = $$(".work-h__t", root), center = $(".work-h__t--c", root);
     if (ux.reduce) { root.classList.add("is-static"); return () => root.classList.remove("is-static"); }
-    const gap = () => Math.max(10, innerWidth * .012);
-    const off = (t, k) => { const i = +t.dataset.i, c = i % 3 - 1, r = Math.floor(i / 3) - 1; return { x: c * (t.offsetWidth + gap()) * k, y: r * (t.offsetHeight + gap()) * k }; };
-    tiles.forEach(t => gsap.set(t, off(t, 1)));
-    const cover = () => Math.max(pin.offsetWidth / center.offsetWidth, pin.offsetHeight / center.offsetHeight) * 1.02;
-    const tl = gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: "+=170%", pin: true, scrub: .7, invalidateOnRefresh: true,
-      onRefresh: () => tiles.forEach(t => t !== center && gsap.set(t, off(t, 1))) } });
-    tl.to($(".work-h__head", root), { autoAlpha: 0, y: -40, duration: .25 }, 0)
-      .to(tiles.filter(t => t !== center), { x: (i, t) => off(t, 3.2).x, y: (i, t) => off(t, 3.2).y, autoAlpha: 0, duration: .7, ease: "power2.in" }, 0)
-      .to(center, { scale: cover, y: () => pin.offsetHeight * .5 - (center.offsetTop + center.offsetHeight / 2), borderRadius: 0, duration: .8, ease: "power2.inOut" }, .05)
-      .to($(".work-h__shade", root), { opacity: 1, duration: .3 }, .6)
-      .fromTo($(".work-h__over", root), { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .3 }, .7);
-    gsap.from($(".work-h__grid", root), { scale: .9, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: pin, start: "top 75%" } });
-  });
-
-  /* ---------- I · Collage recortado ---------- */
-  register("work", "I", (root, ux) => {
-    const cuts = $$(".work-i__cut", root);
-    if (ux.reduce) return;
-    gsap.from(cuts, { y: 90, rotate: (i) => (i % 2 ? 8 : -8), opacity: 0, duration: 1.1, stagger: .08, ease: "expo.out", clearProps: "opacity", scrollTrigger: { trigger: $(".work-i__board", root), start: "top 80%" } });
-    const mm = gsap.matchMedia();
-    mm.add("(min-width:801px)", () => {
-      cuts.forEach((c, i) => {
-        const s = [.6, -.4, 1, -.7, .3, .9, -.5, .5][i] || .4;
-        gsap.fromTo(c, { yPercent: s * 14 }, { yPercent: -s * 14, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
-      });
-      gsap.fromTo($(".work-i__bg", root), { xPercent: -42 }, { xPercent: -58, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
-    });
-    return () => mm.revert();
-  });
-
-  /* ---------- J · Doble marquesina ---------- */
-  register("work", "J", (root, ux) => {
-    const rows = $$(".work-j__row", root).map(r => ({ r, t: $(".work-j__track", r), set: $(".work-j__set", r), dir: +r.dataset.dir, x: 0, hold: false }));
-    if (ux.reduce) { rows.forEach(o => { o.r.style.overflowX = "auto"; }); return () => rows.forEach(o => { o.r.style.overflowX = ""; }); }
-    let vel = 0, on = false;
-    const st = ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onUpdate: s => { vel = Math.min(Math.abs(s.getVelocity()) / 250, 8); } });
-    const ent = [], lv = [];
-    rows.forEach(o => {
-      const a = () => o.hold = true, b = () => o.hold = false;
-      o.r.addEventListener("pointerenter", a); o.r.addEventListener("pointerleave", b);
-      o.r.addEventListener("focusin", a); o.r.addEventListener("focusout", b);
-      ent.push([o.r, a, b]);
-    });
-    const tick = (t, dt) => {
-      if (!on) return;
-      vel *= .92;
-      rows.forEach((o, i) => {
-        const w = o.set.offsetWidth; if (!w) return;
-        const base = o.r.classList.contains("work-j__row--type") ? .9 : .55;
-        const sp = o.hold ? 0 : base * (1 + vel) * (dt / 16.7);
-        o.x = (o.x + o.dir * sp) % w;
-        const x = o.dir < 0 ? o.x : o.x - w;
-        o.t.style.transform = `translate3d(${x}px,0,0)`;
-      });
-    };
-    gsap.ticker.add(tick);
-    const io = new IntersectionObserver(([e]) => on = e.isIntersecting); io.observe(root);
-    return () => { gsap.ticker.remove(tick); io.disconnect(); st.kill(); ent.forEach(([r, a, b]) => { r.removeEventListener("pointerenter", a); r.removeEventListener("pointerleave", b); r.removeEventListener("focusin", a); r.removeEventListener("focusout", b); }); };
-  });
-
-  /* ---------- K · Muro editorial ---------- */
-  register("work", "K", (root, ux) => {
-    if (ux.reduce) return;
-    gsap.from($(".work-k__head", root), { opacity: 0, y: 40, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
-    $$(".work-k__ph", root).forEach(ph => {
-      gsap.timeline({ scrollTrigger: { trigger: ph, start: "top 90%" } })
-        .fromTo(ph, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "expo.inOut" })
-        .fromTo($("img", ph), { scale: 1.3, transition: "none" }, { scale: 1, duration: 1.6, ease: "expo.out", clearProps: "transform,transition" }, .1);
-    });
-    $$(".work-k__q", root).forEach(q => gsap.from(q.children.length ? q.firstElementChild : q, { yPercent: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: q, start: "top 85%" } }));
+    const cols = $$(".work-f__col", root);
+    cols.forEach((c, k) => gsap.fromTo(c, { yPercent: k === 1 ? -14 : 10 }, { yPercent: k === 1 ? 14 : -22, ease: "none",
+      scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } }));
+    gsap.from($(".work-f__card", root), { y: 60, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: root, start: "top 40%" } });
   });
 })();

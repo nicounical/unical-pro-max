@@ -1,38 +1,6 @@
-/* Cómo trabajamos · A (favorita: progreso circular) + 5 futuristas */
+/* Cómo trabajamos · A (favorita: holograma 3D) + B–F profesionales */
 (() => {
   const { register, $, $$ } = UX;
-
-  /* ---------- A · Progreso circular ---------- */
-  register("process", "A", (root, ux) => {
-    const pin = $(".process-a__pin", root), stairs = $(".process-a__stairs", root), items = $$(".process-a__stairs li", root);
-    const fg = $(".process-a__ring .fg", root), pct = $(".process-a__pct b", root);
-    fg.setAttribute("pathLength", 1); fg.style.strokeDasharray = "1 1";
-    if (ux.reduce) { root.classList.add("is-static"); fg.style.strokeDashoffset = 0; pct.textContent = "100"; items.forEach(i => i.classList.add("on")); return () => root.classList.remove("is-static"); }
-    let geo = {};
-    const place = () => {
-      const W = pin.offsetWidth, H = pin.offsetHeight, cw = items[0].offsetWidth, ch = items[0].offsetHeight;
-      const narrow = W < 700, sx = narrow ? W * .05 : Math.min(W * .3, 440), sy = narrow ? Math.min(H * .2, 190) : Math.min(H * .2, 170);
-      geo = { sx, sy };
-      const cy = narrow ? H * .58 : H / 2;
-      items.forEach((li, i) => { li.style.left = (W / 2 - cw / 2 + i * sx) + "px"; li.style.top = (cy - ch / 2 - i * sy) + "px"; });
-    };
-    place();
-    const render = p => {
-      fg.style.strokeDashoffset = 1 - p;
-      pct.textContent = Math.round(p * 100);
-      const f = p * (items.length - 1);
-      gsap.set(stairs, { x: -f * geo.sx, y: f * geo.sy });
-      const idx = Math.round(f);
-      items.forEach((li, i) => { li.classList.toggle("on", i === idx); li.classList.toggle("done", i < idx); });
-    };
-    render(0);
-    ScrollTrigger.create({
-      trigger: pin, start: "top top", end: "+=220%", pin: true, scrub: .6, invalidateOnRefresh: true,
-      onRefresh: () => place(), onUpdate: s => render(s.progress)
-    });
-    gsap.from($(".process-a__ring", root), { scale: .7, opacity: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 70%" } });
-    return () => { items.forEach(li => { li.style.left = li.style.top = ""; }); };
-  });
 
 
   const clamp01 = v => Math.max(0, Math.min(1, v));
@@ -46,68 +14,9 @@
     return { redraw: () => frame(performance.now(), true), stop: () => { run = false; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); } };
   };
 
-  /* ---------- B · Secuencia de lanzamiento ---------- */
-  register("process", "B", (root, ux) => {
-    const pin = $(".process-b__pin", root), mods = $$(".process-b__mods li", root), clock = $(".process-b__clock i", root);
-    const fill = $(".process-b__fill", root), dot = $(".process-b__head-dot", root);
-    const states = ["En espera", "En curso", "Completado"];
-    const setIdx = (idx, finished) => {
-      mods.forEach((li, i) => {
-        const st = finished || i < idx ? 2 : i === idx ? 1 : 0;
-        li.classList.toggle("on", st === 1); li.classList.toggle("done", st === 2);
-        $(".process-b__state", li).textContent = states[st];
-      });
-      clock.textContent = String(finished ? 0 : 4 - idx).padStart(2, "0");
-    };
-    if (ux.reduce) { setIdx(4, true); gsap.set(fill, { scaleX: 1 }); gsap.set(dot, { left: "100%" }); return; }
-    setIdx(0);
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 901px)", () => {
-      let last = "";
-      ScrollTrigger.create({ trigger: pin, start: "top top", end: "+=200%", pin: true, scrub: .6, onUpdate: s => {
-        const p = s.progress; gsap.set(fill, { scaleX: p }); gsap.set(dot, { left: p * 100 + "%" });
-        const fin = p > .97, idx = Math.min(3, Math.floor(p * 4)), key = idx + "" + fin;
-        if (key !== last) { last = key; setIdx(idx, fin); }
-      } });
-      gsap.from(mods, { y: 40, opacity: 0, duration: 1, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 60%" } });
-    });
-    mm.add("(max-width: 900px)", () => {
-      mods.forEach((li, i) => ScrollTrigger.create({ trigger: li, start: "top 65%", end: "bottom 65%", onToggle: s => s.isActive && setIdx(i), onLeave: () => i === mods.length - 1 && setIdx(4, true), onEnterBack: () => setIdx(i) }));
-    });
-    return () => { mm.revert(); setIdx(0); };
-  });
-
-  /* ---------- C · Terminal de producción ---------- */
-  register("process", "C", (root, ux) => {
-    const jobs = $$(".process-c__job", root);
-    if (ux.reduce) { root.classList.add("is-done"); $$(".process-c__pct", root).forEach(p => (p.textContent = "100%")); return () => root.classList.remove("is-done"); }
-    const timers = [];
-    jobs.forEach(job => {
-      const t = $(".process-c__t", job), full = t.dataset.t, bar = $(".process-c__bars b", job), pct = $(".process-c__pct", job), ok = $(".process-c__ok", job);
-      const rest = [$("h3", job), $(".process-c__out", job)];
-      t.textContent = ""; gsap.set(rest, { opacity: 0, y: 10 });
-      ScrollTrigger.create({ trigger: job, start: "top 78%", once: true, onEnter: () => {
-        let i = 0;
-        const iv = setInterval(() => {
-          t.textContent = full.slice(0, ++i);
-          if (i < full.length) return;
-          clearInterval(iv);
-          const o = { v: 0 };
-          gsap.timeline()
-            .to(rest, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: "expo.out" })
-            .to(o, { v: 100, duration: 1.3, ease: "power2.inOut", onUpdate: () => { bar.style.clipPath = `inset(0 ${100 - o.v}% 0 0)`; pct.textContent = Math.round(o.v) + "%"; } }, .2)
-            .to(ok, { opacity: 1, duration: .3 });
-        }, 26);
-        timers.push(iv);
-      } });
-    });
-    gsap.from($(".process-c__win", root), { y: 60, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
-    return () => { timers.forEach(clearInterval); jobs.forEach(job => { const t = $(".process-c__t", job); t.textContent = t.dataset.t; $(".process-c__bars b", job).style.clipPath = ""; $(".process-c__pct", job).textContent = "0%"; }); };
-  });
-
-  /* ---------- D · Holograma 3D: puntos → malla → sólido → montado ---------- */
-  register("process", "D", (root, ux) => {
-    const cv = $(".process-d__cv", root), steps = $$(".process-d__steps li", root), hud = $(".process-d__phase", root), pctEl = $(".process-d__pct b", root);
+  /* ---------- A · Holograma 3D: puntos → malla → sólido → montado ---------- */
+  register("process", "A", (root, ux) => {
+    const cv = $(".process-a__cv", root), steps = $$(".process-a__steps li", root), hud = $(".process-a__phase", root), pctEl = $(".process-a__pct b", root);
     const names = ["01 · Presupuesto", "02 · Diseño", "03 · Producción", "04 · Instalación"];
     // Geometría: un stand (tarima, fondo, lateral y mostrador)
     const boxes = [[-1.1, -.75, -.7, 2.2, .12, 1.4], [-1.1, -.63, -.7, 2.2, 1.35, .08], [-1.1, -.63, -.62, .08, 1.35, .75], [.15, -.63, .05, .7, .55, .4]];
@@ -155,124 +64,136 @@
     const setUI = t => { const i = Math.min(3, Math.floor(t)); steps.forEach((li, k) => li.classList.toggle("on", k === i)); hud.textContent = names[i]; pctEl.textContent = Math.round(t / 4 * 100); };
     if (ux.reduce) { root.classList.add("is-static"); shown = 4; setUI(3.99); pctEl.textContent = "100"; loop.redraw(); return () => { loop.stop(); root.classList.remove("is-static"); }; }
     setUI(0);
-    ScrollTrigger.create({ trigger: $(".process-d__steps", root), start: "top 65%", end: "bottom 75%", onUpdate: s => { T = s.progress * 4; setUI(Math.min(3.99, T)); } });
+    ScrollTrigger.create({ trigger: $(".process-a__steps", root), start: "top 65%", end: "bottom 75%", onUpdate: s => { T = s.progress * 4; setUI(Math.min(3.99, T)); } });
     return () => loop.stop();
   });
 
-  /* ---------- E · Bento con brillo ---------- */
-  register("process", "E", (root, ux) => {
-    const grid = $(".process-e__grid", root), cards = $$(".process-e__card", root);
-    const pm = e => cards.forEach(c => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px"); });
-    if (ux.fine) grid.addEventListener("pointermove", pm);
-    if (!ux.reduce) gsap.from(cards, { y: 60, opacity: 0, scale: .96, duration: 1.1, stagger: .1, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: grid, start: "top 85%" } });
-    return () => grid.removeEventListener("pointermove", pm);
+  /* ===== B–F · comunes ===== */
+  /* Fases 0→4 ligadas al scroll: con pin la escena se fija; sin pin sigue la lista de pasos */
+  const phased = (root, ux, pre, render, pin) => {
+    const steps = $$(`.${pre}__steps li`, root), o = { t: 0 };
+    const upd = () => { const i = Math.min(3, Math.floor(o.t)); steps.forEach((li, k) => li.classList.toggle("on", k === i)); render(o.t); };
+    if (ux.reduce) { root.classList.add("is-static"); render(4); steps.forEach(li => li.classList.add("on")); return () => { root.classList.remove("is-static"); steps.forEach(li => li.classList.remove("on")); }; }
+    upd();
+    const st = pin
+      ? { trigger: $(`.${pre}__pin`, root), start: "top top", end: "+=320%", pin: true, scrub: .7 }
+      : { trigger: $(`.${pre}__steps`, root), start: "top 65%", end: "bottom 75%", scrub: .6 };
+    gsap.to(o, { t: 4, ease: "none", onUpdate: upd, scrollTrigger: st });
+  };
+  /* Elementos con data-ph (fase 1–4), data-o (retardo dentro de la fase) y data-w (duración) */
+  const phaseEls = root => $$("[data-ph]", root).map(el => ({ el, ph: +el.dataset.ph, o: +(el.dataset.o || 0), w: +(el.dataset.w || 1), ln: el.classList.contains("ln"), drop: "drop" in el.dataset }));
+  const paint = (list, t) => list.forEach(({ el, ph, o, w, ln, drop }) => {
+    const k = clamp01((t - (ph - 1) - o) / w);
+    if (ln) el.style.strokeDashoffset = String(1 - k);
+    else { el.style.opacity = String(k); if (drop) el.style.transform = `translateY(${(-(1 - k) * 34).toFixed(1)}px)`; }
+  });
+  const NAMES = ["Presupuesto", "Diseño", "Producción", "Instalación"];
+  const phaseName = t => { const i = Math.min(3, Math.floor(t)); return `Fase 0${i + 1} · ${NAMES[i]}`; };
+
+  /* ---------- B · Plano técnico: cotas → alzado → materiales → montaje ---------- */
+  register("process", "B", (root, ux) => {
+    const list = phaseEls($(".process-b__svg", root)), lab = $(".process-b__phase", root);
+    return phased(root, ux, "process-b", t => { paint(list, t); lab.textContent = phaseName(t); });
   });
 
-  /* ---------- F · Flujo de datos ---------- */
-  register("process", "F", (root, ux) => {
-    const flow = $(".process-f__flow", root), cv = $(".process-f__cv", root), items = $$(".process-f__nodes li", root), nodes = $$(".process-f__node", root);
-    let prog = ux.reduce ? 1 : 0, shown = prog;
-    const parts = Array.from({ length: 46 }, () => ({ s: Math.random(), v: .0009 + Math.random() * .0016, o: (Math.random() - .5) * 6, r: .8 + Math.random() * 1.6 }));
-    let last = 0;
-    const draw = (ctx, W, H, now) => {
-      const dt = Math.min(50, now - (last || now)); last = now;
-      shown += (prog - shown) * .1;
-      const fr = flow.getBoundingClientRect();
-      const C = nodes.map(n => { const r = n.getBoundingClientRect(); return [r.left - fr.left + r.width / 2, r.top - fr.top + r.height / 2]; });
-      const vertical = Math.abs(C[3][0] - C[0][0]) < 10;
-      const A = vertical ? [C[0][0], 0] : [0, C[0][1]], B = vertical ? [C[0][0], H] : [W, C[0][1]];
-      const L = vertical ? H : W, at = s => vertical ? [A[0], s * L] : [s * L, A[1]];
-      const fN = C.map(c => (vertical ? c[1] : c[0]) / L), head = fN[0] + (fN[3] - fN[0] + .06) * shown;
-      ctx.clearRect(0, 0, W, H);
-      ctx.lineWidth = 1; ctx.strokeStyle = "rgba(153,196,228,.16)"; ctx.setLineDash([4, 6]); ctx.beginPath(); ctx.moveTo(...A); ctx.lineTo(...B); ctx.stroke(); ctx.setLineDash([]);
-      const g = vertical ? ctx.createLinearGradient(0, 0, 0, head * L) : ctx.createLinearGradient(0, 0, head * L, 0);
-      g.addColorStop(0, "rgba(46,108,160,0)"); g.addColorStop(.6, "rgba(153,196,228,.7)"); g.addColorStop(1, "rgba(221,238,255,1)");
-      ctx.strokeStyle = g; ctx.lineWidth = 2; ctx.shadowColor = "rgba(153,196,228,.9)"; ctx.shadowBlur = 12; ctx.beginPath(); ctx.moveTo(...A); ctx.lineTo(...at(Math.min(1, head))); ctx.stroke(); ctx.shadowBlur = 0;
-      parts.forEach(p => {
-        if (!ux.reduce) { p.s += p.v * dt * .06; if (p.s > head) p.s = Math.max(0, head - .35) * Math.random(); }
-        if (p.s > head) return;
-        const [x, y] = at(p.s), a = .25 + .75 * (p.s / Math.max(head, .01));
-        ctx.fillStyle = `rgba(221,238,255,${a})`; ctx.beginPath(); ctx.arc(vertical ? x + p.o : x, vertical ? y : y + p.o, p.r, 0, 6.283); ctx.fill();
+  /* ---------- C · Isometría: superficie → volumen → fabricación → montado ---------- */
+  register("process", "C", (root, ux) => {
+    const svg = $(".process-c__svg", root), pct = $(".process-c__pct", root);
+    if (!svg.childElementCount) {
+      const s = 46, ox = 262, oy = 150;
+      const P = (x, y, z) => [ox + (x - y) * .866 * s, oy + (x + y) * .5 * s - z * s];
+      const pts = a => a.map(p => p.map(n => n.toFixed(1)).join(",")).join(" ");
+      const faces = (x, y, z, w, d, h) => ({
+        top: [P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)],
+        front: [P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)],
+        right: [P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)]
       });
-      items.forEach((li, i) => li.classList.toggle("on", head >= fN[i] - .005));
-    };
-    const loop = canvasLoop(cv, root, draw, ux);
-    if (ux.reduce) { items.forEach(li => li.classList.add("on")); loop.redraw(); return () => loop.stop(); }
-    ScrollTrigger.create({ trigger: flow, start: "top 80%", end: "bottom 55%", scrub: true, onUpdate: s => { prog = s.progress; } });
-    gsap.from(items, { y: 40, duration: 1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: flow, start: "top 85%" } });
-    return () => { loop.stop(); items.forEach(li => li.classList.remove("on")); };
+      const outline = f => ["top", "front", "right"].map(k => "M" + pts(f[k]).replace(/ /g, "L") + "Z").join("");
+      const box = (b, col, ph2, ph3) => {
+        const f = faces(...b);
+        return `<g data-ph="3" data-o="${ph3}" data-w=".35" data-drop>` + ["top", "front", "right"].map((k, i) => `<polygon class="face" points="${pts(f[k])}" fill="${col[i]}"/>`).join("") + `</g>` +
+          `<path class="ln" data-ph="2" data-o="${ph2}" data-w=".45" pathLength="1" d="${outline(f)}"/>`;
+      };
+      const quad = (a, fill, o, extra = "") => `<polygon data-ph="4" data-o="${o}" data-w=".35" points="${pts(a)}" fill="${fill}" ${extra}/>`;
+      const person = (x, y, col, o) => { const b = P(x, y, .1); return `<g data-ph="4" data-o="${o}" data-w=".3"><ellipse cx="${b[0]}" cy="${b[1]}" rx="12" ry="5" fill="rgba(26,26,46,.18)"/><rect x="${b[0] - 6}" y="${b[1] - 1.45 * s}" width="12" height="${1.4 * s}" rx="6" fill="${col}"/><circle cx="${b[0]}" cy="${b[1] - 1.62 * s}" r="6.5" fill="${col}"/></g>`; };
+      const W = ["#FFFFFF", "#E8EDF4", "#CFD8E4"], C = ["#FFFFFF", "#1A1A2E", "#232339"], T = ["#99C4E4", "#2E6CA0", "#1E5076"];
+      const floor = faces(0, 0, 0, 6, 3, .1);
+      const lbl = (p, txt, o) => `<text data-ph="1" data-o="${o}" data-w=".4" x="${p[0].toFixed(1)}" y="${p[1].toFixed(1)}" text-anchor="middle">${txt}</text>`;
+      svg.innerHTML =
+        `<defs><linearGradient id="process-c-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1A1A2E"/><stop offset="1" stop-color="#2E6CA0"/></linearGradient></defs>` +
+        `<ellipse data-ph="4" data-o="0" data-w=".4" cx="${P(3, 1.5, 0)[0]}" cy="${P(3, 1.5, 0)[1] + 18}" rx="250" ry="70" fill="rgba(26,26,46,.08)"/>` +
+        `<path class="ln" data-ph="1" data-o="0" data-w=".55" pathLength="1" d="M${pts(floor.top).replace(/ /g, "L")}Z"/>` +
+        lbl(P(3, 3.9, 0), "6.000 mm", .4) + lbl(P(6.9, 1.5, 0), "3.000 mm", .5) +
+        `<g data-ph="3" data-o="0" data-w=".3">` + ["top", "front", "right"].map((k, i) => `<polygon class="face" points="${pts(floor[k])}" fill="${["#E9EEF4", "#C9D2DD", "#B7C2D0"][i]}"/>`).join("") + `</g>` +
+        box([0, 0, .1, 6, .16, 2.5], W, 0, .1) +
+        box([0, .16, .1, .16, 2.84, 2.5], W, .1, .15) +
+        quad([P(.7, .16, .7), P(3.5, .16, .7), P(3.5, .16, 2.25), P(.7, .16, 2.25)], "url(#process-c-g)", 0) +
+        quad([P(4, .16, 1.2), P(5.4, .16, 1.2), P(5.4, .16, 2), P(4, .16, 2)], "#10101D", .1, 'stroke="#99C4E4"') +
+        quad([P(.16, .6, .7), P(.16, 2.6, .7), P(.16, 2.6, 2.1), P(.16, .6, 2.1)], "#99C4E4", .15) +
+        box([3.6, 1.8, .1, 1.5, .6, 1], C, .2, .25) +
+        quad([P(3.75, 2.4, .45), P(4.95, 2.4, .45), P(4.95, 2.4, .7), P(3.75, 2.4, .7)], "#99C4E4", .2) +
+        box([5.3, 2.3, .1, .5, .5, 2.2], T, .3, .35) +
+        person(2.4, 2.1, "#1A1A2E", .35) + person(4.4, 2.75, "#2E6CA0", .45) + person(1.4, 1.2, "#5F6673", .5) +
+        `<g data-ph="4" data-o=".55" data-w=".35"><text x="${P(.7, .16, 2.25)[0] + 16}" y="${P(.7, .16, 2.25)[1] + 30}" style="fill:#fff;font-family:var(--f-head);font-weight:800;font-size:15px">SIN LÍMITES</text></g>`;
+    }
+    const list = phaseEls(svg);
+    return phased(root, ux, "process-c", t => { paint(list, t); pct.textContent = String(Math.round(t / 4 * 100)).padStart(2, "0"); });
   });
-})();
 
-/* Cómo trabajamos · G–K: impacto editorial, sin recursos tecnológicos */
-(() => {
-  const { register, $, $$ } = UX;
+  /* ---------- D · Maqueta que se pliega: plancha troquelada → plegado → impreso → montado ---------- */
+  register("process", "D", (root, ux) => {
+    const q = s => $(s, root), qa = s => $$(s, root);
+    const scene = q(".process-d__scene"), back = q(".process-d__wall--back"), side = q(".process-d__wall--side"), counter = q(".process-d__counter"), plate = q(".process-d__top-plate"),
+      cut = q(".process-d__cut"), prints = qa(".process-d__print"), figs = qa(".process-d__fig"), spots = qa(".process-d__spot"), shadow = q(".process-d__shadow"),
+      count = q(".process-d__count b"), rail = q(".process-d__rail i");
+    const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+    return phased(root, ux, "process-d", t => {
+      const p1 = clamp01(t * 1.4), f = ease(clamp01(t - 1)), p3 = clamp01(t - 2), p4 = ease(clamp01(t - 3));
+      scene.style.opacity = String(.25 + .75 * p1);
+      scene.style.transform = `rotateX(${58 - 6 * p4}deg) rotateZ(${-36 + 16 * p4}deg)`;
+      cut.style.opacity = String(p1 * (1 - f));
+      back.style.transform = `rotateX(${-90 * f}deg)`;
+      side.style.transform = `rotateY(${90 * f}deg)`;
+      counter.style.transform = `rotateX(${90 * f}deg)`;
+      prints.forEach((p, i) => (p.style.clipPath = `inset(0 ${(1 - clamp01(p3 * 1.6 - i * .2)) * 100}% 0 0)`));
+      plate.style.opacity = String(clamp01(p3 * 2 - .6));
+      plate.style.transform = `translateZ(${55 * clamp01(p3 * 2 - .6)}px)`;
+      figs.forEach((g, i) => { const k = clamp01(p4 * 1.6 - i * .3); g.style.opacity = String(k); g.style.transform = `rotateX(-90deg) scaleY(${k})`; });
+      spots.forEach(s => (s.style.opacity = String(p4)));
+      shadow.style.opacity = String(.4 + .5 * p4);
+      count.textContent = "0" + (Math.min(3, Math.floor(t)) + 1);
+      rail.style.transform = `scaleX(${t / 4})`;
+    }, true);
+  });
 
-  /* ---------- G · Carteles numerados ---------- */
-  register("process", "G", (root, ux) => {
-    const ps = $$(".process-g__p", root);
-    const open = p => ps.forEach(q => { const on = q === p; q.classList.toggle("is-on", on); $(".process-g__btn", q).setAttribute("aria-expanded", on); });
-    const offs = [];
-    ps.forEach(p => {
-      const b = $(".process-g__btn", p), c = () => open(p), h = () => ux.fine && open(p);
-      b.addEventListener("click", c); p.addEventListener("pointerenter", h);
-      offs.push(() => { b.removeEventListener("click", c); p.removeEventListener("pointerenter", h); });
+  /* ---------- E · Ficha de proyecto: la hoja técnica se rellena cuadrante a cuadrante ---------- */
+  register("process", "E", (root, ux) => {
+    const list = phaseEls($(".process-e__sheet", root)), qs = $$(".process-e__q", root), photo = $(".process-e__photo", root), ph = $(".process-e__phase", root);
+    return phased(root, ux, "process-e", t => {
+      paint(list, t);
+      const i = Math.min(3, Math.floor(t));
+      qs.forEach((q, k) => { q.classList.toggle("is-on", k === i && t < 4); q.classList.toggle("is-done", k < i || t >= 4); });
+      photo.style.clipPath = `inset(${(1 - clamp01((t - 3) / .7)) * 100}% 0 0 0)`;
+      ph.textContent = `0${i + 1} / 04`;
     });
-    if (!ux.reduce) gsap.from(ps, { y: 80, opacity: 0, duration: 1.1, stagger: .09, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: $(".process-g__row", root), start: "top 82%" } });
-    return () => offs.forEach(f => f());
   });
 
-  /* ---------- H · Relato con foto fija ---------- */
-  register("process", "H", (root, ux) => {
-    const steps = $$(".process-h__step", root), phs = $$(".process-h__ph", root), cap = $(".process-h__cap b", root);
-    const set = i => { steps.forEach((s, k) => s.classList.toggle("is-on", k === i)); phs.forEach((p, k) => p.classList.toggle("is-on", k <= i)); cap.textContent = "0" + (i + 1); };
-    set(0);
-    steps.forEach((s, i) => ScrollTrigger.create({ trigger: s, start: "top 55%", end: "bottom 55%", onToggle: e => e.isActive && set(i) }));
-  });
-
-  /* ---------- I · Palabras gigantes ---------- */
-  register("process", "I", (root, ux) => {
-    const pin = $(".process-i__pin", root), track = $(".process-i__track", root);
-    if (ux.reduce) { root.classList.add("is-static"); return () => root.classList.remove("is-static"); }
-    const mm = gsap.matchMedia();
-    mm.add("(max-width:800px)", () => {
-      root.classList.add("is-static");
-      $$(".process-i__panel", root).forEach(p => gsap.from(p, { y: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 85%" } }));
-      return () => root.classList.remove("is-static");
-    });
-    mm.add("(min-width:801px)", () => {
-      const dist = () => Math.max(0, track.scrollWidth - pin.offsetWidth);
-      gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true } })
-        .to(track, { x: () => -dist(), ease: "none" }, 0)
-        .to($(".process-i__bar i", root), { scaleX: 1, ease: "none" }, 0);
-    });
-    return () => mm.revert();
-  });
-
-  /* ---------- J · Bandas impresas ---------- */
-  register("process", "J", (root, ux) => {
-    const rows = $$(".process-j__row", root);
-    if (ux.reduce) { rows.forEach(r => { r.classList.add("is-on"); $(".process-j__band", r).style.clipPath = "inset(0 0 0 0)"; }); return; }
-    rows.forEach(r => {
-      gsap.fromTo($(".process-j__band", r), { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none",
-        scrollTrigger: { trigger: r, start: "top 78%", end: "top 38%", scrub: .5, onUpdate: s => r.classList.toggle("is-on", s.progress > .5) } });
-      gsap.fromTo($("img", r), { scale: 1.25 }, { scale: 1, ease: "none", scrollTrigger: { trigger: r, start: "top bottom", end: "bottom top", scrub: true } });
-    });
-  });
-
-  /* ---------- K · Registro CMYK ---------- */
-  register("process", "K", (root, ux) => {
-    const pin = $(".process-k__pin", root), steps = $$(".process-k__step", root), pct = $(".process-k__sheet figcaption b", root);
-    const [c, m, y] = ["c", "m", "y"].map(k => $(".process-k__pl--" + k, root));
-    const set = i => steps.forEach((s, k) => s.classList.toggle("is-on", k === i));
-    if (ux.reduce) { root.classList.add("is-static"); set(3); pct.textContent = "100%"; return () => root.classList.remove("is-static"); }
-    set(0);
-    const o = () => Math.max(14, pin.offsetWidth * .022);
-    const tl = gsap.timeline({ scrollTrigger: { trigger: pin, start: "top top", end: "+=260%", pin: true, scrub: .6, invalidateOnRefresh: true,
-      onUpdate: s => { set(Math.min(3, Math.floor(s.progress * 4))); pct.textContent = Math.round(s.progress * 100) + "%"; } } });
-    tl.fromTo(c, { opacity: 0, x: () => -o() * 2, y: () => -o() }, { opacity: 1, x: () => -o(), y: () => -o() * .6, duration: 1 }, 0)
-      .fromTo(m, { opacity: 0, x: () => o() * 2, y: () => o() }, { opacity: 1, x: () => o(), y: () => o() * .5, duration: 1 }, 1)
-      .fromTo(y, { opacity: 0, x: () => o() * .4, y: () => o() * 2 }, { opacity: 1, x: () => -o() * .3, y: () => o(), duration: 1 }, 2)
-      .to([c, m, y], { x: 0, y: 0, duration: 1, ease: "power2.inOut" }, 3);
+  /* ---------- F · Despiece por capas: un rótulo explosionado que se ensambla y se instala ---------- */
+  register("process", "F", (root, ux) => {
+    const stack = $(".process-f__stack", root), layers = $$(".process-f__layer", root), legend = $$(".process-f__legend li", root),
+      wall = $(".process-f__wall", root), screws = $$(".process-f__wall i", root), rail = $(".process-f__rail i", root);
+    const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+    return phased(root, ux, "process-f", t => {
+      const p4 = ease(clamp01(t - 3)), gap = 62 * (1 - p4);
+      const vis = [clamp01(t * 2), clamp01((t - 1) * 2), clamp01((t - 2) * 2), clamp01((t - 2.5) * 2)];
+      stack.style.transform = `scale(var(--z,1)) rotateX(${58 * (1 - p4)}deg) rotateZ(${-38 * (1 - p4)}deg)`;
+      layers.forEach((l, k) => { l.style.opacity = String(k === 2 ? vis[k] * (1 - .88 * p4) : vis[k]); l.style.transform = `translateZ(${k * gap + (1 - vis[k]) * 40}px)`; });
+      layers[1].style.setProperty("--art", String(clamp01((t - 1.35) / .55)));
+      layers.forEach(l => (l.querySelector(".process-f__badge").style.opacity = String(1 - p4)));
+      wall.style.opacity = String(p4);
+      screws.forEach(s => (s.style.opacity = String(clamp01((t - 3.6) / .3))));
+      const i = Math.min(3, Math.floor(t)); legend.forEach((li, k) => li.classList.toggle("on", k <= i));
+      rail.style.transform = `scaleX(${t / 4})`;
+    }, true);
   });
 })();

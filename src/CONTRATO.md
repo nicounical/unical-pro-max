@@ -123,3 +123,21 @@ Petición: «Has hecho cosas muy interesantes, pero puede que sea demasiado futu
 - **No repitas ideas ya dadas** en rondas anteriores (revisa `git log -p` de tus ficheros: polaroids, vinilos que se despegan, muestrario Pantone, rollo de lona, persianas, split-flap, sellos, cinta transportadora, línea de metro, expediente, plotter, dominó, sobre, tarjeta 3D, orden de trabajo, etc.).
 - Mismo contenido/datos reales de la favorita A. Rendimiento, accesibilidad, 1440/390 y reduced-motion como siempre.
 - Pruebas: servidor en http://localhost:8765 ya activo (no lo arranques/pares; si se cae, usa uno propio en otro puerto 88xx y ciérralo al acabar). Capturas de una en una. Sin commit.
+
+## Ronda «Selección 3» (2026-10-12) — manda sobre lo anterior
+El usuario ha elegido. Por sección: las que **se quedan** pasan a ser las primeras letras (A, y B en la portada), idénticas visualmente (renombra clases `xxx-k__`→`xxx-a__`, `register`, `data-v`); **todas las demás se borran** (HTML, CSS y JS; quedan en git). Después, **5 versiones nuevas** con las letras siguientes. Sin `data-default` (la A es la de por defecto).
+
+| sección | se queda | nuevas (5) — petición literal resumida |
+|---|---|---|
+| hero | A «Lexus en letras» → A; B «HUD escáner» → B | C–G: «versiones parecidas a la A y la B y otras nuevas» → 2 variaciones de A (vídeo dentro de tipografía), 2 de B (revelado/escaneo del vídeo, pero más elegante), 1 nueva |
+| services | F «Circuito» → A | B–F: «otras versiones que **no tengan fotos** y alguna inspirada en la F pero **no futurista**» → todas sin fotos; 1–2 con el concepto de la F (centro Unical que reparte a los servicios: esquema/diagrama/plano de taller, impreso, no neón) |
+| reel | J «Subtítulos» → A | B–F: «versiones mejoradas de la J» → vídeo a sangre fijo con frases gigantes, pero mejor: tipografía, ritmo, transiciones, sonido-opción, contador, cierre con CTA… 5 enfoques distintos |
+| work | A «Filtros por sector» (favorita antigua, se queda como respaldo) | B–F: «no me ha gustado ninguno» → 5 totalmente nuevas, distintas de todo lo dado antes (revisa git log) |
+| process | D «Holograma 3D» → A | B–F: «5 versiones inspiradas en la D que sean **de profesional**» → mismo concepto (un stand/proyecto que se construye por fases con el scroll: presupuesto→diseño→producción→instalación) pero con estética profesional/arquitectónica, no holograma: plano técnico, render, maqueta, montaje real, isometría limpia… |
+| numbers | A «Odómetro» | B–F: 5 nuevas (no futuristas, nada repetido) |
+| sectors | E «Túnel warp» → A | B–F: «inspiradas en esta y otras nuevas **no tan futuristas, sin fotos**» → 2 con la idea de viaje/túnel de la E más sobria, 3 nuevas tipográficas/gráficas, todas sin fotos |
+| manifesto | K «Ventana que se abre» → A **cambiando su foto de fondo** por otra potente del repo (no la lona «Start your impossible») | B–F: inspiradas en la K (titular que se parte y abre una foto/escena a pantalla completa con los 4 pilares), cada una con otra foto |
+| clients | A «Muro de estadio» (respaldo) | B–F: «nuevas del todo» → nada parecido a lo dado (revisa git log) |
+| contact | sin cambios: NO tocar | — |
+
+Estilo general de esta ronda: impacto de agencia premium, **profesional y sobrio**, ni HUD/neón/partículas/terminal. Tipografía gruesa, colores de marca. Datos v29. Calidad, 1440/390, reduced‑motion, sin errores. Servidor http://localhost:8765 activo (si falla, uno propio en 88xx y ciérralo). Capturas de una en una. Sin commit.

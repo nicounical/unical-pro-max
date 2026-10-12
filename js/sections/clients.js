@@ -1,4 +1,4 @@
-/* ===== 08 · Clientes (A = muro de estadio; B–F nuevas) ===== */
+/* ===== 08 · Clientes (A = muro de estadio; B–F nuevas, ronda Selección 3) ===== */
 (() => {
   const { register, $, $$ } = UX;
   const ALL = ["toyota","coca-cola","bankinter","generali","sony-music","monster-energy","philip-morris","mitsubishi-electric","otis","porcelanosa","rituals","wella","los40","rfef","cruz-roja","avoris","catai","csl-vifor","dial","elanco","fibratel","leo-pharma","longi","straumann","ucb"];
@@ -36,303 +36,124 @@
   });
 
 
-  /* Lienzo nítido (DPR ≤ 2) + bucle rAF que solo corre con la sección en pantalla */
-  const canvasLoop = (root, cv, draw) => {
-    const ctx = cv.getContext("2d");
-    let W = 0, H = 0, dpr = 1, raf = 0, on = false, t0 = performance.now();
-    const size = () => { const r = cv.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-    const frame = now => { if (!on) return; draw(ctx, W, H, now - t0); raf = requestAnimationFrame(frame); };
-    const ro = new ResizeObserver(() => { size(); if (!on) draw(ctx, W, H, performance.now() - t0); }); ro.observe(cv);
-    const io = new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) raf = requestAnimationFrame(frame); }, { rootMargin: "80px" });
-    io.observe(root);
-    size();
-    return { ctx, stop: () => { on = false; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); }, size: () => [W, H] };
-  };
   const SECTOR = { toyota: "automoción", "coca-cola": "bebidas", bankinter: "banca", generali: "seguros", "sony-music": "música", "monster-energy": "bebidas", "philip-morris": "gran consumo", "mitsubishi-electric": "climatización", otis: "ascensores", porcelanosa: "cerámica", rituals: "cosmética", wella: "belleza", los40: "radio", rfef: "deporte", "cruz-roja": "ONG", avoris: "viajes", catai: "viajes", "csl-vifor": "farma", dial: "radio", elanco: "salud animal", fibratel: "telecom", "leo-pharma": "farma", longi: "energía solar", straumann: "salud dental", ucb: "farma" };
-  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&/<>";
-  const decode = (el, text, dur = 700) => {
-    const t0 = performance.now(); let raf;
-    const step = now => {
-      const p = Math.min(1, (now - t0) / dur), n = Math.floor(p * text.length);
-      el.textContent = text.slice(0, n) + [...text.slice(n)].map(c => (c === " " ? " " : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
-      if (p < 1) raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
+  const pad2 = n => String(n).padStart(2, "0");
+  const isDesk = () => matchMedia("(min-width: 861px)").matches;
+  // Ejecuta fn solo mientras la sección está en pantalla (para bucles e intervalos)
+  const whileVisible = (root, on, off) => {
+    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? on() : off()), { rootMargin: "60px" });
+    io.observe(root);
+    return () => { io.disconnect(); off(); };
   };
 
-  /* ---------- B · Radar ---------- */
+  /* ---------- B · Frase viva: «Trabajamos para ___» ---------- */
   register("clients", "B", (root, ux) => {
-    fillList(root);
-    const cv = $(".clients-b__cv", root), read = $("[data-read]", root);
-    const rnd = seeded(7);
-    const blips = ALL.map((n, i) => ({ n: name(n), a: (i / ALL.length) * Math.PI * 2 + rnd() * .2, r: .3 + rnd() * .62, lit: -1e9 }));
-    const SPEED = .0011; // rad/ms
-    let prev = 0;
-    const draw = (ctx, W, H, t) => {
-      const R = Math.min(W, H) / 2 - 8, cx = W / 2, cy = H / 2;
-      ctx.clearRect(0, 0, W, H);
-      ctx.lineWidth = 1;
-      for (let k = 1; k <= 4; k++) { ctx.strokeStyle = `rgba(153,196,228,${k === 4 ? .45 : .16})`; ctx.beginPath(); ctx.arc(cx, cy, R * k / 4, 0, Math.PI * 2); ctx.stroke(); }
-      ctx.strokeStyle = "rgba(153,196,228,.12)";
-      ctx.beginPath(); ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy); ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R); ctx.stroke();
-      for (let d = 0; d < 72; d++) { const a = d / 72 * Math.PI * 2, l = d % 6 ? 5 : 11; ctx.strokeStyle = "rgba(153,196,228,.35)"; ctx.beginPath(); ctx.moveTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); ctx.lineTo(cx + Math.cos(a) * (R - l), cy + Math.sin(a) * (R - l)); ctx.stroke(); }
-      const sw = ux.reduce ? -Math.PI / 4 : (t * SPEED) % (Math.PI * 2);
-      // estela del barrido
-      for (let s = 0; s < 40; s++) {
-        const a1 = sw - s * .022, a0 = a1 - .024;
-        ctx.fillStyle = `rgba(153,196,228,${.22 * (1 - s / 40) ** 2})`;
-        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, a0, a1); ctx.closePath(); ctx.fill();
-      }
-      ctx.strokeStyle = "rgba(200,225,245,.9)"; ctx.shadowColor = "#99C4E4"; ctx.shadowBlur = 12; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(sw) * R, cy + Math.sin(sw) * R); ctx.stroke(); ctx.shadowBlur = 0;
-      // impactos
-      const norm = a => ((a % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-      let latest = null;
-      blips.forEach(b => {
-        if (!ux.reduce) { const d = norm(sw - b.a), dp = norm(prev - b.a); if (d < dp || (d < .05 && b.lit < 0)) { b.lit = t; latest = b; } }
-        const k = ux.reduce ? .7 : Math.exp(-(t - b.lit) / 1500);
-        const x = cx + Math.cos(b.a) * b.r * R, y = cy + Math.sin(b.a) * b.r * R;
-        ctx.fillStyle = `rgba(153,196,228,${.15 + k * .85})`;
-        ctx.beginPath(); ctx.arc(x, y, 2.5 + k * 2.5, 0, Math.PI * 2); ctx.fill();
-        if (k > .18) {
-          ctx.strokeStyle = `rgba(153,196,228,${k * .6})`; ctx.beginPath(); ctx.arc(x, y, 6 + (1 - k) * 18, 0, Math.PI * 2); ctx.stroke();
-          ctx.font = `700 ${W < 420 ? 11 : 13}px Poppins, sans-serif`; ctx.fillStyle = `rgba(255,255,255,${Math.min(1, k * 1.2)})`;
-          ctx.textAlign = x > cx ? "right" : "left"; ctx.fillText(b.n, x + (x > cx ? -10 : 10), y - 8);
-        }
-      });
-      ctx.lineWidth = 1;
-      prev = sw;
-      if (latest && read.textContent !== latest.n) read.textContent = latest.n;
+    const slot = $(".clients-b__slot", root), list = $(".clients-b__all", root);
+    const n = $(".clients-b__n", root), sec = $(".clients-b__sec", root);
+    list.innerHTML = ALL.map((c, i) => `<li><button type="button" data-i="${i}">${name(c)}</button></li>`).join("");
+    const btns = $$("button", list);
+    let cur = 0, timer = 0, hold = 0;
+    const show = (i, animate = !ux.reduce) => {
+      if (i === cur && slot.querySelector(".clients-b__word")) return;
+      const old = slot.querySelector(".clients-b__word:last-child");
+      const nw = document.createElement("span"); nw.className = "clients-b__word"; nw.textContent = name(ALL[i]);
+      slot.appendChild(nw);
+      slot.style.width = nw.offsetWidth + "px";
+      btns.forEach((b, j) => b.setAttribute("aria-current", j === i));
+      n.textContent = pad2(i + 1); sec.textContent = SECTOR[ALL[i]];
+      cur = i;
+      if (!animate || !old) { if (old) old.remove(); return; }
+      gsap.fromTo(nw, { yPercent: 110 }, { yPercent: 0, duration: .7, ease: "expo.out" });
+      gsap.to(old, { yPercent: -110, duration: .6, ease: "expo.inOut", onComplete: () => old.remove() });
     };
-    const loop = canvasLoop(root, cv, draw);
-    if (ux.reduce) read.textContent = "25 marcas";
-    return loop.stop;
+    slot.innerHTML = "";
+    show(0, false);
+    const next = () => { if (Date.now() < hold) return; show((cur + 1) % ALL.length); };
+    const pick = e => { const b = e.target.closest("button"); if (!b) return; hold = Date.now() + 6000; show(+b.dataset.i); };
+    list.addEventListener("click", pick);
+    list.addEventListener("focusin", pick);
+    list.addEventListener("pointerover", pick);
+    const ro = new ResizeObserver(() => { const w = slot.querySelector(".clients-b__word:last-child"); if (w) slot.style.width = w.offsetWidth + "px"; });
+    ro.observe(root);
+    const stop = ux.reduce ? () => {} : whileVisible(root, () => { clearInterval(timer); timer = setInterval(next, 1900); }, () => clearInterval(timer));
+    return () => { stop(); ro.disconnect(); list.removeEventListener("click", pick); list.removeEventListener("focusin", pick); list.removeEventListener("pointerover", pick); };
   });
 
-  /* ---------- C · Holograma (esfera de marcas) ---------- */
+  /* ---------- C · Acreditaciones: tarjetas colgadas que se balancean ---------- */
   register("clients", "C", (root, ux) => {
-    fillList(root);
-    const stage = $(".clients-c__stage", root), globe = $(".clients-c__globe", root);
-    globe.innerHTML = ALL.map(n => `<span class="clients-c__item">${name(n)}</span>`).join("");
-    const N = ALL.length, golden = Math.PI * (3 - Math.sqrt(5));
-    const pts = $$(".clients-c__item", globe).map((el, i) => { const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i; return { el, x: Math.cos(th) * r, y, z: Math.sin(th) * r, w: 0, h: 0 }; });
-    const measure = () => pts.forEach(p => { p.w = p.el.offsetWidth; p.h = p.el.offsetHeight; });
-    measure();
-    let ry = 0, rx = -.25, vy = ux.reduce ? 0 : .0045, vx = 0, drag = null, raf = 0, on = false;
-    const render = () => {
-      const R = Math.min(stage.clientWidth * .38, stage.clientHeight * .42);
-      const cy = Math.cos(ry), sy = Math.sin(ry), cx = Math.cos(rx), sx = Math.sin(rx);
-      pts.forEach(p => {
-        const x1 = p.x * cy + p.z * sy, z1 = -p.x * sy + p.z * cy;
-        const y2 = p.y * cx - z1 * sx, z2 = p.y * sx + z1 * cx;
-        const s = .55 + (z2 + 1) * .35, o = .18 + (z2 + 1) * .41;
-        p.el.style.transform = `translate3d(${x1 * R - p.w / 2}px,${y2 * R * .9 - p.h / 2}px,0) scale(${s.toFixed(3)})`;
-        p.el.style.opacity = o.toFixed(3); p.el.style.zIndex = Math.round(z2 * 100) + 100;
-        p.el.style.filter = z2 < -.2 ? `blur(${(-z2 * 1.6).toFixed(1)}px)` : "none";
-      });
+    const rail = $(".clients-c__rail", root), view = $(".clients-c__view", root);
+    rail.innerHTML = ALL.map((c, i) => `<li class="clients-c__badge"><i class="clients-c__strap" aria-hidden="true"></i><i class="clients-c__clip" aria-hidden="true"></i><div class="clients-c__card"><span class="clients-c__kind" aria-hidden="true">Cliente</span><span class="clients-c__name">${name(c)}</span><span class="clients-c__sec">${SECTOR[c]}</span><span class="clients-c__foot" aria-hidden="true"><img src="assets/img/logo/logo-unical.png" alt="" width="800" height="98" loading="lazy"><span>Nº ${pad2(i + 1)}</span></span></div></li>`).join("");
+    if (ux.reduce) return;
+    const badges = $$(".clients-c__badge", root).map((el, i) => ({ el, a: 0, w: 0, k: .8 + ((i * 37) % 10) / 25 }));
+    let push = 0, lastX = view.scrollLeft;
+    if (isDesk()) {
+      gsap.to(rail, { x: () => Math.min(0, innerWidth - rail.scrollWidth), ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: .6, invalidateOnRefresh: true, onUpdate: s => { push += gsap.utils.clamp(-6, 6, s.getVelocity() / 260); } } });
+    }
+    const onSwipe = () => { push += gsap.utils.clamp(-6, 6, (view.scrollLeft - lastX) / 6); lastX = view.scrollLeft; };
+    view.addEventListener("scroll", onSwipe, { passive: true });
+    const nudge = e => { const b = badges.find(x => x.el === e.target.closest(".clients-c__badge")); if (b) b.w += (e.movementX || 1) > 0 ? 1.6 : -1.6; };
+    rail.addEventListener("pointerover", nudge);
+    // Péndulo sencillo: muelle hacia 0 + amortiguación; el scroll aporta el empujón
+    const tick = () => {
+      const f = push; push *= .6;
+      badges.forEach(b => { b.w += -b.a * .035 - f * .12 * b.k; b.w *= .93; b.a += b.w; b.el.style.transform = `rotate(${b.a.toFixed(2)}deg)`; });
     };
-    const tick = () => { if (!on) return; if (!drag) { ry += vy; rx += vx; vx *= .94; vy += ((ux.reduce ? 0 : .0045) - vy) * .02; rx += (-.25 - rx) * .01; } render(); raf = requestAnimationFrame(tick); };
-    const io = new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) raf = requestAnimationFrame(tick); });
-    io.observe(root);
-    const down = e => { drag = { x: e.clientX, y: e.clientY, ry, rx }; vy = 0; stage.setPointerCapture(e.pointerId); };
-    const move = e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; const nry = drag.ry + dx * .006, nrx = Math.max(-1, Math.min(1, drag.rx + dy * .004)); vy = nry - ry; vx = nrx - rx; ry = nry; rx = nrx; };
-    const up = () => { drag = null; };
-    stage.addEventListener("pointerdown", down); stage.addEventListener("pointermove", move); stage.addEventListener("pointerup", up); stage.addEventListener("pointercancel", up);
-    const onR = () => { measure(); render(); }; addEventListener("resize", onR);
-    document.fonts && document.fonts.ready.then(onR);
-    render();
-    if (!ux.reduce) gsap.from(globe, { scale: .2, opacity: 0, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: stage, start: "top 75%" } });
-    return () => { on = false; cancelAnimationFrame(raf); io.disconnect(); removeEventListener("resize", onR); stage.removeEventListener("pointerdown", down); stage.removeEventListener("pointermove", move); stage.removeEventListener("pointerup", up); stage.removeEventListener("pointercancel", up); };
+    const stop = whileVisible(root, () => gsap.ticker.add(tick), () => gsap.ticker.remove(tick));
+    gsap.from($$(".clients-c__card", root), { y: -40, rotate: () => gsap.utils.random(-12, 12), autoAlpha: 0, duration: 1.1, ease: "elastic.out(1,.45)", stagger: .04, scrollTrigger: { trigger: view, start: "top 80%" } });
+    return () => { stop(); view.removeEventListener("scroll", onSwipe); rail.removeEventListener("pointerover", nudge); };
   });
 
-  /* ---------- D · Terminal ---------- */
+  /* ---------- D · Columnas en movimiento ---------- */
   register("clients", "D", (root, ux) => {
     fillList(root);
-    const out = $(".clients-d__out", root), again = $(".clients-d__again", root);
-    const pad = (s, n) => (s + " ".repeat(n)).slice(0, n);
-    const lines = [
-      `<b>unical@bcn</b>:~/clientes$ <em>unical clients --list --verify</em>`,
-      `<small>conectando con el archivo de proyectos… ok</small>`,
-      `<small>+25 años · +3.000 proyectos · +40 sectores</small>`,
-      ``,
-      ...ALL.map((n, i) => `<b>[ OK ]</b> ${String(i + 1).padStart(2, "0")}  <em>${pad(name(n), 20)}</em><small>${SECTOR[n] || ""}</small>`),
-      ``,
-      `<small>verificado: instaladores certificados 3M · Avery</small>`,
-      `<b>›</b> <em>25 marcas cargadas.</em> Siguiente: <em>la tuya</em> <span class="clients-d__cur"></span>`
-    ];
-    let timers = [];
-    const clear = () => { timers.forEach(clearTimeout); timers = []; };
-    const add = html => { const d = document.createElement("div"); d.className = "clients-d__ln"; d.innerHTML = html || " "; out.appendChild(d); while (out.children.length > 60) out.firstChild.remove(); return d; };
-    const run = () => {
-      clear(); out.innerHTML = "";
-      if (ux.reduce) { lines.forEach(add); return; }
-      // la orden se teclea; el resto aparece línea a línea
-      const cmd = add(""), full = lines[0], plain = "unical clients --list --verify";
-      let i = 0;
-      const typeK = () => { i++; cmd.innerHTML = `<b>unical@bcn</b>:~/clientes$ <em>${plain.slice(0, i)}</em><span class="clients-d__cur"></span>`; if (i < plain.length) timers.push(setTimeout(typeK, 38 + Math.random() * 40)); else { cmd.innerHTML = full; timers.push(setTimeout(() => step(1), 380)); } };
-      const step = k => { if (k >= lines.length) return; add(lines[k]); timers.push(setTimeout(() => step(k + 1), k < 4 ? 300 : 85)); };
-      typeK();
-    };
-    const st = ScrollTrigger.create({ trigger: out, start: "top 80%", once: true, onEnter: run });
-    again.addEventListener("click", run);
-    if (ux.reduce) run();
-    return () => { clear(); st.kill(); again.removeEventListener("click", run); };
+    const cols = $(".clients-d__cols", root);
+    const groups = [[], [], []]; ALL.forEach((c, i) => groups[i % 3].push(c));
+    const item = c => `<div class="clients-d__item"><b>${name(c)}</b><span>${SECTOR[c]}</span></div>`;
+    cols.innerHTML = groups.map(g => `<div class="clients-d__col">${g.map(item).join("")}${g.map(item).join("")}</div>`).join("");
+    if (ux.reduce) return;
+    $$(".clients-d__col", root).forEach((c, i) => {
+      const up = i % 2 === 0;
+      gsap.fromTo(c, { yPercent: up ? 0 : -42 }, { yPercent: up ? -42 : 0, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: .4 + i * .25 } });
+    });
   });
 
-  /* ---------- E · Rejilla con foco ---------- */
+  /* ---------- E · Una a una: la marca ocupa la pantalla ---------- */
+  const FEATURED_E = ["toyota", "coca-cola", "bankinter", "generali", "sony-music", "monster-energy", "porcelanosa", "rituals", "rfef", "cruz-roja", "leo-pharma", "straumann"];
   register("clients", "E", (root, ux) => {
     fillList(root);
-    const grid = $(".clients-e__grid", root);
-    grid.innerHTML = ALL.map(n => `<div class="clients-e__tile">${word(n, true)}</div>`).join("");
-    const tiles = $$(".clients-e__tile", grid);
-    const stops = [];
-    const move = e => {
-      tiles.forEach(t => { const r = t.getBoundingClientRect(); const x = e.clientX - r.left, y = e.clientY - r.top; t.style.setProperty("--x", x + "px"); t.style.setProperty("--y", y + "px"); t.classList.toggle("is-hot", x > -30 && y > -30 && x < r.width + 30 && y < r.height + 30); });
+    const stage = $(".clients-e__stage", root), n = $(".clients-e__n", root), sec = $(".clients-e__sec", root), bar = $(".clients-e__track b", root);
+    stage.innerHTML = FEATURED_E.map(c => `<div class="clients-e__name"><span>${name(c)}</span></div>`).join("");
+    const rows = $$(".clients-e__name", root), spans = rows.map(r => r.firstElementChild);
+    if (ux.reduce || !isDesk() && innerHeight < 560) { root.classList.add("clients-e--static"); return () => root.classList.remove("clients-e--static"); }
+    // Cada nombre a su tamaño máximo: ancho de pantalla con margen, sin pasar del 70 % del alto disponible
+    const fit = () => {
+      const W = stage.clientWidth - 2 * parseFloat(getComputedStyle(rows[0]).paddingLeft || 0), H = stage.clientHeight;
+      rows.forEach(r => { r.style.fontSize = "100px"; const w = r.firstElementChild.offsetWidth || 1; r.style.fontSize = Math.min((W * .96) / w * 100, H * .7) + "px"; });
     };
-    const leave = () => tiles.forEach(t => { t.style.setProperty("--x", "-999px"); t.style.setProperty("--y", "-999px"); t.classList.remove("is-hot"); });
-    const enter = e => { const t = e.target.closest(".clients-e__tile"); if (!t || t.dataset.busy) return; const w = $(".clients-word", t), txt = w.dataset.t || (w.dataset.t = w.textContent); t.dataset.busy = 1; stops.push(decode(w, txt, 500)); setTimeout(() => { delete t.dataset.busy; w.textContent = txt; }, 520); };
-    if (ux.fine) { grid.addEventListener("pointermove", move); grid.addEventListener("pointerleave", leave); grid.addEventListener("pointerover", enter); }
-    if (!ux.reduce) {
-      gsap.from(tiles, { opacity: 0, scale: .85, duration: .8, ease: "expo.out", stagger: { each: .03, from: "random" }, scrollTrigger: { trigger: grid, start: "top 82%" } });
-      ScrollTrigger.create({ trigger: grid, start: "top 75%", once: true, onEnter: () => tiles.forEach((t, i) => { const w = $(".clients-word", t), txt = w.textContent; w.dataset.t = txt; setTimeout(() => stops.push(decode(w, txt, 900)), i * 25); }) });
-      // sin ratón: un foco recorre la rejilla solo
-      if (!ux.fine) {
-        let k = 0; const iv = setInterval(() => { tiles.forEach(t => t.classList.remove("is-hot")); const t = tiles[k++ % tiles.length]; t.classList.add("is-hot"); t.style.setProperty("--x", "50%"); t.style.setProperty("--y", "50%"); }, 700);
-        stops.push(() => clearInterval(iv));
-      }
-    }
-    return () => { stops.forEach(f => f()); grid.removeEventListener("pointermove", move); grid.removeEventListener("pointerleave", leave); grid.removeEventListener("pointerover", enter); };
+    fit();
+    const ro = new ResizeObserver(fit); ro.observe(stage);
+    gsap.set(spans.slice(1), { yPercent: 110 });
+    const steps = spans.length - 1;
+    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .6, onUpdate: s => {
+      const i = Math.min(steps, Math.round(s.progress * steps));
+      n.textContent = pad2(i + 1); sec.textContent = SECTOR[FEATURED_E[i]]; bar.style.transform = `scaleX(${(i + 1) / spans.length})`;
+    } } });
+    for (let i = 1; i < spans.length; i++) tl.to(spans[i - 1], { yPercent: -110, ease: "power2.in", duration: .5 }, i - 1).to(spans[i], { yPercent: 0, ease: "power2.out", duration: .5 }, i - .55);
+    bar.style.transform = `scaleX(${1 / spans.length})`;
+    return () => ro.disconnect();
   });
 
-  /* ---------- F · Túnel warp ---------- */
+  /* ---------- F · Roll-ups que se despliegan ---------- */
+  const FEATURED_F = ["toyota", "coca-cola", "bankinter", "sony-music", "porcelanosa", "rituals", "rfef", "leo-pharma"];
   register("clients", "F", (root, ux) => {
-    fillList(root);
-    const cv = $(".clients-f__cv", root), rnd = Math.random;
-    const words = ALL.map((n, i) => ({ n: name(n), a: (i / ALL.length) * Math.PI * 2 + rnd() * .3, d: .35 + rnd() * .55, z: (i / ALL.length) }));
-    const stars = Array.from({ length: 260 }, () => ({ a: rnd() * Math.PI * 2, d: .05 + rnd() * .95, z: rnd() }));
-    let boost = 0, mx = 0, my = 0;
-    const st = ux.reduce ? null : ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom top", onUpdate: s => { boost = Math.min(4, boost + Math.abs(s.getVelocity()) / 2500); } });
-    const pm = e => { const r = root.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5; };
-    if (ux.fine) root.addEventListener("pointermove", pm);
-    let last = 0, cx0 = 0, cy0 = 0;
-    const draw = (ctx, W, H, t) => {
-      const dt = Math.min(50, t - last || 16); last = t;
-      const sp = ux.reduce ? 0 : (.00009 + boost * .00035) * dt; boost *= .95;
-      if (!cx0) { cx0 = W / 2; cy0 = H / 2; }
-      cx0 += ((W / 2 - mx * W * .12) - cx0) * .06; cy0 += ((H / 2 - my * H * .12) - cy0) * .06;
-      const cx = cx0, cy = cy0, M = Math.max(W, H) * .75;
-      ctx.fillStyle = `rgba(7,7,15,${ux.reduce ? 1 : .32 + Math.max(0, .3 - boost * .08)})`; ctx.fillRect(0, 0, W, H);
-      const proj = (o, z) => { const k = 1 / (1.02 - z); return [cx + Math.cos(o.a) * o.d * M * k * .18, cy + Math.sin(o.a) * o.d * M * k * .18, k]; };
-      stars.forEach(s => {
-        const z0 = s.z; s.z += sp * 1.6; if (s.z >= 1) { s.z = 0; s.a = rnd() * Math.PI * 2; }
-        const [x, y, k] = proj(s, s.z), [x0, y0] = proj(s, z0);
-        ctx.strokeStyle = `rgba(153,196,228,${Math.min(.9, s.z * .9)})`; ctx.lineWidth = Math.min(2.2, k * .35);
-        ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x, y); ctx.stroke();
-      });
-      words.slice().sort((a, b) => a.z - b.z).forEach(w => {
-        w.z += sp; if (w.z >= 1) { w.z = 0; w.a = rnd() * Math.PI * 2; w.d = .35 + rnd() * .55; }
-        const [x, y, k] = proj(w, w.z), fs = Math.min(140, 6 + k * 5);
-        const alpha = Math.min(1, w.z * 2.4) * Math.min(1, (1 - w.z) * 6);
-        if (fs < 7 || alpha <= 0) return;
-        ctx.font = `800 ${fs}px Poppins, sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.fillStyle = `rgba(255,255,255,${alpha * .92})`; ctx.shadowColor = "rgba(153,196,228,.8)"; ctx.shadowBlur = Math.min(24, k);
-        ctx.fillText(w.n, x, y); ctx.shadowBlur = 0;
-      });
-    };
-    const loop = canvasLoop(root, cv, draw);
-    return () => { loop.stop(); st && st.kill(); root.removeEventListener("pointermove", pm); };
-  });
-
-  /* ===== Ronda «Impacto sin tecnología» (G–K) ===== */
-  const byName = ALL.slice().sort((a, b) => name(a).localeCompare(name(b), "es"));
-
-  /* ---------- G · Cartel tipográfico: los nombres se entintan al bajar ---------- */
-  register("clients", "G", (root, ux) => {
-    fillList(root);
-    const poster = $(".clients-g__poster", root);
-    poster.innerHTML = ALL.map((n, i) => `<span class="clients-g__w">${name(n)}${i < ALL.length - 1 ? '<span class="clients-g__sep">/</span>' : ""}</span>`).join(" ");
-    const words = $$(".clients-g__w", root);
-    if (ux.reduce) { words.forEach(w => w.classList.add("is-on")); return; }
-    let last = -1;
-    ScrollTrigger.create({
-      trigger: poster, start: "top 78%", end: "bottom 55%", scrub: true,
-      onUpdate: self => {
-        const n = Math.round(self.progress * words.length);
-        if (n === last) return; last = n;
-        words.forEach((w, i) => w.classList.toggle("is-on", i < n));
-      }
-    });
-    gsap.from($$(".clients-g__head > *", root), { y: 40, opacity: 0, stagger: .08, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
-  });
-
-  /* ---------- H · Pared de carteles pegados ---------- */
-  register("clients", "H", (root, ux) => {
-    fillList(root);
-    const rnd = seeded(7), tones = ["", "--navy", "", "--blue", "--ink", "", "--navy"];
-    const wall = $(".clients-h__wall", root);
-    wall.innerHTML = ALL.map((n, i) => {
-      const t = tones[Math.floor(rnd() * tones.length)];
-      return `<div class="clients-h__p${t ? " clients-h__p" + t : ""}" data-r="${(rnd() * 6 - 3).toFixed(2)}"><span class="clients-h__n">Nº ${String(i + 1).padStart(2, "0")}</span><span class="clients-h__name">${name(n)}</span><span class="clients-h__sec">${SECTOR[n] || ""}</span></div>`;
-    }).join("");
-    const ps = $$(".clients-h__p", root);
-    ps.forEach(p => gsap.set(p, { rotation: +p.dataset.r }));
+    const row = $(".clients-f__row", root), more = $(".clients-f__more", root);
+    row.innerHTML = FEATURED_F.map((c, i) => `<li class="clients-f__unit"><div class="clients-f__banner"><span class="clients-f__k" aria-hidden="true">Cliente ${pad2(i + 1)}</span><span class="clients-f__name">${name(c)}</span><span class="clients-f__sec">${SECTOR[c]}</span><i class="clients-f__band" aria-hidden="true"></i></div><i class="clients-f__base" aria-hidden="true"></i><i class="clients-f__feet" aria-hidden="true"></i></li>`).join("");
+    const rest = ALL.filter(c => !FEATURED_F.includes(c)).map(name);
+    more.innerHTML = `Y también ${rest.slice(0, -1).join(", ")} y ${rest[rest.length - 1]}. <strong>+3.000 proyectos</strong> para marcas que vuelven.`;
     if (ux.reduce) return;
-    gsap.set(ps, { opacity: 0 });
-    // Cada cartel se «pega» en la pared: cae girado y se asienta
-    ScrollTrigger.batch(ps, {
-      start: "top 92%", once: true,
-      onEnter: b => gsap.fromTo(b, { opacity: 0, y: -60, scale: 1.12, rotation: i => +b[i].dataset.r * 4 }, { opacity: 1, y: 0, scale: 1, rotation: i => +b[i].dataset.r, duration: .9, stagger: .07, ease: "back.out(1.4)" })
-    });
-    const en = e => gsap.to(e.currentTarget, { rotation: 0, y: -8, scale: 1.04, duration: .45, ease: "power3.out", overwrite: "auto" });
-    const lv = e => gsap.to(e.currentTarget, { rotation: +e.currentTarget.dataset.r, y: 0, scale: 1, duration: .6, ease: "power3.out", overwrite: "auto" });
-    ps.forEach(p => { p.addEventListener("pointerenter", en); p.addEventListener("pointerleave", lv); });
-    return () => ps.forEach(p => { p.removeEventListener("pointerenter", en); p.removeEventListener("pointerleave", lv); });
-  });
-
-  /* ---------- I · Créditos: el nombre del centro de la pantalla crece ---------- */
-  register("clients", "I", (root, ux) => {
-    const list = $(".clients-i__list", root);
-    list.innerHTML = byName.map(n => `<li class="clients-i__item">${name(n)} <small>${SECTOR[n] || ""}</small></li>`).join("");
-    const items = $$(".clients-i__item", root);
-    if (ux.reduce) { root.classList.add("is-static"); return; }
-    root.classList.remove("is-static");
-    let cur = null;
-    const tick = () => {
-      if (!onScreen(root)) return;
-      const mid = innerHeight / 2, R = innerHeight * .42;
-      let best = null, bd = 1e9;
-      items.forEach(el => {
-        const r = el.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid), k = Math.max(0, 1 - d / R);
-        el.style.transform = `scale(${(.72 + .28 * k * k).toFixed(3)})`;
-        el.style.color = `rgba(244,246,250,${(.16 + .84 * k * k).toFixed(3)})`;
-        if (d < bd) { bd = d; best = el; }
-      });
-      if (best !== cur) { cur && cur.classList.remove("is-on"); best.classList.add("is-on"); cur = best; }
-    };
-    gsap.ticker.add(tick);
-    return () => gsap.ticker.remove(tick);
-  });
-
-  /* ---------- J · Revista: doble página con foto en parallax ---------- */
-  register("clients", "J", (root, ux) => {
-    $(".clients-j__cols", root).innerHTML = byName.map(n => `<li><b>${name(n)}</b><span>${SECTOR[n] || ""}</span></li>`).join("");
-    if (ux.reduce) return;
-    gsap.fromTo($(".clients-j__img img", root), { yPercent: -14 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: root, start: "top bottom", end: "bottom top", scrub: true } });
-    gsap.from($(".clients-j__img", root), { clipPath: "inset(100% 0 0 0)", duration: 1.4, ease: "expo.inOut", scrollTrigger: { trigger: root, start: "top 70%" } });
-    gsap.from($$(".clients-j__text > *:not(ol)", root), { y: 50, opacity: 0, stagger: .1, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: $(".clients-j__text", root), start: "top 80%" } });
-    gsap.from($$(".clients-j__cols li", root), { y: 20, opacity: 0, stagger: .03, duration: .7, ease: "power3.out", scrollTrigger: { trigger: $(".clients-j__cols", root), start: "top 85%" } });
-  });
-
-  /* ---------- K · Índice A–Z ---------- */
-  register("clients", "K", (root, ux) => {
-    const groups = {};
-    byName.forEach(n => { const l = name(n)[0].normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase(); (groups[l] = groups[l] || []).push(n); });
-    $(".clients-k__index", root).innerHTML = Object.keys(groups).map(l => `<div class="clients-k__g"><span class="clients-k__l" aria-hidden="true">${l}</span><ul>${groups[l].map(n => `<li>${name(n)}<span>${SECTOR[n] || ""}</span></li>`).join("")}</ul></div>`).join("");
-    if (ux.reduce) return;
-    const gs = $$(".clients-k__g", root);
-    gsap.set(gs, { opacity: 0, y: 40 });
-    ScrollTrigger.batch(gs, { start: "top 92%", once: true, onEnter: b => gsap.to(b, { opacity: 1, y: 0, stagger: .06, duration: .9, ease: "expo.out" }) });
-    gsap.from($$(".clients-k__head > *", root), { y: 40, opacity: 0, stagger: .08, duration: 1, ease: "expo.out", scrollTrigger: { trigger: root, start: "top 75%" } });
+    const banners = $$(".clients-f__banner", root), texts = $$(".clients-f__k, .clients-f__name, .clients-f__sec", root);
+    gsap.timeline({ scrollTrigger: { trigger: row, start: "top 78%" } })
+      .from(banners, { scaleY: 0, duration: 1.1, ease: "power4.out", stagger: { each: .08, from: "center" } })
+      .from(texts, { autoAlpha: 0, y: 14, duration: .5, stagger: .02 }, .5);
   });
 })();

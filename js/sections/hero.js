@@ -1,4 +1,4 @@
-/* Portada · A (favorita fija) + 5 versiones futuristas */
+/* Portada · A y B (favoritas fijas) + C–G (ronda «Selección 3») */
 (() => {
   const { register } = UX;
 
@@ -95,329 +95,145 @@
     return () => offs.forEach(f => f());
   });
 
-  /* ---------- C · Rejilla infinita + panel flotante ---------- */
-  register("hero", "C", (root, ux) => {
-    const cv = ux.$(".hero-grid__cv", root), ctx = cv.getContext("2d"), panel = ux.$(".hero-grid__panel", root);
-    const offs = [];
-    let m = fitCanvas(cv);
-    const onR = () => { m = fitCanvas(cv); if (ux.reduce) draw(0); };
-    addEventListener("resize", onR); offs.push(() => removeEventListener("resize", onR));
-    const stars = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random() * .5, a: Math.random() }));
-    function draw(t) {
-      const { w, h, d } = m; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, w, h);
-      const hz = h * (m.w < 960 ? .5 : .72), vx = w / 2;
-      stars.forEach(s => { ctx.fillStyle = `rgba(153,196,228,${.15 + .35 * Math.abs(Math.sin(t / 1600 + s.a * 9))})`; ctx.fillRect(s.x * w, s.y * hz, 1.5, 1.5); });
-      ctx.lineWidth = 1;
-      // líneas que fugan al horizonte
-      for (let i = -24; i <= 24; i++) {
-        const x = vx + i * w / 14;
-        const g = ctx.createLinearGradient(0, hz, 0, h); g.addColorStop(0, "rgba(153,196,228,0)"); g.addColorStop(1, "rgba(153,196,228,.38)");
-        ctx.strokeStyle = g; ctx.beginPath(); ctx.moveTo(vx + i * 8, hz); ctx.lineTo(x * 1 + i * w / 9, h); ctx.stroke();
-      }
-      // líneas horizontales que avanzan
-      const off = (t / 2600) % 1;
-      for (let k = 0; k < 18; k++) {
-        const z = (k + off) / 18, y = hz + Math.pow(z, 2.4) * (h - hz);
-        ctx.strokeStyle = `rgba(153,196,228,${.05 + z * .4})`; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-      }
-      const hg = ctx.createLinearGradient(0, hz - 2, 0, hz + 2); hg.addColorStop(.5, "rgba(153,196,228,.8)"); hg.addColorStop(0, "rgba(153,196,228,0)"); hg.addColorStop(1, "rgba(153,196,228,0)");
-      ctx.fillStyle = hg; ctx.fillRect(0, hz - 2, w, 4);
-    }
-    if (ux.reduce) draw(0); else offs.push(visibleLoop(root, draw));
-    introIn(ux, [...ux.$$(".hero-grid__kicker, .hero-grid__h1, .hero-grid__sub, .hero-grid .hero-ctas", root)]);
-    if (!ux.reduce) {
-      gsap.set(panel, { autoAlpha: 0, z: -300, rotateX: 30 });
-      ux.onIntro(() => gsap.to(panel, { autoAlpha: 1, z: 0, rotateX: 0, duration: 1.8, ease: "expo.out", delay: .35, clearProps: "transform" }));
-      // inclinación 3D + brillo que sigue al ratón
-      if (ux.fine) {
-        const st = { rx: 0, ry: 0 };
-        const ap = () => { panel.style.setProperty("--rx", st.rx + "deg"); panel.style.setProperty("--ry", st.ry + "deg"); };
-        const rx = gsap.quickTo(st, "rx", { duration: .8, ease: "power3", onUpdate: ap }), ry = gsap.quickTo(st, "ry", { duration: .8, ease: "power3", onUpdate: ap });
-        const mv = e => {
-          const r = panel.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width, ny = (e.clientY - r.top) / r.height;
-          rx((.5 - ny) * 10); ry((nx - .5) * 14);
-          panel.style.setProperty("--sx", nx * 100 + "%"); panel.style.setProperty("--sy", ny * 100 + "%");
-        };
-        root.addEventListener("pointermove", mv); offs.push(() => root.removeEventListener("pointermove", mv));
-      }
-      gsap.to(ux.$(".hero-grid__in", root), { yPercent: -12, autoAlpha: .3, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    }
-    return () => offs.forEach(f => f());
-  });
-
-  /* ---------- D · Nube de puntos (el vídeo convertido en LEDs) ---------- */
-  register("hero", "D", (root, ux) => {
-    const cv = ux.$(".hero-pts__cv", root), ctx = cv.getContext("2d"), vid = ux.$(".hero-pts__src", root);
-    const off = document.createElement("canvas"), octx = off.getContext("2d", { willReadFrequently: true });
-    const offs = [];
-    let m, cols, rows, step, P = [], ready = false;
-    const poster = new Image(); poster.src = "assets/video/hero-coche.jpg";
-    const build = () => {
-      m = fitCanvas(cv);
-      step = m.w < 700 ? 7 : 9;
-      cols = Math.ceil(m.w / step); rows = Math.ceil(m.h / step);
-      off.width = cols; off.height = rows;
-      P = new Float32Array(cols * rows * 5); // dx, dy, vx, vy, rand
-      for (let i = 0; i < cols * rows; i++) P[i * 5 + 4] = Math.random();
-    };
-    build();
-    const onR = () => build(); addEventListener("resize", onR); offs.push(() => removeEventListener("resize", onR));
-    vid.preload = "auto"; vid.muted = true;
-    const tryPlay = () => vid.play().then(() => { ready = true; }).catch(() => {});
-    offs.push(() => vid.pause());
-    const mouse = { x: -9999, y: -9999 }, sc = { p: 0 };
-    if (ux.fine) {
-      const mv = e => { const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; };
-      const lv = () => { mouse.x = mouse.y = -9999; };
-      root.addEventListener("pointermove", mv); root.addEventListener("pointerleave", lv);
-      offs.push(() => { root.removeEventListener("pointermove", mv); root.removeEventListener("pointerleave", lv); });
-    }
-    const BINS = 7, shades = Array.from({ length: BINS }, (_, b) => {
-      const k = b / (BINS - 1); // de azul de marca a blanco
-      return `rgb(${Math.round(46 + (255 - 46) * k)},${Math.round(108 + (255 - 108) * k)},${Math.round(160 + (255 - 160) * k)})`;
-    });
-    const cover = (src, sw, sh) => { // dibuja con object-fit:cover en el lienzo reducido
-      const s = Math.max(cols / sw, rows / sh), w = sw * s, h = sh * s;
-      octx.drawImage(src, (cols - w) / 2, (rows - h) * .45, w, h);
-    };
-    let auto = 0;
-    function frame(t) {
-      const src = ready && vid.readyState >= 2 ? vid : (poster.complete && poster.naturalWidth ? poster : null);
-      const { w, h, d } = m; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, w, h);
-      if (!src) return;
-      cover(src, src.videoWidth || src.naturalWidth, src.videoHeight || src.naturalHeight);
-      const px = octx.getImageData(0, 0, cols, rows).data;
-      if (!ux.fine) { auto += .012; mouse.x = w * (.5 + .3 * Math.sin(auto)); mouse.y = h * (.4 + .12 * Math.sin(auto * 1.7)); }
-      const R = Math.min(w, h) * .16, R2 = R * R, boom = sc.p;
-      const paths = shades.map(() => new Path2D());
-      for (let y = 0, i = 0; y < rows; y++) for (let x = 0; x < cols; x++, i++) {
-        const o = i * 4, L = Math.pow((px[o] * .3 + px[o + 1] * .59 + px[o + 2] * .11) / 255, .72);
-        if (L < .07) continue;
-        const b = i * 5, hx = x * step + step / 2, hy = y * step + step / 2;
-        let ddx = P[b], ddy = P[b + 1];
-        const ex = hx + ddx - mouse.x, ey = hy + ddy - mouse.y, d2 = ex * ex + ey * ey;
-        if (d2 < R2) { const f = (1 - d2 / R2) * 2.2, dd = Math.sqrt(d2) || 1; P[b + 2] += ex / dd * f; P[b + 3] += ey / dd * f; }
-        P[b + 2] = (P[b + 2] - ddx * .06) * .86; P[b + 3] = (P[b + 3] - ddy * .06) * .86;
-        P[b] = ddx + P[b + 2]; P[b + 1] = ddy + P[b + 3];
-        const rnd = P[b + 4], sx = hx + P[b] + (rnd - .5) * boom * w * .6, sy = hy + P[b + 1] - boom * h * (.2 + rnd * .5);
-        const sz = Math.max(.8, Math.min(step * .78, L * step * 1.05));
-        paths[Math.min(BINS - 1, Math.floor(L * BINS))].rect(sx - sz / 2, sy - sz / 2, sz, sz);
-      }
-      paths.forEach((p, k) => { ctx.fillStyle = shades[k]; ctx.globalAlpha = .45 + .55 * (k / (BINS - 1)); ctx.fill(p); });
-      ctx.globalAlpha = 1;
-    }
-    introIn(ux, ux.$$(".hero-pts__kicker, .hero-pts__h1, .hero-pts__row, .hero-pts__hint", root));
-    ux.onIntro(tryPlay);
-    if (ux.reduce) { poster.onload = () => frame(0); if (poster.complete) frame(0); return () => offs.forEach(f => f()); }
-    gsap.fromTo(cv, { autoAlpha: 0, scale: 1.08 }, { autoAlpha: 1, scale: 1, duration: 2.2, ease: "expo.out" });
-    offs.push(visibleLoop(root, frame));
-    // Al hacer scroll los puntos se dispersan hacia arriba
-    gsap.to(sc, { p: 1, ease: "power1.in", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(ux.$(".hero-pts__in", root), { yPercent: -15, autoAlpha: .2, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    return () => offs.forEach(f => f());
-  });
-
-  /* ---------- E · Terminal de producción ---------- */
-  register("hero", "E", (root, ux) => {
-    const log = ux.$(".hero-term__log", root), dec = ux.$(".hero-term__dec", root), tc = ux.$(".hero-term__tc", root), vid = ux.$(".hero-term__screen video", root);
-    const offs = [];
-    const LINES = [
-      "<b>$</b> <em>unical --nuevo-proyecto</em>",
-      "  briefing recibido .............. <b>OK</b>",
-      "  diseño + mockup previo ......... <b>OK</b>",
-      "  impresión gran formato ......... <b>100%</b>",
-      "  rotulación · vinilo 3M / Avery . <b>OK</b>",
-      "  montaje en toda España ......... <b>listo</b>",
-      "<b>✓</b> <em>+3.000 proyectos entregados</em>"
-    ];
-    const full = LINES.join("\n");
-    const tcT = setInterval(() => { const s = vid.currentTime || 0; tc.textContent = `00:${String(Math.floor(s)).padStart(2, "0")}:${String(Math.floor((s % 1) * 24)).padStart(2, "0")}`; }, 120);
-    offs.push(() => clearInterval(tcT));
-    introIn(ux, ux.$$(".hero-term__kicker, .hero-term__h1, .hero-term__sub, .hero-term .hero-ctas", root));
-    if (ux.reduce) { log.innerHTML = full; return () => offs.forEach(f => f()); }
-    gsap.from(ux.$(".hero-term__screen", root), { clipPath: "inset(50% 0 50% 0)", duration: 1.4, ease: "expo.inOut", delay: .1 });
-    // Escritura línea a línea (las etiquetas HTML se insertan de golpe)
-    let li = 0, ci = 0, typed = "", timer;
-    const step = () => {
-      if (li >= LINES.length) { log.innerHTML = typed + '<span class="cur"></span>'; return; }
-      const line = LINES[li];
-      if (line[ci] === "<") ci = line.indexOf(">", ci) + 1;
-      else ci++;
-      log.innerHTML = typed + line.slice(0, ci) + '<span class="cur"></span>';
-      if (ci >= line.length) { typed += line + "\n"; li++; ci = 0; timer = setTimeout(step, 220); }
-      else timer = setTimeout(step, line.includes(".....") && ci > 30 ? 6 : 26);
-    };
-    log.innerHTML = '<span class="cur"></span>';
-    ux.onIntro(() => { timer = setTimeout(step, 500); });
-    offs.push(() => clearTimeout(timer));
-    // Titular que se «decodifica»
-    const text = dec.textContent, GL = "█▓▒░<>/\\#*+=01";
-    const scr = { p: 0 };
-    ux.onIntro(() => gsap.to(scr, { p: 1, duration: 1.6, delay: .35, ease: "power2.out", onUpdate() {
-      const n = Math.floor(scr.p * text.length);
-      dec.textContent = text.slice(0, n) + text.slice(n).replace(/\S/g, () => GL[Math.floor(Math.random() * GL.length)]);
-    }, onComplete() { dec.textContent = text; } }));
-    offs.push(() => { dec.textContent = text; });
-    gsap.to(ux.$(".hero-term__in", root), { yPercent: -10, autoAlpha: .3, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    return () => offs.forEach(f => f());
-  });
-
-  /* ---------- F · Cristal acanalado ---------- */
-  register("hero", "F", (root, ux) => {
-    const glass = ux.$(".hero-flute__glass", root), offs = [];
-    introIn(ux, ux.$$(".hero-flute__kicker, .hero-flute__h1, .hero-flute__foot, .hero-flute__hint", root));
-    if (ux.reduce) return;
-    const st = { x: 70, y: 45, r: 0 };
-    const paint = () => { root.style.setProperty("--mx", st.x + "%"); root.style.setProperty("--my", st.y + "%"); root.style.setProperty("--r", st.r + "px"); };
-    const big = () => Math.max(160, Math.min(innerWidth * .2, 320));
-    gsap.fromTo(glass, { backgroundPositionX: "-400px" }, { backgroundPositionX: "0px", duration: 2.4, ease: "expo.out" });
-    if (ux.fine) {
-      const xt = gsap.quickTo(st, "x", { duration: .7, ease: "power3", onUpdate: paint }), yt = gsap.quickTo(st, "y", { duration: .7, ease: "power3", onUpdate: paint });
-      const mv = e => { const r = root.getBoundingClientRect(); xt((e.clientX - r.left) / r.width * 100); yt((e.clientY - r.top) / r.height * 100); };
-      const en = () => gsap.to(st, { r: big(), duration: .8, ease: "expo.out", onUpdate: paint });
-      const lv = () => gsap.to(st, { r: 0, duration: .6, ease: "power2.in", onUpdate: paint });
-      root.addEventListener("pointermove", mv); root.addEventListener("pointerenter", en); root.addEventListener("pointerleave", lv);
-      offs.push(() => { root.removeEventListener("pointermove", mv); root.removeEventListener("pointerenter", en); root.removeEventListener("pointerleave", lv); });
-      ux.onIntro(() => gsap.to(st, { r: big(), duration: 1.4, delay: .6, ease: "expo.out", onUpdate: paint }));
-    } else {
-      ux.onIntro(() => gsap.to(st, { r: big(), duration: 1.2, delay: .6, onUpdate: paint }));
-      gsap.to(st, { keyframes: [{ x: 30, y: 35 }, { x: 72, y: 30 }, { x: 55, y: 55 }, { x: 70, y: 45 }], duration: 14, repeat: -1, ease: "sine.inOut", onUpdate: paint });
-    }
-    // Al bajar, el cristal se cierra del todo
-    gsap.to(root, { "--flute": "14px", ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(ux.$(".hero-flute__in", root), { yPercent: -12, autoAlpha: .25, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    return () => offs.forEach(f => f());
-  });
 
   /* =====================================================================
-     Ronda «Impacto sin tecnología» · G–K
+     Ronda «Selección 3» · C–G
      ===================================================================== */
-  const mqDesk = () => matchMedia("(min-width: 861px)").matches;
+  // Vídeos de una versión: arrancan juntos, siguen sincronizados y se pausan fuera de pantalla
+  const heroVideos = (root, ux) => {
+    const vids = ux.$$("video", root);
+    vids.forEach(v => { v.preload = "auto"; v.muted = true; });
+    const play = (restart) => vids.forEach(v => { if (restart) v.currentTime = 0; v.play().catch(() => {}); });
+    const sync = vids.length > 1 ? setInterval(() => vids.slice(1).forEach(v => { if (Math.abs(v.currentTime - vids[0].currentTime) > .12) v.currentTime = vids[0].currentTime; }), 1000) : 0;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting ? play() : vids.forEach(v => v.pause()));
+    io.observe(root);
+    return { vids, play, stop() { clearInterval(sync); io.disconnect(); vids.forEach(v => v.pause()); } };
+  };
 
-  /* ---------- G · Telón y marco ---------- */
-  register("hero", "G", (root, ux) => {
-    const frame = ux.$(".hero-tel__frame", root), v = ux.$(".hero-tel__v", root);
-    const curT = ux.$(".hero-tel__cur--t", root), curB = ux.$(".hero-tel__cur--b", root);
-    const lines = ux.$$(".hero-tel__l", root), rest = ux.$$(".hero-tel__kicker, .hero-tel__sub, .hero-tel__ctas", root);
-    if (ux.reduce) { gsap.set([curT, curB], { autoAlpha: 0 }); return; }
-    gsap.set(lines, { yPercent: 110, autoAlpha: 0 });
-    gsap.set(rest, { y: 24, autoAlpha: 0 });
-    gsap.set(v, { scale: 1.25 });
-    const intro = gsap.timeline({ paused: true })
-      .add(() => { v.currentTime = 0; v.play().catch(() => {}); })
-      .to(curT, { yPercent: -101, duration: 1.4, ease: "expo.inOut" }, .1)
-      .to(curB, { yPercent: 101, duration: 1.4, ease: "expo.inOut" }, .1)
-      .to(v, { scale: 1, duration: 2.4, ease: "expo.out" }, .3)
-      .to(lines, { yPercent: 0, autoAlpha: 1, duration: 1.2, stagger: .1, ease: "expo.out" }, .9)
-      .to(rest, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, 1.1);
-    ux.onIntro(() => intro.play());
-    if (!mqDesk()) return;
-    // Al bajar, el vídeo se encoge hasta quedar enmarcado como una foto colgada, con su pie
-    gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .7 } })
-      .fromTo(frame, { clipPath: "inset(0% 0% 0% 0% round 0px)" }, { clipPath: "inset(13% 6% 19% 52% round 22px)", ease: "power2.inOut", duration: 1 }, 0)
-      .to(ux.$(".hero-tel__shade", root), { autoAlpha: 0, duration: .6 }, .2)
-      .to(ux.$(".hero-tel__cap", root), { autoAlpha: 1, duration: .3 }, .7);
-  });
-
-  /* ---------- H · Portada de revista ---------- */
-  register("hero", "H", (root, ux) => {
-    const words = ux.$$(".hero-mag__w", root), frame = ux.$(".hero-mag__frame", root);
-    const side = ux.$$(".hero-mag__bar, .hero-mag__lines li, .hero-mag__foot, .hero-mag__fig figcaption", root);
-    const v = ux.$(".hero-mag__v", root);
-    if (ux.reduce) return;
-    gsap.set(words, { yPercent: 60, autoAlpha: 0 });
-    gsap.set(frame, { clipPath: "inset(100% 0% 0% 0%)" });
-    gsap.set(side, { y: 18, autoAlpha: 0 });
-    const intro = gsap.timeline({ paused: true })
-      .add(() => { v.currentTime = 0; v.play().catch(() => {}); })
-      .to(words, { yPercent: 0, autoAlpha: 1, duration: 1.3, stagger: .12, ease: "expo.out" }, .1)
-      .to(frame, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.6, ease: "expo.inOut" }, .3)
-      .to(side, { y: 0, autoAlpha: 1, duration: .9, stagger: .06, ease: "expo.out" }, .9);
-    ux.onIntro(() => intro.play());
-    // Al bajar: la foto sube más despacio que la cabecera (profundidad de revista)
-    gsap.to(ux.$(".hero-mag__fig", root), { yPercent: -10, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(words, { letterSpacing: "-.02em", ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-  });
-
-  /* ---------- I · Recortes ---------- */
-  register("hero", "I", (root, ux) => {
-    const pieces = ux.$$(".hero-cut__p", root);
-    const copy = ux.$$(".hero-cut__kicker, .hero-cut__l, .hero-cut__sub, .hero-cut__ctas", root);
-    const v = ux.$(".hero-cut__p--main video", root);
-    if (ux.reduce) return;
-    gsap.set(pieces, { autoAlpha: 0, y: -70, scale: 1.12, rotation: i => (i % 2 ? 9 : -9) });
-    gsap.set(copy, { y: 30, autoAlpha: 0 });
-    const intro = gsap.timeline({ paused: true })
-      .add(() => { v.currentTime = 0; v.play().catch(() => {}); })
-      // Cada recorte «cae» sobre la mesa con un pequeño rebote
-      .to(pieces, { autoAlpha: 1, y: 0, scale: 1, rotation: 0, duration: .9, stagger: .11, ease: "back.out(1.6)" }, .1)
-      .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, .4);
-    ux.onIntro(() => intro.play());
-    // Al bajar, los recortes se dispersan según su profundidad
-    gsap.to(pieces, { yPercent: (i, el) => -22 * +el.dataset.depth, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    if (!ux.fine) return;
-    const movers = pieces.map(el => ({ d: +el.dataset.depth, x: gsap.quickTo(el, "x", { duration: 1, ease: "power3" }) }));
-    const tilt = pieces.map(el => gsap.quickTo(el, "rotation", { duration: 1.2, ease: "power3" }));
-    const move = e => {
-      const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5;
-      movers.forEach((m, i) => { m.x(nx * -14 * m.d); tilt[i](nx * m.d * 1.2 + ny); });
-    };
-    addEventListener("pointermove", move, { passive: true });
-    return () => removeEventListener("pointermove", move);
-  });
-
-  /* ---------- J · Cartel suizo ---------- */
-  register("hero", "J", (root, ux) => {
-    const rows = ux.$$(".hero-swiss__row", root), disc = ux.$(".hero-swiss__disc", root);
-    const rest = ux.$$(".hero-swiss__meta, .hero-swiss__foot", root), grid = ux.$$(".hero-swiss__grid i", root);
-    const v = ux.$("video", disc);
-    if (ux.reduce) return;
-    gsap.set(rows, { x: -80, autoAlpha: 0 });
-    gsap.set(disc, { clipPath: "circle(0% at 50% 50%)" });
-    gsap.set(rest, { y: 20, autoAlpha: 0 });
-    gsap.set(grid, { scaleY: 0, transformOrigin: "50% 0%" });
-    const intro = gsap.timeline({ paused: true })
-      .add(() => { v.currentTime = 0; v.play().catch(() => {}); })
-      .to(grid, { scaleY: 1, duration: 1.2, stagger: .05, ease: "expo.inOut" }, 0)
-      .to(rows, { x: 0, autoAlpha: 1, duration: 1.2, stagger: .1, ease: "expo.out" }, .3)
-      .to(disc, { clipPath: "circle(50% at 50% 50%)", duration: 1.4, ease: "expo.out" }, .55)
-      .to(rest, { y: 0, autoAlpha: 1, duration: .9, stagger: .08, ease: "expo.out" }, .8);
-    ux.onIntro(() => intro.play());
-    if (!mqDesk()) return;
-    // Al bajar: las filas se desplazan en direcciones opuestas y el círculo crece hasta llenar el cartel
+  /* ---------- C · Titular en papel ---------- */
+  register("hero", "C", (root, ux) => {
+    const V = heroVideos(root, ux);
+    const word = ux.$(".hero-pap__word", root), sheet = ux.$(".hero-pap__sheet", root);
+    const copy = ux.$$(".hero-pap__copy > *, .hero-pap__top", root);
+    if (ux.reduce) { V.play(true); return () => V.stop(); }
+    gsap.set(word, { yPercent: 18, autoAlpha: 0, scale: 1.06 });
+    gsap.set(copy, { y: 26, autoAlpha: 0 });
+    ux.onIntro(() => {
+      V.play(true);
+      gsap.timeline()
+        .to(word, { yPercent: 0, autoAlpha: 1, scale: 1, duration: 1.6, ease: "expo.out" }, .1)
+        .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, .5);
+    });
+    // Con el scroll el papel se disuelve y el vídeo pasa de estar dentro de las letras a llenar la pantalla
     gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .6 } })
-      .to(rows[0], { xPercent: -14, ease: "none", duration: 1 }, 0)
-      .to(rows[1], { xPercent: 22, ease: "none", duration: 1 }, 0)
-      .to(rows[2], { xPercent: -8, ease: "none", duration: 1 }, 0)
-      .to(disc, { scale: () => Math.hypot(innerWidth, innerHeight) / disc.offsetWidth * 1.15, xPercent: -40, ease: "power2.in", duration: 1 }, .15)
-      .fromTo(rest, { autoAlpha: 1 }, { autoAlpha: 0, duration: .25, immediateRender: false }, .35);
+      .to(word, { scale: 1.18, ease: "none", duration: 1 }, 0)
+      .to(sheet, { backgroundColor: "#000000", ease: "power1.in", duration: .7 }, .25)
+      .to(ux.$(".hero-pap__top", root), { autoAlpha: 0, duration: .2 }, .2);
+    return () => V.stop();
   });
 
-  /* ---------- K · Rasqueta ---------- */
-  register("hero", "K", (root, ux) => {
-    const film = ux.$(".hero-sq__film", root), tool = ux.$(".hero-sq__tool", root);
-    const v = ux.$(".hero-sq__v", root), note = ux.$(".hero-sq__note", root);
-    const copy = ux.$$(".hero-sq__kicker, .hero-sq__h1, .hero-sq__sub, .hero-sq__ctas", root);
-    if (ux.reduce) { gsap.set([film, tool], { autoAlpha: 0 }); return; }
-    gsap.set(copy, { y: 30, autoAlpha: 0 });
-    gsap.set(v, { scale: 1.08 });
-    // La rasqueta recorre la pantalla de izquierda a derecha y «aplica» el vinilo: detrás aparece el Lexus
-    const sweep = { p: 0 };
-    const draw = () => {
-      const w = root.clientWidth;
-      gsap.set(film, { clipPath: `inset(0 0 0 ${sweep.p * 100}%)` });
-      gsap.set(tool, { x: sweep.p * (w + 60) - 30, rotation: 4 - sweep.p * 3 });
+  /* ---------- D · Marquesina en vídeo ---------- */
+  register("hero", "D", (root, ux) => {
+    const V = heroVideos(root, ux);
+    const tracks = ux.$$(".hero-mq__track", root), rows = ux.$$(".hero-mq__row", root);
+    const copy = ux.$$(".hero-mq__copy > *", root);
+    if (ux.reduce) { V.play(true); return () => V.stop(); }
+    const loops = [
+      gsap.fromTo(tracks[0], { xPercent: 0 }, { xPercent: -50, duration: 26, ease: "none", repeat: -1 }),
+      gsap.fromTo(tracks[1], { xPercent: -50 }, { xPercent: 0, duration: 30, ease: "none", repeat: -1 })
+    ];
+    gsap.set(rows, { yPercent: 100, autoAlpha: 0 });
+    gsap.set(copy, { y: 26, autoAlpha: 0 });
+    ux.onIntro(() => {
+      V.play(true);
+      gsap.timeline()
+        .to(rows, { yPercent: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: "expo.out" }, .1)
+        .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, .5);
+    });
+    // La velocidad del scroll acelera las cintas
+    const boost = { v: 1 };
+    ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom top", onUpdate: s => {
+      gsap.to(boost, { v: 1 + Math.min(Math.abs(s.getVelocity()) / 250, 6), duration: .2, overwrite: true, onUpdate: () => loops.forEach(l => l.timeScale(boost.v)) });
+      gsap.to(boost, { v: 1, duration: 1.2, delay: .2, ease: "power2.out", onUpdate: () => loops.forEach(l => l.timeScale(boost.v)) });
+    } });
+    gsap.to(ux.$(".hero-mq__media", root), { yPercent: 10, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
+    return () => { V.stop(); loops.forEach(l => l.kill()); };
+  });
+
+  /* ---------- E · Antes / después ---------- */
+  register("hero", "E", (root, ux) => {
+    const V = heroVideos(root, ux);
+    const range = ux.$(".hero-ba__range", root), copy = ux.$$(".hero-ba__copy > *, .hero-ba__tag", root);
+    const s = { x: 50 };
+    const paint = () => { root.style.setProperty("--x", s.x + "%"); range.value = Math.round(s.x); };
+    let sway;
+    const stopSway = () => { sway && sway.kill(); sway = null; };
+    const onInput = () => { stopSway(); s.x = +range.value; paint(); };
+    range.addEventListener("input", onInput);
+    range.addEventListener("pointerdown", stopSway);
+    const off = () => { range.removeEventListener("input", onInput); range.removeEventListener("pointerdown", stopSway); };
+    if (ux.reduce) { paint(); V.play(true); return () => { off(); V.stop(); }; }
+    s.x = 100; paint();
+    gsap.set(copy, { y: 26, autoAlpha: 0 });
+    ux.onIntro(() => {
+      V.play(true);
+      // El vinilo «se aplica» de derecha a izquierda y luego el tirador se mece hasta que el usuario lo toca
+      gsap.timeline({ onUpdate: paint })
+        .to(s, { x: 48, duration: 2.2, ease: "power3.inOut", delay: .3, onUpdate: paint })
+        .add(() => { sway = gsap.to(s, { x: 58, duration: 2.6, ease: "sine.inOut", repeat: -1, yoyo: true, onUpdate: paint }); });
+      gsap.to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out", delay: .6 });
+    });
+    return () => { off(); stopSway(); V.stop(); };
+  });
+
+  /* ---------- F · Foco de luz ---------- */
+  register("hero", "F", (root, ux) => {
+    const V = heroVideos(root, ux);
+    const copy = ux.$$(".hero-spot__copy > *, .hero-spot__cap", root);
+    const s = { x: 62, y: 44, r: 0, grow: 0 };
+    const base = () => Math.max(170, Math.min(innerWidth, innerHeight) * .34);
+    const paint = () => {
+      root.style.setProperty("--sx", s.x + "%"); root.style.setProperty("--sy", s.y + "%");
+      root.style.setProperty("--r", (s.r * base() + s.grow * Math.hypot(innerWidth, innerHeight) * 1.2) + "px");
     };
-    const intro = gsap.timeline({ paused: true })
-      .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, 0)
-      .add(() => { v.currentTime = 0; v.play().catch(() => {}); }, .5)
-      .to(sweep, { p: 1, duration: 2.1, ease: "power2.inOut", onUpdate: draw }, .6)
-      .to(v, { scale: 1, duration: 2.6, ease: "expo.out" }, .8)
-      .to(tool, { autoAlpha: 0, duration: .3 }, 2.6)
-      .to(note, { autoAlpha: 1, duration: .6 }, 2.6);
-    draw();
-    ux.onIntro(() => intro.play());
-    gsap.to(v, { yPercent: 8, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(ux.$(".hero-sq__copy", root), { y: -50, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } });
+    if (ux.reduce) { s.r = 1; s.grow = 1; paint(); V.play(true); return () => V.stop(); }
+    paint();
+    gsap.set(copy, { y: 26, autoAlpha: 0 });
+    const offs = [];
+    ux.onIntro(() => {
+      V.play(true);
+      gsap.to(s, { r: 1, duration: 2.2, ease: "expo.out", delay: .2, onUpdate: paint });
+      gsap.to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out", delay: .5 });
+    });
+    if (ux.fine) {
+      const xt = gsap.quickTo(s, "x", { duration: 1.1, ease: "power3", onUpdate: paint }), yt = gsap.quickTo(s, "y", { duration: 1.1, ease: "power3", onUpdate: paint });
+      const mv = e => { xt(e.clientX / innerWidth * 100); yt(e.clientY / innerHeight * 100); };
+      addEventListener("pointermove", mv, { passive: true }); offs.push(() => removeEventListener("pointermove", mv));
+    } else {
+      gsap.to(s, { keyframes: [{ x: 40, y: 40 }, { x: 70, y: 34 }, { x: 58, y: 50 }, { x: 62, y: 44 }], duration: 14, repeat: -1, ease: "sine.inOut", onUpdate: paint });
+    }
+    addEventListener("resize", paint); offs.push(() => removeEventListener("resize", paint));
+    // Al bajar, el foco se abre hasta iluminar todo el coche
+    gsap.to(s, { grow: 1, ease: "power2.in", onUpdate: paint, scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .5 } });
+    return () => { offs.forEach(f => f()); V.stop(); };
+  });
+
+  /* ---------- G · Tríptico ---------- */
+  register("hero", "G", (root, ux) => {
+    const V = heroVideos(root, ux);
+    const panels = ux.$$(".hero-tri__p", root), copy = ux.$$(".hero-tri__head > *, .hero-tri__foot > *", root);
+    if (ux.reduce) { V.play(true); return () => V.stop(); }
+    gsap.set(panels, { yPercent: 108, rotation: i => [-2.5, 1.5, -1.2][i], transformOrigin: "50% 0%" });
+    gsap.set(copy, { y: 26, autoAlpha: 0 });
+    ux.onIntro(() => {
+      V.play(true);
+      // Los paneles «se cuelgan» uno a uno y encajan formando la imagen completa
+      gsap.timeline()
+        .to(copy, { y: 0, autoAlpha: 1, duration: 1, stagger: .08, ease: "expo.out" }, 0)
+        .to(panels, { yPercent: 0, duration: 1.3, stagger: .14, ease: "expo.out" }, .2)
+        .to(panels, { rotation: 0, duration: 1.1, stagger: .14, ease: "elastic.out(1,.55)" }, .9);
+    });
+    panels.forEach((p, i) => gsap.to(p, { y: [-30, 30, -70][i], ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true } }));
+    return () => V.stop();
   });
 })();

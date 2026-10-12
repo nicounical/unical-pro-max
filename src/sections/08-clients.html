@@ -12,142 +12,60 @@
     <p class="sr-only" data-clients-list></p>
   </div>
 
-  <!-- B · Radar -->
-  <div class="variant clients-b" data-v="B" data-name="Radar" data-theme="dark" hidden>
+  <!-- B · Frase viva: «Trabajamos para ___» con la marca rotando -->
+  <div class="variant clients-b" data-v="B" data-name="Frase viva" data-theme="light" hidden>
     <div class="clients-b__in wrap">
-      <div class="clients-b__copy">
-        <p class="mono label">(Clientes)</p>
-        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="lead">Marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
-        <div class="clients-b__read mono" aria-hidden="true">
-          <span class="clients-b__led"></span><span>Señal detectada</span><b data-read>Escaneando…</b>
-        </div>
-        <p class="sr-only" data-clients-list></p>
-      </div>
-      <div class="clients-b__scope" aria-hidden="true">
-        <canvas class="clients-b__cv"></canvas>
-        <i class="clients-b__br clients-b__br--tl"></i><i class="clients-b__br clients-b__br--tr"></i><i class="clients-b__br clients-b__br--bl"></i><i class="clients-b__br clients-b__br--br"></i>
-        <span class="clients-b__tag mono">RNG 25 · BCN</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- C · Holograma -->
-  <div class="variant clients-c" data-v="C" data-name="Holograma" data-theme="dark" hidden>
-    <div class="clients-c__head wrap">
       <p class="mono label">(Clientes)</p>
-      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
+      <h2 class="clients-b__line">Trabajamos para <span class="clients-b__slot" aria-hidden="true"><span class="clients-b__word">Toyota</span></span><span class="clients-b__dot" aria-hidden="true">.</span><span class="sr-only">marcas que confían en nosotros.</span></h2>
+      <p class="clients-b__meta mono" aria-hidden="true"><span class="clients-b__n">01</span> / 25 · <span class="clients-b__sec">automoción</span></p>
+      <ul class="clients-b__all" aria-label="Algunos de nuestros clientes"></ul>
     </div>
-    <div class="clients-c__stage" aria-hidden="true">
-      <div class="clients-c__base"><i></i><i></i><i></i></div>
-      <div class="clients-c__core"></div>
-      <div class="clients-c__globe"></div>
-      <p class="clients-c__hint mono">Arrastra para girar</p>
-    </div>
-    <p class="sr-only" data-clients-list></p>
   </div>
 
-  <!-- D · Terminal -->
-  <div class="variant clients-d" data-v="D" data-name="Terminal" data-theme="dark" hidden>
+  <!-- C · Acreditaciones: tarjetas de evento colgadas de su cinta -->
+  <div class="variant clients-c" data-v="C" data-name="Acreditaciones" data-theme="dark" hidden>
+    <div class="clients-c__head wrap">
+      <p class="mono label">(Clientes) · Acreditados</p>
+      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
+      <p class="lead clients-c__lead">Marcas que vuelven a producir con nosotros, evento tras evento.</p>
+    </div>
+    <div class="clients-c__view"><ul class="clients-c__rail" aria-label="Algunos de nuestros clientes"></ul></div>
+  </div>
+
+  <!-- D · Columnas en movimiento -->
+  <div class="variant clients-d" data-v="D" data-name="Columnas en movimiento" data-theme="light" hidden>
     <div class="clients-d__in wrap">
       <div class="clients-d__copy">
         <p class="mono label">(Clientes)</p>
         <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="lead">Marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
-        <button class="btn clients-d__again" type="button">Ejecutar de nuevo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="lead">Del gran consumo a la farma, de la banca al deporte. <strong>+3.000 proyectos</strong> para marcas que exigen el máximo.</p>
       </div>
-      <div class="clients-d__win">
-        <div class="clients-d__bar mono" aria-hidden="true"><i></i><i></i><i></i><span>unical@bcn: ~/clientes</span></div>
-        <div class="clients-d__out mono" aria-hidden="true"></div>
-        <p class="sr-only" data-clients-list></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- E · Rejilla con foco -->
-  <div class="variant clients-e" data-v="E" data-name="Rejilla con foco" data-theme="dark" hidden>
-    <div class="wrap">
-      <div class="clients-e__head">
-        <div>
-          <p class="mono label">(Clientes)</p>
-          <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        </div>
-        <p class="lead">Pasa el cursor: cada marca se ilumina con la luz de la rejilla.</p>
-      </div>
-      <div class="clients-e__grid" aria-hidden="true"></div>
+      <div class="clients-d__cols" aria-hidden="true"></div>
       <p class="sr-only" data-clients-list></p>
     </div>
   </div>
 
-  <!-- F · Túnel warp -->
-  <div class="variant clients-f" data-v="F" data-name="Túnel warp" data-theme="dark" hidden>
-    <canvas class="clients-f__cv" aria-hidden="true"></canvas>
-    <div class="clients-f__in wrap">
-      <p class="mono label">(Clientes)</p>
-      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-      <p class="clients-f__hint mono" aria-hidden="true">Haz scroll para acelerar</p>
-    </div>
-    <p class="sr-only" data-clients-list></p>
-  </div>
-
-  <!-- ===== Ronda «Impacto sin tecnología» (G–K) ===== -->
-  <!-- G · Cartel tipográfico -->
-  <div class="variant clients-g" data-v="G" data-name="Cartel tipográfico" data-theme="light" hidden>
-    <div class="clients-g__in wrap">
-      <div class="clients-g__head">
+  <!-- E · Una a una: cada marca ocupa la pantalla -->
+  <div class="variant clients-e" data-v="E" data-name="Una a una" data-theme="dark" hidden>
+    <div class="clients-e__pin">
+      <div class="clients-e__top wrap">
         <p class="mono label">(Clientes)</p>
-        <h2 class="clients-g__title">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="clients-g__lead">Marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
+        <h2 class="clients-e__h">Clientes que <span class="acc">confían en nosotros.</span></h2>
       </div>
-      <p class="clients-g__poster" aria-hidden="true"></p>
+      <div class="clients-e__stage" aria-hidden="true"></div>
+      <div class="clients-e__bar wrap mono" aria-hidden="true"><span class="clients-e__n">01</span><i class="clients-e__track"><b></b></i><span class="clients-e__sec">automoción</span></div>
     </div>
     <p class="sr-only" data-clients-list></p>
   </div>
 
-  <!-- H · Pared de carteles -->
-  <div class="variant clients-h" data-v="H" data-name="Pared de carteles" data-theme="dark" hidden>
-    <div class="clients-h__head wrap">
+  <!-- F · Roll-ups: una fila de expositores que se despliegan -->
+  <div class="variant clients-f" data-v="F" data-name="Roll-ups" data-theme="light" hidden>
+    <div class="clients-f__head wrap">
       <p class="mono label">(Clientes)</p>
       <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
     </div>
-    <div class="clients-h__wall wrap" aria-hidden="true"></div>
-    <p class="sr-only" data-clients-list></p>
+    <div class="clients-f__floor"><ul class="clients-f__row" aria-label="Algunos de nuestros clientes"></ul></div>
+    <p class="clients-f__more wrap"></p>
   </div>
 
-  <!-- I · Lista de créditos -->
-  <div class="variant clients-i" data-v="I" data-name="Créditos" data-theme="dark" hidden>
-    <div class="clients-i__head wrap">
-      <p class="mono label">(Clientes)</p>
-      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-    </div>
-    <ol class="clients-i__list" aria-label="Algunos de nuestros clientes"></ol>
-    <p class="clients-i__end wrap">…y muchas más marcas que vuelven a producir con nosotros, proyecto tras proyecto.</p>
-  </div>
-
-  <!-- J · Revista -->
-  <div class="variant clients-j" data-v="J" data-name="Revista" data-theme="light" hidden>
-    <div class="clients-j__in wrap">
-      <figure class="clients-j__fig">
-        <div class="clients-j__img"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="Stand producido y montado por Unical en una feria" loading="lazy" width="1448" height="1086"></div>
-        <figcaption class="mono">Fig. 01 · Producción y montaje de stand · Barcelona</figcaption>
-      </figure>
-      <div class="clients-j__text">
-        <p class="mono label">(Clientes) · Nº 25</p>
-        <h2 class="clients-j__title">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="clients-j__intro">Marcas que vuelven a producir con nosotros, proyecto tras proyecto. Del gran consumo a la farma, de la banca al deporte: cada una con su exigencia y el mismo nivel de detalle.</p>
-        <ol class="clients-j__cols" aria-label="Algunos de nuestros clientes"></ol>
-      </div>
-    </div>
-  </div>
-
-  <!-- K · Índice A–Z -->
-  <div class="variant clients-k" data-v="K" data-name="Índice A–Z" data-theme="light" hidden>
-    <div class="clients-k__in wrap">
-      <div class="clients-k__head">
-        <p class="mono label">(Clientes) · Índice</p>
-        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-      </div>
-      <div class="clients-k__index"></div>
-    </div>
-  </div>
 </section>
