@@ -1,75 +1,4 @@
-/* Stands · Cómo trabajamos · A Holograma 3D (reservada para la futura página de stands) */
-(() => {
-  const { register, $, $$ } = UX;
-
-
-  const clamp01 = v => Math.max(0, Math.min(1, v));
-  /* Lienzo con DPR limitado que solo anima mientras se ve */
-  const canvasLoop = (cv, host, draw, ux) => {
-    const ctx = cv.getContext("2d"); let W = 0, H = 0, raf = 0, run = false;
-    const size = () => { const dpr = Math.min(2, devicePixelRatio || 1); W = cv.offsetWidth; H = cv.offsetHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); frame(performance.now(), true); };
-    const frame = (now, once) => { if (W && H) draw(ctx, W, H, now); if (run && !once) raf = requestAnimationFrame(frame); };
-    const io = new IntersectionObserver(([e]) => { run = e.isIntersecting && !ux.reduce; cancelAnimationFrame(raf); if (run) raf = requestAnimationFrame(frame); });
-    io.observe(host); const ro = new ResizeObserver(size); ro.observe(cv); size();
-    return { redraw: () => frame(performance.now(), true), stop: () => { run = false; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); } };
-  };
-
-  /* ---------- A · Holograma 3D: puntos → malla → sólido → montado ---------- */
-  register("stands-process", "A", (root, ux) => {
-    const cv = $(".stproc-a__cv", root), steps = $$(".stproc-a__steps li", root), hud = $(".stproc-a__phase", root), pctEl = $(".stproc-a__pct b", root);
-    const names = ["01 · Presupuesto", "02 · Diseño", "03 · Producción", "04 · Instalación"];
-    // Geometría: un stand (tarima, fondo, lateral y mostrador)
-    const boxes = [[-1.1, -.75, -.7, 2.2, .12, 1.4], [-1.1, -.63, -.7, 2.2, 1.35, .08], [-1.1, -.63, -.62, .08, 1.35, .75], [.15, -.63, .05, .7, .55, .4]];
-    const V = [], E = [], F = [];
-    boxes.forEach(([x, y, z, w, h, d]) => {
-      const o = V.length;
-      for (let i = 0; i < 8; i++) V.push([x + (i & 4 ? w : 0), y + (i & 2 ? h : 0), z + (i & 1 ? d : 0)]);
-      for (let a = 0; a < 8; a++) for (const b of [1, 2, 4]) if (!(a & b)) E.push([o + a, o + (a | b)]);
-      for (const bit of [1, 2, 4]) { const [b1, b2] = [1, 2, 4].filter(k => k !== bit); for (const val of [0, bit]) F.push([0, b1, b1 | b2, b2].map(k => o + (k | val))); }
-    });
-    const pts = [];
-    E.forEach(([a, b]) => { for (let k = 0; k < 7; k++) { const s = Math.random(); const r = 2.6 * Math.cbrt(Math.random()), th = Math.random() * 6.283, ph = Math.acos(2 * Math.random() - 1);
-      pts.push({ to: V[a].map((c, j) => c + (V[b][j] - c) * s), from: [r * Math.sin(ph) * Math.cos(th), r * Math.cos(ph), r * Math.sin(ph) * Math.sin(th)] }); } });
-    let T = ux.reduce ? 4 : 0, shown = 0;
-    const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
-    const draw = (ctx, W, H, now) => {
-      shown += (T - shown) * .12; const t = shown;
-      const p0 = ease(clamp01(t)), p1 = clamp01(t - 1), p2 = clamp01(t - 2), p3 = clamp01(t - 3);
-      const ang = -.75 + (ux.reduce ? 0 : now * .00012) + t * .3, tx = .34, ca = Math.cos(ang), sa = Math.sin(ang), ct = Math.cos(tx), st = Math.sin(tx);
-      const f = Math.min(W, H) * 1.55, Dz = 5;
-      const P = ([x, y, z]) => { const x1 = x * ca - z * sa, z1 = x * sa + z * ca, y2 = y * ct - z1 * st, z2 = y * st + z1 * ct, k = f / (z2 + Dz); return [W / 2 + x1 * k, H * .56 - y2 * k, z2]; };
-      ctx.clearRect(0, 0, W, H);
-      // suelo
-      const ga = .07 + .22 * p3; ctx.lineWidth = 1; ctx.strokeStyle = `rgba(153,196,228,${ga})`; ctx.beginPath();
-      for (let g = -2; g <= 2.001; g += .4) { let a = P([g, -.75, -2]), b = P([g, -.75, 2]); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); a = P([-2, -.75, g]); b = P([2, -.75, g]); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); }
-      ctx.stroke();
-      // caras (sólido) con barrido de abajo arriba
-      if (p2 > 0) {
-        const ys = -.76 + p2 * 1.5;
-        F.map(q => ({ q, s: q.map(i => P(V[i])), minY: Math.min(...q.map(i => V[i][1])) })).sort((a, b) => b.s.reduce((m, v) => m + v[2], 0) - a.s.reduce((m, v) => m + v[2], 0))
-          .forEach(({ s, minY }) => { if (minY > ys) return; ctx.fillStyle = `rgba(${p3 ? "120,170,215" : "153,196,228"},${.13 + .1 * p3})`; ctx.beginPath(); s.forEach((v, i) => i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1])); ctx.closePath(); ctx.fill(); });
-        if (p2 < 1) { const c = [[-1.4, ys, -1], [1.4, ys, -1], [1.4, ys, 1], [-1.4, ys, 1]].map(P); ctx.fillStyle = "rgba(153,196,228,.08)"; ctx.strokeStyle = "rgba(221,238,255,.9)"; ctx.lineWidth = 1.5; ctx.beginPath(); c.forEach((v, i) => i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1])); ctx.closePath(); ctx.fill(); ctx.stroke(); }
-      }
-      // aristas (malla) que se dibujan progresivamente
-      if (p1 > 0) {
-        ctx.lineWidth = 1.3; ctx.strokeStyle = `rgba(153,196,228,${.75 + .25 * p3})`; ctx.shadowColor = "rgba(153,196,228,.9)"; ctx.shadowBlur = 6 + 10 * p3; ctx.beginPath();
-        E.forEach(([a, b], i) => { const e = clamp01(p1 * 1.7 - i / E.length * .7); if (!e) return; const A = V[a], B = V[b], m = A.map((c, j) => c + (B[j] - c) * e); const s = P(A), d = P(m); ctx.moveTo(s[0], s[1]); ctx.lineTo(d[0], d[1]); });
-        ctx.stroke(); ctx.shadowBlur = 0;
-      }
-      // nube de puntos
-      const pa = .9 * (1 - .75 * p1);
-      if (pa > .02) { ctx.fillStyle = `rgba(221,238,255,${pa})`; pts.forEach(o => { const v = P(o.from.map((c, j) => c + (o.to[j] - c) * p0)); ctx.fillRect(v[0] - 1, v[1] - 1, 2, 2); }); }
-    };
-    const loop = canvasLoop(cv, root, draw, ux);
-    const setUI = t => { const i = Math.min(3, Math.floor(t)); steps.forEach((li, k) => li.classList.toggle("on", k === i)); hud.textContent = names[i]; pctEl.textContent = Math.round(t / 4 * 100); };
-    if (ux.reduce) { root.classList.add("is-static"); shown = 4; setUI(3.99); pctEl.textContent = "100"; loop.redraw(); return () => { loop.stop(); root.classList.remove("is-static"); }; }
-    setUI(0);
-    ScrollTrigger.create({ trigger: $(".stproc-a__steps", root), start: "top 65%", end: "bottom 75%", onUpdate: s => { T = s.progress * 4; setUI(Math.min(3.99, T)); } });
-    return () => loop.stop();
-  });
-})();
-
-/* ===================== Ronda 10 · B–F: versiones mejoradas del holograma =====================
+/* Stands · Cómo trabajamos · A «Despiece» (ronda 10b; antes C de la ronda 10)
    Motor 3D compartido (canvas 2D, sin librerías): un stand de 6 × 3 m con tarima, pared trasera
    con gráfica, pared lateral, mostrador con logo, tótem luminoso, pantalla, mesa y focos.
    Cada versión decide cámara, materiales y maquetación a partir de t ∈ [0, 4] (las 4 fases). */
@@ -103,25 +32,32 @@
   const mk = (w, h, fn) => { const c = document.createElement("canvas"); c.width = w; c.height = h; fn(c.getContext("2d"), w, h); return c; };
   let TX = null, txP = null;
   const loadTextures = () => txP || (txP = Promise.all([
-    IMG("assets/img/logo/logo-unical-light-xl.png"), IMG("assets/img/logo/logo-unical.png"),
-    IMG("assets/img/hero/lexus-marvel.webp"), IMG("assets/img/hubs/eventos/lanzamiento-coche.webp"), IMG("assets/img/hubs/eventos/evento-neon.webp"),
+    IMG("assets/img/logo/logo-unical-light-xl.png"), IMG("assets/img/logo/logo-unical.png"), IMG("assets/img/hubs/eventos/stand-luz.webp"),
     document.fonts ? document.fonts.ready : null
-  ]).then(([lgL, lgD, ph1, ph2, scr]) => {
+  ]).then(([lgL, lgD, luz]) => {
     const logo = (g, img, x, y, w) => { if (img) g.drawImage(img, x, y, w, w * img.height / img.width); };
+    const logoC = (g, img, cx, cy, w) => { if (img) { const h = w * img.height / img.width; g.drawImage(img, cx - w / 2, cy - h / 2, w, h); } };
     TX = {
+      /* Pared trasera = gráfica del cliente: foto «LUZ». Fondo con la misma foto muy desenfocada y,
+         encima, la franja de las letras (y ≈ 6–62 % de la foto) encajada en alto para que se lean enteras */
       wall: mk(1200, 500, (g, w, h) => {
-        const gr = g.createLinearGradient(0, 0, w, 0); gr.addColorStop(0, "#0E1426"); gr.addColorStop(1, "#1C3358"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
-        g.save(); g.beginPath(); g.moveTo(0, 0); g.lineTo(640, 0); g.lineTo(540, h); g.lineTo(0, h); g.clip(); cover(g, ph1, 0, 0, 640, h); g.restore();
-        const fade = g.createLinearGradient(420, 0, 660, 0); fade.addColorStop(0, "rgba(16,24,44,0)"); fade.addColorStop(1, "rgba(16,24,44,.95)"); g.fillStyle = fade; g.fillRect(400, 0, 300, h);
-        logo(g, lgL, 700, 120, 400);
-        g.fillStyle = "#fff"; g.font = `800 46px ${HEAD}`; g.fillText("Producción visual", 700, 250); g.fillStyle = "#99C4E4"; g.font = `italic 800 46px ${HEAD}`; g.fillText("sin límites.", 700, 302);
-        g.fillStyle = "#99C4E4"; g.fillRect(700, 340, 90, 5);
-        g.fillStyle = "rgba(255,255,255,.7)"; g.font = `500 20px ${MONO}`; g.fillText("ROTULACIÓN · IMPRESIÓN · EVENTOS", 700, 392);
+        g.fillStyle = "#C8551A"; g.fillRect(0, 0, w, h);
+        if (luz) {
+          g.save(); g.filter = "blur(26px) saturate(1.15)"; cover(g, luz, -60, -60, w + 120, h + 120); g.restore();
+          const sy = luz.height * .06, sh = luz.height * .56, dh = h, dw = luz.width * dh / sh, dx = Math.min(w - dw - 20, 430); /* a la derecha de la TV (u ≈ 0,13–0,34) */
+          g.drawImage(luz, 0, sy, luz.width, sh, dx, 0, dw, dh);
+          /* fundido suave de los bordes de la franja con el fondo */
+          const fl = g.createLinearGradient(dx, 0, dx + 70, 0); fl.addColorStop(0, "rgba(160,60,18,.85)"); fl.addColorStop(1, "rgba(160,60,18,0)"); g.fillStyle = fl; g.fillRect(dx, 0, 70, h);
+          const fr = g.createLinearGradient(dx + dw, 0, dx + dw - 70, 0); fr.addColorStop(0, "rgba(160,60,18,.85)"); fr.addColorStop(1, "rgba(160,60,18,0)"); g.fillStyle = fr; g.fillRect(dx + dw - 70, 0, 70, h);
+        }
       }),
+      /* Pared lateral izquierda: a juego con la trasera (degradado naranja → ámbar con bokeh) y SOLO el logo de Unical */
       side: mk(420, 500, (g, w, h) => {
-        cover(g, ph2, 0, 0, w, h);
-        const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "rgba(14,20,38,.15)"); gr.addColorStop(.55, "rgba(14,20,38,.35)"); gr.addColorStop(1, "rgba(14,20,38,.95)"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
-        g.fillStyle = "#fff"; g.font = `800 40px ${HEAD}`; g.fillText("Stands", 30, h - 92); g.fillStyle = "#99C4E4"; g.font = `italic 800 40px ${HEAD}`; g.fillText("llave en mano.", 30, h - 44);
+        const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, "#D9541A"); gr.addColorStop(.55, "#E8822A"); gr.addColorStop(1, "#F2B045"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+        const bok = [[60, 70, 46, .22], [330, 110, 60, .18], [110, 400, 70, .16], [360, 420, 40, .22], [220, 250, 90, .1], [40, 250, 28, .25], [300, 300, 22, .3]];
+        for (const [x, y, r, a] of bok) { const rg = g.createRadialGradient(x, y, 0, x, y, r); rg.addColorStop(0, `rgba(255,236,190,${a})`); rg.addColorStop(1, "rgba(255,236,190,0)"); g.fillStyle = rg; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
+        const sh = g.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, 220); sh.addColorStop(0, "rgba(90,30,8,.28)"); sh.addColorStop(1, "rgba(90,30,8,0)"); g.fillStyle = sh; g.fillRect(0, 0, w, h);
+        logoC(g, lgL, w / 2, h / 2, 320);
       }),
       counter: mk(420, 240, (g, w, h) => {
         g.fillStyle = "#14223F"; g.fillRect(0, 0, w, h); logo(g, lgL, 70, 92, 280); g.fillStyle = "#99C4E4"; g.fillRect(0, h - 10, w, 10);
@@ -132,7 +68,11 @@
         logo(g, lgD, 14, 120, 112);
         g.save(); g.translate(92, h - 60); g.rotate(-Math.PI / 2); g.fillStyle = "#fff"; g.font = `800 32px ${HEAD}`; g.fillText("Diseño · Producción · Montaje", 0, 0); g.restore();
       }),
-      screen: mk(380, 220, (g, w, h) => { g.fillStyle = "#05060A"; g.fillRect(0, 0, w, h); cover(g, scr, 8, 8, w - 16, h - 16); })
+      /* TV apagada: panel negro con un reflejo diagonal muy sutil, sin imagen */
+      screen: mk(380, 220, (g, w, h) => {
+        g.fillStyle = "#05060A"; g.fillRect(0, 0, w, h);
+        const r = g.createLinearGradient(0, 0, w, h); r.addColorStop(0, "rgba(255,255,255,.07)"); r.addColorStop(.45, "rgba(255,255,255,.015)"); r.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = r; g.fillRect(6, 6, w - 12, h - 12);
+      })
     };
   }));
 
@@ -289,58 +229,14 @@
   const onIdx = (items, i) => items.forEach((li, k) => { li.classList.toggle("on", k === i); li.classList.toggle("done", k < i); });
   const pinEnd = () => innerWidth < 900 ? "+=240%" : "+=300%";
 
-  /* ---------- B · Plano a stand ---------- */
-  register("stands-process", "B", (root, ux) => {
-    const steps = $$(".stproc-b__steps li", root), hud = $(".stproc-b__phase", root), pct = $(".stproc-b__br b", root), bars = $$(".stproc-b__bar i", root);
-    const tags = ["01 · Plano", "02 · Volumen", "03 · Gráfica", "04 · Montado"];
-    const setUI = t => { const i = Math.min(3, Math.floor(t)); onIdx(steps, i); hud.textContent = tags[i]; pct.textContent = Math.round(t / 4 * 100); bars.forEach((b, k) => b.style.setProperty("--p", clamp01(t - k))); };
-    return mount(root, ux, { cv: $(".stproc-b__cv", root), trigger: $(".stproc-b__steps", root), start: "top 65%", end: "bottom 75%", setUI,
-      scene: (g, W, H, t, now) => { const { p0, p1, p2, p3 } = phases(t), up = ease(p1), m = innerWidth < 900;
-        render(g, W, H, { yaw: lerp(.02, -.62, up) + .16 * p2 + .14 * p3 + Math.sin(now * .00025) * .03 * up, pitch: lerp(1.4, .4, up), dist: lerp(10.5, 8.6, up) - 1.1 * p3, zoom: m ? 1.25 : 1.45, ty: lerp(.2, 1.1, up), cy: lerp(.5, .58, up),
-          grid: 1, plan: p0 * 1.1, planA: 1 - .7 * p2, dims: clamp01(p0 * 1.5) * (1 - p2), ext: Math.max(.001, up), wire: p1 > 0 ? 1 : 0, wireA: .9 - .65 * p2 - .2 * p3, glow: 1 - p2, fill: p2, tex: clamp01(p2 * 1.6 - .5), light: p3, outline: .4 - .25 * p3 }); } });
-  });
-
-  /* ---------- C · Despiece ---------- */
-  register("stands-process", "C", (root, ux) => {
-    const steps = $$(".stproc-c__steps li", root), bars = $$(".stproc-c__bar b", root), pin = $(".stproc-c__pin", root);
+  /* ---------- A · Despiece ---------- */
+  register("stands-process", "A", (root, ux) => {
+    const steps = $$(".stproc-a__steps li", root), bars = $$(".stproc-a__bar b", root), pin = $(".stproc-a__pin", root);
     const setUI = t => { onIdx(steps, Math.min(3, Math.floor(t))); bars.forEach((b, k) => b.style.setProperty("--p", clamp01(t - k))); };
-    return mount(root, ux, { cv: $(".stproc-c__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
+    return mount(root, ux, { cv: $(".stproc-a__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
       scene: (g, W, H, t, now) => { const { p0, p1, p2, p3 } = phases(t), m = W < 900, asm = ease(p3);
         render(g, W, H, { yaw: -.95 + t * .22 + Math.sin(now * .0003) * .04, pitch: lerp(.5, .36, asm), dist: lerp(12.5, 9.2, asm), zoom: m ? 1.2 : 1.35, ty: lerp(1.6, 1.15, asm), cx: m ? .5 : .6, cy: m ? .46 : .5,
           grid: .7 + .3 * asm, explode: 1 - asm, pts: p0, ptsA: .95 * (1 - p1 * .9), wire: p1, wireA: .85 - .55 * p2, glow: 1 - p2, fill: p2, tex: clamp01(p2 * 1.5 - .4), light: clamp01(p3 * 1.6 - .6), outline: .45 - .3 * asm }); } });
   });
 
-  /* ---------- D · Órbita 360° ---------- */
-  register("stands-process", "D", (root, ux) => {
-    const steps = $$(".stproc-d__steps li", root), ring = $(".stproc-d__ring", root), deg = $(".stproc-d__ring b", root), pin = $(".stproc-d__pin", root);
-    const setUI = t => { onIdx(steps, Math.min(3, Math.floor(t))); ring.style.setProperty("--p", t / 4); deg.textContent = Math.round(t / 4 * 360); };
-    return mount(root, ux, { cv: $(".stproc-d__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
-      scene: (g, W, H, t) => { const { p0, p1, p2, p3 } = phases(t), m = W < 900;
-        render(g, W, H, { yaw: -.55 + t / 4 * Math.PI * 2, pitch: .42 + .08 * Math.sin(t / 4 * Math.PI * 2), dist: 10.4 - .8 * p3, zoom: m ? 1.05 : 1.2, ty: 1.15, cx: m ? .5 : .43, cy: m ? .44 : .57,
-          grid: 1, pts: p0, ptsA: .95 * (1 - p1), wire: p1, wireA: .9 * (1 - p2) + .15, glow: 1 - p2, clay: p2 > 0 && p3 < .5, fill: p3 >= .5 ? 1 : 0, solidA: p2 > 0 ? clamp01(p2 * 3.5) : 0, tex: clamp01((p3 - .5) * 2), light: clamp01((p3 - .5) * 2), outline: p3 >= .5 ? .15 : .5 }); } });
-  });
-
-  /* ---------- E · Escáner de fases ---------- */
-  register("stands-process", "E", (root, ux) => {
-    const steps = $$(".stproc-e__steps li", root), progs = $$(".stproc-e__prog", root), labL = $(".stproc-e__lab--l", root), labR = $(".stproc-e__lab--r", root), pin = $(".stproc-e__pin", root);
-    const setUI = t => { const i = Math.min(3, Math.floor(t)); onIdx(steps, i); progs.forEach((b, k) => b.style.setProperty("--p", clamp01(t - k))); labL.textContent = `0${i + 1} · ${NAMES[i]}`; labR.textContent = i ? `0${i} · ${NAMES[i - 1]}` : "00 · Inicio"; };
-    const STATES = [{ grid: 1 }, { grid: 1, plan: 1, dims: 1 }, { grid: 1, plan: 1, planA: .4, wire: 1, wireA: .9, glow: 1 }, { grid: 1, plan: 1, planA: .15, fill: 1, tex: 1, outline: .4 }, { grid: .8, fill: 1, tex: 1, light: 1, outline: .12 }];
-    return mount(root, ux, { cv: $(".stproc-e__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
-      scene: (g, W, H, t, now) => { const i = Math.min(3, Math.floor(t)), f = t >= 4 ? 1 : t - i, x = W * ease(f), m = W < 700;
-        const cam = { yaw: -.55 + t * .07 + Math.sin(now * .0003) * .02, pitch: .4, dist: 9.4, zoom: m ? 1.3 : 1.85, ty: 1.15, cy: .6 };
-        g.save(); g.beginPath(); g.rect(0, 0, x, H); g.clip(); render(g, W, H, { ...cam, ...STATES[i + 1] }); g.restore();
-        g.save(); g.beginPath(); g.rect(x, 0, W - x, H); g.clip(); render(g, W, H, { ...cam, ...STATES[i] }); g.restore();
-        if (f > 0 && f < 1) { const gr = g.createLinearGradient(x - 60, 0, x, 0); gr.addColorStop(0, "rgba(153,196,228,0)"); gr.addColorStop(1, "rgba(153,196,228,.22)"); g.fillStyle = gr; g.fillRect(x - 60, 0, 60, H);
-          g.fillStyle = "#fff"; g.shadowColor = "rgba(153,196,228,.9)"; g.shadowBlur = 14; g.fillRect(x - 1, 0, 2, H); g.shadowBlur = 0; } } });
-  });
-
-  /* ---------- F · Del render a la foto ---------- */
-  register("stands-process", "F", (root, ux) => {
-    const steps = $$(".stproc-f__steps li", root), stage = $(".stproc-f__stage", root), ph = $(".stproc-f__phase", root), pin = $(".stproc-f__pin", root);
-    const setUI = t => { const i = Math.min(3, Math.floor(t)); onIdx(steps, i); ph.textContent = `0${i + 1} · ${NAMES[i]}`; const w = ux.reduce ? 1 : ease(clamp01((t - 3.45) / .5)); stage.style.setProperty("--w", w); stage.style.setProperty("--e", w > 0 && w < 1 ? 1 : 0); };
-    return mount(root, ux, { cv: $(".stproc-f__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
-      scene: (g, W, H, t, now) => { const { p0, p1, p2, p3 } = phases(t), m = W < 700, k = ease(clamp01(t / 3.5));
-        render(g, W, H, { yaw: lerp(-.85, -.18, k) + Math.sin(now * .0003) * .02, pitch: lerp(.55, .3, k), dist: lerp(10.5, 8.2, k), zoom: m ? 1.1 : 1.42, ty: 1.2, cy: .56,
-          grid: 1 - .5 * p3, plan: p0, planA: 1 - .8 * p1, dims: p0 * (1 - p1), pts: p0, ptsA: .8 * (1 - p1), wire: p1, wireA: .85 - .6 * p2, glow: 1 - p2, fill: p2, tex: clamp01(p2 * 1.5 - .4), light: clamp01(p3 * 2.2), outline: .35 - .25 * p3 }); } });
-  });
 })();
