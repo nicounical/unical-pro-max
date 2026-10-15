@@ -229,14 +229,16 @@
   const onIdx = (items, i) => items.forEach((li, k) => { li.classList.toggle("on", k === i); li.classList.toggle("done", k < i); });
   const pinEnd = () => innerWidth < 900 ? "+=240%" : "+=300%";
 
-  /* ---------- A · Despiece ---------- */
-  register("stands-process", "A", (root, ux) => {
+  /* ---------- A · Despiece (también en la landing: Cómo trabajamos G) ---------- */
+  const despiece = (root, ux) => {
     const steps = $$(".stproc-a__steps li", root), bars = $$(".stproc-a__bar b", root), pin = $(".stproc-a__pin", root);
     const setUI = t => { onIdx(steps, Math.min(3, Math.floor(t))); bars.forEach((b, k) => b.style.setProperty("--p", clamp01(t - k))); };
     return mount(root, ux, { cv: $(".stproc-a__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
       scene: (g, W, H, t, now) => { const { p0, p1, p2, p3 } = phases(t), m = W < 900, asm = ease(p3);
         render(g, W, H, { yaw: -.95 + t * .22 + Math.sin(now * .0003) * .04, pitch: lerp(.5, .36, asm), dist: lerp(12.5, 9.2, asm), zoom: m ? 1.2 : 1.35, ty: lerp(1.6, 1.15, asm), cx: m ? .5 : .6, cy: m ? .46 : .5,
           grid: .7 + .3 * asm, explode: 1 - asm, pts: p0, ptsA: .95 * (1 - p1 * .9), wire: p1, wireA: .85 - .55 * p2, glow: 1 - p2, fill: p2, tex: clamp01(p2 * 1.5 - .4), light: clamp01(p3 * 1.6 - .6), outline: .45 - .3 * asm }); } });
-  });
+  };
+  register("stands-process", "A", despiece);
+  register("process", "G", despiece);
 
 })();

@@ -22,6 +22,11 @@ for page in pages:
             css.append(f'<link rel="stylesheet" href="css/sections/{name}.css?v={V}">')
         if (ROOT / f"js/sections/{name}.js").exists():
             js.append(f'<script src="js/sections/{name}.js?v={V}"></script>')
+    for name in page.get("assets", []):  # CSS/JS de un fragmento que se reutiliza sin incluir su HTML
+        if (ROOT / f"css/sections/{name}.css").exists():
+            css.append(f'<link rel="stylesheet" href="css/sections/{name}.css?v={V}">')
+        if (ROOT / f"js/sections/{name}.js").exists():
+            js.append(f'<script src="js/sections/{name}.js?v={V}"></script>')
     home = "" if page["file"] == "index.html" else "index.html"
     out = shell
     for key in ("rotulacion", "impresion", "eventos", "inicio"):
