@@ -259,3 +259,9 @@ Regla de siempre: lo que **se queda** pasa a las primeras letras (A, B, C…) y 
 | manifesto | sin cambios de versiones | En la A «Ventana que se abre» (y en B–E si usan foto de fondo) poner de foto de fondo `assets/img/hubs/eucerin-stand.webp` (stand Eucerin, 1672×941). Alt: «Stand de Eucerin con iluminación y expositores de producto» |
 | clients | E «Puente a contacto» → **A** (única) | La lista de logos **más larga** (todos los de `assets/img/clientes`, y si hay más logos de clientes en `C:\Users\Nico\Desktop\webunical\Final` —solo lectura— cópialos optimizados) en **una sola línea infinita que se repite en bucle** (marquesina continua sin saltos, pausa al hover y con reduced-motion) |
 | contact | H «Botón sobre vídeo» → **A** (única) | El CTA debe verse **ya directamente** al llegar (sin animación de entrada que lo oculte ni retraso). El vídeo de fondo se cambiará más adelante: deja el actual con la ruta en un único sitio fácil de cambiar (comentario `<!-- VIDEO FONDO CONTACTO -->`). Contacto también va en los hubs |
+
+## Ronda 9 «Proyectos» (2026-10-15)
+Petición: «dame 5 opciones nuevas para proyectos. Que sean diferentes, alguna más minimalista».
+- No se borra nada: work A–F se quedan. Nuevas **G, H, I, J, K** (`work-g__`…, hidden).
+- Distintas entre sí y de A–F (Cuatro columnas, Mosaico editorial, Columnas desfasadas, Muro, Pieza destacada, Recortes) y de rondas anteriores (git log -p). Al menos **2 minimalistas** (mucho blanco, tipografía y foto justas, cero adornos). Ninguna con filtros. Mín. 8 proyectos reales.
+- Nada de patrones SaaS genéricos ni metáforas kitsch. Sistema sx (kicker «04 Proyectos»), fondos night/white/paper.

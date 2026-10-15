@@ -72,3 +72,70 @@
     };
   });
 })();
+
+/* ===== Ronda 9 · G–K =====
+   G (Índice blanco), H (Miniaturas con aire) y K (Bandas): sin JS propio (hover/foco en CSS).
+   I · Lista y foto fija: la fila activa (ratón o foco) cambia la foto fija de la derecha.
+   J · Tira horizontal: scroll horizontal nativo; flechas, contador y barra de progreso. */
+(() => {
+  const { register, $, $$ } = UX;
+
+  ["G", "H", "K"].forEach(k => register("work", k, () => {}));
+
+  register("work", "I", root => {
+    const links = $$(".work-i__a", root), figs = $$(".work-i__f", root);
+    const set = i => {
+      links.forEach((a, j) => a.classList.toggle("is-on", j === i));
+      figs.forEach((f, j) => f.classList.toggle("is-on", j === i));
+    };
+    const on = e => set(+e.currentTarget.dataset.i);
+    links.forEach(a => { a.addEventListener("pointerenter", on); a.addEventListener("focus", on); });
+    return () => links.forEach(a => { a.removeEventListener("pointerenter", on); a.removeEventListener("focus", on); });
+  });
+
+  register("work", "J", (root, ux) => {
+    const sc = $(".work-j__scroller", root), items = $$(".work-j__it", root);
+    const btns = $$(".work-j__btn", root), count = $(".work-j__count b", root), prog = $(".work-j__prog i", root);
+    const N = items.length;
+    const current = () => {
+      const x = sc.scrollLeft + 1;
+      let k = 0;
+      items.forEach((it, j) => { if (it.offsetLeft - items[0].offsetLeft <= x) k = j; });
+      return k;
+    };
+    const update = () => {
+      const max = sc.scrollWidth - sc.clientWidth;
+      const p = max > 0 ? sc.scrollLeft / max : 1;
+      prog.style.setProperty("--p", Math.max(.06, p).toFixed(3));
+      const k = p > .995 ? N - 1 : current();
+      count.textContent = String(k + 1).padStart(2, "0");
+      btns[0].disabled = sc.scrollLeft < 4;
+      btns[1].disabled = sc.scrollLeft > max - 4;
+    };
+    const go = e => {
+      const dir = +e.currentTarget.dataset.dir;
+      const k = Math.max(0, Math.min(N - 1, current() + dir));
+      sc.scrollTo({ left: items[k].offsetLeft - items[0].offsetLeft, behavior: ux.reduce ? "auto" : "smooth" });
+    };
+    const key = e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        btns[e.key === "ArrowRight" ? 1 : 0].click();
+      }
+    };
+    let raf = 0;
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
+    sc.addEventListener("scroll", onScroll, { passive: true });
+    sc.addEventListener("keydown", key);
+    btns.forEach(b => b.addEventListener("click", go));
+    addEventListener("resize", onScroll);
+    update();
+    return () => {
+      cancelAnimationFrame(raf);
+      sc.removeEventListener("scroll", onScroll);
+      sc.removeEventListener("keydown", key);
+      btns.forEach(b => b.removeEventListener("click", go));
+      removeEventListener("resize", onScroll);
+    };
+  });
+})();
