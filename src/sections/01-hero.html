@@ -1,40 +1,13 @@
 <section class="opt-sec" id="top" data-sec="hero" data-label="Portada">
 
-  <!-- A · Lexus en letras (favorita fija) -->
-  <div class="variant hero-a" data-v="A" data-name="Lexus en letras" data-theme="dark">
-    <div class="hero-a__pin">
-      <div class="hero-a__media" aria-hidden="true"><video class="hero-a__img" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" data-autoplay autoplay muted loop playsinline preload="auto"></video></div>
-      <div class="hero-a__knock" aria-hidden="true">
-        <span class="hero-a__word">SIN</span>
-        <span class="hero-a__word">L<span class="hero-a__i">I</span>MITES</span>
-      </div>
-      <div class="hero-a__stroke" aria-hidden="true">
-        <span class="hero-a__word">SIN</span>
-        <span class="hero-a__word">L<span class="hero-a__i">I</span>MITES</span>
-      </div>
-      <div class="hero-a__copy">
-        <p class="mono hero-a__kicker">Servicios 360° · Barcelona</p>
-        <h1 class="hero-a__h1">Producción visual <span class="acc">B2B.</span> <span class="hero-a__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</span></h1>
-        <div class="hero-a__ctas">
-          <a class="hero-a__play" href="#proyectos" data-magnetic>Ver proyectos</a>
-          <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button class="hero-a__play" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-        </div>
-      </div>
-      <p class="hero-a__hint mono" aria-hidden="true">Scroll para entrar</p>
-    </div>
-  </div>
-
-  <!-- B · HUD de escaneo -->
-  <div class="variant hero-hud" data-v="B" data-name="HUD escáner" data-theme="dark" hidden>
+  <!-- A · HUD sin láser (elegida en la ronda 8; antes C): vídeo del Lexus revelado de arriba abajo, sin línea que barre ni marcador -->
+  <div class="variant hero-hud hero-hud--clean" data-v="A" data-name="HUD sin láser" data-theme="dark">
     <div class="hero-hud__media" aria-hidden="true">
-      <video class="hero-hud__v hero-hud__v--raw" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video>
-      <div class="hero-hud__scanned"><video class="hero-hud__v hero-hud__v--fx" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-      <i class="hero-hud__laser"></i>
+      <video class="hero-hud__v hero-hud__v--raw" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video>
+      <div class="hero-hud__scanned"><video class="hero-hud__v hero-hud__v--fx" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video></div>
       <div class="hero-hud__grid"></div>
     </div>
     <div class="hero-hud__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-    <div class="hero-hud__reticle" aria-hidden="true"><span class="mono">Objetivo · Car wrapping</span></div>
     <ul class="hero-hud__data mono" aria-hidden="true">
       <li><span>Escaneo</span><b class="hero-hud__pct">000%</b></li>
       <li><span>Material</span><b>Vinilo 3M · Avery</b></li>
@@ -43,117 +16,12 @@
     </ul>
     <div class="hero-hud__copy">
       <p class="mono hero-hud__kicker"><span class="hero-dot"></span> Servicios 360° · Barcelona</p>
-      <h1 class="hero-hud__h1">Producción visual <span class="acc">B2B.</span></h1>
+      <h1 class="hero-hud__h1" aria-label="Producción visual B2B."><span class="hero-hud__ln" aria-hidden="true"><span>Producción visual</span></span> <span class="hero-hud__ln" aria-hidden="true"><span class="acc">B2B.</span></span></h1>
       <p class="hero-hud__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
       <div class="hero-ctas">
         <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
         <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- C · Titular en papel: el vídeo vive dentro de SIN LÍMITES sobre papel y se abre con el scroll -->
-  <div class="variant hero-pap" data-v="C" data-name="Titular en papel" data-theme="light" hidden>
-    <div class="hero-pap__pin">
-      <div class="hero-pap__media" aria-hidden="true"><video class="hero-pap__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-      <div class="hero-pap__sheet" aria-hidden="true"><span class="hero-pap__word"><span class="hero-pap__w">SIN</span> <span class="hero-pap__w">L<span class="hero-pap__i">I</span>MITES</span></span></div>
-      <div class="hero-pap__top mono" aria-hidden="true"><span>Unical Graphic</span><span>Lexus LC · Car wrapping</span><span>Cabrera de Mar · 2026</span></div>
-      <div class="hero-pap__copy">
-        <div>
-          <p class="mono hero-pap__kicker">Servicios 360° · Barcelona</p>
-          <h1 class="hero-pap__h1">Producción visual <span class="acc">B2B.</span></h1>
-          <p class="hero-pap__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
-        </div>
-        <div class="hero-ctas">
-          <a class="hero-ghost hero-ghost--ink" href="#proyectos" data-magnetic>Ver proyectos</a>
-          <a class="btn btn--dark" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button class="hero-ghost hero-ghost--ink" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- D · Marquesina en vídeo: SIN LÍMITES en dos cintas que corren en sentidos opuestos, con el vídeo dentro -->
-  <div class="variant hero-mq" data-v="D" data-name="Marquesina en vídeo" data-theme="dark" hidden>
-    <div class="hero-mq__media" aria-hidden="true"><video class="hero-mq__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-    <div class="hero-mq__knock" aria-hidden="true">
-      <div class="hero-mq__row"><div class="hero-mq__track"><span>SIN LÍMITES&nbsp;·&nbsp;</span><span>SIN LÍMITES&nbsp;·&nbsp;</span><span>SIN LÍMITES&nbsp;·&nbsp;</span><span>SIN LÍMITES&nbsp;·&nbsp;</span></div></div>
-      <div class="hero-mq__row"><div class="hero-mq__track"><span>SIN LÍMITES&nbsp;·&nbsp;</span><span>SIN LÍMITES&nbsp;·&nbsp;</span><span>SIN LÍMITES&nbsp;·&nbsp;</span><span>SIN LÍMITES&nbsp;·&nbsp;</span></div></div>
-    </div>
-    <div class="hero-mq__copy">
-      <div>
-        <p class="mono hero-mq__kicker">Servicios 360° · Barcelona</p>
-        <h1 class="hero-mq__h1">Producción visual <span class="acc">B2B.</span></h1>
-        <p class="hero-mq__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
-      </div>
-        <div class="hero-ctas">
-          <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
-          <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-        </div>
-    </div>
-  </div>
-
-  <!-- E · Antes / después: el Lexus sin rotular y rotulado, con tirador -->
-  <div class="variant hero-ba" data-v="E" data-name="Antes / después" data-theme="dark" hidden>
-    <div class="hero-ba__media">
-      <video class="hero-ba__v hero-ba__v--off" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
-      <div class="hero-ba__on" aria-hidden="true"><video class="hero-ba__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-      <div class="hero-ba__handle"><input class="hero-ba__range" type="range" min="0" max="100" value="50" aria-label="Comparar el coche sin rotular y rotulado"><span class="hero-ba__knob" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
-      <span class="hero-ba__tag hero-ba__tag--l mono" aria-hidden="true">Antes</span>
-      <span class="hero-ba__tag hero-ba__tag--r mono" aria-hidden="true">Después · Vinilo 3M</span>
-    </div>
-    <div class="hero-ba__copy">
-      <p class="mono hero-ba__kicker">Servicios 360° · Barcelona</p>
-      <h1 class="hero-ba__h1">Producción visual <span class="acc">B2B.</span></h1>
-      <p class="hero-ba__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
-        <div class="hero-ctas">
-          <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
-          <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-        </div>
-    </div>
-  </div>
-
-  <!-- F · Foco de luz: el vídeo en penumbra y un foco que lo descubre a color -->
-  <div class="variant hero-spot" data-v="F" data-name="Foco de luz" data-theme="dark" hidden>
-    <div class="hero-spot__media" aria-hidden="true">
-      <video class="hero-spot__v hero-spot__v--dim" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video>
-      <div class="hero-spot__lit"><video class="hero-spot__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-    </div>
-    <div class="hero-spot__copy">
-      <p class="mono hero-spot__kicker">Servicios 360° · Barcelona</p>
-      <h1 class="hero-spot__h1">Producción visual <span class="acc">B2B.</span></h1>
-      <p class="hero-spot__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
-        <div class="hero-ctas">
-          <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
-          <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-        </div>
-    </div>
-    <p class="hero-spot__cap mono" aria-hidden="true">Lexus LC · Black Panther · Car wrapping integral</p>
-  </div>
-
-  <!-- G · Tríptico: el vídeo impreso en tres paneles que se montan como una lona por piezas -->
-  <div class="variant hero-tri" data-v="G" data-name="Tríptico" data-theme="light" hidden>
-    <div class="hero-tri__in">
-      <div class="hero-tri__head">
-        <p class="mono hero-tri__kicker">Servicios 360° · Barcelona</p>
-        <h1 class="hero-tri__h1">Producción visual <span class="acc">B2B.</span></h1>
-      </div>
-      <div class="hero-tri__panels" aria-hidden="true">
-        <div class="hero-tri__p"><video class="hero-tri__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-        <div class="hero-tri__p"><video class="hero-tri__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-        <div class="hero-tri__p"><video class="hero-tri__v" src="assets/video/hero-coche.mp4" poster="assets/video/hero-coche.jpg" muted loop playsinline preload="none"></video></div>
-      </div>
-      <div class="hero-tri__foot">
-        <p class="hero-tri__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
-        <div class="hero-ctas">
-          <a class="hero-ghost hero-ghost--ink" href="#proyectos" data-magnetic>Ver proyectos</a>
-          <a class="btn btn--dark" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button class="hero-ghost hero-ghost--ink" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
-        </div>
       </div>
     </div>
   </div>

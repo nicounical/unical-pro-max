@@ -1,139 +1,165 @@
 <section class="opt-sec" id="sectores" data-sec="sectors" data-label="Sectores">
 
-  <!-- A · Túnel warp (la favorita, antes E) -->
-  <div class="variant sec-a" data-v="A" data-name="Túnel warp" data-theme="dark">
-    <div class="sec-a__track">
-      <div class="sec-a__stick">
-        <canvas class="sec-a__cv" aria-hidden="true"></canvas>
-        <div class="sec-a__tunnel" aria-hidden="true">
-          <span class="sec-a__w">Vehículos</span>
-          <span class="sec-a__w">Stands y Ferias</span>
-          <span class="sec-a__w">Retail y PLV</span>
-          <span class="sec-a__w">Hostelería</span>
-          <span class="sec-a__w">Oficinas</span>
-          <span class="sec-a__w">Publicidad Exterior</span>
-          <span class="sec-a__w">Eventos Deportivos</span>
-          <span class="sec-a__w">Pharma</span>
-        </div>
-        <div class="wrap sec-a__end">
-          <p class="mono label">Sectores</p>
-          <h2 class="big sec-title sec-a__title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
-          <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-          <ul class="sec-a__list"><li>Vehículos</li><li>Stands y Ferias</li><li>Retail y PLV</li><li>Hostelería</li><li>Oficinas</li><li>Publicidad Exterior</li><li>Eventos Deportivos</li><li>Pharma</li></ul>
-        </div>
-        <p class="sec-a__hud mono" aria-hidden="true"><span>Velocidad</span><b>0</b></p>
-      </div>
+  <!-- ===== Ronda 8 «Selección 5» · A (antes B, la elegida) + B–F sencillas del sistema sx (fondo night) ===== -->
+
+  <!-- A · Cuatro columnas: lista de ocho sectores con descripción, filete superior que se tiñe al pasar -->
+  <div class="variant sec-a sx sx--night" data-v="A" data-name="Cuatro columnas" data-theme="dark">
+    <div class="sx-in">
+      <header class="sx-head">
+        <p class="sx-kicker"><b>07</b> Sectores</p>
+        <h2 class="sx-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+        <p class="sx-lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+      </header>
+
+      <ol class="sec-a__list sx-grid">
+        <li class="sec-a__it rv"><span class="sx-meta">01</span><h3 class="sx-h3">Vehículos</h3><p>Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">02</span><h3 class="sx-h3">Stands y Ferias</h3><p>Stands a medida: diseño, producción en taller propio y montaje en feria.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">03</span><h3 class="sx-h3">Retail y PLV</h3><p>Expositores, escaparates y PLV para el punto de venta.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">04</span><h3 class="sx-h3">Hostelería</h3><p>Señalética, vinilos y decoración para hoteles y restaurantes.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">05</span><h3 class="sx-h3">Oficinas</h3><p>Vinilo decorativo, señalética y marca en espacios de trabajo.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">06</span><h3 class="sx-h3">Publicidad Exterior</h3><p>Lonas, vallas y gran formato para fachadas y exterior.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">07</span><h3 class="sx-h3">Eventos Deportivos</h3><p>Vestimos recintos: lonas, photocalls y señalización de evento.</p></li>
+        <li class="sec-a__it rv"><span class="sx-meta">08</span><h3 class="sx-h3">Pharma</h3><p>Stands para congresos, PLV de farmacia y material para laboratorios.</p></li>
+      </ol>
     </div>
   </div>
 
+  <!-- B · Filas editoriales: una fila por sector a todo el ancho (número · nombre grande · descripción); al pasar, el nombre se desplaza y aparece una flecha -->
+  <div class="variant sec-b sx sx--night" data-v="B" data-name="Filas editoriales" data-theme="dark" hidden>
+    <div class="sx-in">
+      <header class="sx-head">
+        <p class="sx-kicker"><b>07</b> Sectores</p>
+        <h2 class="sx-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+        <p class="sx-lead">Ocho sectores, un mismo taller y el mismo nivel de exigencia en cada proyecto.</p>
+      </header>
 
-  <!-- B · Señales de carretera (viaje sobrio, sin fotos) -->
-  <div class="variant sec-b" data-v="B" data-name="Señales de carretera" data-theme="dark" hidden>
-    <div class="sec-b__track">
-      <div class="sec-b__stick">
-        <div class="sec-b__sky" aria-hidden="true"></div>
-        <div class="sec-b__road" aria-hidden="true"><i class="sec-b__line"></i></div>
-        <div class="sec-b__signs" aria-hidden="true">
-          <div class="sec-b__sign"><small>Salida 01</small><b>Vehículos</b></div>
-          <div class="sec-b__sign"><small>Salida 02</small><b>Stands y Ferias</b></div>
-          <div class="sec-b__sign"><small>Salida 03</small><b>Retail y PLV</b></div>
-          <div class="sec-b__sign"><small>Salida 04</small><b>Hostelería</b></div>
-          <div class="sec-b__sign"><small>Salida 05</small><b>Oficinas</b></div>
-          <div class="sec-b__sign"><small>Salida 06</small><b>Publicidad Exterior</b></div>
-          <div class="sec-b__sign"><small>Salida 07</small><b>Eventos Deportivos</b></div>
-          <div class="sec-b__sign"><small>Salida 08</small><b>Pharma</b></div>
-        </div>
-        <div class="wrap sec-b__intro">
-          <p class="mono label">Sectores</p>
-          <h2 class="big sec-title sec-b__title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
-        </div>
-        <div class="wrap sec-b__end">
-          <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-          <ul class="sec-b__list"><li>Vehículos</li><li>Stands y Ferias</li><li>Retail y PLV</li><li>Hostelería</li><li>Oficinas</li><li>Publicidad Exterior</li><li>Eventos Deportivos</li><li>Pharma</li></ul>
-        </div>
-        <p class="sec-b__km mono" aria-hidden="true">Km <b>0</b> · +40 sectores</p>
-      </div>
+      <ol class="sec-b__rows">
+        <li class="sec-b__row rv"><span class="sx-meta">01</span><h3 class="sec-b__name">Vehículos</h3><p>Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">02</span><h3 class="sec-b__name">Stands y Ferias</h3><p>Stands a medida: diseño, producción en taller propio y montaje en feria.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">03</span><h3 class="sec-b__name">Retail y PLV</h3><p>Expositores, escaparates y PLV para el punto de venta.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">04</span><h3 class="sec-b__name">Hostelería</h3><p>Señalética, vinilos y decoración para hoteles y restaurantes.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">05</span><h3 class="sec-b__name">Oficinas</h3><p>Vinilo decorativo, señalética y marca en espacios de trabajo.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">06</span><h3 class="sec-b__name">Publicidad Exterior</h3><p>Lonas, vallas y gran formato para fachadas y exterior.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">07</span><h3 class="sec-b__name">Eventos Deportivos</h3><p>Vestimos recintos: lonas, photocalls y señalización de evento.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+        <li class="sec-b__row rv"><span class="sx-meta">08</span><h3 class="sec-b__name">Pharma</h3><p>Stands para congresos, PLV de farmacia y material para laboratorios.</p><svg class="sec-b__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></li>
+      </ol>
     </div>
   </div>
 
-  <!-- C · Viaje por las letras (viaje sobrio, sin fotos) -->
-  <div class="variant sec-c" data-v="C" data-name="Viaje por las letras" data-theme="dark" hidden>
-    <div class="sec-c__track">
-      <div class="sec-c__stick">
-        <div class="sec-c__panel sec-c__panel--intro"><div class="wrap"><p class="mono label">Sectores</p><h2 class="big sec-title sec-c__title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div></div>
-        <div class="sec-c__panel" data-c="paper"><b>Vehículos</b><span>01</span></div>
-        <div class="sec-c__panel" data-c="navy"><b>Stands y Ferias</b><span>02</span></div>
-        <div class="sec-c__panel" data-c="blue"><b>Retail y PLV</b><span>03</span></div>
-        <div class="sec-c__panel" data-c="sky"><b>Hostelería</b><span>04</span></div>
-        <div class="sec-c__panel" data-c="paper"><b>Oficinas</b><span>05</span></div>
-        <div class="sec-c__panel" data-c="navy"><b>Publicidad Exterior</b><span>06</span></div>
-        <div class="sec-c__panel" data-c="blue"><b>Eventos Deportivos</b><span>07</span></div>
-        <div class="sec-c__panel" data-c="sky"><b>Pharma</b><span>08</span></div>
-        <div class="sec-c__panel sec-c__panel--end"><div class="wrap">
-          <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-          <ul class="sec-c__list"><li>Vehículos</li><li>Stands y Ferias</li><li>Retail y PLV</li><li>Hostelería</li><li>Oficinas</li><li>Publicidad Exterior</li><li>Eventos Deportivos</li><li>Pharma</li></ul>
-        </div></div>
-        <p class="sec-c__count mono" aria-hidden="true"><b>00</b> / 08</p>
-      </div>
+  <!-- C · Índice con puntos: como el índice de un libro, nombre … número unidos por una línea de puntos, en dos columnas -->
+  <div class="variant sec-c sx sx--night" data-v="C" data-name="Índice con puntos" data-theme="dark" hidden>
+    <div class="sx-in">
+      <header class="sx-head">
+        <p class="sx-kicker"><b>07</b> Sectores</p>
+        <h2 class="sx-title">Un taller, <span class="acc">ocho sectores.</span></h2>
+        <p class="sx-lead">Soluciones visuales adaptadas a cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+      </header>
+
+      <ol class="sec-c__ix">
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Vehículos</span><i aria-hidden="true"></i><span class="sx-meta">01</span></p><p class="sec-c__tx">Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Stands y Ferias</span><i aria-hidden="true"></i><span class="sx-meta">02</span></p><p class="sec-c__tx">Stands a medida: diseño, producción en taller propio y montaje en feria.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Retail y PLV</span><i aria-hidden="true"></i><span class="sx-meta">03</span></p><p class="sec-c__tx">Expositores, escaparates y PLV para el punto de venta.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Hostelería</span><i aria-hidden="true"></i><span class="sx-meta">04</span></p><p class="sec-c__tx">Señalética, vinilos y decoración para hoteles y restaurantes.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Oficinas</span><i aria-hidden="true"></i><span class="sx-meta">05</span></p><p class="sec-c__tx">Vinilo decorativo, señalética y marca en espacios de trabajo.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Publicidad Exterior</span><i aria-hidden="true"></i><span class="sx-meta">06</span></p><p class="sec-c__tx">Lonas, vallas y gran formato para fachadas y exterior.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Eventos Deportivos</span><i aria-hidden="true"></i><span class="sx-meta">07</span></p><p class="sec-c__tx">Vestimos recintos: lonas, photocalls y señalización de evento.</p></li>
+        <li class="rv"><p class="sec-c__ln"><span class="sx-h3">Pharma</span><i aria-hidden="true"></i><span class="sx-meta">08</span></p><p class="sec-c__tx">Stands para congresos, PLV de farmacia y material para laboratorios.</p></li>
+      </ol>
     </div>
   </div>
 
-  <!-- D · Bloque justificado (tipográfico) -->
-  <div class="variant sec-d" data-v="D" data-name="Bloque tipográfico" data-theme="light" hidden>
-    <div class="wrap">
-      <div class="sec-d__head">
-        <div><p class="mono label">Sectores</p><h2 class="big sec-title sec-d__title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div>
-        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+  <!-- D · Titular lateral: la cabecera ocupa la columna izquierda y los ocho sectores van en dos columnas a la derecha -->
+  <div class="variant sec-d sx sx--night" data-v="D" data-name="Titular lateral" data-theme="dark" hidden>
+    <div class="sx-in sx-grid sec-d__grid">
+      <div class="sec-d__side">
+        <header class="sx-head sec-d__head">
+          <p class="sx-kicker"><b>07</b> Sectores</p>
+          <h2 class="sx-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+          <p class="sx-lead">Soluciones visuales adaptadas a cada sector, con el mismo nivel de exigencia y detalle.</p>
+        </header>
+        <a class="sx-link" href="#contacto">Cuéntanos tu proyecto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <ul class="sec-d__block">
-        <li><span class="mono">01</span><b>Vehículos</b></li>
-        <li><span class="mono">02</span><b>Stands y Ferias</b></li>
-        <li><span class="mono">03</span><b>Retail y PLV</b></li>
-        <li><span class="mono">04</span><b>Hostelería</b></li>
-        <li><span class="mono">05</span><b>Oficinas</b></li>
-        <li><span class="mono">06</span><b>Publicidad Exterior</b></li>
-        <li><span class="mono">07</span><b>Eventos Deportivos</b></li>
-        <li><span class="mono">08</span><b>Pharma</b></li>
+      <dl class="sec-d__list">
+        <div class="rv"><dt><span class="sx-meta">01</span><span class="sx-h3">Vehículos</span></dt><dd>Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">02</span><span class="sx-h3">Stands y Ferias</span></dt><dd>Stands a medida: diseño, producción en taller propio y montaje en feria.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">03</span><span class="sx-h3">Retail y PLV</span></dt><dd>Expositores, escaparates y PLV para el punto de venta.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">04</span><span class="sx-h3">Hostelería</span></dt><dd>Señalética, vinilos y decoración para hoteles y restaurantes.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">05</span><span class="sx-h3">Oficinas</span></dt><dd>Vinilo decorativo, señalética y marca en espacios de trabajo.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">06</span><span class="sx-h3">Publicidad Exterior</span></dt><dd>Lonas, vallas y gran formato para fachadas y exterior.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">07</span><span class="sx-h3">Eventos Deportivos</span></dt><dd>Vestimos recintos: lonas, photocalls y señalización de evento.</dd></div>
+        <div class="rv"><dt><span class="sx-meta">08</span><span class="sx-h3">Pharma</span></dt><dd>Stands para congresos, PLV de farmacia y material para laboratorios.</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <!-- E · Frase continua: los ocho sectores forman una sola frase grande; al pasar o enfocar un sector, su descripción aparece en la línea de abajo -->
+  <div class="variant sec-e sx sx--night" data-v="E" data-name="Frase continua" data-theme="dark" hidden>
+    <div class="sx-in">
+      <header class="sx-head sx-head--solo">
+        <p class="sx-kicker"><b>07</b> Sectores</p>
+        <h2 class="sx-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+      </header>
+
+      <p class="sec-e__run rv">Rotulamos, imprimimos y montamos para
+        <button type="button" class="sec-e__w" data-i="0" aria-pressed="true">Vehículos</button>,
+        <button type="button" class="sec-e__w" data-i="1" aria-pressed="false">Stands y Ferias</button>,
+        <button type="button" class="sec-e__w" data-i="2" aria-pressed="false">Retail y PLV</button>,
+        <button type="button" class="sec-e__w" data-i="3" aria-pressed="false">Hostelería</button>,
+        <button type="button" class="sec-e__w" data-i="4" aria-pressed="false">Oficinas</button>,
+        <button type="button" class="sec-e__w" data-i="5" aria-pressed="false">Publicidad Exterior</button>,
+        <button type="button" class="sec-e__w" data-i="6" aria-pressed="false">Eventos Deportivos</button> y
+        <button type="button" class="sec-e__w" data-i="7" aria-pressed="false">Pharma</button>.
+      </p>
+      <p class="sec-e__cap rv" aria-live="polite"><span class="sx-meta">01 · Vehículos</span><span class="sec-e__tx">Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</span></p>
+      <ul class="sec-e__data" hidden>
+        <li>Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</li>
+        <li>Stands a medida: diseño, producción en taller propio y montaje en feria.</li>
+        <li>Expositores, escaparates y PLV para el punto de venta.</li>
+        <li>Señalética, vinilos y decoración para hoteles y restaurantes.</li>
+        <li>Vinilo decorativo, señalética y marca en espacios de trabajo.</li>
+        <li>Lonas, vallas y gran formato para fachadas y exterior.</li>
+        <li>Vestimos recintos: lonas, photocalls y señalización de evento.</li>
+        <li>Stands para congresos, PLV de farmacia y material para laboratorios.</li>
       </ul>
     </div>
   </div>
 
-  <!-- E · Abanico de tarjetas -->
-  <div class="variant sec-e" data-v="E" data-name="Abanico de tarjetas" data-theme="dark" hidden>
-    <div class="wrap">
-      <div class="sec-e__head">
-        <div><p class="mono label">Sectores</p><h2 class="big sec-title sec-e__title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div>
-        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
-      </div>
-      <ul class="sec-e__deck">
-        <li class="sec-e__card"><span class="mono">Sector 01</span><b>Vehículos</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 02</span><b>Stands y Ferias</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 03</span><b>Retail y PLV</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 04</span><b>Hostelería</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 05</span><b>Oficinas</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 06</span><b>Publicidad Exterior</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 07</span><b>Eventos Deportivos</b><i aria-hidden="true"></i></li>
-        <li class="sec-e__card"><span class="mono">Sector 08</span><b>Pharma</b><i aria-hidden="true"></i></li>
-      </ul>
-    </div>
-  </div>
+  <!-- F · Índice y detalle: los ocho nombres en columna a la izquierda; a la derecha, la ficha del sector activo (número grande, texto y enlace) -->
+  <div class="variant sec-f sx sx--night" data-v="F" data-name="Índice y detalle" data-theme="dark" hidden>
+    <div class="sx-in">
+      <header class="sx-head">
+        <p class="sx-kicker"><b>07</b> Sectores</p>
+        <h2 class="sx-title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2>
+        <p class="sx-lead">Elige un sector para ver qué hacemos en él.</p>
+      </header>
 
-  <!-- F · Pegatinas de vinilo -->
-  <div class="variant sec-f" data-v="F" data-name="Pegatinas de vinilo" data-theme="light" hidden>
-    <div class="wrap">
-      <div class="sec-f__head">
-        <div><p class="mono label">Sectores</p><h2 class="big sec-title sec-f__title">Trabajamos con <span class="acc">todo tipo de empresas.</span></h2></div>
-        <p class="lead">Soluciones visuales adaptadas a las necesidades específicas de cada sector, con el mismo nivel de exigencia y detalle en todos los proyectos.</p>
+      <div class="sx-grid sec-f__grid">
+        <ol class="sec-f__nav rv">
+          <li><button type="button" class="sec-f__b" data-i="0" aria-pressed="true"><span class="sx-meta">01</span>Vehículos</button></li>
+          <li><button type="button" class="sec-f__b" data-i="1" aria-pressed="false"><span class="sx-meta">02</span>Stands y Ferias</button></li>
+          <li><button type="button" class="sec-f__b" data-i="2" aria-pressed="false"><span class="sx-meta">03</span>Retail y PLV</button></li>
+          <li><button type="button" class="sec-f__b" data-i="3" aria-pressed="false"><span class="sx-meta">04</span>Hostelería</button></li>
+          <li><button type="button" class="sec-f__b" data-i="4" aria-pressed="false"><span class="sx-meta">05</span>Oficinas</button></li>
+          <li><button type="button" class="sec-f__b" data-i="5" aria-pressed="false"><span class="sx-meta">06</span>Publicidad Exterior</button></li>
+          <li><button type="button" class="sec-f__b" data-i="6" aria-pressed="false"><span class="sx-meta">07</span>Eventos Deportivos</button></li>
+          <li><button type="button" class="sec-f__b" data-i="7" aria-pressed="false"><span class="sx-meta">08</span>Pharma</button></li>
+        </ol>
+        <div class="sec-f__card rv" aria-live="polite">
+          <p class="sec-f__n" aria-hidden="true">01</p>
+          <h3 class="sec-f__t">Vehículos</h3>
+          <p class="sec-f__tx">Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</p>
+          <a class="sx-link" href="#contacto">Pide presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </div>
-      <ul class="sec-f__board">
-        <li class="sec-f__st" style="--x:4%;--y:6%;--r:-6deg" data-k="navy">Vehículos</li>
-        <li class="sec-f__st sec-f__st--round" style="--x:31%;--y:0%;--r:5deg" data-k="blue">Stands y Ferias</li>
-        <li class="sec-f__st" style="--x:60%;--y:9%;--r:-3deg" data-k="sky">Retail y PLV</li>
-        <li class="sec-f__st sec-f__st--tag" style="--x:79%;--y:40%;--r:8deg" data-k="paper">Hostelería</li>
-        <li class="sec-f__st sec-f__st--round" style="--x:7%;--y:50%;--r:4deg" data-k="sky">Oficinas</li>
-        <li class="sec-f__st" style="--x:30%;--y:55%;--r:-5deg" data-k="paper">Publicidad Exterior</li>
-        <li class="sec-f__st sec-f__st--tag" style="--x:58%;--y:66%;--r:-8deg" data-k="navy">Eventos Deportivos</li>
-        <li class="sec-f__st sec-f__st--round" style="--x:49%;--y:30%;--r:10deg" data-k="blue">Pharma</li>
+      <ul class="sec-f__data" hidden>
+        <li>Rotulación de flotas, car wrapping y vinilo para vehículos de empresa.</li>
+        <li>Stands a medida: diseño, producción en taller propio y montaje en feria.</li>
+        <li>Expositores, escaparates y PLV para el punto de venta.</li>
+        <li>Señalética, vinilos y decoración para hoteles y restaurantes.</li>
+        <li>Vinilo decorativo, señalética y marca en espacios de trabajo.</li>
+        <li>Lonas, vallas y gran formato para fachadas y exterior.</li>
+        <li>Vestimos recintos: lonas, photocalls y señalización de evento.</li>
+        <li>Stands para congresos, PLV de farmacia y material para laboratorios.</li>
       </ul>
     </div>
   </div>

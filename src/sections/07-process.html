@@ -1,143 +1,142 @@
 <section class="opt-sec" id="proceso" data-sec="process" data-label="Cómo trabajamos">
 
-  <!-- A · Holograma 3D (favorita, fija) -->
-  <div class="variant process-a" data-v="A" data-name="Holograma 3D" data-theme="dark">
-    <div class="wrap process-a__grid">
-      <div class="process-a__stage">
-        <canvas class="process-a__cv" aria-hidden="true"></canvas>
-        <p class="process-a__hud mono" aria-hidden="true"><span>Render</span> <b class="process-a__phase">01 · Presupuesto</b></p>
-        <p class="process-a__pct mono" aria-hidden="true"><b>0</b>%</p>
-      </div>
-      <div class="process-a__text">
-        <header class="process-a__head"><p class="mono label">(Cómo trabajamos)</p><h2 class="big process-a__title">Del concepto <span class="acc">a la realidad.</span></h2></header>
-        <ol class="process-a__steps">
-          <li><span class="mono">Fase 01 · Puntos</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li>
-          <li><span class="mono">Fase 02 · Malla</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li>
-          <li><span class="mono">Fase 03 · Sólido</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li>
-          <li><span class="mono">Fase 04 · Montado</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li>
-        </ol>
+  <!-- A · Seis columnas: las seis fases en una fila separada por filetes -->
+  <div class="variant process-a sx sx--paper sx--s" data-v="A" data-name="Seis columnas" data-theme="light">
+    <div class="sx-in">
+      <header class="sx-head rv">
+        <p class="sx-kicker"><b>05</b> Cómo trabajamos</p>
+        <h2 class="sx-title">De la idea al resultado, <span class="acc">sin intermediarios.</span></h2>
+        <p class="sx-lead">Un único interlocutor de principio a fin: escuchamos, diseñamos, fabricamos y montamos.</p>
+      </header>
+      <ol class="process-a__row">
+        <li class="rv"><span class="sx-meta">01</span><h3 class="sx-h3">Idea</h3><p>Nos cuentas qué quieres conseguir. Basta una idea, un boceto o una foto.</p></li>
+        <li class="rv"><span class="sx-meta">02</span><h3 class="sx-h3">Asesoramiento</h3><p>Medimos y te proponemos la mejor solución, sin compromiso.</p></li>
+        <li class="rv"><span class="sx-meta">03</span><h3 class="sx-h3">Diseño</h3><p>Originales y propuestas gráficas adaptadas a tu marca.</p></li>
+        <li class="rv"><span class="sx-meta">04</span><h3 class="sx-h3">Producción</h3><p>Imprimimos, cortamos y laminamos en nuestra planta de 1.000 m².</p></li>
+        <li class="rv"><span class="sx-meta">05</span><h3 class="sx-h3">Instalación</h3><p>Instaladores certificados 3M y Avery, en cualquier ubicación.</p></li>
+        <li class="rv"><span class="sx-meta">06</span><h3 class="sx-h3">Resultado</h3><p>Sin intermediarios y sin sorpresas en el plazo.</p></li>
+      </ol>
+    </div>
+  </div>
+
+
+  <!-- ===== Ronda 8 · B–F: la A «Seis columnas» con las fases avanzando solas =====
+       Misma cabecera, mismas seis columnas y textos. La fase activa avanza sola en bucle;
+       se para fuera de pantalla, con el ratón o el foco encima y con el botón de pausa. -->
+
+  <!-- B · Línea de progreso: Una línea azul recorre los filetes superiores: se llena la fase activa y avanza a la siguiente. -->
+  <div class="variant process-b sx sx--paper sx--s" data-v="B" data-name="Línea de progreso" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head rv">
+        <p class="sx-kicker"><b>05</b> Cómo trabajamos</p>
+        <h2 class="sx-title">De la idea al resultado, <span class="acc">sin intermediarios.</span></h2>
+        <p class="sx-lead">Un único interlocutor de principio a fin: escuchamos, diseñamos, fabricamos y montamos.</p>
+      </header>
+      <ol class="process-row process-b__row">
+        <li><i class="process-b__bar" aria-hidden="true"></i><span class="sx-meta">01</span><h3 class="sx-h3">Idea</h3><p>Nos cuentas qué quieres conseguir. Basta una idea, un boceto o una foto.</p></li>
+        <li><i class="process-b__bar" aria-hidden="true"></i><span class="sx-meta">02</span><h3 class="sx-h3">Asesoramiento</h3><p>Medimos y te proponemos la mejor solución, sin compromiso.</p></li>
+        <li><i class="process-b__bar" aria-hidden="true"></i><span class="sx-meta">03</span><h3 class="sx-h3">Diseño</h3><p>Originales y propuestas gráficas adaptadas a tu marca.</p></li>
+        <li><i class="process-b__bar" aria-hidden="true"></i><span class="sx-meta">04</span><h3 class="sx-h3">Producción</h3><p>Imprimimos, cortamos y laminamos en nuestra planta de 1.000 m².</p></li>
+        <li><i class="process-b__bar" aria-hidden="true"></i><span class="sx-meta">05</span><h3 class="sx-h3">Instalación</h3><p>Instaladores certificados 3M y Avery, en cualquier ubicación.</p></li>
+        <li><i class="process-b__bar" aria-hidden="true"></i><span class="sx-meta">06</span><h3 class="sx-h3">Resultado</h3><p>Sin intermediarios y sin sorpresas en el plazo.</p></li>
+      </ol>
+      <div class="process-foot">
+        <p class="sx-meta">Fase <b class="process-foot__n">01</b> / 06</p>
+        <button class="process-pause" type="button" aria-pressed="false"><span class="process-pause__i" aria-hidden="true"></span><span class="process-pause__t">Pausar</span><span class="sr-only"> el avance automático de las fases</span></button>
       </div>
     </div>
   </div>
 
-  <!-- B · Plano técnico -->
-  <div class="variant process-b" data-v="B" data-name="Plano técnico" data-theme="light" hidden>
-    <div class="wrap process-b__grid">
-      <div class="process-b__stage">
-        <svg class="process-b__svg" viewBox="0 0 640 440" role="img" aria-label="Plano de un stand que se completa por fases: cotas, alzado, materiales y montaje">
-  <defs><linearGradient id="process-b-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E6CA0"/><stop offset="1" stop-color="#99C4E4"/></linearGradient>
-  <linearGradient id="process-b-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9A8" stop-opacity=".55"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></linearGradient></defs>
-  <!-- Fase 1 · cotas y nota -->
-  <g class="process-b__dim">
-    <path class="ln" data-ph="1" data-o="0" data-w=".5" pathLength="1" d="M80 392H560M80 384v16M560 384v16"/>
-    <path class="ln" data-ph="1" data-o=".15" data-w=".5" pathLength="1" d="M48 150V360M40 150h16M40 360h16"/>
-    <text data-ph="1" data-o=".35" data-w=".4" x="320" y="418" text-anchor="middle">6.000</text>
-    <text data-ph="1" data-o=".45" data-w=".4" x="30" y="258" text-anchor="middle" transform="rotate(-90 30 258)">2.500</text>
-    <path class="ln" data-ph="1" data-o=".1" data-w=".5" pathLength="1" d="M60 360H580"/>
-    <g data-ph="1" data-o=".5" data-w=".5"><rect x="420" y="26" width="192" height="76" rx="4" class="process-b__note"/>
-      <text x="434" y="50" class="process-b__nt">BRIEFING</text><text x="434" y="70">Stand 6 × 3 m</text><text x="434" y="88">Fira de Barcelona</text></g>
-  </g>
-  <!-- Fase 2 · alzado -->
-  <g class="process-b__draw">
-    <path class="ln" data-ph="2" data-o="0" data-w=".5" pathLength="1" d="M80 360V150H560V360"/>
-    <path class="ln" data-ph="2" data-o=".15" data-w=".5" pathLength="1" d="M110 180H360V330H110Z"/>
-    <path class="ln" data-ph="2" data-o=".25" data-w=".5" pathLength="1" d="M400 185H520V255H400Z"/>
-    <path class="ln" data-ph="2" data-o=".35" data-w=".5" pathLength="1" d="M372 282H538V292H372ZM380 292V360H530V292"/>
-    <path class="ln process-b__axis" data-ph="2" data-o=".45" data-w=".55" pathLength="1" d="M320 120V372"/>
-  </g>
-  <!-- Fase 3 · materiales -->
-  <g class="process-b__fill">
-    <rect data-ph="3" data-o="0" data-w=".4" x="80" y="150" width="480" height="210" fill="#1A1A2E"/>
-    <rect data-ph="3" data-o=".15" data-w=".4" x="110" y="180" width="250" height="150" fill="url(#process-b-g)"/>
-    <text data-ph="3" data-o=".3" data-w=".4" x="130" y="300" class="process-b__art">SIN LÍMITES</text>
-    <rect data-ph="3" data-o=".2" data-w=".4" x="400" y="185" width="120" height="70" fill="#10101D" stroke="#99C4E4"/>
-    <rect data-ph="3" data-o=".3" data-w=".4" x="380" y="292" width="150" height="68" fill="#fff" stroke="#1A1A2E"/>
-    <rect data-ph="3" data-o=".3" data-w=".4" x="372" y="282" width="166" height="10" fill="#2E6CA0"/>
-    <g data-ph="3" data-o=".5" data-w=".5" class="process-b__tags">
-      <path d="M235 180V110H150"/><text x="146" y="106" text-anchor="end">Impresión textil</text>
-      <path d="M520 220H600V160"/><text x="600" y="150" text-anchor="end">Vinilo 3M</text>
-      <path d="M455 360V420H520"/><text x="526" y="424">DM lacado</text>
-    </g>
-  </g>
-  <!-- Fase 4 · montaje -->
-  <g class="process-b__live">
-    <path data-ph="4" data-o="0" data-w=".4" d="M80 140H560" stroke="#1A1A2E" stroke-width="4"/>
-    <polygon data-ph="4" data-o=".1" data-w=".4" points="170,142 150,330 270,330 250,142" fill="url(#process-b-l)"/>
-    <polygon data-ph="4" data-o=".15" data-w=".4" points="440,142 410,280 520,280 490,142" fill="url(#process-b-l)"/>
-    <g data-ph="4" data-o=".25" data-w=".4" class="process-b__people"><circle cx="300" cy="300" r="9"/><rect x="290" y="311" width="20" height="49" rx="8"/><circle cx="560" cy="303" r="8"/><rect x="551" y="313" width="18" height="47" rx="7"/></g>
-    <g data-ph="4" data-o=".5" data-w=".45" class="process-b__stamp"><rect x="64" y="34" width="150" height="46" rx="6" transform="rotate(-6 139 57)"/><text x="139" y="63" text-anchor="middle" transform="rotate(-6 139 57)">MONTADO ✓</text></g>
-  </g>
-</svg>
-        <p class="process-b__foot mono" aria-hidden="true"><span>Plano 01 · Alzado frontal · E 1:50</span><b class="process-b__phase">Fase 01 · Presupuesto</b></p>
-      </div>
-      <div class="process-b__text"><header class="process-b__head"><p class="mono label">(Cómo trabajamos)</p><h2 class="big process-b__title">Del concepto <span class="acc">a la realidad.</span></h2></header><ol class="process-b__steps"><li><span class="mono">Fase 01 · Cotas</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li><li><span class="mono">Fase 02 · Alzado</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li><li><span class="mono">Fase 03 · Materiales</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li><li><span class="mono">Fase 04 · Montaje</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li></ol></div>
-    </div>
-  </div>
-
-  <!-- C · Isometría -->
-  <div class="variant process-c" data-v="C" data-name="Isometría" data-theme="light" hidden>
-    <div class="wrap process-c__grid">
-      <div class="process-c__text"><header class="process-c__head"><p class="mono label">(Cómo trabajamos)</p><h2 class="big process-c__title">Del concepto <span class="acc">a la realidad.</span></h2></header><ol class="process-c__steps"><li><span class="mono">Fase 01 · Superficie</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li><li><span class="mono">Fase 02 · Volumen</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li><li><span class="mono">Fase 03 · Fabricación</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li><li><span class="mono">Fase 04 · Montado</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li></ol></div>
-      <div class="process-c__stage">
-        <svg class="process-c__svg" viewBox="0 0 600 460" role="img" aria-label="Stand en perspectiva isométrica que se construye por fases"></svg>
-        <p class="process-c__foot mono" aria-hidden="true"><b class="process-c__pct">00</b><span>% construido</span></p>
+  <!-- C · Número que se llena: Cada fase lleva su número grande; el de la fase activa se llena de azul de abajo arriba. -->
+  <div class="variant process-c sx sx--paper sx--s" data-v="C" data-name="Número que se llena" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head rv">
+        <p class="sx-kicker"><b>05</b> Cómo trabajamos</p>
+        <h2 class="sx-title">De la idea al resultado, <span class="acc">sin intermediarios.</span></h2>
+        <p class="sx-lead">Un único interlocutor de principio a fin: escuchamos, diseñamos, fabricamos y montamos.</p>
+      </header>
+      <ol class="process-row process-c__row">
+        <li><span class="process-c__n" aria-hidden="true"><span>01</span><span class="process-c__fg">01</span></span><span class="sx-meta process-c__meta">Fase 01</span><h3 class="sx-h3">Idea</h3><p>Nos cuentas qué quieres conseguir. Basta una idea, un boceto o una foto.</p></li>
+        <li><span class="process-c__n" aria-hidden="true"><span>02</span><span class="process-c__fg">02</span></span><span class="sx-meta process-c__meta">Fase 02</span><h3 class="sx-h3">Asesoramiento</h3><p>Medimos y te proponemos la mejor solución, sin compromiso.</p></li>
+        <li><span class="process-c__n" aria-hidden="true"><span>03</span><span class="process-c__fg">03</span></span><span class="sx-meta process-c__meta">Fase 03</span><h3 class="sx-h3">Diseño</h3><p>Originales y propuestas gráficas adaptadas a tu marca.</p></li>
+        <li><span class="process-c__n" aria-hidden="true"><span>04</span><span class="process-c__fg">04</span></span><span class="sx-meta process-c__meta">Fase 04</span><h3 class="sx-h3">Producción</h3><p>Imprimimos, cortamos y laminamos en nuestra planta de 1.000 m².</p></li>
+        <li><span class="process-c__n" aria-hidden="true"><span>05</span><span class="process-c__fg">05</span></span><span class="sx-meta process-c__meta">Fase 05</span><h3 class="sx-h3">Instalación</h3><p>Instaladores certificados 3M y Avery, en cualquier ubicación.</p></li>
+        <li><span class="process-c__n" aria-hidden="true"><span>06</span><span class="process-c__fg">06</span></span><span class="sx-meta process-c__meta">Fase 06</span><h3 class="sx-h3">Resultado</h3><p>Sin intermediarios y sin sorpresas en el plazo.</p></li>
+      </ol>
+      <div class="process-foot">
+        <p class="sx-meta">Fase <b class="process-foot__n">01</b> / 06</p>
+        <button class="process-pause" type="button" aria-pressed="false"><span class="process-pause__i" aria-hidden="true"></span><span class="process-pause__t">Pausar</span><span class="sr-only"> el avance automático de las fases</span></button>
       </div>
     </div>
   </div>
 
-  <!-- D · Maqueta -->
-  <div class="variant process-d" data-v="D" data-name="Maqueta que se pliega" data-theme="light" hidden>
-    <div class="process-d__pin">
-      <div class="wrap process-d__top"><header class="process-d__head"><p class="mono label">(Cómo trabajamos)</p><h2 class="big process-d__title">Del concepto <span class="acc">a la realidad.</span></h2></header><p class="process-d__count mono" aria-hidden="true"><b>01</b> / 04</p></div>
-      <div class="process-d__stage" aria-hidden="true">
-        <div class="process-d__zoom">
-          <div class="process-d__scene">
-            <div class="process-d__shadow"></div>
-            <div class="process-d__floor"><i class="process-d__cut"></i><span class="process-d__dim mono">6 × 3 m</span><i class="process-d__spot process-d__spot--1"></i><i class="process-d__spot process-d__spot--2"></i></div>
-            <div class="process-d__wall process-d__wall--back"><i class="process-d__print"><img src="assets/img/logo/logo-unical-light.png" alt="" width="800" height="105" loading="lazy"><b>SIN LÍMITES</b></i></div>
-            <div class="process-d__wall process-d__wall--side"><i class="process-d__print process-d__print--side"></i></div>
-            <div class="process-d__counter"><i class="process-d__print process-d__print--counter"></i></div>
-            <div class="process-d__top-plate"></div>
-            <div class="process-d__fig process-d__fig--1"></div>
-            <div class="process-d__fig process-d__fig--2"></div>
-          </div>
-        </div>
+  <!-- D · Columna que se abre: La fase activa se ensancha y despliega su texto y su entregable; las demás se recogen. -->
+  <div class="variant process-d sx sx--paper sx--s" data-v="D" data-name="Columna que se abre" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head rv">
+        <p class="sx-kicker"><b>05</b> Cómo trabajamos</p>
+        <h2 class="sx-title">De la idea al resultado, <span class="acc">sin intermediarios.</span></h2>
+        <p class="sx-lead">Un único interlocutor de principio a fin: escuchamos, diseñamos, fabricamos y montamos.</p>
+      </header>
+      <ol class="process-row process-d__row">
+        <li><span class="sx-meta">01</span><h3 class="sx-h3">Idea</h3><p class="process-d__txt">Nos cuentas qué quieres conseguir. Basta una idea, un boceto o una foto.</p><div class="process-d__more"><div><p class="sx-meta">Entregable</p><p class="process-d__del">Briefing y referencias</p></div></div></li>
+        <li><span class="sx-meta">02</span><h3 class="sx-h3">Asesoramiento</h3><p class="process-d__txt">Medimos y te proponemos la mejor solución, sin compromiso.</p><div class="process-d__more"><div><p class="sx-meta">Entregable</p><p class="process-d__del">Visita técnica y presupuesto</p></div></div></li>
+        <li><span class="sx-meta">03</span><h3 class="sx-h3">Diseño</h3><p class="process-d__txt">Originales y propuestas gráficas adaptadas a tu marca.</p><div class="process-d__more"><div><p class="sx-meta">Entregable</p><p class="process-d__del">Propuesta gráfica y maqueta</p></div></div></li>
+        <li><span class="sx-meta">04</span><h3 class="sx-h3">Producción</h3><p class="process-d__txt">Imprimimos, cortamos y laminamos en nuestra planta de 1.000 m².</p><div class="process-d__more"><div><p class="sx-meta">Entregable</p><p class="process-d__del">Impresión, corte y laminado</p></div></div></li>
+        <li><span class="sx-meta">05</span><h3 class="sx-h3">Instalación</h3><p class="process-d__txt">Instaladores certificados 3M y Avery, en cualquier ubicación.</p><div class="process-d__more"><div><p class="sx-meta">Entregable</p><p class="process-d__del">Montaje en tu ubicación</p></div></div></li>
+        <li><span class="sx-meta">06</span><h3 class="sx-h3">Resultado</h3><p class="process-d__txt">Sin intermediarios y sin sorpresas en el plazo.</p><div class="process-d__more"><div><p class="sx-meta">Entregable</p><p class="process-d__del">Entrega y revisión final</p></div></div></li>
+      </ol>
+      <div class="process-foot">
+        <p class="sx-meta">Fase <b class="process-foot__n">01</b> / 06</p>
+        <button class="process-pause" type="button" aria-pressed="false"><span class="process-pause__i" aria-hidden="true"></span><span class="process-pause__t">Pausar</span><span class="sr-only"> el avance automático de las fases</span></button>
       </div>
-      <div class="wrap process-d__bottom"><ol class="process-d__steps"><li><span class="mono">Fase 01 · Plancha</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li><li><span class="mono">Fase 02 · Plegado</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li><li><span class="mono">Fase 03 · Impresión</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li><li><span class="mono">Fase 04 · Montado</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li></ol><div class="process-d__rail" aria-hidden="true"><i></i></div></div>
     </div>
   </div>
 
-  <!-- E · Ficha de proyecto -->
-  <div class="variant process-e" data-v="E" data-name="Ficha de proyecto" data-theme="light" hidden>
-    <div class="wrap process-e__grid">
-      <div class="process-e__stage">
-        <div class="process-e__sheet" role="img" aria-label="Ficha técnica de un proyecto que se rellena por fases: briefing, plano, materiales y montaje">
-          <div class="process-e__q process-e__q--1"><p class="mono">01 · Briefing</p>
-            <ul class="process-e__brief"><li data-ph="1" data-o="0" data-w=".3"><span>Superficie</span>6 × 3 m</li><li data-ph="1" data-o=".15" data-w=".3"><span>Ubicación</span>Fira de Barcelona</li><li data-ph="1" data-o=".3" data-w=".3"><span>Gráfica</span>Imagen del cliente</li></ul>
-            <b class="process-e__stamp" data-ph="1" data-o=".6" data-w=".35">Aprobado</b></div>
-          <div class="process-e__q process-e__q--2"><p class="mono">02 · Plano</p>
-            <svg viewBox="0 0 220 130" aria-hidden="true"><path class="ln" data-ph="2" data-o="0" data-w=".5" pathLength="1" d="M10 120H210V10H10Z"/><path class="ln process-e__thick" data-ph="2" data-o=".15" data-w=".5" pathLength="1" d="M10 120V10H210"/><path class="ln" data-ph="2" data-o=".3" data-w=".5" pathLength="1" d="M130 80h60v25h-60Z"/><path class="ln" data-ph="2" data-o=".4" data-w=".5" pathLength="1" d="M30 30h90v8H30Z"/><path class="ln process-e__dash" data-ph="2" data-o=".5" data-w=".5" pathLength="1" d="M10 126H210"/></svg></div>
-          <div class="process-e__q process-e__q--3"><p class="mono">03 · Materiales</p><ul class="process-e__sw"><li data-ph="3" data-o="0.00" data-w=".45"><i style="background:#E9EEF4"></i><span>Vinilo 3M IJ180</span><b class="process-e__ok">✓</b></li><li data-ph="3" data-o="0.15" data-w=".45"><i style="background:#99C4E4"></i><span>Avery MPI 1105</span><b class="process-e__ok">✓</b></li><li data-ph="3" data-o="0.30" data-w=".45"><i style="background:#2E6CA0"></i><span>Lona 510 g</span><b class="process-e__ok">✓</b></li><li data-ph="3" data-o="0.45" data-w=".45"><i style="background:#1A1A2E"></i><span>Composite 3 mm</span><b class="process-e__ok">✓</b></li></ul></div>
-          <div class="process-e__q process-e__q--4"><p class="mono">04 · Montaje</p><div class="process-e__photo"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="" loading="lazy"><b class="process-e__done">Montado ✓</b></div></div>
-          <div class="process-e__box"><img src="assets/img/logo/logo-unical.png" alt="" width="800" height="98" loading="lazy"><dl><div><dt>Proyecto</dt><dd>Stand corporativo</dd></div><div><dt>Escala</dt><dd>1:50</dd></div><div><dt>Fase</dt><dd class="process-e__phase">01 / 04</dd></div></dl></div>
-        </div>
+  <!-- E · Foco: Una lámina blanca se desliza detrás de la fase activa como un foco. -->
+  <div class="variant process-e sx sx--paper sx--s" data-v="E" data-name="Foco" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head rv">
+        <p class="sx-kicker"><b>05</b> Cómo trabajamos</p>
+        <h2 class="sx-title">De la idea al resultado, <span class="acc">sin intermediarios.</span></h2>
+        <p class="sx-lead">Un único interlocutor de principio a fin: escuchamos, diseñamos, fabricamos y montamos.</p>
+      </header>
+      <ol class="process-row process-e__row">
+        <span class="process-e__spot" aria-hidden="true"></span>
+        <li><span class="sx-meta">01</span><h3 class="sx-h3">Idea</h3><p>Nos cuentas qué quieres conseguir. Basta una idea, un boceto o una foto.</p></li>
+        <li><span class="sx-meta">02</span><h3 class="sx-h3">Asesoramiento</h3><p>Medimos y te proponemos la mejor solución, sin compromiso.</p></li>
+        <li><span class="sx-meta">03</span><h3 class="sx-h3">Diseño</h3><p>Originales y propuestas gráficas adaptadas a tu marca.</p></li>
+        <li><span class="sx-meta">04</span><h3 class="sx-h3">Producción</h3><p>Imprimimos, cortamos y laminamos en nuestra planta de 1.000 m².</p></li>
+        <li><span class="sx-meta">05</span><h3 class="sx-h3">Instalación</h3><p>Instaladores certificados 3M y Avery, en cualquier ubicación.</p></li>
+        <li><span class="sx-meta">06</span><h3 class="sx-h3">Resultado</h3><p>Sin intermediarios y sin sorpresas en el plazo.</p></li>
+      </ol>
+      <div class="process-foot">
+        <p class="sx-meta">Fase <b class="process-foot__n">01</b> / 06</p>
+        <button class="process-pause" type="button" aria-pressed="false"><span class="process-pause__i" aria-hidden="true"></span><span class="process-pause__t">Pausar</span><span class="sr-only"> el avance automático de las fases</span></button>
       </div>
-      <div class="process-e__text"><header class="process-e__head"><p class="mono label">(Cómo trabajamos)</p><h2 class="big process-e__title">Del concepto <span class="acc">a la realidad.</span></h2></header><ol class="process-e__steps"><li><span class="mono">Fase 01 · Briefing</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li><li><span class="mono">Fase 02 · Plano</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li><li><span class="mono">Fase 03 · Materiales</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li><li><span class="mono">Fase 04 · Montaje</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li></ol></div>
     </div>
   </div>
 
-  <!-- F · Despiece -->
-  <div class="variant process-f" data-v="F" data-name="Despiece por capas" data-theme="dark" hidden>
-    <div class="process-f__pin">
-      <div class="wrap process-f__top"><header class="process-f__head"><p class="mono label">(Cómo trabajamos)</p><h2 class="big process-f__title">Del concepto <span class="acc">a la realidad.</span></h2></header></div>
-      <div class="wrap process-f__mid">
-        <div class="process-f__stage" aria-hidden="true">
-          <div class="process-f__wall"><i></i><i></i><i></i><i></i></div>
-          <div class="process-f__stack"><div class="process-f__layer process-f__layer--1"><span class="process-f__badge mono">01</span></div><div class="process-f__layer process-f__layer--2"><span class="process-f__badge mono">02</span><b>SIN LÍMITES</b></div><div class="process-f__layer process-f__layer--3"><span class="process-f__badge mono">03</span></div><div class="process-f__layer process-f__layer--4"><span class="process-f__badge mono">04</span></div></div>
-        </div>
-        <ol class="process-f__legend" aria-label="Capas del rótulo"><li><span class="mono">01</span><b>Soporte</b><i>Composite 3 mm</i></li><li><span class="mono">02</span><b>Arte final</b><i>Diseño a medida</i></li><li><span class="mono">03</span><b>Impresión</b><i>Vinilo 3M</i></li><li><span class="mono">04</span><b>Laminado</b><i>Protección UV</i></li></ol>
+  <!-- F · Fase que se escribe: El texto de la fase activa se escribe letra a letra y su título se subraya. -->
+  <div class="variant process-f sx sx--paper sx--s" data-v="F" data-name="Fase que se escribe" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head rv">
+        <p class="sx-kicker"><b>05</b> Cómo trabajamos</p>
+        <h2 class="sx-title">De la idea al resultado, <span class="acc">sin intermediarios.</span></h2>
+        <p class="sx-lead">Un único interlocutor de principio a fin: escuchamos, diseñamos, fabricamos y montamos.</p>
+      </header>
+      <ol class="process-row process-f__row">
+        <li><span class="sx-meta">01</span><h3 class="sx-h3">Idea</h3><p>Nos cuentas qué quieres conseguir. Basta una idea, un boceto o una foto.</p></li>
+        <li><span class="sx-meta">02</span><h3 class="sx-h3">Asesoramiento</h3><p>Medimos y te proponemos la mejor solución, sin compromiso.</p></li>
+        <li><span class="sx-meta">03</span><h3 class="sx-h3">Diseño</h3><p>Originales y propuestas gráficas adaptadas a tu marca.</p></li>
+        <li><span class="sx-meta">04</span><h3 class="sx-h3">Producción</h3><p>Imprimimos, cortamos y laminamos en nuestra planta de 1.000 m².</p></li>
+        <li><span class="sx-meta">05</span><h3 class="sx-h3">Instalación</h3><p>Instaladores certificados 3M y Avery, en cualquier ubicación.</p></li>
+        <li><span class="sx-meta">06</span><h3 class="sx-h3">Resultado</h3><p>Sin intermediarios y sin sorpresas en el plazo.</p></li>
+      </ol>
+      <div class="process-foot">
+        <p class="sx-meta">Fase <b class="process-foot__n">01</b> / 06</p>
+        <button class="process-pause" type="button" aria-pressed="false"><span class="process-pause__i" aria-hidden="true"></span><span class="process-pause__t">Pausar</span><span class="sr-only"> el avance automático de las fases</span></button>
       </div>
-      <div class="wrap process-f__bottom"><ol class="process-f__steps"><li><span class="mono">Fase 01 · Medidas</span><h3>Presupuesto</h3><p>Escuchamos tus necesidades y proponemos soluciones con una valoración detallada y sin compromiso.</p></li><li><span class="mono">Fase 02 · Arte final</span><h3>Diseño</h3><p>Nuestro equipo creativo realiza los originales y propuestas gráficas adaptadas a tu marca y proyecto.</p></li><li><span class="mono">Fase 03 · Impresión</span><h3>Producción</h3><p>Máquinas de última generación imprimen, cortan, pegan o sueldan todo lo necesario con la máxima precisión.</p></li><li><span class="mono">Fase 04 · Instalado</span><h3>Instalación</h3><p>Instaladores experimentados hacen realidad el boceto inicial con los mejores acabados en cualquier ubicación.</p></li></ol><div class="process-f__rail" aria-hidden="true"><i></i></div></div>
     </div>
   </div>
 </section>

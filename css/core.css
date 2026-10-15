@@ -160,3 +160,49 @@ body.no-dock .dock,body.no-dock .board{display:none!important}
 .no-gsap .rv{opacity:1;transform:none}
 /* Con 11 versiones el selector no cabe en móvil: botones algo menores y difuminado lateral que indica que se desliza */
 @media (max-width:600px){.dock__btns{gap:1px;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent);padding-right:18px}.dock__btns button{width:31px;height:34px}}
+
+/* ==========================================================
+   SISTEMA «sx» (ronda 5) — lenguaje común para todas las secciones nuevas.
+   Una sola cabecera, una escala, una retícula, un ritmo. Ver src/CONTRATO.md.
+   ========================================================== */
+:root{
+  --sx-gap:clamp(14px,1.6vw,24px);
+  --sx-r:10px;                                 /* radio único para fotos y vídeos */
+  --sx-py:clamp(80px,9vw,140px);               /* ritmo vertical normal */
+  --sx-py-s:clamp(56px,6vw,96px);              /* secciones compactas */
+  --sx-title:clamp(2.2rem,4.6vw,4.6rem);       /* h2 de sección */
+  --sx-h3:clamp(1.15rem,1.5vw,1.45rem);
+}
+.sx{padding-block:var(--sx-py);position:relative}
+.sx--s{padding-block:var(--sx-py-s)}
+.sx--night{background:var(--u-night);color:var(--u-paper)}
+.sx--navy{background:var(--u-navy);color:var(--u-paper)}
+.sx--paper{background:var(--u-paper);color:var(--u-ink)}
+.sx--white{background:#fff;color:var(--u-ink)}
+.sx--blue{background:var(--u-blue-deep);color:#fff}
+.sx-in{max-width:1500px;margin-inline:auto;padding-inline:var(--pad)}
+.sx-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--sx-gap)}
+/* Cabecera: índice + etiqueta / titular (8 col) / entradilla (4 col) / filete */
+.sx-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--sx-gap);align-items:end;padding-bottom:clamp(24px,2.6vw,40px);margin-bottom:clamp(32px,4vw,64px);border-bottom:1px solid currentColor;border-bottom-color:color-mix(in srgb,currentColor 16%,transparent)}
+.sx-kicker{grid-column:1/-1;display:flex;gap:.9rem;align-items:center;font-family:var(--f-mono);font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--u-blue-strong)}
+.sx--night .sx-kicker,.sx--navy .sx-kicker,.sx--blue .sx-kicker{color:var(--u-blue)}
+.sx-kicker b{font-weight:500;opacity:.55}
+.sx-title{grid-column:1/span 8;font-family:var(--f-head);font-weight:var(--w-display);font-size:var(--sx-title);line-height:.98;letter-spacing:-.045em;text-wrap:balance}
+.sx-lead{grid-column:9/-1;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.55;color:var(--u-muted-dark);max-width:44ch}
+.sx--night .sx-lead,.sx--navy .sx-lead{color:var(--u-muted)}
+.sx--blue .sx-lead{color:rgba(255,255,255,.78)}
+.sx-head--solo .sx-title{grid-column:1/span 10}
+.sx-h3{font-family:var(--f-head);font-weight:var(--w-head);font-size:var(--sx-h3);line-height:1.15;letter-spacing:-.025em}
+.sx-meta{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--u-muted-dark)}
+.sx--night .sx-meta,.sx--navy .sx-meta{color:var(--u-muted)}
+.sx-media{border-radius:var(--sx-r);overflow:hidden;background:color-mix(in srgb,currentColor 8%,transparent)}
+.sx-media img,.sx-media video{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+a:hover .sx-media img,a:focus-visible .sx-media img{transform:scale(1.04)}
+.sx-link{display:inline-flex;align-items:center;gap:.55rem;min-height:44px;font-family:var(--f-head);font-weight:600;background:linear-gradient(currentColor,currentColor) 0 calc(100% - 8px)/0 1px no-repeat;transition:background-size .5s var(--ease)}
+.sx-link:hover,.sx-link:focus-visible{background-size:100% 1px}
+.sx-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
+.sx-rule{height:1px;border:0;margin:0;background:currentColor;opacity:.16}
+@media (max-width:900px){
+  .sx-title,.sx-head--solo .sx-title,.sx-lead{grid-column:1/-1}
+  .sx-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+}

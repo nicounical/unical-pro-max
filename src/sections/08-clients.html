@@ -1,70 +1,57 @@
 <section class="opt-sec" id="clientes" data-sec="clients" data-label="Clientes">
-
-  <!-- A · Muro de estadio (favorita del usuario) -->
-  <div class="variant clients-a" data-v="A" data-name="Muro de estadio" data-theme="dark">
-    <div class="clients-a__head wrap">
-      <p class="mono label">(Clientes)</p>
-      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-    </div>
-    <div class="clients-a__view" aria-hidden="true">
-      <div class="clients-a__wall"></div>
-    </div>
-    <p class="sr-only" data-clients-list></p>
-  </div>
-
-  <!-- B · Frase viva: «Trabajamos para ___» con la marca rotando -->
-  <div class="variant clients-b" data-v="B" data-name="Frase viva" data-theme="light" hidden>
-    <div class="clients-b__in wrap">
-      <p class="mono label">(Clientes)</p>
-      <h2 class="clients-b__line">Trabajamos para <span class="clients-b__slot" aria-hidden="true"><span class="clients-b__word">Toyota</span></span><span class="clients-b__dot" aria-hidden="true">.</span><span class="sr-only">marcas que confían en nosotros.</span></h2>
-      <p class="clients-b__meta mono" aria-hidden="true"><span class="clients-b__n">01</span> / 25 · <span class="clients-b__sec">automoción</span></p>
-      <ul class="clients-b__all" aria-label="Algunos de nuestros clientes"></ul>
-    </div>
-  </div>
-
-  <!-- C · Acreditaciones: tarjetas de evento colgadas de su cinta -->
-  <div class="variant clients-c" data-v="C" data-name="Acreditaciones" data-theme="dark" hidden>
-    <div class="clients-c__head wrap">
-      <p class="mono label">(Clientes) · Acreditados</p>
-      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-      <p class="lead clients-c__lead">Marcas que vuelven a producir con nosotros, evento tras evento.</p>
-    </div>
-    <div class="clients-c__view"><ul class="clients-c__rail" aria-label="Algunos de nuestros clientes"></ul></div>
-  </div>
-
-  <!-- D · Columnas en movimiento -->
-  <div class="variant clients-d" data-v="D" data-name="Columnas en movimiento" data-theme="light" hidden>
-    <div class="clients-d__in wrap">
-      <div class="clients-d__copy">
-        <p class="mono label">(Clientes)</p>
-        <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-        <p class="lead">Del gran consumo a la farma, de la banca al deporte. <strong>+3.000 proyectos</strong> para marcas que exigen el máximo.</p>
+  <!-- A · Puente a contacto (elegida en la ronda 8; antes E): todas las marcas en una sola línea infinita
+       que avanza en bucle continuo (la pista va duplicada), pausa al pasar el ratón o con el foco;
+       debajo, partners y un hilo que baja hasta el contacto.
+       Los PNG de assets/img/clientes son favicons: símbolo monocromo + nombre. Las marcas sin favicon
+       (clientes de los proyectos del portfolio) llevan su inicial. -->
+  <div class="variant clients-a" data-v="A" data-name="Puente a contacto" data-theme="dark">
+    <div class="clients-a__in">
+      <p class="mono clients-a__label wrap">Confían en nosotros</p>
+      <div class="clients-a__belt">
+        <ul class="clients-a__row" aria-label="Algunos de nuestros clientes">
+          <li class="clients-mk"><img src="assets/img/clientes/toyota.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Toyota</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/coca-cola.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Coca-Cola</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">L</i><span>Lexus</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/bankinter.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Bankinter</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/generali.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Generali</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">M</i><span>McDonald's</span></li>
+          <li class="clients-mk clients-mk--line"><img src="assets/img/clientes/sony-music.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Sony Music</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/monster-energy.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Monster Energy</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">D</i><span>Disney</span></li>
+          <li class="clients-mk clients-mk--line"><img src="assets/img/clientes/philip-morris.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Philip Morris</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/mitsubishi-electric.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Mitsubishi Electric</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">F</i><span>Five Guys</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/otis.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Otis</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/porcelanosa.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Porcelanosa</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">J</i><span>Janssen</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/rituals.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Rituals</span></li>
+          <li class="clients-mk clients-mk--line"><img src="assets/img/clientes/wella.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Wella</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">E</i><span>Eversense</span></li>
+          <li class="clients-mk clients-mk--line"><img src="assets/img/clientes/los40.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>LOS40</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/rfef.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>RFEF</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">T</i><span>TKE</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/cruz-roja.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Cruz Roja</span></li>
+          <li class="clients-mk clients-mk--line"><img src="assets/img/clientes/avoris.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Ávoris</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">V</i><span>Venca</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/catai.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Catai</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/csl-vifor.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>CSL Vifor</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">T</i><span>Tibidabo</span></li>
+          <li class="clients-mk clients-mk--line"><img src="assets/img/clientes/dial.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Dial</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/elanco.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Elanco</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">3</i><span>3Cat</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/fibratel.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Fibratel</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/leo-pharma.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>LEO Pharma</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">G</i><span>Goofretti</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/longi.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>LONGi</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/straumann.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Straumann</span></li>
+          <li class="clients-mk"><i class="clients-mk__ini" aria-hidden="true">T</i><span>Tibau Team</span></li>
+          <li class="clients-mk"><img src="assets/img/clientes/ucb.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>UCB</span></li>
+        </ul>
       </div>
-      <div class="clients-d__cols" aria-hidden="true"></div>
-      <p class="sr-only" data-clients-list></p>
-    </div>
-  </div>
-
-  <!-- E · Una a una: cada marca ocupa la pantalla -->
-  <div class="variant clients-e" data-v="E" data-name="Una a una" data-theme="dark" hidden>
-    <div class="clients-e__pin">
-      <div class="clients-e__top wrap">
-        <p class="mono label">(Clientes)</p>
-        <h2 class="clients-e__h">Clientes que <span class="acc">confían en nosotros.</span></h2>
+      <div class="wrap clients-a__foot">
+        <p class="clients-a__cert"><span class="mono">Instaladores certificados</span> <img src="assets/img/partners/3m.svg" alt="3M" width="46" height="24" loading="lazy"> <img src="assets/img/partners/avery-dennison.svg" alt="Avery Dennison" width="120" height="24" loading="lazy"></p>
+        <a class="clients-a__next" href="#contacto"><span>Hablemos de tu proyecto</span><i aria-hidden="true"></i></a>
       </div>
-      <div class="clients-e__stage" aria-hidden="true"></div>
-      <div class="clients-e__bar wrap mono" aria-hidden="true"><span class="clients-e__n">01</span><i class="clients-e__track"><b></b></i><span class="clients-e__sec">automoción</span></div>
     </div>
-    <p class="sr-only" data-clients-list></p>
-  </div>
-
-  <!-- F · Roll-ups: una fila de expositores que se despliegan -->
-  <div class="variant clients-f" data-v="F" data-name="Roll-ups" data-theme="light" hidden>
-    <div class="clients-f__head wrap">
-      <p class="mono label">(Clientes)</p>
-      <h2 class="big">Clientes que <span class="acc">confían en nosotros.</span></h2>
-    </div>
-    <div class="clients-f__floor"><ul class="clients-f__row" aria-label="Algunos de nuestros clientes"></ul></div>
-    <p class="clients-f__more wrap"></p>
   </div>
 </section>

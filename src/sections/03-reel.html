@@ -1,116 +1,24 @@
 <section class="opt-sec" id="showreel" data-sec="reel" data-label="Showreel">
 
-  <!-- A · Subtítulos (favorita): vídeo a sangre fijo con frases gigantes que se suceden -->
-  <div class="variant reel-a" data-v="A" data-name="Subtítulos" data-theme="dark">
-    <div class="reel-a__pin">
-      <div class="reel-a__video"><video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></div>
-      <p class="mono reel-a__label">(Showreel 2026 · 0:37)</p>
-      <h2 class="reel-a__subs">
-        <span class="reel-a__line">37 segundos.</span>
-        <span class="reel-a__line"><span class="acc">+3.000</span> proyectos.</span>
-        <span class="reel-a__line"><span class="acc">+25</span> años.</span>
-        <span class="reel-a__line">Una sola planta. <span class="acc">Sin límites.</span></span>
-      </h2>
-      <button class="btn reel-a__btn" type="button" data-reel>▶ Ver con sonido</button>
-    </div>
-  </div>
-
-  <!-- B · Subtítulos con capítulos: palabras que suben por máscara, barra de capítulos y cierre con dos CTAs -->
-  <div class="variant reel-b" data-v="B" data-name="Capítulos" data-theme="dark" hidden>
-    <div class="reel-b__pin">
-      <div class="reel-b__video"><video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></div>
-      <div class="reel-b__top">
-        <p class="mono">(Showreel 2026)</p>
-        <p class="mono reel-b__tc" aria-hidden="true"><span>00:00</span> / 00:37</p>
+  <!-- A · Ventana editorial (conservada): el vídeo empieza como una ventana dentro de la retícula y crece con el scroll (sin pin). Ronda 5: vídeo nuevo, sin sonido -->
+  <div class="variant reel-a" data-v="A" data-name="Ventana editorial" data-theme="light">
+    <div class="wrap reel-a__in">
+      <header class="reel-a__head">
+        <p class="mono reel-a__kicker">(Showreel 2026) <span>· 0:40</span></p>
+        <h2 class="reel-a__title">Imprimimos, rotulamos, montamos e instalamos. <span class="acc">Así se ve.</span></h2>
+      </header>
+      <div class="reel-a__stage">
+        <div class="reel-a__frame" data-player>
+          <video src="assets/video/showreel.mp4" data-src-m="assets/video/showreel-720.mp4" poster="assets/video/showreel.webp" muted loop playsinline preload="none" aria-label="Showreel de Unical Graphic: montaje de proyectos reales"></video>
+        </div>
       </div>
-      <h2 class="reel-b__subs">
-        <span class="reel-b__line">37 segundos.</span>
-        <span class="reel-b__line"><span class="acc">+3.000</span> proyectos.</span>
-        <span class="reel-b__line"><span class="acc">+25</span> años haciéndolo.</span>
-        <span class="reel-b__line">Una sola planta. <span class="acc">Sin límites.</span></span>
-      </h2>
-      <div class="reel-b__end">
-        <button class="btn reel-b__btn" type="button" data-reel>▶ Ver el showreel completo</button>
-        <a class="reel-b__link" href="#contacto">Solicitar presupuesto →</a>
-      </div>
-      <ol class="reel-b__chapters" aria-hidden="true">
-        <li><i></i><span class="mono">01 · Duración</span></li>
-        <li><i></i><span class="mono">02 · Proyectos</span></li>
-        <li><i></i><span class="mono">03 · Experiencia</span></li>
-        <li><i></i><span class="mono">04 · Planta</span></li>
-      </ol>
-    </div>
-  </div>
-
-  <!-- C · Ventana que se abre: el reel empieza como una ventana y se abre a pantalla completa mientras pasan las frases -->
-  <div class="variant reel-c" data-v="C" data-name="Ventana que se abre" data-theme="dark" hidden>
-    <div class="reel-c__pin">
-      <p class="mono reel-c__label">(Showreel 2026 · 0:37)</p>
-      <div class="reel-c__win"><video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video><div class="reel-c__shade"></div></div>
-      <h2 class="reel-c__subs">
-        <span class="reel-c__line">Mira lo que <span class="acc">hacemos.</span></span>
-        <span class="reel-c__line">37 segundos.</span>
-        <span class="reel-c__line"><span class="acc">+3.000</span> proyectos.</span>
-        <span class="reel-c__line"><span class="acc">+25</span> años.</span>
-        <span class="reel-c__line">Una sola planta. <span class="acc">Sin límites.</span></span>
-      </h2>
-      <button class="btn reel-c__btn" type="button" data-reel>▶ Ver el showreel completo</button>
-    </div>
-  </div>
-
-  <!-- D · Vídeo dentro de las letras: cada frase muestra el reel a través de la tipografía y al final se abre entero -->
-  <div class="variant reel-d" data-v="D" data-name="Vídeo en letras" data-theme="dark" hidden>
-    <div class="reel-d__pin">
-      <div class="reel-d__video"><video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></div>
-      <div class="reel-d__knock" aria-hidden="true">
-        <span class="reel-d__w">37″</span>
-        <span class="reel-d__w">+3.000</span>
-        <span class="reel-d__w">+25</span>
-        <span class="reel-d__w">SIN LÍMITES</span>
-      </div>
-      <p class="mono reel-d__label">(Showreel 2026)</p>
-      <h2 class="reel-d__caps">
-        <span class="reel-d__cap">segundos de showreel.</span>
-        <span class="reel-d__cap">proyectos entregados.</span>
-        <span class="reel-d__cap">años en el oficio.</span>
-        <span class="reel-d__cap">Una sola planta en Cabrera de Mar.</span>
-      </h2>
-      <button class="btn reel-d__btn" type="button" data-reel>▶ Ver el showreel completo</button>
-    </div>
-  </div>
-
-  <!-- E · Créditos con cifras: la cifra cuenta a la izquierda, la frase a la derecha y una línea de tiempo marca el avance -->
-  <div class="variant reel-e" data-v="E" data-name="Cifras en pantalla" data-theme="dark" hidden>
-    <div class="reel-e__pin">
-      <div class="reel-e__video"><video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></div>
-      <p class="mono reel-e__label">(Showreel 2026 · 0:37)</p>
-      <h2 class="reel-e__rows">
-        <span class="reel-e__row"><b data-n="37" data-count-manual>37</b><span>segundos para enseñarte<br>lo que hacemos.</span></span>
-        <span class="reel-e__row"><b data-n="3000" data-pre="+" data-count-manual>+3.000</b><span>proyectos entregados<br>en toda España.</span></span>
-        <span class="reel-e__row"><b data-n="25" data-pre="+" data-count-manual>+25</b><span>años imprimiendo,<br>rotulando y montando.</span></span>
-        <span class="reel-e__row"><b>1</b><span>sola planta.<br><span class="acc">Sin límites.</span></span></span>
-      </h2>
-      <div class="reel-e__time" aria-hidden="true"><i></i><span class="mono">00</span><span class="mono">37″</span></div>
-      <button class="btn reel-e__btn" type="button" data-reel>▶ Ver el showreel completo</button>
-    </div>
-  </div>
-
-  <!-- F · Pantalla partida: frases apiladas a la izquierda sobre navy, vídeo a la derecha que acaba ocupando todo -->
-  <div class="variant reel-f" data-v="F" data-name="Pantalla partida" data-theme="dark" hidden>
-    <div class="reel-f__pin">
-      <div class="reel-f__video"><video src="assets/video/showreel.mp4" poster="assets/video/showreel.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video></div>
-      <div class="reel-f__panel">
-        <p class="mono reel-f__label">(Showreel 2026 · 0:37)</p>
-        <h2 class="reel-f__subs">
-          <span class="reel-f__line">37 segundos.</span>
-          <span class="reel-f__line"><span class="acc">+3.000</span> proyectos.</span>
-          <span class="reel-f__line"><span class="acc">+25</span> años.</span>
-          <span class="reel-f__line">Una sola planta.</span>
-        </h2>
-      </div>
-      <div class="reel-f__end">
-        <p class="reel-f__big">Sin <span class="acc">límites.</span></p>
-        <button class="btn reel-f__btn" type="button" data-reel>▶ Ver el showreel completo</button>
+      <div class="reel-a__bar">
+        <div class="reel-ctl" data-ctl>
+          <button type="button" class="reel-ctl__b" data-play><span>Reproducir</span></button>
+          <span class="mono reel-ctl__tc" aria-hidden="true"><b data-tc>00:00</b> / <span data-dur>00:40</span></span>
+        </div>
+        <p class="reel-a__note">Montaje de proyectos reales, producidos e instalados por nuestro equipo.</p>
+        <button type="button" class="reel-a__full" data-reel>Pantalla completa <span aria-hidden="true">↗</span></button>
       </div>
     </div>
   </div>

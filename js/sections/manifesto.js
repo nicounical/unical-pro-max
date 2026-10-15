@@ -1,4 +1,4 @@
-/* Por qué Unical · A (favorita fija) + B–F inspiradas en ella */
+/* Por qué Unical · A (favorita fija «Ventana que se abre») + B–E mejoras de la A · Ronda 5 sistema sx */
 (() => {
   const { register } = UX;
   const isDesk = () => matchMedia("(min-width: 861px)").matches;
@@ -18,56 +18,60 @@
       .from(ux.$$(".man-win__label, .man-win__grid li, .man-win__foot", root), { y: 40, autoAlpha: 0, stagger: .04, duration: .25 }, .6);
   });
 
-  /* ---------- B–F · misma idea (el titular se aparta y se abre una escena con los 4 pilares) ---------- */
-  // Montaje común: fija la sección, ejecuta la apertura propia (open) y al final muestra los pilares.
-  const opener = (v, open) => register("manifesto", v, (root, ux) => {
-    if (ux.reduce || !isDesk()) { root.classList.add("man-op--static"); return () => root.classList.remove("man-op--static"); }
-    const [l, r] = ux.$$(".man-op__half", root), over = ux.$(".man-op__over", root);
-    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .7 } });
-    open(tl, root, ux, l, r);
-    tl.to(ux.$$(".man-op__shade", root), { opacity: 1, duration: .25 }, .5)
-      .to(over, { autoAlpha: 1, duration: .2 }, .58)
-      .from(ux.$$(".man-op__label, .man-op__grid li, .man-op__foot", root), { y: 40, autoAlpha: 0, stagger: .04, duration: .25 }, .6);
-  });
-  const img = (root, ux) => ux.$(".man-op__window img", root);
 
-  /* B · Diafragma: las dos líneas se acercan a cámara y se desvanecen; el círculo se abre */
-  opener("B", (tl, root, ux, l, r) => {
-    tl.to([l, r], { scale: 2.6, autoAlpha: 0, ease: "power2.in", duration: .45, stagger: .03 }, .04)
-      .to(ux.$(".man-op__window", root), { clipPath: "circle(75% at 50% 50%)", ease: "power2.inOut", duration: .6 }, 0)
-      .to(img(root, ux), { scale: 1, ease: "none", duration: .8 }, 0);
-  });
 
-  /* C · Rendija: la línea de foto se ensancha y empuja el titular a los lados */
-  opener("C", (tl, root, ux, l, r) => {
-    tl.to(l, { xPercent: -130, autoAlpha: 0, ease: "power2.in", duration: .5 }, .06)
-      .to(r, { xPercent: 130, autoAlpha: 0, ease: "power2.in", duration: .5 }, .06)
-      .to(ux.$(".man-op__window", root), { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "power3.inOut", duration: .6 }, 0)
-      .to(img(root, ux), { scale: 1, ease: "none", duration: .8 }, 0);
-  });
 
-  /* D · Recorte de papel: la pieza se suelta por una esquina y cae; el hueco crece */
-  opener("D", (tl, root, ux, l, r) => {
-    const piece = ux.$(".man-op__piece", root);
-    tl.to(piece, { rotate: 14, boxShadow: "0 30px 60px rgba(16,16,29,.25)", ease: "power1.inOut", duration: .12 }, 0)
-      .to(piece, { rotate: 38, y: "75vh", x: "8vw", ease: "power2.in", duration: .3 }, .12)
-      .to(l, { yPercent: -160, autoAlpha: 0, ease: "power2.in", duration: .45 }, .2)
-      .to(r, { yPercent: 160, autoAlpha: 0, ease: "power2.in", duration: .45 }, .2)
-      .to(ux.$(".man-op__window", root), { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: .45 }, .24)
-      .to(img(root, ux), { scale: 1, ease: "none", duration: .7 }, .1);
-  });
+  /* =====================================================================
+     Ronda 5 «Coherencia» · B–E: mejoras de la A. Un único efecto de scroll suave por versión
+     (scrub corto mientras la foto cruza la pantalla, sin pin). Estado natural = abierto,
+     así que con reduced-motion o sin JS todo se lee completo.
+     ===================================================================== */
+  const ioEase = p => p < .5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2; // power1.inOut, sin depender de gsap al cargar
+  const opening = (root, ux, frame) => {
+    if (ux.reduce) return;
+    const fig = ux.$(".man-o__fig", root), img = ux.$(".man-o__fig > img", root);
+    const [t1, h2] = ux.$$(".man-o__h", root), h1 = [ux.$(".sx-kicker", root), t1]; // el kicker viaja con la primera mitad
+    const st = { p: 0 };
+    const draw = () => {
+      const e = ioEase(st.p), w = fig.offsetWidth, h = fig.offsetHeight;
+      frame({ e, w, h, fig, h1, h2 });
+      img.style.transform = `scale(${(1.12 - .12 * e).toFixed(4)})`;
+    };
+    gsap.to(st, { p: 1, ease: "none", onUpdate: draw, scrollTrigger: { trigger: fig, start: "top 95%", end: "center 45%", scrub: .8, onRefresh: draw } });
+    draw();
+    return () => {
+      [fig, img, ...h1, h2, ...ux.$$(".man-d__door", root)].forEach(el => { el.style.clipPath = ""; el.style.transform = ""; });
+    };
+  };
+  const ty = (el, y) => [].concat(el).forEach(n => { n.style.transform = `translate3d(0,${y.toFixed(1)}px,0)`; });
 
-  /* E · Cuatro ventanas: cada columna se estira hasta tocarse y forman una sola foto */
-  opener("E", (tl, root, ux, l, r) => {
-    const full = ["inset(0% 75% 0% 0% round 0px)", "inset(0% 50% 0% 25% round 0px)", "inset(0% 25% 0% 50% round 0px)", "inset(0% 0% 0% 75% round 0px)"];
-    ux.$$(".man-op__col", root).forEach((c, i) => tl.to(c, { clipPath: full[i], ease: "power2.inOut", duration: .5 }, .06 + i * .04));
-    tl.to([l, r], { yPercent: -120, autoAlpha: 0, ease: "power2.in", duration: .4, stagger: .04 }, .1);
-  });
+  /* ---------- B · Ventana central: un rectángulo crece desde el centro y empuja las dos mitades ---------- */
+  register("manifesto", "B", (root, ux) => opening(root, ux, ({ e, w, h, fig, h1, h2 }) => {
+    const t = h * .36 * (1 - e), l = w * .38 * (1 - e);
+    fig.style.clipPath = `inset(${t.toFixed(1)}px ${l.toFixed(1)}px ${t.toFixed(1)}px ${l.toFixed(1)}px round 10px)`;
+    ty(h1, t); ty(h2, -t);
+  }));
 
-  /* F · Lámina: la foto impresa se endereza, pierde el margen blanco y ocupa toda la pantalla */
-  opener("F", (tl, root, ux, l, r) => {
-    tl.to(l, { xPercent: -40, yPercent: -60, autoAlpha: 0, ease: "power2.in", duration: .4 }, .12)
-      .to(r, { xPercent: 40, yPercent: 60, autoAlpha: 0, ease: "power2.in", duration: .4 }, .12)
-      .to(ux.$(".man-op__window", root), { x: 0, y: 0, rotate: 0, scale: 1, borderWidth: 0, boxShadow: "0 0 0 rgba(16,16,29,0)", ease: "power2.inOut", duration: .6 }, 0);
-  });
+  /* ---------- C · Cortina lateral: corre de izquierda a derecha y trae consigo la segunda mitad ---------- */
+  register("manifesto", "C", (root, ux) => opening(root, ux, ({ e, w, fig, h2 }) => {
+    const r = .7 * (1 - e);
+    fig.style.clipPath = `inset(0px ${(r * 100).toFixed(2)}% 0px 0px round 10px)`;
+    h2.style.transform = `translate3d(${(-r * w * .3).toFixed(1)}px,0,0)`;
+  }));
+
+  /* ---------- D · Dos hojas: las hojas se separan como una puerta; el titular se abre con ellas ---------- */
+  register("manifesto", "D", (root, ux) => opening(root, ux, ({ e, h1, h2 }) => {
+    const [l, r] = ux.$$(".man-d__door", root);
+    l.style.transform = `translate3d(${(-101 * e).toFixed(2)}%,0,0)`;
+    r.style.transform = `translate3d(${(101 * e).toFixed(2)}%,0,0)`;
+    const y = 14 * (1 - e);
+    ty(h1, y); ty(h2, -y);
+  }));
+
+  /* ---------- E · Máscara redonda: un círculo se expande desde el centro hasta llenar el marco ---------- */
+  register("manifesto", "E", (root, ux) => opening(root, ux, ({ e, w, h, fig, h1, h2 }) => {
+    const R = 13 + e * 64, ref = Math.hypot(w, h) / Math.SQRT2, t = Math.max(0, h / 2 - R / 100 * ref);
+    fig.style.clipPath = `circle(${R.toFixed(2)}% at 50% 50%)`;
+    ty(h1, t); ty(h2, -t);
+  }));
 })();

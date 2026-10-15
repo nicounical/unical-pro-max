@@ -4,7 +4,7 @@
   <div class="variant man-win" data-v="A" data-name="Ventana que se abre" data-theme="light">
     <div class="man-win__pin">
       <h2 class="man-win__title"><span class="man-win__half man-win__half--l">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-win__half man-win__half--r">sea, simplemente, una realidad.</span></h2>
-      <div class="man-win__window"><img src="assets/img/hubs/eventos/lanzamiento-coche.webp" alt="Lanzamiento de coche de noche: deportivo rojo sobre una tarima iluminada, con banderolas y guirnaldas de luz" loading="lazy"><i class="man-win__shade" aria-hidden="true"></i></div>
+      <div class="man-win__window"><img src="assets/img/hubs/eucerin-stand.webp" alt="Stand de Eucerin con iluminación y expositores de producto" loading="lazy" width="1672" height="941"><i class="man-win__shade" aria-hidden="true"></i></div>
       <div class="man-win__over" data-theme="dark">
         <p class="mono man-win__label">Por qué Unical</p>
         <ol class="man-win__grid">
@@ -18,99 +18,64 @@
     </div>
   </div>
 
-  <!-- B · Diafragma -->
-  <div class="variant man-op man-op--iris" data-v="B" data-name="Diafragma" data-theme="dark" hidden>
-    <div class="man-op__pin">
-      <h2 class="man-op__title"><span class="man-op__half man-op__half--l">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-op__half man-op__half--r">sea, simplemente, una realidad.</span></h2>
-      <div class="man-op__window"><img src="assets/img/hubs/eventos/congreso.webp" alt="Sala de congresos preparada: escenario con pantallas, iluminación azul y moqueta a medida" loading="lazy"><i class="man-op__shade" aria-hidden="true"></i></div>
-      <div class="man-op__over" data-theme="dark">
-        <p class="mono man-op__label">Por qué Unical</p>
-        <ol class="man-op__grid">
-          <li><span>01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li>
-          <li><span>02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li>
-          <li><span>03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li>
-          <li><span>04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li>
-        </ol>
-        <div class="man-op__foot"><p>Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. <strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+  <!-- ===== Ronda 5 «Coherencia» · B–E: mejoras de la A dentro del sistema sx (fondo paper) =====
+       Misma familia: el titular se parte en dos, entre las mitades se abre una foto real; un solo efecto de scroll suave, sin pin. -->
+
+  <!-- B · Ventana central: La ventana crece desde el centro y el titular se abre con ella -->
+  <div class="variant man-b man-o-v sx sx--paper" data-v="B" data-name="Ventana central" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head man-o man-b__o">
+        <p class="sx-kicker"><b>08</b> Por qué Unical</p>
+        <h2 class="sx-title man-o__t"><span class="man-o__h man-o__h--1">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-o__h man-o__h--2">sea, simplemente, una realidad.</span></h2>
+        <figure class="man-o__fig sx-media"><img src="assets/img/hubs/eucerin-stand.webp" alt="Stand de Eucerin con iluminación y expositores de producto" loading="lazy" width="1672" height="941"></figure>
+        <p class="sx-lead">Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa.</p>
+      </header>
+      <ol class="man-o__pil sx-grid man-b__pil rv"><li><span class="sx-meta">01</span><h3 class="sx-h3">Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li><li><span class="sx-meta">02</span><h3 class="sx-h3">Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li><li><span class="sx-meta">03</span><h3 class="sx-h3">Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li><li><span class="sx-meta">04</span><h3 class="sx-h3">Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li></ol>
+      <div class="man-o__foot rv"><p><strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn btn--dark" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+
+  <!-- C · Cortina lateral: Una cortina corre de izquierda a derecha y arrastra la segunda mitad del titular -->
+  <div class="variant man-c man-o-v sx sx--paper" data-v="C" data-name="Cortina lateral" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head man-o man-c__o">
+        <p class="sx-kicker"><b>08</b> Por qué Unical</p>
+        <h2 class="sx-title man-o__t"><span class="man-o__h man-o__h--1">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-o__h man-o__h--2">sea, simplemente, una realidad.</span></h2>
+        <figure class="man-o__fig sx-media"><img src="assets/img/hubs/eucerin-stand.webp" alt="Stand de Eucerin con iluminación y expositores de producto" loading="lazy" width="1672" height="941"></figure>
+        <p class="sx-lead">Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa.</p>
+        <ol class="man-o__pil man-c__side rv"><li><span class="sx-meta">01</span><h3 class="sx-h3">Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li><li><span class="sx-meta">02</span><h3 class="sx-h3">Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li><li><span class="sx-meta">03</span><h3 class="sx-h3">Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li><li><span class="sx-meta">04</span><h3 class="sx-h3">Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li></ol>
+      </header>
+      <div class="man-o__foot rv"><p><strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn btn--dark" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+
+  <!-- D · Dos hojas: Dos hojas se separan como una puerta y dejan ver la sala con los cuatro pilares -->
+  <div class="variant man-d man-o-v sx sx--paper" data-v="D" data-name="Dos hojas" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head man-o man-d__o">
+        <p class="sx-kicker"><b>08</b> Por qué Unical</p>
+        <h2 class="sx-title man-o__t"><span class="man-o__h man-o__h--1">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-o__h man-o__h--2">sea, simplemente, una realidad.</span></h2>
+        <figure class="man-o__fig sx-media"><img src="assets/img/hubs/eucerin-stand.webp" alt="Stand de Eucerin con iluminación y expositores de producto" loading="lazy" width="1672" height="941"><ol class="man-o__pil man-d__band"><li><span class="sx-meta">01</span><h3 class="sx-h3">Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li><li><span class="sx-meta">02</span><h3 class="sx-h3">Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li><li><span class="sx-meta">03</span><h3 class="sx-h3">Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li><li><span class="sx-meta">04</span><h3 class="sx-h3">Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li></ol><i class="man-d__door man-d__door--l" aria-hidden="true"></i><i class="man-d__door man-d__door--r" aria-hidden="true"></i></figure>
+        <p class="sx-lead">Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa.</p>
+      </header>
+      <div class="man-o__foot rv"><p><strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn btn--dark" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+
+  <!-- E · Máscara redonda: Una máscara redonda se expande desde el centro hasta llenar el marco -->
+  <div class="variant man-e man-o-v sx sx--paper" data-v="E" data-name="Máscara redonda" data-theme="light" hidden>
+    <div class="sx-in">
+      <header class="sx-head man-o man-e__o">
+        <p class="sx-kicker"><b>08</b> Por qué Unical</p>
+        <h2 class="sx-title man-o__t"><span class="man-o__h man-o__h--1">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-o__h man-o__h--2">sea, simplemente, una realidad.</span></h2>
+        <figure class="man-o__fig sx-media"><img src="assets/img/hubs/eucerin-stand.webp" alt="Stand de Eucerin con iluminación y expositores de producto" loading="lazy" width="1672" height="941"></figure>
+        <p class="sx-lead">Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa.</p>
+      </header>
+      <div class="man-e__low sx-grid">
+        <ol class="man-o__pil man-e__pil rv"><li><span class="sx-meta">01</span><h3 class="sx-h3">Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li><li><span class="sx-meta">02</span><h3 class="sx-h3">Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li><li><span class="sx-meta">03</span><h3 class="sx-h3">Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li><li><span class="sx-meta">04</span><h3 class="sx-h3">Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li></ol>
+<div class="man-o__foot man-e__foot rv"><p><strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn btn--dark" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </div>
     </div>
   </div>
 
-  <!-- C · Rendija -->
-  <div class="variant man-op man-op--slit" data-v="C" data-name="Rendija" data-theme="light" hidden>
-    <div class="man-op__pin">
-      <h2 class="man-op__title"><span class="man-op__half man-op__half--l">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-op__half man-op__half--r">sea, simplemente, una realidad.</span></h2>
-      <div class="man-op__window"><img src="assets/img/svc/evento-jaggaer.webp" alt="Photocall impreso bajo una bóveda de ladrillo, con plantas y focos cálidos" loading="lazy"><i class="man-op__shade" aria-hidden="true"></i></div>
-      <div class="man-op__over" data-theme="dark">
-        <p class="mono man-op__label">Por qué Unical</p>
-        <ol class="man-op__grid">
-          <li><span>01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li>
-          <li><span>02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li>
-          <li><span>03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li>
-          <li><span>04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li>
-        </ol>
-        <div class="man-op__foot"><p>Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. <strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- D · Recorte de papel -->
-  <div class="variant man-op man-op--cut" data-v="D" data-name="Recorte de papel" data-theme="light" hidden>
-    <div class="man-op__pin">
-      <h2 class="man-op__title"><span class="man-op__half man-op__half--l">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-op__half man-op__half--r">sea, simplemente, una realidad.</span></h2>
-      <div class="man-op__window"><img src="assets/img/hubs/eventos/stand-feria.webp" alt="Stand de feria de dos plantas en azul y verde lima, con pantallas y mostrador" loading="lazy"><i class="man-op__shade" aria-hidden="true"></i></div>
-      <i class="man-op__piece" aria-hidden="true"><b>Corte</b></i>
-      <div class="man-op__over" data-theme="dark">
-        <p class="mono man-op__label">Por qué Unical</p>
-        <ol class="man-op__grid">
-          <li><span>01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li>
-          <li><span>02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li>
-          <li><span>03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li>
-          <li><span>04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li>
-        </ol>
-        <div class="man-op__foot"><p>Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. <strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- E · Cuatro ventanas -->
-  <div class="variant man-op man-op--quad" data-v="E" data-name="Cuatro ventanas" data-theme="dark" hidden>
-    <div class="man-op__pin">
-      <h2 class="man-op__title"><span class="man-op__half man-op__half--l">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-op__half man-op__half--r">sea, simplemente, una realidad.</span></h2>
-      <p class="sr-only">Foto: tienda pop-up de Venca de noche, con cajas de luz rosas.</p>
-      <div class="man-op__col man-op__col--1" aria-hidden="true"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"></div>
-      <div class="man-op__col man-op__col--2" aria-hidden="true"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"></div>
-      <div class="man-op__col man-op__col--3" aria-hidden="true"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"></div>
-      <div class="man-op__col man-op__col--4" aria-hidden="true"><img src="assets/img/proyectos/venca.webp" alt="" loading="lazy"></div>
-      <i class="man-op__shade man-op__shade--quad" aria-hidden="true"></i>
-      <div class="man-op__over" data-theme="dark">
-        <p class="mono man-op__label">Por qué Unical</p>
-        <ol class="man-op__grid">
-          <li><span>01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li>
-          <li><span>02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li>
-          <li><span>03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li>
-          <li><span>04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li>
-        </ol>
-        <div class="man-op__foot"><p>Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. <strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- F · Lámina que se endereza -->
-  <div class="variant man-op man-op--print" data-v="F" data-name="Lámina que se endereza" data-theme="light" hidden>
-    <div class="man-op__pin">
-      <h2 class="man-op__title"><span class="man-op__half man-op__half--l">Hacemos que lo <span class="acc">imposible</span></span> <span class="man-op__half man-op__half--r">sea, simplemente, una realidad.</span></h2>
-      <div class="man-op__window"><img src="assets/img/hubs/rotulacion/luminoso-3cat.webp" alt="Rótulo luminoso de 3Cat con el lema «molt nostre» en letras retroiluminadas sobre pared roja" loading="lazy"><i class="man-op__shade" aria-hidden="true"></i></div>
-      <div class="man-op__over" data-theme="dark">
-        <p class="mono man-op__label">Por qué Unical</p>
-        <ol class="man-op__grid">
-          <li><span>01</span><h3>Producción propia</h3><p>Instalaciones con tecnología de última generación. Sin subcontrataciones: la calidad y los plazos los controlamos nosotros, de principio a fin.</p></li>
-          <li><span>02</span><h3>Diseño + Fabricación</h3><p>Servicio integral desde el diseño gráfico hasta la producción y el montaje final del proyecto. Un único equipo, una única responsabilidad.</p></li>
-          <li><span>03</span><h3>Instalación profesional</h3><p>Red de instaladores certificados 3M &amp; Avery para acabados perfectos en cualquier ubicación, por complicada que sea.</p></li>
-          <li><span>04</span><h3>Cobertura nacional</h3><p>Con base en Barcelona, trabajamos en toda España. Proyectos sin fronteras geográficas y el mismo interlocutor estés donde estés.</p></li>
-        </ol>
-        <div class="man-op__foot"><p>Trabajar con el corazón es lo que nos permite ofrecer servicios donde la calidad y la profesionalidad priman sobre cualquier otra cosa. <strong>Somos tu partner, no solo tu proveedor.</strong></p><a class="btn" href="#contacto" data-magnetic>Habla con nosotros <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </div>
-    </div>
-  </div>
 </section>

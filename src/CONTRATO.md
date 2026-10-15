@@ -141,3 +141,121 @@ El usuario ha elegido. Por sección: las que **se quedan** pasan a ser las prime
 | contact | sin cambios: NO tocar | — |
 
 Estilo general de esta ronda: impacto de agencia premium, **profesional y sobrio**, ni HUD/neón/partículas/terminal. Tipografía gruesa, colores de marca. Datos v29. Calidad, 1440/390, reduced‑motion, sin errores. Servidor http://localhost:8765 activo (si falla, uno propio en 88xx y ciérralo). Capturas de una en una. Sin commit.
+
+## Ronda «Selección 4 · Master prompt» (2026-10-13) — manda sobre lo anterior
+Brief del usuario: nivel agencia internacional (Awwwards / Locomotive / Resn como **nivel de ejecución**, no estética a copiar). Usa la skill **ui-ux-pro-max** (invócala con la herramienta Skill antes de diseñar y aplica sus reglas). **Prohibido**: variantes que solo cambian colores/bordes/posiciones, plantillas SaaS, título centrado + subtítulo + 3 tarjetas, iconos genéricos como recurso principal, tarjetas repetidas, efectos decorativos sin intención, scroll hijacking. Cada variante = dirección creativa defendible y claramente distinta. Mismo lenguaje global: Poppins 700–900 (`.big`, `.acc`), Inter, paleta de marca (`--u-night`, `--u-blue #99C4E4`, `--u-blue-strong #2E6CA0`, `--u-paper`), retícula de 12 columnas, ritmo editorial, alternar claro/oscuro con criterio. Nada futurista (HUD, neón, partículas, terminal) salvo en las versiones conservadas.
+
+| sección | se queda | nuevas |
+|---|---|---|
+| hero | A y B **sin tocar** (la favorita es la **B «HUD escáner»** → `data-default="B"`) | ninguna; mejora del vídeo `hero-coche` (lo hace el coordinador) |
+| services | A «Circuito» | B–F (5): reinterpretaciones del concepto de A con experiencia muy distinta: índice editorial interactivo · retícula arquitectónica · tipografía cinética · narrativa horizontal (con navegación accesible, sin bloquear) · split premium. Sin repetir tarjetas |
+| reel | — (se borran todas) | A–E (5) **totalmente nuevas**: el vídeo **nunca bloquea el scroll**, pin solo si se abandona con scroll normal (≤150vh), sonido apagado al inicio, pausa/play y silencio accesibles, sin interferir en móvil. Direcciones: ventana editorial que crece · tira de fotogramas · film minimal con UI casi invisible · lienzo flotante que cambia de escala/posición mientras se navega · Director's cut con capítulos y navegación libre |
+| work | — (se borran todas) | A–E (5) sistemas de portfolio, **mínimo 8 proyectos reales visibles** por variante (fotos de `assets/img/proyectos` y `assets/img/hubs/**`; no inventar trabajos): retícula editorial asimétrica · modular premium · portfolio de arquitectura ultra limpio · muro interactivo con foco/zoom · índice curado por categorías. Etiquetas discretas, hover premium |
+| process | — («Holograma 3D» se **mueve** a `src/sections/stands-process.html` + `css|js/sections/stands-process.*` con `data-sec="stands-process"`, sin incluirlo en ninguna página: queda reservado para la futura página de stands) | A–E (5) nuevas, **sin timeline, sin círculos numerados, sin 5 tarjetas iguales**: Idea → Asesoramiento → Diseño → Producción → Instalación → Resultado. Direcciones: de la idea a la realidad · el viaje de producción · del plano a la realidad · behind the craft · un proceso continuo (el propio layout se transforma) |
+| numbers («Por qué elegirnos») | A «Odómetro» | B–E (4): manifiesto editorial tipográfico · argumentos en composición modular (no tarjetas) · contrastes tipográficos y mensajes contundentes · capacidades en lenguaje gráfico técnico (impreso, no HUD). Razones **comerciales/operativas**. Sin cifras nuevas |
+| sectors | A «Túnel warp» **+ arreglar el solape de «Pharma» con el texto final** de raíz (stacking, alturas, ScrollTrigger end, pin spacing, resize), en 1440/1024/768/390 | B–E (4) **sin fotografías**: universo tipográfico · matriz interactiva · índice cinético · sistema geométrico (un símbolo vectorial por sector) |
+| manifesto («Por qué Unical») | A «Ventana que se abre» | B–E (4): **identidad, filosofía, visión** (no razones comerciales, no métricas, no iconos): manifiesto de marca · narrativa editorial · composición tipográfica de gran impacto · transformación de ideas en espacios físicos |
+| clients | — (se borran todas) | A–E (5) **minimalistas, compactas, sin protagonismo**: línea de logos monocromos · retícula compacta · ticker muy sutil · banda editorial · bloque de confianza integrado en la transición a la siguiente sección. Sin titulares gigantes, sin fondos llamativos, alto ≤ ~45vh en escritorio |
+| contact | A «Botón gigante» y B «Consola HUD» **sin tocar** | C–E (3) (se borran C–K): statement editorial con CTA muy visible · lienzo de contacto interactivo con vías de contacto · split premium mensaje + formulario funcional (`data-form`, validación, estados error/éxito). Contacto también sale en los hubs |
+
+Reglas de ejecución: borra lo que no se queda (HTML, CSS y JS; queda en git); renombra lo conservado solo si cambia de letra. Contenido y datos reales (v29). Probar a 1440×860, 1024×768 y 390×844 (y 320 si hay riesgo), sin scroll horizontal, sin errores de consola, `prefers-reduced-motion` con estado final legible. Máx. 1 pin por versión. Capturas con `tools/shot.mjs`, pocas y **nunca en paralelo**, en tu carpeta del scratchpad. No toques el núcleo ni ficheros de otras secciones. Sin commit.
+
+## Ronda 5 «Coherencia» (2026-10-13 tarde) — manda sobre lo anterior
+Petición literal del usuario (resumen): portada con el vídeo nuevo; reel con el vídeo nuevo, deja la A y dame alternativas **sencillas**; proyectos **opciones sencillas, cuadrículas**; cómo trabajamos **más sencillo, que no ocupe mucho**; cifras **sin vídeos de fondo ni movimientos, que ocupe poco**; sectores deja la A y dame alternativas mejoradas; por qué Unical me gusta la A, dame mejoras; contacto alternativas **con el CTA ya puesto** y mejores. **«Quiero que todos los cambios tengan sentido y vayan de la mano: que no queden diseños de una forma en una sección y de otra en otra.»**
+
+### Vídeos nuevos (ya instalados por el coordinador)
+- Portada: `assets/video/hero-coche.mp4|.webm` (1080p, de un máster 4K), `hero-coche-1440.webm`, `hero-coche-m.mp4|.webm` (1:1 para móvil), pósters `.webp/.jpg`.
+- Reel: `assets/video/showreel.mp4` (1080p, 40 s, **sin audio**: no pongas botón de sonido), `showreel-720.mp4` (móvil), póster `showreel.webp/.jpg`. Es una pieza de marca con sus propios rótulos y cierre («Solicita tu presupuesto»): el diseño alrededor debe ser sobrio, no competir con el vídeo.
+
+### SISTEMA «sx» — obligatorio en TODA versión nueva (clases en `css/core.css`, al final)
+- Contenedor: `<div class="variant xxx-b sx sx--paper" …><div class="sx-in"> … </div></div>` (`sx--s` = sección compacta). Fondos permitidos: `sx--night`, `sx--navy`, `sx--paper`, `sx--white`, `sx--blue` (azul de marca profundo). Nada de degradados, texturas, grano, fotos o vídeos de fondo salvo donde la versión conservada ya los tenga.
+- **Cabecera única** en todas las secciones (misma estructura, mismo tamaño):
+  ```html
+  <header class="sx-head">
+    <p class="sx-kicker"><b>04</b> Proyectos</p>
+    <h2 class="sx-title">Titular de la sección con <span class="acc">acento</span>.</h2>
+    <p class="sx-lead">Entradilla de una o dos frases.</p>
+  </header>
+  ```
+  Numeración fija: 01 Portada · 02 Servicios · 03 Showreel · 04 Proyectos · 05 Cómo trabajamos · 06 Por qué elegirnos (cifras) · 07 Sectores · 08 Por qué Unical · 09 Clientes · 10 Contacto. `sx-head--solo` si no hay entradilla. Puedes omitir la cabecera solo si el concepto lo exige (p. ej. contacto statement), pero entonces respeta `--sx-title`/kicker.
+- Retícula: `sx-grid` (12 col; 6 en ≤900px), separación `--sx-gap`. Fotos/vídeos dentro de `.sx-media` (radio único `--sx-r` 10px, zoom 1.04 al hover). Títulos de pieza `.sx-h3`, metadatos `.sx-meta`, enlaces `.sx-link`, botones `.btn` / `.btn--dark` (los del núcleo). Filetes `.sx-rule` o bordes de 1px con `currentColor` al 16 %.
+- Tipografía: solo Poppins 700/800 para titulares (ya en `.sx-title`/`.sx-h3`) e Inter 500 para texto; mono solo en `sx-kicker`/`sx-meta`. Nada de contornos (`-webkit-text-stroke`), ni tipografía gigante a sangre, salvo en versiones conservadas.
+- **Movimiento** (vocabulario único): entrada con `.rv` (la del núcleo) y, como mucho, un realce de hover. **Sin pin, sin scrub, sin parallax, sin marquesinas ni autoplay de carruseles** en las versiones nuevas (excepciones: el propio vídeo). En «cifras» **ningún** movimiento (ni contadores).
+- Ritmo de fondos de la landing por defecto (A de cada sección): portada night → servicios night → reel paper → proyectos night/white → proceso paper → cifras blue o white → sectores night → por qué Unical paper → clientes white → contacto night. Cada versión nueva usa el fondo indicado para su sección en la tabla de abajo, para que cualquier combinación quede bien.
+- Alturas: secciones compactas ≤ ~70vh en escritorio (proceso, cifras, clientes); ninguna versión nueva > ~140vh salvo proyectos.
+
+| sección | se queda | nuevas | fondo de las nuevas |
+|---|---|---|---|
+| hero | A «Lexus en letras», B «HUD escáner» (vídeo nuevo) | C = B **sin la línea azul que barre ni el marcador/retícula**; D = portada directa con el vídeo detrás (titular, entradilla, CTAs). Se borran C–G antiguas. *Lo hace el coordinador.* | night |
+| reel | A «Ventana editorial» (con el vídeo nuevo, sin botón de sonido) | B–E (4) **sencillas**: el vídeo es el protagonista, marco limpio, play/pausa accesible | B–C paper, D–E night |
+| work | — (se borran) | A–E (5) **cuadrículas sencillas** de agencia (mín. 8 proyectos reales): 3 col uniforme con pie debajo · 4 col compacta · 2 grandes + 6 pequeñas · cuadrícula con filtros simples (botones) · lista + cuadrícula (conmutador). Sin efectos más allá del zoom de `.sx-media` | night o white |
+| process | — (se borran; la de stands ya está aparte) | A–D (4) **compactas** (≤ 70vh escritorio), las 6 fases Idea · Asesoramiento · Diseño · Producción · Instalación · Resultado: fila de 6 columnas con filetes · dos columnas texto + lista numerada · tira con una foto real por fase (pequeña) · tabla/acordeón accesible | paper |
+| numbers («Por qué elegirnos») | — (se borran) | A–D (4) **sin vídeo, sin movimiento, compactas** (≤ 60vh): banda de 4 cifras con filetes · titular + cifras en columna · cifras + 3M/Avery · frase con datos en línea. Datos v29 | A–B blue, C–D white |
+| sectors | A «Túnel warp» | B–E (4) mejoradas, más sobrias y del sistema: lista de 8 sectores en 2–4 columnas con descripción · índice con fila activa (hover/foco) y foto pequeña · retícula de 8 celdas tipográficas · sectores × servicios simplificado. Sin fotos a sangre | night |
+| manifesto («Por qué Unical») | A «Ventana que se abre» | B–E (4) **mejoras de la A** (mismo concepto: titular que se abre y deja ver una foto real con los 4 pilares), más sobrias y del sistema; aquí sí se permite un solo efecto de scroll suave por versión | paper |
+| contact | A «Botón gigante», B «Consola HUD» | C–F (4) con **el CTA visible desde el primer momento** (sin tener que hacer nada para que aparezca): CTA grande + vías de contacto · split titular / formulario corto ya abierto · tarjeta de contacto + mapa estático · franja de CTA + formulario completo. Datos reales | night |
+
+Pruebas: `python tools/build.py`; `node tools/shot.mjs …` (pocas capturas, de una en una); 1440×860, 1024×768, 390×844; sin errores de consola, sin scroll horizontal, reduced-motion. Mira tus capturas **junto a las de las secciones vecinas** (cabecera, márgenes, tamaños de título deben coincidir). Sin commit.
+
+## Ronda 6 «Impacto + dinamismo» (2026-10-14) — manda sobre lo anterior en estas 3 secciones
+Petición literal: «para sectores quiero que añadas 5 opciones más que sean impactantes, usando las skills de ui-ux pro max y los nuevos mcps. En por qué elegirnos, dame algo dinámico que sea dinámico automáticamente, que no tenga que hacer scroll, 5 extras. Y para cómo trabajamos dame 7 ideas nuevas, usando skills nuevas de 21st.dev + ui ux skills para darme algo profesional».
+
+- **No se borra nada.** Se añaden versiones nuevas con `hidden`:
+  - sectors (A–E existen) → **F, G, H, I, J** (`sec-f__`…), **impactantes**, fondo night.
+  - numbers (A–D existen) → **E, F, G, H, I** (`num-e__`…), **animación automática que arranca sola al entrar en pantalla** (IntersectionObserver), en bucle o con secuencia continua, **sin scrub ni pin ni depender del scroll**. Esto anula el «sin movimiento» de la ronda 5 para estas versiones. Datos v29 (+25 años, +3.000 proyectos, +40 sectores, 1.000 m², 3M · Avery). Compactas (≤ ~70vh). Fondos blue/white/night.
+  - process (A–D existen) → **E, F, G, H, I, J, K** (7, `process-e__`…), **profesionales**, fondo paper (o white), compactas-medias (≤ ~100vh). Las 6 fases Idea · Asesoramiento · Diseño · Producción · Instalación · Resultado con los textos de la A.
+- Herramientas: invocar la skill **ui-ux-pro-max** y usar el MCP **21st.dev** (`mcp__21st__search`, `mcp__21st__get_inspiration`, `mcp__21st__get_component`) como inspiración de patrones; el resultado se escribe en HTML/CSS/JS vanilla + GSAP (sin React ni librerías nuevas).
+- Mantener el sistema «sx» (cabecera `sx-head` con kicker 05/06/07, `sx-title`, colores de marca, Poppins 700–900, Inter). Nada futurista (HUD, neón, partículas, terminal, glitch). Humano, editorial, de taller.
+- Animaciones: pausar fuera de pantalla, limpiar en el cleanup, `prefers-reduced-motion` → estado final legible.
+- Pruebas: servidor http://localhost:8765 (no pararlo). Capturas con `tools/shot.mjs` **de una en una y en serie con los otros agentes** (lock `mkdir` en el scratchpad), pocas. 1440×860 y 390×844, sin errores, sin scroll horizontal. Sin commit.
+
+## Ronda 6b «Servicios en una pantalla» (2026-10-14)
+Petición literal: «de servicios, dame nuevas variantes dinámicas pero que se vean en una sola página todas, diseño atractivo de los diferentes servicios».
+- No se borra nada (A «Circuito» y B–F se quedan). Se añaden **G, H, I, J, K** (`services-g__`…, `hidden`).
+- **Todos los servicios visibles a la vez en una sola pantalla** (escritorio 1440×860: la variante entera cabe en ~100vh, sin scroll interno, sin pin, sin recorrido horizontal ni pasos ocultos). En móvil puede apilarse, pero compacto.
+- **Dinámicas**: animación automática al entrar en pantalla y/o micro-interacciones al pasar el ratón (foto/vídeo que se revela, celdas que se expanden, bucles suaves). Pausar fuera de pantalla, reduced-motion → estático legible.
+- Diseño atractivo: se permiten fotos reales (`assets/img/servicios/*.webp`, proyectos, hubs) y vídeo. Sistema sx (kicker «02 Servicios», `sx-title`), marca, Poppins 700–900. Nada futurista.
+- Mismos servicios y textos que la A; enlaces a los hubs (rotulacion.html, impresion.html, eventos.html) como en la A.
+
+## Ronda 6c «Rehacer sin genéricos» (2026-10-14) — manda sobre 6
+El usuario: las versiones de la ronda 6 (sectors F–J, numbers E–I, process E–K) «me parecen muy genéricas… usa estos conectores para no hacer diseños estándar, hazlos de nuevo».
+- **Se borran** esas versiones (HTML, CSS, JS; quedan en el historial de trabajo) y se rehacen con **las mismas letras** (sectors F–J, numbers E–I, process E–K). A–E / A–D anteriores no se tocan.
+- **Prohibido (genérico/SaaS):** pestañas con autoplay, bento, steppers/raíles de progreso, coverflow, acordeón de tiras, tarjetas con barras tipo stories, marquesinas de píldoras, diagramas de nodos, tablas comparativas, carruseles con flechas, contadores sueltos en tarjetas, «feature steps».
+- **Obligatorio en el proceso de diseño:**
+  1. Skill local: `python "C:/Users/Nico/Downloads/ui-ux-pro-max-skill-main/ui-ux-pro-max-skill-main/.claude/skills/ui-ux-pro-max/scripts/search.py" "<consulta>" --design-system` / `--domain style|gsap|landing|typography`, y leer `references/pro-rules.md`.
+  2. 21st.dev MCP: `mcp__21st__search` / `get_inspiration` para encontrar componentes con carácter de agencia (image trail, pixel image reveal, text mask, distortion, kinetic type, sticky stacking, 3D, etc.); **mirar sus previews** y **recuperar el código de 1–3 con `mcp__21st__get_component`** para portarlo a vanilla + GSAP con la estética de Unical.
+  3. Cada versión = **una idea visual memorable ligada al oficio** (impresión, vinilo, lona, plotter de corte, color CMYK, montaje, vehículos), nivel Awwwards, no una plantilla. Tipografía Poppins 800–900 grande con criterio, fotos/vídeo reales.
+- Se mantienen: cabecera sx (kicker 05/06/07), marca, nada de HUD/neón/terminal; numbers = animación automática al entrar, sin depender del scroll; rendimiento, a11y, reduced-motion, 1440/390.
+
+## Ronda 7 «Siete nuevas, línea de las favoritas» (2026-10-14) — manda sobre 6/6b/6c
+Usuario: «no me gusta ninguna de las ideas, dame otras nuevas, incluso en vez de 5 haz 7 nuevas cambiando por las que me has hecho que no me gustan nada, y dame nuevas también en la parte de contacto».
+
+Rechazado (no repetir NADA parecido): plantillas SaaS (pestañas, bento, steppers, carruseles, marquesinas, comparativas, diagramas de nodos) **y** metáforas literales de taller (cabezal de impresión, CMYK/registro, plotter, vinilo que se despega, lonas colgadas, trama/cuentahílos, rollo, flexómetro, cuaderno, hoja de contactos, pliego, plano de planta/taller, calle dibujada, rastro de fotos, linterna, caos→orden, prueba/realidad). Resultaron kitsch.
+
+**Dirección = la de sus favoritas**, que son inmersivas y cinematográficas: portada «HUD escáner» (vídeo del Lexus revelado), servicios A «Circuito», sectores A «Túnel warp» (profundidad 3D con scroll), por qué Unical A «Ventana que se abre» (titular que se parte y abre una foto a pantalla completa), contacto A «Botón gigante». Rasgos: **profundidad/3D, escala, vídeo y foto reales a gran tamaño, tipografía Poppins 800–900 enorme, transiciones de máscara, una sola idea fuerte por versión, ejecución impecable** (Awwwards: Locomotive, Active Theory, Lusion, Apple). Elegante, oscuro/premium o claro editorial; azul de marca como acento. Se permite: scroll scrub y 1 pin (≤150vh), canvas/WebGL ligero sin librerías nuevas, 3D CSS, vídeo. Sin neón chillón, sin terminal.
+
+Reparto de técnicas (para que no se repitan entre secciones):
+- **services** (borrar G–K; nuevas **G–M**): todos los servicios en una pantalla de escritorio; dinámico. Técnicas: vídeo/foto que se abre desde el nombre, profundidad 3D de planos, expansión a pantalla completa, perspectiva de órbita, revelado por máscara tipográfica, galería en Z, cubo/prisma 3D.
+- **sectors** (borrar F–J; nuevas **F–L**): impactantes, primas del túnel: viaje en Z con fotos, zoom infinito entre sectores, esfera/cilindro 3D de sectores, cortinas de máscara, letras gigantes que atraviesas, split-screen cinematográfico, scroll horizontal pinned con parallax de profundidad.
+- **numbers** (borrar E–I; nuevas **E–K**): automáticas al entrar, SIN depender del scroll; compactas (≤ ~80vh). Técnicas: cifras gigantes con vídeo dentro, cifra que crece en 3D, transiciones de máscara entre datos en bucle, conteo con desenfoque de movimiento, cifras sobre foto que hace ken-burns, cifras que «vuelan» en profundidad, split-flap NO (ya dado).
+- **process** (borrar E–K; nuevas **E–K**): profesional. Técnicas: capítulos con vídeo/foto a sangre y scrub, pila de planos en Z que avanzan, cámara que viaja por una escena, revelado de foto por fases con máscaras, sticky split cinematográfico, 3D card deck con profundidad real, número de fase gigante como ventana a la foto.
+- **contact** (A–F se quedan; nuevas **G–M**): CTA visible desde el inicio, datos reales (937 50 23 04, WhatsApp 34663512014, nico@unical.es, Passatge la Carola 2, 08349 Cabrera de Mar). Técnicas: titular gigante con vídeo dentro y CTA, botón magnético enorme sobre vídeo, ventana que se abre al formulario, cierre cinematográfico a pantalla completa, foto del equipo/taller a sangre con CTA, tipografía que llena la pantalla con «Hablemos», formulario elegante con fondo de vídeo. Formularios con `data-form`. Contacto sale también en hubs: no romper.
+
+Proceso: skill local (`search.py --design-system`, `--domain gsap|style|landing`, `references/pro-rules.md`) y 21st.dev (`search`/`get_inspiration`, mirar previews, `get_component` de 1–3 piezas de calidad para portar a vanilla + GSAP). Sistema sx: cabecera con kicker numerado (02/07/06/05/10) salvo cuando el concepto inmersivo lo impida (entonces respeta `--sx-title`/kicker). 1440×860 y 390×844 sin scroll horizontal ni errores, reduced-motion, limpieza, rendimiento (pausa fuera de pantalla).
+
+## Ronda 8 «Selección 5» (2026-10-14 tarde) — manda sobre todo lo anterior
+Copia de seguridad del estado previo (sin commit): `C:\Users\Nico\Desktop\repos-test\unical-pro-max-copia-2026-10-14-ronda7` (src, css, js, index.html). Solo lectura.
+Regla de siempre: lo que **se queda** pasa a las primeras letras (A, B, C…) y se renombra (clases `xxx-m__`→`xxx-e__`, `register`, `data-v`), **idéntico visualmente**; lo demás se borra (HTML, CSS, JS). Sin `data-default` salvo que se indique. Lo nuevo va detrás. Sistema sx, marca, 1440×860 / 390×844 sin scroll horizontal ni errores, reduced-motion, limpieza, capturas en serie con el lock. Nada de patrones SaaS genéricos ni metáforas kitsch de taller (rondas 6/6c rechazadas).
+
+| sección | se queda (→ nueva letra) | nuevas |
+|---|---|---|
+| hero | C «HUD sin láser» → **A** (única) | — |
+| services | A→A, B→B, E→C, F→D, M «Mosaico de vídeo»→**E** con **otro fondo** (la idea gusta, el fondo no: cambia el vídeo/fondo detrás de las 6 ventanas por otro tratamiento de la marca) | **F, G**: 2 variaciones basadas en la M (mismo concepto: un fondo continuo detrás de 6 ventanas/servicios que giran en 3D para mostrar su foto y texto), con otros fondos/ritmos/composiciones |
+| reel | A «Ventana editorial» (única) | — |
+| work | B «Cuatro columnas» → **A** | **B–F** (5): cuadrículas **sin filtros**, de diseños distintos entre sí y distintos de A (p. ej. masonry, cuadrícula con una pieza grande que rota, retícula asimétrica 7/5, columnas con desfase vertical, cuadrícula de recortes cuadrados con pie al hover…). Mín. 8 proyectos reales |
+| process | A «Seis columnas» → **A** | **B–F** (5): **versiones de la A** (misma estructura de 6 fases en columnas/filetes y textos) pero **dinámicas con movimiento automático de fases**: la fase activa avanza sola (resaltado, línea de progreso, número, texto que se despliega…), en bucle, pausa fuera de pantalla y al hover/foco, botón de pausa |
+| numbers | — (se borran todas) | **A–E** (5): **sin fotos ni vídeo**; tipográficas/gráficas, dinámicas automáticas al entrar (sin scroll), compactas; datos v29 |
+| sectors | B «Cuatro columnas» → **A** | **B–F** (5): **sencillas**, del sistema sx (listas, retículas, tipografía), con algo de movimiento suave como mucho |
+| manifesto | sin cambios de versiones | En la A «Ventana que se abre» (y en B–E si usan foto de fondo) poner de foto de fondo `assets/img/hubs/eucerin-stand.webp` (stand Eucerin, 1672×941). Alt: «Stand de Eucerin con iluminación y expositores de producto» |
+| clients | E «Puente a contacto» → **A** (única) | La lista de logos **más larga** (todos los de `assets/img/clientes`, y si hay más logos de clientes en `C:\Users\Nico\Desktop\webunical\Final` —solo lectura— cópialos optimizados) en **una sola línea infinita que se repite en bucle** (marquesina continua sin saltos, pausa al hover y con reduced-motion) |
+| contact | H «Botón sobre vídeo» → **A** (única) | El CTA debe verse **ya directamente** al llegar (sin animación de entrada que lo oculte ni retraso). El vídeo de fondo se cambiará más adelante: deja el actual con la ruta en un único sitio fácil de cambiar (comentario `<!-- VIDEO FONDO CONTACTO -->`). Contacto también va en los hubs |
