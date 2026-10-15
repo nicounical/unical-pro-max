@@ -265,3 +265,11 @@ Petición: «dame 5 opciones nuevas para proyectos. Que sean diferentes, alguna 
 - No se borra nada: work A–F se quedan. Nuevas **G, H, I, J, K** (`work-g__`…, hidden).
 - Distintas entre sí y de A–F (Cuatro columnas, Mosaico editorial, Columnas desfasadas, Muro, Pieza destacada, Recortes) y de rondas anteriores (git log -p). Al menos **2 minimalistas** (mucho blanco, tipografía y foto justas, cero adornos). Ninguna con filtros. Mín. 8 proyectos reales.
 - Nada de patrones SaaS genéricos ni metáforas kitsch. Sistema sx (kicker «04 Proyectos»), fondos night/white/paper.
+
+## Ronda 9b «Proyectos: cuadrículas de fotos» (2026-10-15) — manda sobre 9
+Usuario: «no me gusta ninguna… repítelas todas, dame vistas de cuadrículas, algunas de solo las fotos sin mucho margen y que solo salga el texto al pasar el ratón por encima; otras que sea una cuadrícula perfecta sin ningún [hueco], como lo que hay en unicales-preview».
+- Borrar G–K de la ronda 9 y rehacer **G–K** (5). A–F intactas.
+- **Todas son cuadrículas de solo fotos**; el texto (cliente/trabajo) **solo aparece al pasar el ratón o con el foco** (en táctil: visible discreto abajo, o al tocar).
+- Referencia de unicales-preview (`C:\Users\Nico\unicales-preview\src\pages\static\landing\styles.css`, clases `.p4`, `.p4-c`, `.p4-b`): rejilla de 4 columnas a todo el ancho, `gap:3px`, celdas 4:3, foto `object-fit:cover` con zoom suave al hover, degradado oscuro desde abajo y título Poppins 800 + «Ver proyecto →» al hover; 2 columnas en móvil.
+- Reparto: 2–3 versiones **«cuadrícula perfecta» sin huecos** (gap 0 o 1–3px, todas las celdas iguales, a sangre o casi) y 2–3 versiones de **fotos con muy poco margen** (gap pequeño, contenidas en el ancho de la sección). Varía columnas (3/4/5/6), proporción (1:1, 4:3, 3:2, 16:9) y tipo de revelado del texto (degradado, velo de color de marca, texto centrado, pie que sube). Nada más: sin filtros, sin cabeceras raras, sin efectos extra.
+- Cabecera sx «04 Proyectos» encima y enlace «Ver todos los proyectos». Mín. 8 fotos (múltiplos de la columna para que la rejilla quede completa: 8, 9, 10, 12…). Proyectos reales del repo.
