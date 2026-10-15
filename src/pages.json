@@ -52,5 +52,15 @@
       "09-quotes",
       "10-contact"
     ]
+  },
+  {
+    "file": "stands.html",
+    "nav": "eventos",
+    "title": "Stands para ferias · Unical Graphic",
+    "description": "Diseño, producción y montaje de stands para ferias y congresos desde Barcelona.",
+    "sections": [
+      "stands-process",
+      "10-contact"
+    ]
   }
 ]
