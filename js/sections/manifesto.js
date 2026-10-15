@@ -1,22 +1,84 @@
-/* Por qué Unical · A (favorita fija «Ventana que se abre») + B–E mejoras de la A · Ronda 5 sistema sx */
+/* Por qué Unical · A (favorita fija «Ventana que se abre») + B–E mejoras de la A · Ronda 5 sistema sx + F–H misma familia que la A (Ronda 11) */
 (() => {
   const { register } = UX;
   const isDesk = () => matchMedia("(min-width: 861px)").matches;
 
-  /* ---------- A · Ventana que se abre (favorita fija; antes K) ---------- */
-  register("manifesto", "A", (root, ux) => {
+  /* ---------- Familia «ventana» (A, F, G, H): pin a pantalla completa, scrub largo y suave ---------- */
+  const winVariant = build => (root, ux) => {
     if (ux.reduce || !isDesk()) { root.classList.add("man-win--static"); return () => root.classList.remove("man-win--static"); }
-    const win = ux.$(".man-win__window", root), img = ux.$("img", win);
+    const pin = ux.$(".man-win__pin", root), win = ux.$(".man-win__window", root), img = ux.$("img", win);
     const [l, r] = ux.$$(".man-win__half", root), over = ux.$(".man-win__over", root);
-    gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: .7 } })
-      .to(l, { yPercent: -160, autoAlpha: 0, ease: "power2.in", duration: .5 }, .05)
-      .to(r, { yPercent: 160, autoAlpha: 0, ease: "power2.in", duration: .5 }, .05)
-      .to(win, { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "power2.inOut", duration: .6 }, 0)
-      .to(img, { scale: 1, ease: "none", duration: .8 }, 0)
-      .to(ux.$(".man-win__shade", root), { opacity: 1, duration: .25 }, .5)
-      .to(over, { autoAlpha: 1, duration: .2 }, .58)
-      .from(ux.$$(".man-win__label, .man-win__grid li, .man-win__foot", root), { y: 40, autoAlpha: 0, stagger: .04, duration: .25 }, .6);
-  });
+    const W = () => pin.clientWidth, H = () => pin.clientHeight;
+    const box = (t, rt, b, lt, rad) => `inset(${t}px ${rt}px ${b}px ${lt}px round ${rad}px)`;
+    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: 1.2, invalidateOnRefresh: true } });
+    const undo = build({ root, ux, pin, win, img, l, r, W, H, box, tl });
+    // cierre común: oscurecer, aparecer los cuatro pilares
+    tl.to(ux.$(".man-win__shade", root), { opacity: 1, ease: "none", duration: .18 }, .64)
+      .to(over, { autoAlpha: 1, duration: .12 }, .7)
+      .fromTo(ux.$$(".man-win__label, .man-win__grid li, .man-win__foot", root), { y: 36, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power2.out", stagger: .035, duration: .2 }, .72); // fromTo: con invalidateOnRefresh un from() se quedaría en 0
+    return undo;
+  };
+  const halvesOut = (tl, l, r, H, at, dur = .3) => tl
+    .to(l, { y: () => -H() * .62, autoAlpha: 0, ease: "power2.in", duration: dur }, at)
+    .to(r, { y: () => H() * .62, autoAlpha: 0, ease: "power2.in", duration: dur }, at);
+
+  /* A · Ventana que se abre: el titular se lee entero; entre sus dos líneas se abre una franja
+     panorámica con la foto (las líneas van pegadas a sus bordes) y la franja crece a pantalla completa */
+  register("manifesto", "A", winVariant(({ win, img, l, r, W, H, box, tl }) => {
+    const band = () => Math.min(H() * .22, 230);
+    tl.fromTo(win, { clipPath: () => box(H() / 2, W() / 2, H() / 2, W() / 2, 14) },
+                   { clipPath: () => box(H() / 2 - band(), W() * .07, H() / 2 - band(), W() * .07, 14), ease: "power3.inOut", duration: .34 }, 0)
+      .to(l, { y: () => -band() - 8, ease: "power3.inOut", duration: .34 }, 0)
+      .to(r, { y: () => band() + 8, ease: "power3.inOut", duration: .34 }, 0)
+      .to(win, { clipPath: () => box(0, 0, 0, 0, 0), ease: "power2.inOut", duration: .3 }, .4)
+      .fromTo(img, { scale: 1.28 }, { scale: 1, ease: "none", duration: .75 }, 0);
+    halvesOut(tl, l, r, H, .4);
+  }));
+
+  /* F · Zoom al titular: la foto rellena las letras; el titular crece hasta que entras en la imagen */
+  register("manifesto", "F", winVariant(({ root, ux, win, img, tl }) => {
+    const title = ux.$(".man-win__title", root), acc = ux.$(".acc", root);
+    const origin = () => { const a = acc.getBoundingClientRect(), t = title.getBoundingClientRect(); return `${a.left - t.left + a.width * .5}px ${a.top - t.top + a.height * .55}px`; };
+    gsap.set(title, { transformOrigin: origin() });
+    tl.to(title, { scale: 26, ease: "power3.in", duration: .55 }, 0)
+      .to(win, { opacity: 1, ease: "none", duration: .12 }, .28)
+      .to(title, { autoAlpha: 0, ease: "none", duration: .1 }, .32)
+      .fromTo(img, { scale: 1.35 }, { scale: 1, ease: "power1.out", duration: .7 }, .1);
+    return () => gsap.set(title, { clearProps: "transform,transformOrigin,opacity,visibility" });
+  }));
+
+  /* G · Persiana: siete lamas verticales se abren desde el centro hacia fuera */
+  register("manifesto", "G", winVariant(({ pin, img, l, r, H, tl }) => {
+    const N = 7, wrap = document.createElement("div"); wrap.className = "man-win__strips"; wrap.setAttribute("aria-hidden", "true");
+    const strips = Array.from({ length: N }, (_, i) => {
+      const s = document.createElement("div"), im = new Image();
+      s.className = "man-win__strip"; s.style.left = `${i * 100 / N}%`; s.style.width = `${100 / N + .08}%`;
+      im.src = img.currentSrc || img.src; im.alt = ""; im.style.width = `${N * 100}%`; im.style.left = `${-i * 100}%`;
+      s.append(im); wrap.append(s); return s;
+    });
+    pin.insertBefore(wrap, pin.querySelector(".man-win__window"));
+    tl.to(strips, { clipPath: "inset(0% 0 0% 0)", ease: "power3.inOut", duration: .32, stagger: { each: .035, from: "center" } }, 0)
+      .fromTo(wrap.querySelectorAll("img"), { scale: 1.2 }, { scale: 1, ease: "none", duration: .75 }, 0)
+      .to(l, { y: () => -H() * .2, ease: "power2.inOut", duration: .3 }, 0)
+      .to(r, { y: () => H() * .2, ease: "power2.inOut", duration: .3 }, 0);
+    halvesOut(tl, l, r, H, .3, .26);
+    return () => wrap.remove();
+  }));
+
+  /* H · Desde la palabra: la ventana nace exactamente sobre «imposible» y crece hasta llenar la pantalla */
+  register("manifesto", "H", winVariant(({ root, ux, pin, win, img, l, r, W, H, box, tl }) => {
+    const acc = ux.$(".acc", root);
+    const word = () => { // caja de la palabra en el pin, sin el desplazamiento que ya lleve la línea
+      const a = acc.getBoundingClientRect(), p = pin.getBoundingClientRect(), dy = gsap.getProperty(l, "y") || 0, pad = 6;
+      return box(a.top - p.top - dy - pad, p.right - a.right - pad, p.bottom - a.bottom + dy - pad, a.left - p.left - pad, 12);
+    };
+    tl.fromTo(win, { clipPath: word, opacity: 0 }, { opacity: 1, ease: "none", duration: .08 }, 0)
+      .to(acc, { color: "rgba(0,0,0,0)", ease: "none", duration: .08 }, 0)
+      .to(win, { clipPath: () => box(0, 0, 0, 0, 0), ease: "power3.inOut", duration: .5 }, .08)
+      .fromTo(img, { scale: 1.5 }, { scale: 1, ease: "power2.out", duration: .7 }, 0);
+    halvesOut(tl, l, r, H, .14, .34);
+    return () => gsap.set(acc, { clearProps: "color" });
+  }));
 
 
 

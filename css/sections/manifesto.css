@@ -2,9 +2,10 @@
 /* ---------- A · Ventana que se abre (favorita fija; antes K) ---------- */
 .man-win{height:320vh;background:var(--u-paper);color:var(--u-ink)}
 .man-win__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.man-win__title{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:min(34vh,330px);text-align:center;font-family:var(--f-head);font-weight:800;font-size:clamp(2.4rem,5.4vw,6rem);line-height:.95;letter-spacing:-.05em;pointer-events:none;padding-inline:var(--pad)}
+.man-win__title{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06em;text-align:center;font-family:var(--f-head);font-weight:800;font-size:clamp(2.4rem,5.4vw,6rem);line-height:.95;letter-spacing:-.05em;pointer-events:none;padding-inline:var(--pad)}
 .man-win__half{display:block;will-change:transform}
-.man-win__window{position:absolute;inset:0;z-index:1;clip-path:inset(calc(50% - min(16vh,155px)) calc(50% - min(19vh,190px)) calc(50% - min(16vh,155px)) calc(50% - min(19vh,190px)) round 18px);will-change:clip-path}
+/* Sin «cuadradito» inicial: la ventana arranca cerrada (línea de 0 px) y el titular se lee entero */
+.man-win__window{position:absolute;inset:0;z-index:1;clip-path:inset(50% 50% 50% 50% round 14px);will-change:clip-path}
 .man-win__window img{width:100%;height:100%!important;object-fit:cover;object-position:38% 45%;transform:scale(1.25)}
 .man-win__shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,16,29,.92) 0%,rgba(16,16,29,.6) 45%,rgba(16,16,29,.35));opacity:0}
 .man-win__over{position:absolute;inset:0;z-index:3;padding:110px var(--pad) clamp(92px,11vh,120px);display:flex;flex-direction:column;justify-content:flex-end;color:var(--u-paper);visibility:hidden;opacity:0}
@@ -18,11 +19,24 @@
 .man-win__foot p{max-width:56ch;color:#D6DBE6}
 .man-win__foot strong{color:#fff}
 .man-win--static{height:auto}
+.man-win--static .man-win__half{transform:none!important;opacity:1!important;visibility:visible!important}
 .man-win--static .man-win__pin{position:relative;height:auto;display:flex;flex-direction:column}
 .man-win--static .man-win__title{position:relative;inset:auto;gap:.2em;padding:clamp(5rem,12vw,8rem) var(--pad) 2.4rem;font-size:clamp(2.4rem,9vw,6rem)}
 .man-win--static .man-win__window{position:relative;inset:auto;height:min(60vh,520px);clip-path:none}
 .man-win--static .man-win__window img{transform:none}
 .man-win--static .man-win__over{position:relative;inset:auto;visibility:visible;opacity:1;background:var(--u-night);padding:clamp(3rem,8vw,5rem) var(--pad) clamp(5rem,10vw,7rem)}
+/* ---------- F · Zoom al titular (la foto dentro de las letras) ---------- */
+.man-win--f:not(.man-win--static) .man-win__title{font-size:clamp(3rem,8.4vw,9.6rem);line-height:.9;background:#10101D url(../../assets/img/hubs/porque-unical.webp) 38% 45%/cover no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;will-change:transform}
+.man-win--f:not(.man-win--static) .man-win__title .acc{color:transparent}
+.man-win--f:not(.man-win--static) .man-win__half{will-change:auto}
+.man-win--f:not(.man-win--static) .man-win__window{clip-path:none;opacity:0}
+/* ---------- G · Persiana (lamas que crea el JS) ---------- */
+.man-win--g:not(.man-win--static) .man-win__window{clip-path:none;visibility:hidden}
+.man-win__strips{position:absolute;inset:0;z-index:1;pointer-events:none}
+.man-win__strip{position:absolute;top:0;bottom:0;overflow:hidden;clip-path:inset(50% 0 50% 0);will-change:clip-path}
+.man-win__strip img{position:absolute;top:0;height:100%;max-width:none;object-fit:cover;object-position:38% 45%;transform:scale(1.2)}
+/* ---------- H · Desde la palabra (clip inicial = caja de «imposible», lo pone el JS) ---------- */
+.man-win--h:not(.man-win--static) .man-win__window{opacity:0}
 @media (max-width:860px){
   .man-win__grid{grid-template-columns:1fr}
   .man-win__foot{flex-direction:column;align-items:flex-start}
