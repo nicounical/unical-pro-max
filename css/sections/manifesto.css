@@ -25,10 +25,8 @@
 .man-win--static .man-win__window{position:relative;inset:auto;height:min(60vh,520px);clip-path:none}
 .man-win--static .man-win__window img{transform:none}
 .man-win--static .man-win__over{position:relative;inset:auto;visibility:visible;opacity:1;background:var(--u-night);padding:clamp(3rem,8vw,5rem) var(--pad) clamp(5rem,10vw,7rem)}
-/* ---------- F · Zoom al titular (la foto dentro de las letras) ---------- */
-.man-win--f:not(.man-win--static) .man-win__title{font-size:clamp(3rem,8.4vw,9.6rem);line-height:.9;background:#10101D url(../../assets/img/hubs/porque-unical.webp) 38% 45%/cover no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;will-change:transform}
-.man-win--f:not(.man-win--static) .man-win__title .acc{color:transparent}
-.man-win--f:not(.man-win--static) .man-win__half{will-change:auto}
+/* ---------- F · Zoom al titular (letras sólidas: tinta + «imposible» azul, para que se lea bien) ---------- */
+.man-win--f:not(.man-win--static) .man-win__title{font-size:clamp(3rem,8.4vw,9.6rem);line-height:.9;will-change:transform}
 .man-win--f:not(.man-win--static) .man-win__window{clip-path:none;opacity:0}
 /* ---------- G · Persiana (lamas que crea el JS) ---------- */
 .man-win--g:not(.man-win--static) .man-win__window{clip-path:none;visibility:hidden}

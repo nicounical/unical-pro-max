@@ -35,7 +35,7 @@
     halvesOut(tl, l, r, H, .4);
   }));
 
-  /* F · Zoom al titular: la foto rellena las letras; el titular crece hasta que entras en la imagen */
+  /* F · Zoom al titular: el titular (sólido, «imposible» en azul) crece hasta que entras en la foto */
   register("manifesto", "F", winVariant(({ root, ux, win, img, tl }) => {
     const title = ux.$(".man-win__title", root), acc = ux.$(".acc", root);
     const origin = () => { const a = acc.getBoundingClientRect(), t = title.getBoundingClientRect(); return `${a.left - t.left + a.width * .5}px ${a.top - t.top + a.height * .55}px`; };
