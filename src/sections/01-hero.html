@@ -1,11 +1,10 @@
 <section class="opt-sec" id="top" data-sec="hero" data-label="Portada">
 
-  <!-- A · HUD sin láser (elegida en la ronda 8; antes C): vídeo del Lexus revelado de arriba abajo, sin línea que barre ni marcador -->
+  <!-- A · HUD sin láser (elegida en la ronda 8): vídeo del Lexus revelado de arriba abajo, sin línea que barre ni marcador. Ronda 11: más nítido (sin rejilla, velos más cortos, sin zoom) -->
   <div class="variant hero-hud hero-hud--clean" data-v="A" data-name="HUD sin láser" data-theme="dark">
     <div class="hero-hud__media" aria-hidden="true">
       <video class="hero-hud__v hero-hud__v--raw" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video>
       <div class="hero-hud__scanned"><video class="hero-hud__v hero-hud__v--fx" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video></div>
-      <div class="hero-hud__grid"></div>
     </div>
     <div class="hero-hud__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <ul class="hero-hud__data mono" aria-hidden="true">
@@ -24,5 +23,65 @@
         <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
       </div>
     </div>
+  </div>
+  <!-- B · Cine: vídeo a todo color desde el primer segundo, sin HUD; titular abajo y accesos directos a los tres servicios -->
+  <div class="variant hero-hud hero-cine" data-v="B" data-name="Cine" data-theme="dark" hidden>
+    <div class="hero-hud__media" aria-hidden="true">
+      <video class="hero-hud__v hero-hud__v--fx" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video>
+    </div>
+    <div class="hero-hud__copy hero-cine__copy">
+      <p class="mono hero-hud__kicker"><span class="hero-dot"></span> Servicios 360° · Barcelona</p>
+      <h1 class="hero-hud__h1" aria-label="Producción visual B2B."><span class="hero-hud__ln" aria-hidden="true"><span>Producción visual</span></span> <span class="hero-hud__ln" aria-hidden="true"><span class="acc">B2B.</span></span></h1>
+      <div class="hero-cine__row">
+        <p class="hero-hud__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
+        <div class="hero-ctas">
+        <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
+        <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
+      </div>
+      </div>
+    </div>
+    <nav class="hero-hubs" aria-label="Servicios">
+      <a href="rotulacion.html"><span class="mono">01</span> Rotulación <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="impresion.html"><span class="mono">02</span> Impresión <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="eventos.html"><span class="mono">03</span> Eventos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </nav>
+  </div>
+
+  <!-- C · Titular partido: «Producción visual» arriba, «B2B.» abajo a la derecha; el coche respira en medio, nítido y sin velos -->
+  <div class="variant hero-hud hero-split" data-v="C" data-name="Titular partido" data-theme="dark" hidden>
+    <div class="hero-hud__media" aria-hidden="true">
+      <video class="hero-hud__v hero-hud__v--fx" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video>
+    </div>
+    <h1 class="hero-hud__h1 hero-split__h1" aria-label="Producción visual B2B."><span class="hero-hud__ln hero-split__t" aria-hidden="true"><span>Producción visual</span></span> <span class="hero-hud__ln hero-split__b" aria-hidden="true"><span class="acc">B2B.</span></span></h1>
+    <div class="hero-split__copy">
+      <p class="mono hero-hud__kicker"><span class="hero-dot"></span> Servicios 360° · Barcelona</p>
+      <p class="hero-hud__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
+      <div class="hero-ctas">
+        <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
+        <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
+      </div>
+    </div>
+    <ul class="hero-split__tick mono" aria-hidden="true"><li>Vinilo 3M · Avery</li><li>Planta propia · 41.52°N 2.39°E</li><li>Montaje en toda España</li><li class="hero-hud__ok">En producción</li></ul>
+  </div>
+
+  <!-- D · Revelado suave: como la A, pero el color entra de izquierda a derecha con un borde difuminado (sin línea) y el panel de datos va en una tira -->
+  <div class="variant hero-hud hero-hud--clean hero-wipe" data-v="D" data-name="Revelado suave" data-theme="dark" hidden>
+    <div class="hero-hud__media" aria-hidden="true">
+      <video class="hero-hud__v hero-hud__v--raw" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video>
+      <div class="hero-hud__scanned"><video class="hero-hud__v hero-hud__v--fx" poster="assets/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video></div>
+    </div>
+    <div class="hero-hud__copy">
+      <p class="mono hero-hud__kicker"><span class="hero-dot"></span> Servicios 360° · Barcelona</p>
+      <h1 class="hero-hud__h1" aria-label="Producción visual B2B."><span class="hero-hud__ln" aria-hidden="true"><span>Producción visual</span></span> <span class="hero-hud__ln" aria-hidden="true"><span class="acc">B2B.</span></span></h1>
+      <p class="hero-hud__sub">Tu partner en impresión digital, rotulación y producción visual. Producción propia, plazos rápidos y montaje profesional en toda España.</p>
+      <div class="hero-ctas">
+        <a class="hero-ghost" href="#proyectos" data-magnetic>Ver proyectos</a>
+        <a class="btn" href="#contacto" data-magnetic>Solicitar presupuesto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="hero-ghost" type="button" data-reel data-magnetic><span aria-hidden="true">▶</span> Ver showreel</button>
+      </div>
+    </div>
+    <ul class="hero-wipe__data mono" aria-hidden="true"><li><span>Color</span><b class="hero-hud__pct">000%</b></li><li><span>Material</span><b>Vinilo 3M · Avery</b></li><li><span>Estado</span><b class="hero-hud__ok">En producción</b></li></ul>
   </div>
 </section>

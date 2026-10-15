@@ -229,7 +229,7 @@
   const onIdx = (items, i) => items.forEach((li, k) => { li.classList.toggle("on", k === i); li.classList.toggle("done", k < i); });
   const pinEnd = () => innerWidth < 900 ? "+=240%" : "+=300%";
 
-  /* ---------- A · Despiece (también en la landing: Cómo trabajamos G) ---------- */
+  /* ---------- A · Despiece (también en la landing: Cómo trabajamos A) ---------- */
   const despiece = (root, ux) => {
     const steps = $$(".stproc-a__steps li", root), bars = $$(".stproc-a__bar b", root), pin = $(".stproc-a__pin", root);
     const setUI = t => { onIdx(steps, Math.min(3, Math.floor(t))); bars.forEach((b, k) => b.style.setProperty("--p", clamp01(t - k))); };
@@ -239,6 +239,6 @@
           grid: .7 + .3 * asm, explode: 1 - asm, pts: p0, ptsA: .95 * (1 - p1 * .9), wire: p1, wireA: .85 - .55 * p2, glow: 1 - p2, fill: p2, tex: clamp01(p2 * 1.5 - .4), light: clamp01(p3 * 1.6 - .6), outline: .45 - .3 * asm }); } });
   };
   register("stands-process", "A", despiece);
-  register("process", "G", despiece);
+  register("process", "A", despiece);
 
 })();

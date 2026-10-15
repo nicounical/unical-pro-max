@@ -283,3 +283,21 @@ Petición: «quiero que me hagas versiones mejoradas de esto [Holograma 3D de `s
 ## Ronda 11 · Por qué Unical (2026-10-15)
 - A «Ventana que se abre»: fuera el «cuadradito» inicial. El titular se lee entero; al hacer scroll se abre entre sus dos líneas una franja panorámica con la foto (las líneas van pegadas a sus bordes) que crece a pantalla completa. Scrub 1.2, eases suaves.
 - Nuevas de la misma familia (pin a pantalla completa, mismo cierre con los 4 pilares): F «Zoom al titular» (foto dentro de las letras y zoom a través de «imposible»), G «Persiana» (7 lamas desde el centro), H «Desde la palabra» (la ventana nace sobre «imposible»).
+
+## Ronda 11 · Contacto A (2026-10-15)
+- A «Botón sobre vídeo» + formulario directo en la página (campos de la landing de unicales-preview: nombre, empresa, email, teléfono, servicio, mensaje, privacidad). Envío: validación nativa + aviso «Gracias…» sin mandar nada (TODO endpoint en 10-contact.html y contact.js). El botón redondo con sello pasa a ser WhatsApp directo (wa.me/34663512014, el de la landing de unicales-preview). Vías abajo: teléfono, email, taller. También sale en hubs y stands.html.
+
+## Ronda 11 · Selección (2026-10-15)
+- Servicios: solo **A «Pantalla dividida»** (antes D). Proyectos: solo **A «Rejilla a sangre»** (antes G). Cómo trabajamos: solo **A «Despiece 3D»** (antes G; HTML en 07-process, CSS/JS en stands-process.* vía `assets`; process.css/js eliminados). Por qué Unical: solo **A «Zoom al titular»** (antes F), titular más pequeño `clamp(2.4rem,5.6vw,6.4rem)` y zoom hasta ×38.
+- Se borró el HTML/CSS/JS de las demás versiones (quedan en git). Se conservan los nombres de clase (services-d, work-g, stproc-a, man-win).
+
+## Ronda 11 · Por qué elegirnos (numbers) — 5 versiones nuevas
+Borradas las A–E de la ronda 8 («no me gusta ninguno»). Nuevas, tipografía cinética sin fotos, movimiento automático (sin scroll), pausa y estado quieto con movimiento reducido: A «Cinta gigante» (dos cintas de cifras enormes en sentidos opuestos), B «Rodillos» (contador de rodillos de dígitos), C «Filas a sangre» (cifras de lado a lado que se rellenan de azul por turnos), D «Órbita» (anillo de texto girando + cifra central), E «Barrido» (franja azul que barre la cifra como una rasqueta).
+
+## Ronda 11 · Sectores (2026-10-15)
+- A «Cuatro columnas» se queda. Borradas B–F anteriores. Nuevas: B «Lista tipográfica» (nombres enormes, el activo se enciende y avanza solo), C «Cinta doble» (dos cintas infinitas opuestas), D «Etiquetas» (fondo paper, nube de etiquetas, avanza sola), E «Ficha técnica» (tabla sobre sx--blue con etiquetas de soluciones), F «Iniciales» (rejilla 4×2 con inicial gigante en contorno).
+
+## Ronda 11b · Selección 6 + portada nítida (2026-10-15)
+- Portada: vídeo re-codificado desde el máster 4K (VP9 1080p crf24 ≈2,4 Mb/s, 1440p crf26, H.264 crf18, móvil 1:1 crop x=846) con unsharp suave; pósters nuevos. A sin rejilla, velos cortos casi negros, sin brillo extra ni zoom al hacer scroll. Nuevas B «Cine», C «Titular partido», D «Revelado suave».
+- Selección: servicios D→A, proyectos G→A, cómo trabajamos G→A (Despiece 3D), por qué Unical F→A (texto más pequeño). Reel A, clientes A.
+- Por qué elegirnos: 5 nuevas A–E. Sectores: A + 5 nuevas B–F. Contacto A con formulario visible + WhatsApp (sin endpoint real aún).

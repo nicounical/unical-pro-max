@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="css/core.css?v=20261015135330">
-<link rel="stylesheet" href="css/sections/stands-process.css?v=20261015135330">
-<link rel="stylesheet" href="css/sections/contact.css?v=20261015135330">
+<link rel="stylesheet" href="css/core.css?v=20261015165008">
+<link rel="stylesheet" href="css/sections/stands-process.css?v=20261015165008">
+<link rel="stylesheet" href="css/sections/contact.css?v=20261015165008">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Unical Graphic","url":"https://www.unical.es","telephone":"+34937502304","address":{"@type":"PostalAddress","streetAddress":"Passatge la Carola, 2","postalCode":"08349","addressLocality":"Cabrera de Mar","addressRegion":"Barcelona","addressCountry":"ES"},"sameAs":["https://www.instagram.com/unical_graphic/","https://www.linkedin.com/company/unical-graphic-sl"]}
 </script>
@@ -74,8 +74,8 @@
 <!-- ===== 10-contact.html ===== -->
 <section class="opt-sec" id="contacto" data-sec="contact" data-label="Contacto">
 
-  <!-- A · Botón sobre vídeo (elegida en la ronda 8; antes H): titular, botón enorme con sello giratorio y vías de contacto,
-       todo visible desde el primer momento (sin animación de entrada) -->
+  <!-- A · Botón sobre vídeo (elegida en la ronda 8; antes H). Ronda 11: formulario directo en la página + botón redondo de WhatsApp
+       con sello giratorio y vías de contacto, todo visible desde el primer momento (sin animación de entrada) -->
   <div class="variant contact-a" data-v="A" data-name="Botón sobre vídeo" data-theme="dark">
     <!-- VIDEO FONDO CONTACTO: para cambiar el vídeo, sustituye aquí el póster y las dos fuentes (webm + mp4) -->
     <video class="contact-a__vid" data-autoplay muted loop playsinline preload="none" poster="assets/video/hero-coche.webp" aria-hidden="true">
@@ -87,14 +87,42 @@
         <p class="sx-kicker"><b>10</b> Contacto</p>
         <h2 class="contact-a__title">Tu próximo proyecto <span class="acc">empieza aquí.</span></h2>
       </header>
+      <!-- Formulario directo en la página (mismos campos que la landing de unicales-preview).
+           TODO endpoint: ahora valida y muestra el aviso de enviado sin mandar nada; al conectar el envío real
+           (p. ej. la función send-contact de unicales-preview) quitar el preventDefault de js/sections/contact.js. -->
+      <form class="contact-a__form" action="#" method="post" novalidate aria-labelledby="contact-a-ft">
+        <p class="contact-a__ft" id="contact-a-ft">Pide presupuesto</p>
+        <div class="contact-a__grid">
+          <label><span>Nombre *</span><input type="text" name="nombre" autocomplete="name" required placeholder="Tu nombre"></label>
+          <label><span>Empresa</span><input type="text" name="empresa" autocomplete="organization" placeholder="Tu empresa"></label>
+          <label><span>Email *</span><input type="email" name="email" autocomplete="email" required placeholder="tucorreo@empresa.com"></label>
+          <label><span>Teléfono</span><input type="tel" name="telefono" autocomplete="tel" placeholder="600 000 000"></label>
+          <label class="contact-a__full"><span>¿Qué necesitas? *</span>
+            <select name="servicio" required>
+              <option value="">Selecciona un servicio</option>
+              <option>Rotulación</option>
+              <option>Impresión</option>
+              <option>Eventos y stands</option>
+              <option>Otro</option>
+            </select></label>
+          <label class="contact-a__full"><span>Cuéntanos el proyecto</span><textarea name="mensaje" rows="3" placeholder="Rotular 12 furgonetas, stand de 30 m²…"></textarea></label>
+        </div>
+        <label class="contact-a__check"><input type="checkbox" name="privacidad" required><span>Acepto la <a href="https://www.unical.es/es/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
+        <div class="contact-a__send">
+          <button type="submit" class="btn">Enviar solicitud <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="contact-a__note">Respuesta en menos de 24 h laborables.</p>
+        </div>
+        <p class="contact-a__ok" role="status" hidden>Gracias. Hemos recibido tu solicitud y te contactamos enseguida.</p>
+      </form>
+      <!-- Botón directo de WhatsApp: el botón redondo con el sello giratorio -->
       <div class="contact-a__core">
-        <svg class="contact-a__ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ca-circ" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0"/></defs><text><textPath href="#ca-circ">Diseño · Producción · Instalación · Toda España ·</textPath></text></svg>
-        <a class="contact-a__btn" href="mailto:nico@unical.es?subject=Solicitud%20de%20presupuesto"><span>Pide<br>presupuesto</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <svg class="contact-a__ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ca-circ" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0"/></defs><text><textPath href="#ca-circ">WhatsApp · Respuesta rápida · Toda España ·</textPath></text></svg>
+        <a class="contact-a__btn" href="https://wa.me/34663512014?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20presupuesto." target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp (se abre en una pestaña nueva)"><svg class="contact-a__wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Escríbenos<br>por WhatsApp</span></a>
       </div>
       <ul class="contact-a__ways" aria-label="Otras vías de contacto">
         <li><a href="tel:+34937502304"><span class="sx-meta">Teléfono</span><b>937 50 23 04</b></a></li>
-        <li><a href="https://wa.me/34663512014" target="_blank" rel="noopener"><span class="sx-meta">WhatsApp</span><b>Respuesta rápida</b></a></li>
         <li><a href="mailto:nico@unical.es"><span class="sx-meta">Email</span><b>nico@unical.es</b></a></li>
+        <li><span class="contact-a__addr"><span class="sx-meta">Taller</span><b>Cabrera de Mar · Barcelona</b></span></li>
       </ul>
     </div>
   </div>
@@ -134,8 +162,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/core.js?v=20261015135330"></script>
-<script src="js/sections/stands-process.js?v=20261015135330"></script>
-<script src="js/sections/contact.js?v=20261015135330"></script>
+<script src="js/core.js?v=20261015165008"></script>
+<script src="js/sections/stands-process.js?v=20261015165008"></script>
+<script src="js/sections/contact.js?v=20261015165008"></script>
 </body>
 </html>

@@ -18,12 +18,12 @@
 @media (max-width:700px) and (orientation:portrait){.hero-hud__media{bottom:auto;height:min(108vw,54svh);top:64px}.hero-hud__media::before{background-image:url(../../assets/video/hero-coche-m.webp);background-position:50% 60%}.hero-hud__media::after{background:linear-gradient(0deg,#10101D 0%,rgba(16,16,29,.6) 22%,transparent 50%),linear-gradient(180deg,rgba(16,16,29,.55),transparent 30%)}.hero-hud__v{object-position:50% 60%}}
 .hero-hud__v{opacity:0;transition:opacity .6s ease}.hero-hud.is-ready .hero-hud__v{opacity:1}
 .hero-hud__ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}.hero-hud__ln>span{display:inline-block}
-.hero-hud__media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,16,29,.95) 0%,rgba(16,16,29,.55) 34%,transparent 62%),linear-gradient(90deg,rgba(16,16,29,.7),transparent 55%)}
+/* Ronda 11 · nitidez: velos más cortos y casi negros (el azul noche al 55 % agrisaba toda la mitad inferior) */
+.hero-hud__media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,6,12,.88) 0%,rgba(6,6,12,.4) 26%,transparent 46%),linear-gradient(90deg,rgba(6,6,12,.55),transparent 42%)}
 .hero-hud__v{position:absolute;inset:0;width:100%;height:100%!important;object-fit:cover;object-position:50% 45%}
 .hero-hud__v--raw{filter:grayscale(1) brightness(.32) contrast(1.4)}
 .hero-hud__scanned{position:absolute;inset:0;clip-path:inset(0 0 calc(100% - var(--scan)) 0)}
-.hero-hud__v--fx{filter:brightness(1.12) saturate(1.15)}
-.hero-hud__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(153,196,228,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(153,196,228,.08) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 60% 45%,#000 10%,transparent 70%);mask-image:radial-gradient(ellipse at 60% 45%,#000 10%,transparent 70%)}
+.hero-hud__v--fx{filter:contrast(1.08) saturate(1.1)} /* sin subir el brillo: levantaba los negros y se veía grisáceo */
 .hero-hud__frame i{position:absolute;width:34px;height:34px;border:0 solid rgba(153,196,228,.8);z-index:3}
 .hero-hud__frame i:nth-child(1){top:96px;left:var(--pad);border-top-width:1px;border-left-width:1px}
 .hero-hud__frame i:nth-child(2){top:96px;right:var(--pad);border-top-width:1px;border-right-width:1px}
@@ -51,4 +51,42 @@
   .hero-hud__h1{font-size:clamp(2.2rem,11vw,2.8rem)}
   .hero-hud__copy{gap:.75rem;bottom:84px}
   .hero-hud__sub{font-size:.92rem}
+}
+
+/* ---------- B · Cine ---------- */
+.hero-cine .hero-hud__v{opacity:1}
+.hero-cine .hero-hud__media::after{background:linear-gradient(0deg,rgba(6,6,12,.9) 0%,rgba(6,6,12,.35) 30%,transparent 50%)}
+.hero-cine__copy{max-width:none;bottom:calc(clamp(96px,12vh,124px) + 54px)}
+.hero-cine .hero-hud__h1{font-size:clamp(3rem,8vw,8.4rem)}
+.hero-cine__row{display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem 2.4rem;flex-wrap:wrap}
+.hero-hubs{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(84px,10vh,100px);z-index:4;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.22)}
+.hero-hubs a{display:flex;align-items:center;gap:.8rem;padding:.9rem 0;font-family:var(--f-head);font-weight:600;font-size:clamp(.95rem,1.2vw,1.15rem);color:#fff;transition:color .3s}
+.hero-hubs a+a{padding-left:1.2rem;border-left:1px solid rgba(255,255,255,.14)}
+.hero-hubs .mono{color:var(--u-blue)}
+.hero-hubs svg{width:18px;height:18px;margin-left:auto;margin-right:1.2rem;fill:none;stroke:currentColor;stroke-width:2;transition:transform .3s}
+.hero-hubs a:hover{color:var(--u-blue)}.hero-hubs a:hover svg{transform:translateX(4px)}
+/* ---------- C · Titular partido ---------- */
+.hero-split .hero-hud__v{opacity:1}
+.hero-split .hero-hud__media::after{background:linear-gradient(180deg,rgba(6,6,12,.6) 0%,transparent 26%,transparent 62%,rgba(6,6,12,.85) 100%)}
+.hero-split__h1{position:absolute;inset:0;z-index:3;margin:0;pointer-events:none;font-size:clamp(3rem,8.6vw,9.4rem)}
+.hero-split__t{position:absolute;top:clamp(92px,13vh,128px);left:var(--pad)}
+.hero-split__b{position:absolute;right:var(--pad);bottom:clamp(140px,18vh,180px)}
+.hero-split__copy{position:absolute;left:var(--pad);bottom:clamp(140px,18vh,180px);z-index:4;display:grid;gap:1rem;max-width:min(480px,46vw)}
+.hero-split__copy .hero-ctas .hero-ghost:last-child{display:none}
+.hero-split__tick{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(84px,10vh,100px);z-index:4;list-style:none;margin:0;padding:.9rem 0 0;border-top:1px solid rgba(255,255,255,.22);display:flex;justify-content:space-between;gap:1rem;color:#C9D1DE;font-size:.68rem}
+/* ---------- D · Revelado suave (izquierda → derecha, borde difuminado) ---------- */
+.hero-wipe .hero-hud__scanned{clip-path:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(var(--scan) * 1.3 - 30%),transparent calc(var(--scan) * 1.3));mask-image:linear-gradient(90deg,#000 calc(var(--scan) * 1.3 - 30%),transparent calc(var(--scan) * 1.3))}
+.hero-wipe__data{position:absolute;right:var(--pad);bottom:clamp(96px,12vh,124px);z-index:4;list-style:none;margin:0;padding:0;display:flex;gap:2rem;font-size:.68rem}
+.hero-wipe__data li{display:grid;gap:.25rem;padding-left:.9rem;border-left:1px solid rgba(153,196,228,.4)}
+.hero-wipe__data span{color:var(--u-muted)}.hero-wipe__data b{color:#fff;font-weight:600}
+@media (max-width:1100px){.hero-wipe__data{display:none}.hero-split__tick li:nth-child(2){display:none}}
+@media (max-width:760px){
+  .hero-cine__copy{bottom:calc(92px + 54px)}
+  .hero-cine__row{display:grid;gap:1rem}
+  .hero-hubs{bottom:80px}.hero-hubs a{font-size:.85rem;gap:.4rem}.hero-hubs a+a{padding-left:.6rem}.hero-hubs svg{display:none}
+  .hero-split__h1{font-size:clamp(2.6rem,12vw,3.4rem)}
+  .hero-split__t{top:78px;bottom:auto}
+  .hero-split__b{right:var(--pad);bottom:auto;top:calc(64px + min(108vw,54svh) - 1.1em)}
+  .hero-split__copy{max-width:none;right:var(--pad);bottom:96px}
+  .hero-split__tick{display:none}
 }

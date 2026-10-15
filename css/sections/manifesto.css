@@ -1,11 +1,12 @@
-/* ===== Por qué Unical · A (favorita fija «Ventana que se abre») + B–E mejoras de la A (Ronda 5, sistema sx) ===== */
-/* ---------- A · Ventana que se abre (favorita fija; antes K) ---------- */
+/* ===== Por qué Unical · A «Zoom al titular» (elegida en la ronda 11; antes F) =====
+   Titular sólido (tinta + «imposible» en azul de marca) más pequeño que en la F original para que respire;
+   el JS lo hace crecer desde «imposible» hasta entrar en la foto. */
 .man-win{height:320vh;background:var(--u-paper);color:var(--u-ink)}
 .man-win__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.man-win__title{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06em;text-align:center;font-family:var(--f-head);font-weight:800;font-size:clamp(2.4rem,5.4vw,6rem);line-height:.95;letter-spacing:-.05em;pointer-events:none;padding-inline:var(--pad)}
-.man-win__half{display:block;will-change:transform}
-/* Sin «cuadradito» inicial: la ventana arranca cerrada (línea de 0 px) y el titular se lee entero */
-.man-win__window{position:absolute;inset:0;z-index:1;clip-path:inset(50% 50% 50% 50% round 14px);will-change:clip-path}
+.man-win__title{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06em;text-align:center;font-family:var(--f-head);font-weight:800;font-size:clamp(2.4rem,5.6vw,6.4rem);line-height:.95;letter-spacing:-.05em;pointer-events:none;will-change:transform;padding-inline:var(--pad)}
+.man-win__half{display:block}
+/* La foto llega a pantalla completa por fundido cuando el titular ya ha crecido (sin «cuadradito») */
+.man-win__window{position:absolute;inset:0;z-index:1;opacity:0}
 .man-win__window img{width:100%;height:100%!important;object-fit:cover;object-position:38% 45%;transform:scale(1.25)}
 .man-win__shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,16,29,.92) 0%,rgba(16,16,29,.6) 45%,rgba(16,16,29,.35));opacity:0}
 .man-win__over{position:absolute;inset:0;z-index:3;padding:110px var(--pad) clamp(92px,11vh,120px);display:flex;flex-direction:column;justify-content:flex-end;color:var(--u-paper);visibility:hidden;opacity:0}
@@ -19,104 +20,13 @@
 .man-win__foot p{max-width:56ch;color:#D6DBE6}
 .man-win__foot strong{color:#fff}
 .man-win--static{height:auto}
-.man-win--static .man-win__half{transform:none!important;opacity:1!important;visibility:visible!important}
+.man-win--static .man-win__title{transform:none!important;opacity:1!important;visibility:visible!important}
 .man-win--static .man-win__pin{position:relative;height:auto;display:flex;flex-direction:column}
 .man-win--static .man-win__title{position:relative;inset:auto;gap:.2em;padding:clamp(5rem,12vw,8rem) var(--pad) 2.4rem;font-size:clamp(2.4rem,9vw,6rem)}
-.man-win--static .man-win__window{position:relative;inset:auto;height:min(60vh,520px);clip-path:none}
+.man-win--static .man-win__window{position:relative;inset:auto;height:min(60vh,520px);opacity:1}
 .man-win--static .man-win__window img{transform:none}
 .man-win--static .man-win__over{position:relative;inset:auto;visibility:visible;opacity:1;background:var(--u-night);padding:clamp(3rem,8vw,5rem) var(--pad) clamp(5rem,10vw,7rem)}
-/* ---------- F · Zoom al titular (letras sólidas: tinta + «imposible» azul, para que se lea bien) ---------- */
-.man-win--f:not(.man-win--static) .man-win__title{font-size:clamp(3rem,8.4vw,9.6rem);line-height:.9;will-change:transform}
-.man-win--f:not(.man-win--static) .man-win__window{clip-path:none;opacity:0}
-/* ---------- G · Persiana (lamas que crea el JS) ---------- */
-.man-win--g:not(.man-win--static) .man-win__window{clip-path:none;visibility:hidden}
-.man-win__strips{position:absolute;inset:0;z-index:1;pointer-events:none}
-.man-win__strip{position:absolute;top:0;bottom:0;overflow:hidden;clip-path:inset(50% 0 50% 0);will-change:clip-path}
-.man-win__strip img{position:absolute;top:0;height:100%;max-width:none;object-fit:cover;object-position:38% 45%;transform:scale(1.2)}
-/* ---------- H · Desde la palabra (clip inicial = caja de «imposible», lo pone el JS) ---------- */
-.man-win--h:not(.man-win--static) .man-win__window{opacity:0}
 @media (max-width:860px){
   .man-win__grid{grid-template-columns:1fr}
   .man-win__foot{flex-direction:column;align-items:flex-start}
 }
-
-
-
-
-/* =====================================================================
-   Ronda 5 «Coherencia» · B–E: mejoras de la A dentro del sistema sx (fondo paper).
-   Familia común «man-o»: kicker, titular partido en dos mitades (--sx-title) y, entre ellas,
-   una foto real (.sx-media, radio --sx-r) que se abre con un solo efecto de scroll suave, sin pin.
-   La cabecera es una .sx-head con el h2 en subgrid: mitad 1 / foto / mitad 2 + entradilla.
-   ===================================================================== */
-.man-o-v{overflow:clip}
-.man-o{row-gap:clamp(14px,1.6vw,24px);align-items:end}
-.man-o .sx-kicker{grid-row:1}
-.man-o__t{grid-column:1/-1;grid-row:2/5;display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;align-items:end;position:relative;z-index:2;pointer-events:none}
-.man-o__h{display:block;text-wrap:balance}
-.man-o__h--1{grid-row:1;grid-column:1/span 10}
-.man-o__h--2{grid-row:3;grid-column:1/span 8;align-self:start}
-.man-o__fig{grid-column:1/-1;grid-row:3;position:relative;z-index:1;margin:0;height:var(--fh,clamp(300px,30vw,440px))}
-.man-o__fig>img{position:absolute;inset:0;transform-origin:50% 50%;transition:none}
-.man-o .sx-lead{grid-row:4;align-self:start}
-.man-o__pil{list-style:none;margin:0;padding:0}
-.man-o__pil li{display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid color-mix(in srgb,currentColor 16%,transparent)}
-.man-o__pil .sx-meta{color:var(--u-blue-strong)}
-.man-o__pil p{color:var(--u-muted-dark);font-size:.95rem;line-height:1.5;max-width:40ch}
-.man-o__foot{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;margin-top:clamp(32px,4vw,56px)}
-.man-o__foot p{font-family:var(--f-head);font-weight:var(--w-head);font-size:var(--sx-h3);line-height:1.2;letter-spacing:-.025em;max-width:30ch}
-
-/* ---------- B · Ventana central ---------- */
-.man-b__pil li{grid-column:span 3}
-
-/* ---------- C · Cortina lateral (foto 8 col + pilares en la columna de la entradilla) ---------- */
-.man-c__o .man-o__h--1{grid-column:1/span 8}
-.man-c__o .man-o__h--2{grid-column:1/span 8;text-align:right}
-.man-c__o .sx-lead{grid-row:2;grid-column:9/-1;align-self:end}
-.man-c__o .man-o__fig{grid-column:1/span 8;--fh:clamp(360px,36vw,520px)}
-.man-c__side{grid-column:9/-1;grid-row:3;align-self:stretch;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
-.man-c__side li{gap:6px;padding-top:12px}
-.man-c__side p{font-size:.9rem;line-height:1.45}
-
-/* ---------- D · Dos hojas (pilares sobre la foto, en una banda sólida) ---------- */
-.man-d__o .man-o__fig{--fh:clamp(460px,44vw,620px)}
-.man-d__band{position:absolute;left:0;right:0;bottom:0;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sx-gap);padding:clamp(18px,2vw,28px);background:rgba(16,16,29,.88);color:var(--u-paper)}
-.man-d__band .sx-meta{color:var(--u-blue)}
-.man-d__band p{color:#D6DBE6;font-size:.9rem;line-height:1.45}
-.man-d__door{position:absolute;top:0;bottom:0;z-index:2;width:50.2%;background:var(--u-night)}
-.man-d__door--l{left:0;box-shadow:inset -1px 0 rgba(255,255,255,.14)}
-.man-d__door--r{right:0}
-
-/* ---------- E · Máscara redonda (pilares 2×2 + cierre a la derecha) ---------- */
-.man-e__low{align-items:end}
-.man-e__pil{grid-column:1/span 8;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,40px) var(--sx-gap)}
-.man-e__foot{grid-column:9/-1;margin-top:0;flex-direction:column;align-items:flex-start}
-
-@media (max-width:1200px){
-  .man-c__side{grid-row:5;grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sx-gap);margin-top:clamp(16px,2vw,24px)}
-  .man-c__o .man-o__fig{grid-column:1/-1}
-  .man-c__o .man-o__h--2{grid-column:1/-1}
-  .man-d__band p{font-size:.84rem}
-}
-@media (max-width:900px){
-  .man-o__h--1,.man-o__h--2,.man-c__o .man-o__h--1,.man-c__o .man-o__h--2{grid-column:1/-1;text-align:left}
-  .man-o .sx-lead,.man-c__o .sx-lead{grid-row:5;grid-column:1/-1;margin-top:8px}
-  .man-o__fig,.man-c__o .man-o__fig{grid-column:1/-1;height:auto;aspect-ratio:4/5}
-  .man-c__side{grid-row:6;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .man-b__pil li{grid-column:span 3}
-  .man-d__o .man-o__fig{aspect-ratio:auto;display:flex;flex-direction:column}
-  .man-d__o .man-o__fig>img{position:relative;inset:auto;aspect-ratio:4/3;height:auto}
-  .man-d__band{position:relative;grid-template-columns:1fr 1fr;background:var(--u-night)}
-  .man-e__pil,.man-e__foot{grid-column:1/-1}
-  .man-e__foot{margin-top:clamp(32px,6vw,48px)}
-}
-@media (max-width:560px){
-  .man-b__pil{row-gap:28px}
-  .man-b__pil li{grid-column:1/-1}
-  .man-c__side,.man-e__pil,.man-d__band{grid-template-columns:1fr}
-  .man-c__side{gap:24px}
-  .man-o__foot .btn{width:100%;justify-content:center}
-}
-
-/* Foto de fondo = mural «Impacto que multiplica» (1195×896). Encuadre entre la Tierra y el texto. */
-.man-o__fig img{object-position:38% 45%}
