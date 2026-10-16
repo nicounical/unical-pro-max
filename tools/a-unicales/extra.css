@@ -1,0 +1,12 @@
+/* La cabecera de la web (React, fija, 60px) va por encima de todo: las secciones fijadas dejan su hueco */
+.static-page-root{overflow-x:clip}
+.static-page-root .contact-a__lead{margin-top:1rem;max-width:46ch;color:#C9D1DE;font-size:clamp(1rem,1.15vw,1.1rem);line-height:1.55}
+/* Clientes: el titular de la sección es un h2 (SEO) con el aspecto de la etiqueta de la Pro Max */
+.static-page-root h2.clients-a__label{font-weight:500}
+/* Proyectos: la landing usa las portadas -min de cada proyecto */
+.static-page-root .work-g__a img{max-width:none}
+/* El pie conserva su tipografía de siempre */
+.static-page-root footer{font-size:16px;font-weight:400;line-height:1.6}
+.static-page-root footer h4{letter-spacing:.15em}
+/* Portada a sangre: en la landing el contenido sube por detrás de la cabecera (que va transparente sobre el vídeo) */
+.static-page-root.uc-page-content{padding-top:0}
