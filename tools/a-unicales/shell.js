@@ -73,6 +73,15 @@ export function initLanding(root, lang = "es") {
   }
   on(root, "click", e => { if (e.target.closest("[data-reel]")) { e.preventDefault(); openModal(); } });
 
+  // Si un vídeo falla al cargar (corte de red, petición cancelada), se reintenta una vez:
+  // la portada no muestra el color hasta que sus dos vídeos están listos.
+  $$("video", root).forEach(v => on(v, "error", () => {
+    if (v.dataset.retried || !v.currentSrc) return;
+    v.dataset.retried = "1";
+    const src = v.currentSrc, t = v.currentTime;
+    setTimeout(() => { v.src = src + (src.includes("?") ? "&" : "?") + "r=1"; v.load(); v.currentTime = t; if (!v.paused || v.autoplay || v.closest("[data-sec=hero]")) v.play().catch(() => {}); }, 600);
+  }, true));
+
   // Cabecera de la web transparente sobre la portada hasta que se hace scroll
   const hd = document.querySelector(".uc-chrome-header");
   const overHero = () => hd && hd.classList.toggle("uc-over-hero", scrollY < 40);

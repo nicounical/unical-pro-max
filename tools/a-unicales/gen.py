@@ -58,8 +58,11 @@ def build_html(lang):
     s = s.replace('<b>Vinilo 3M · Avery</b>', f'<b>{t["hud_vinyl"]}</b>')
     s = (s.replace("[[SERVICES]]", "\n".join(svc)).replace("[[SLIDES]]", "\n".join(slides)).replace("[[PROJECTS]]", "\n".join(projs))
           .replace("[[BELT]]", belt).replace("[[SECTORS]]", secs).replace("[[CLIENTS]]", clients_html()))
-    s = re.sub(r"\[\[(\w+)\]\]", lambda m: t[m.group(1)], s)
+    s = re.sub(r"\[\[(\w+)\]\]", lambda m: m.group(0) if m.group(1) == "NUMBERS_ORIG" else t[m.group(1)], s)
     old = rd(HERE / "orig" / f"content.{lang}.html")
+    # Por qué elegirnos: se queda la sección que ya tenía la landing (sellos), tal cual
+    nums = old[old.index("<!-- ========== NUMBERS"):old.index("<!-- ========== SECTORS")].rstrip()
+    s = s.replace("[[NUMBERS_ORIG]]", nums)
     foot = old[old.index("<!-- ========== FOOTER"):]          # pie y WhatsApp flotante, intactos
     return s + foot
 
@@ -113,6 +116,25 @@ def scope_css(css):
         i = k
     return "\n".join(out)
 
+def pick_rules(css, rx):
+    """Reglas (con su @media/@supports) cuyo selector casa con rx; para conservar secciones antiguas tal cual."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    out, i, n = [], 0, len(css)
+    while i < n:
+        j = css.find("{", i)
+        if j < 0: break
+        head = css[i:j].strip(); depth, k = 1, j + 1
+        while depth and k < n:
+            depth += {"{": 1, "}": -1}.get(css[k], 0); k += 1
+        body = css[j + 1:k - 1]
+        if head.startswith("@media") or head.startswith("@supports"):
+            inner = pick_rules(body, rx)
+            if inner.strip(): out.append(f"{head}{{{inner}}}")
+        elif not head.startswith("@") and rx.search(head):
+            out.append(f"{head}{{{body.strip()}}}")
+        i = k
+    return "\n".join(out)
+
 def build_css():
     old = rd(HERE / "orig" / "styles.css")
     lines = old.split("\n")
@@ -122,8 +144,9 @@ def build_css():
     foot = old[a:b]
     foot += ("@media (max-width: 900px) { .static-page-root .footer-grid { grid-template-columns: 1fr 1fr; } }\n"
              "@media (max-width: 700px) { .static-page-root .footer-grid { grid-template-columns: 1fr; } }\n")
+    nums = pick_rules(old, re.compile(r"\.section-numbers|\.nm-intro|\.sg(?![a-z])|\.sg-"))
     core = rd(PM / "css/core.css")
-    secs = ["hero", "services", "reel", "work", "stands-process", "numbers", "sectors", "manifesto", "clients", "contact"]
+    secs = ["hero", "services", "reel", "work", "stands-process", "sectors", "manifesto", "clients", "contact"]
     parts = [f"/* ---------- {s} ---------- */\n" + scope_css(rd(PM / f"css/sections/{s}.css")) for s in secs]
     pm = scope_css(core) + "\n" + "\n".join(parts)
     pm = pm.replace("url(../../assets/", f"url({ASSET}").replace("../../assets/", ASSET)
@@ -131,14 +154,15 @@ def build_css():
     return ("/* ============================================================\n"
             "   Landing · diseños «Pro Max» (generado desde unical-pro-max; ver extra.css para los ajustes propios)\n"
             "   ============================================================ */\n"
-            + base + "\n\n/* ---------- Pie (sin cambios) ---------- */\n" + foot + "\n\n/* ---------- Pro Max ---------- */\n" + pm + "\n\n/* ---------- Ajustes de integración ---------- */\n" + extra)
+            + base + "\n\n/* ---------- Pie (sin cambios) ---------- */\n" + foot
+            + "\n\n/* ---------- Por qué elegirnos: la sección de sellos de siempre (sin cambios) ---------- */\n" + nums + "\n\n/* ---------- Pro Max ---------- */\n" + pm + "\n\n/* ---------- Ajustes de integración ---------- */\n" + extra)
 
 # ---------------------------------------------------------------- JS
 I18N_JS = {k: {kk: T[k][kk] for kk in ("play", "pause", "pause_anim", "resume_anim", "sent", "f1", "f2", "f3", "f4")} for k in T}
 
 def build_js():
     import json
-    secs = ["hero", "services", "reel", "stands-process", "numbers", "sectors", "manifesto", "clients", "contact"]
+    secs = ["hero", "services", "reel", "stands-process", "sectors", "manifesto", "clients", "contact"]
     body = []
     for s in secs:
         code = rd(PM / f"js/sections/{s}.js").replace('"assets/', f'"{ASSET}').replace("'assets/", f"'{ASSET}")
@@ -149,7 +173,7 @@ def build_js():
     js = js.replace('b.textContent = on ? "Reanudar animación" : "Pausar animación";', 'b.textContent = on ? UX.t("resume_anim") : UX.t("pause_anim");')
     js = js.replace('send.firstChild.textContent = "Enviado ";', 'send.firstChild.textContent = UX.t("sent") + " ";')
     js = js.replace('const NAMES = ["Presupuesto", "Diseño", "Producción", "Instalación"];', 'const NAMES = ["f1", "f2", "f3", "f4"].map(k => UX.t(k));')
-    for needle in ('UX.t("pause")', 'UX.t("resume_anim")', 'UX.t("sent")', 'map(k => UX.t(k))'):
+    for needle in ('UX.t("pause")', 'UX.t("sent")', 'map(k => UX.t(k))'):
         assert needle in js, needle
     shell = rd(HERE / "shell.js")
     return shell.replace("/*I18N*/", json.dumps(I18N_JS, ensure_ascii=False)).replace("/*SECTIONS*/", js)

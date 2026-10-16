@@ -1,20 +1,13 @@
 <!-- Landing · diseños «Pro Max» (selección del 2026-10-16). Generado desde unical-pro-max con los textos de esta web.
      Cada sección mantiene la estructura de la Pro Max (.opt-sec > .variant) para que su JS (landing.js) la reconozca. -->
 
-<!-- ========== HERO · «HUD sin láser»: vídeo del Lexus revelado de arriba abajo ========== -->
+<!-- ========== HERO · «Revelado suave»: el color del vídeo del Lexus entra de izquierda a derecha con borde difuminado ========== -->
 <section class="opt-sec" id="top" data-sec="hero" aria-label="[[hero_aria]]">
-  <div class="variant hero-hud hero-hud--clean" data-v="A" data-theme="dark">
+  <div class="variant hero-hud hero-hud--clean hero-wipe" data-v="D" data-theme="dark">
     <div class="hero-hud__media" aria-hidden="true">
       <video class="hero-hud__v hero-hud__v--raw" poster="/images/landing/v2/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video>
       <div class="hero-hud__scanned"><video class="hero-hud__v hero-hud__v--fx" poster="/images/landing/v2/video/hero-coche.webp" muted loop playsinline preload="none" disablepictureinpicture></video></div>
     </div>
-    <div class="hero-hud__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-    <ul class="hero-hud__data mono" aria-hidden="true">
-      <li><span>[[hud_scan]]</span><b class="hero-hud__pct">000%</b></li>
-      <li><span>[[hud_mat]]</span><b>Vinilo 3M · Avery</b></li>
-      <li><span>[[hud_plant]]</span><b>41.52°N 2.39°E</b></li>
-      <li><span>[[hud_state]]</span><b class="hero-hud__ok">[[hud_prod]]</b></li>
-    </ul>
     <div class="hero-hud__copy">
       <p class="mono hero-hud__kicker"><span class="hero-dot"></span> [[hero_eyebrow]]</p>
       <h1 class="hero-hud__h1" aria-label="[[hero_l1]] [[hero_l2]]"><span class="hero-hud__ln" aria-hidden="true"><span>[[hero_l1]]</span></span> <span class="hero-hud__ln" aria-hidden="true"><span class="acc">[[hero_l2]]</span></span></h1>
@@ -25,6 +18,7 @@
         <button class="hero-ghost" type="button" data-reel><span aria-hidden="true">▶</span> [[watch_reel]]</button>
       </div>
     </div>
+    <ul class="hero-wipe__data mono" aria-hidden="true"><li><span>[[hud_color]]</span><b class="hero-hud__pct">000%</b></li><li><span>[[hud_mat]]</span><b>Vinilo 3M · Avery</b></li><li><span>[[hud_state]]</span><b class="hero-hud__ok">[[hud_prod]]</b></li></ul>
   </div>
 </section>
 
@@ -119,31 +113,7 @@
   </div>
 </section>
 
-<!-- ========== POR QUÉ ELEGIRNOS · «Cinta gigante»: dos cintas de cifras en sentidos opuestos ========== -->
-<section class="opt-sec" id="cifras" data-sec="numbers">
-  <div class="variant num-a sx sx--night sx--s" data-v="A" data-theme="dark">
-    <div class="sx-in">
-      <header class="sx-head">
-        <p class="sx-kicker"><b>06</b> [[num_kicker]]</p>
-        <h2 class="sx-title">[[num_t1]] <span class="acc">[[num_t2]]</span> [[num_t3]]</h2>
-        <p class="sx-lead">[[num_lead]]</p>
-      </header>
-    </div>
-    <div class="num-a__belts num-anim" aria-hidden="true">
-      <div class="num-a__belt"><div class="num-a__track">[[BELT]][[BELT]]</div></div>
-      <div class="num-a__belt num-a__belt--o"><div class="num-a__track">[[BELT]][[BELT]]</div></div>
-    </div>
-    <div class="sx-in num-a__foot">
-      <dl class="num-all">
-        <dt>[[n1]]</dt><dd>+25</dd>
-        <dt>[[n2]]</dt><dd>[[n2v]]</dd>
-        <dt>[[n3]]</dt><dd>+40</dd>
-        <dt>[[n4]]</dt><dd>3M · Avery</dd>
-      </dl>
-      <button class="num-pz" type="button" aria-pressed="false">[[pause_anim]]</button>
-    </div>
-  </div>
-</section>
+[[NUMBERS_ORIG]]
 
 <!-- ========== SECTORES · «Cuatro columnas» ========== -->
 <section class="opt-sec" id="sectores" data-sec="sectors">
