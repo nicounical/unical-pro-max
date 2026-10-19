@@ -22,8 +22,8 @@
 .static-page-root .ux-proc.is-paused .ux-proc__pp i{width:0;height:0;border:0;border-left:11px solid currentColor;border-block:7px solid transparent;margin-left:3px}
 .static-page-root .ux-proc__count{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.06em;color:#A9B1C2}
 .static-page-root .ux-proc__count b{color:#fff}
-.static-page-root .ux-proc__bar{flex:1;height:2px;background:rgba(153,196,228,.18);overflow:hidden}
-.static-page-root .ux-proc__bar i{display:block;height:100%;background:var(--u-blue);transform-origin:left;transform:scaleX(0)}
+.static-page-root .ux-proc__bar{flex:1;height:2px;background:rgba(153,196,228,.18);overflow:hidden;background-clip:content-box;padding-block:12px;box-sizing:content-box;cursor:default}
+.static-page-root .ux-proc__bar i{display:block;height:2px;background:var(--u-blue);transform-origin:left;transform:scaleX(0)}
 :where(.static-page-root .ux-proc button){font:inherit;color:inherit}
 .static-page-root .ux-proc :focus-visible{outline:2px solid var(--u-blue);outline-offset:3px}
 
@@ -46,6 +46,6 @@
 .static-page-root .ux-proc[data-v="E"] .ux-proc__step.is-on .ux-proc__n{background:var(--u-blue);color:var(--u-night);border-color:var(--u-blue)}
 .static-page-root .ux-proc[data-v="E"] .ux-proc__body h3{font-size:clamp(1.2rem,1.6vw,1.5rem)!important}
 .static-page-root .ux-proc[data-v="E"] .ux-proc__body p{font-size:.95rem}
-@media (max-width:900px){.static-page-root .ux-proc[data-v="E"] .ux-proc__steps{--cols:1}.static-page-root .ux-proc[data-v="E"] .ux-proc__step:nth-child(even){margin-top:0;margin-left:44px}}
+@media (max-width:900px){.static-page-root .ux-proc[data-v="E"] .ux-proc__steps{--cols:1;gap:28px}.static-page-root .ux-proc[data-v="E"] .ux-proc__step{display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:18px;align-items:start}.static-page-root .ux-proc[data-v="E"] .ux-proc__step:nth-child(even){margin-top:0}.static-page-root .ux-proc[data-v="E"] .ux-proc__n{margin-bottom:0}}
 
 @media (prefers-reduced-motion:reduce){.static-page-root .ux-proc *{animation:none!important;transition:none!important}}
