@@ -8,7 +8,7 @@
 import re, sys, pathlib, html as H
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from gen import form_html, pick_rules, rd, UP
-import proceso, fichas
+import proceso, fichas, resenas
 
 ST = UP / "src/pages/static"
 HERE = pathlib.Path(__file__).parent
@@ -69,6 +69,12 @@ def accent(s):
         return f"<{tag}{attrs}>{head}{keep + ' ' if keep else ''}<em>{hl}</em>{tail[len(tail.rstrip()):]}</{tag}>"
     return re.sub(r"<(h1|h2)([^>]*)>(.*?)</\1>", one, s, flags=re.S)
 
+KEEP = re.compile(r"<!-- (?:/?ux-(?:cta|proc)\b[^>]*|=+ FOOTER =+) -->")
+def clean_comments(s):
+    """Fuera los comentarios internos (notas, pendientes, «stock de Unsplash»…): se ven desde el navegador.
+       Solo se quedan las marcas que usa este generador para reconocer cada bloque."""
+    return re.sub(r"<!--.*?-->\n?", lambda m: m.group(0) if KEEP.fullmatch(m.group(0).rstrip("\n")) else "", s, flags=re.S)
+
 def page(path, lang, chosen=None):
     f = path / f"content.{lang}.html"; s = rd(f)
     # 1) formulario final
@@ -88,7 +94,9 @@ def page(path, lang, chosen=None):
     s = cards(s)
     s, chosen = fichas.apply(s, path.parts[-2], path.parts[-1], lang, chosen)   # fichas = proyectos reales
     s = proceso.apply(s, path.parts[-2], lang)   # «Cómo trabajamos» común
+    s = resenas.apply(s, lang)   # reseñas: solo reales (resenas.py)
     s = accent(s)
+    s = clean_comments(s)
     f.write_text(s, encoding="utf-8")
     return chosen
 
@@ -109,10 +117,18 @@ def sistema_css():
     (ST / "shared").mkdir(exist_ok=True)
     (ST / "shared/sistema.css").write_text(out, encoding="utf-8")
 
+def shared_pieces():
+    """Pie y formulario de la landing como piezas sueltas para las plantillas React (Contacto, Proyectos, Blog…)."""
+    for lang in LANGS:
+        (ST / "shared" / f"footer.{lang}.html").write_text(clean_comments(landing_foot(lang)), encoding="utf-8", newline="\n")
+        form = form_html(lang).replace('id="ctaForm"', 'id="ctaForm" data-site-form', 1)
+        (ST / "shared" / f"form.{lang}.html").write_text(form + "\n", encoding="utf-8", newline="\n")
+
 if __name__ == "__main__":
     for p in PAGES:
         chosen = None
         for lang in LANGS: chosen = page(p, lang, chosen)   # misma selección en los 3 idiomas
         index_tsx(p)
     sistema_css()
+    shared_pieces()
     print("ok", len(PAGES), "páginas")

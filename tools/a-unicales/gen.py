@@ -56,6 +56,9 @@ def site_tr():
     assert len(cps) == 3 and len(sts) == 3, (cps, sts)
     return {l: (block(c), block(t)) for l, c, t in zip(("es", "ca", "en"), cps, sts)}
 
+# Enlace a la política dentro del texto legal y campo trampa antispam (invisible; ver src/lib/sendContact.ts)
+PRIV = {"es": "política de privacidad", "ca": "política de privacitat", "en": "privacy policy"}
+HP = {"es": "No rellenes este campo", "ca": "No omplis aquest camp", "en": "Leave this field empty"}
 def form_html(lang):
     import html
     c, st = site_tr()[lang]; e = lambda x: html.escape(x, quote=True)
@@ -72,8 +75,9 @@ def form_html(lang):
           <label><span>{e(c["timeline"])}</span><select name="timeline"><option value="">{e(c["timelinePlaceholder"])}</option>{tl}</select></label>
           <label class="contact-a__full"><span>{e(c["estimatedScope"])}</span><input type="text" name="estimated_scope" placeholder="{e(c["estimatedScopePlaceholder"])}"></label>
           <label class="contact-a__full"><span>{e(c["message"])}</span><textarea name="message" rows="4" required placeholder="{e(c["messagePlaceholder"])}"></textarea></label>
+          <label class="contact-a__hp" aria-hidden="true"><span>{HP[lang]}</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         </div>
-        <p class="contact-a__note">{e(c["privacy"])}</p>
+        <p class="contact-a__note">{e(c["privacy"]).replace(PRIV[lang], f'<a href="/{lang}/politica-privacidad">{PRIV[lang]}</a>')}</p>
         <div class="contact-a__send">
           <button type="submit" class="btn">{e(c["send"])} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
@@ -94,7 +98,7 @@ def build_html(lang):
         title = t[f"p{i}"]; client, _, kind = title.partition(" – ")
         projs.append(f'      <li><a class="work-g__a" href="{t["u_proj"]}{slug}"><img src="/images/projects/{img}/cover-min.jpg" alt="{title} — Unical Graphic" loading="lazy" decoding="async">'
                      f'<span class="work-g__t"><span class="sx-meta">{i:02d} · {kind}</span><span class="work-g__h">{client}</span><span class="work-g__ar">{t["see_project"]} →</span></span></a></li>')
-    belt = "".join(f'<span class="num-a__it"><b>{v}</b><i>{t[k]}</i></span>' for v, k in (("+25", "n1"), (t["n2v"], "n2"), ("+40", "n3"), ("3M · Avery", "n4")))
+    belt = "".join(f'<span class="num-a__it"><b>{v}</b><i>{t[k]}</i></span>' for v, k in (("+27", "n1"), (t["n2v"], "n2"), ("+40", "n3"), ("3M · Avery", "n4")))
     secs = "\n".join(f'        <li class="sec-a__it rv"><span class="sx-meta">{i:02d}</span><h3 class="sx-h3">{t[f"se{i}"]}</h3><p>{t[f"se{i}p"]}</p></li>' for i in range(1, 9))
     s = rd(HERE / "template.html")
     s = s.replace('<b>Vinilo 3M · Avery</b>', f'<b>{t["hud_vinyl"]}</b>')
@@ -200,7 +204,9 @@ def build_css():
             + "\n\n/* ---------- Por qué elegirnos: la sección de sellos de siempre (sin cambios) ---------- */\n" + nums + "\n\n/* ---------- Pro Max ---------- */\n" + pm + "\n\n/* ---------- Ajustes de integración ---------- */\n" + extra)
 
 # ---------------------------------------------------------------- JS
+TAPE = {"es": "Diseño · Producción · Montaje", "ca": "Disseny · Producció · Muntatge", "en": "Design · Production · Installation"}   # cinta del stand 3D
 I18N_JS = {k: {kk: T[k][kk] for kk in ("play", "pause", "pause_anim", "resume_anim", "sent", "f1", "f2", "f3", "f4")} for k in T}
+for _k in I18N_JS: I18N_JS[_k]["tape"] = TAPE[_k]
 
 def build_js():
     import json
@@ -221,12 +227,14 @@ def build_js():
     for needle in ('UX.t("pause")', 'UX.submit(f, send, ok)', '!btn || !core', 'map(k => UX.t(k))'):
         assert needle in js, needle
     shell = rd(HERE / "shell.js")
-    return shell.replace("/*I18N*/", json.dumps(I18N_JS, ensure_ascii=False)).replace("/*SECTIONS*/", js)
+    return shell.replace("/*I18N*/", json.dumps(I18N_JS, ensure_ascii=False)).replace("/*SECTIONS*/", js.replace('"Diseño · Producción · Montaje"', "(I18N[LANG] || I18N.es).tape"))
 
 if __name__ == "__main__":
     for lang in ("es", "ca", "en"):
         html = build_html(lang)
         assert "[[" not in html, re.findall(r"\[\[\w+\]\]", html)
+        # sin notas internas visibles desde el navegador (solo la marca del pie, que usa paginas.py)
+        html = re.sub(r"<!--(?! =+ FOOTER).*?-->\n?", "", html, flags=re.S)
         (LAND / f"content.{lang}.html").write_text(html, encoding="utf-8")
     (LAND / "styles.css").write_text(build_css(), encoding="utf-8")
     (LAND / "landing.js").write_text(build_js(), encoding="utf-8")

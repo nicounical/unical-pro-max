@@ -109,9 +109,9 @@
 /* Mismo ancho de contenido que la landing (1500 px con el margen de la landing): los títulos quedan alineados con el logo */
 .static-page-root{--u-maxw:1500px;--u-gutter:var(--pad)}
 /* Secciones claras (las marca StaticPage según su fondo real): títulos y textos en oscuro */
-.static-page-root section.is-light{--acc-c:var(--u-blue-strong)}
-.static-page-root section.is-light :is(h1,h2){color:var(--u-ink)!important}
-.static-page-root section.is-light :is(p,li){color:#4A505C}
+.static-page-root :is(section,div).is-light{--acc-c:var(--u-blue-strong)}
+.static-page-root :is(section,div).is-light :is(h1,h2){color:var(--u-ink)!important}
+.static-page-root :is(section,div).is-light :is(p,li){color:#4A505C}
 /* Móvil: la portada de las áreas deja sitio a la cabecera y a la ruta, y sin la pastilla «Proyecto real» encima de los botones */
 @media (max-width:700px){
   .static-page-root .hero{min-height:auto!important;padding-top:118px!important;padding-bottom:48px!important}
@@ -131,3 +131,63 @@
 .static-page-root .faq-a{font-size:var(--t-small)!important;line-height:1.65!important}
 .static-page-root .faq-q{font-size:clamp(1rem,1.15vw,1.08rem)!important}
 .static-page-root .rv-featured-text{font-size:var(--t-quote)!important;line-height:1.5!important}
+
+/* =====================================================================
+   Arreglos de la revisión (2026-10-19)
+   ===================================================================== */
+/* Móvil: nada puede ensanchar la página (las columnas de las rejillas encogen y lo ancho se desliza dentro de su caja) */
+.static-page-root{overflow-x:clip}
+.static-page-root :is(.pz-grid,[style*="grid-template-columns"])>*{min-width:0}
+@media (max-width:900px){.static-page-root .pz-grid{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:760px){.static-page-root div[style*="grid-template-columns"]:not(.precios-grid){grid-template-columns:minmax(0,1fr)!important;gap:1.75rem!important}}
+/* La ruta (Inicio › …) siempre debajo de la cabecera, nunca bajo el logo */
+.static-page-root .hero-lead-block .breadcrumb{top:calc(var(--header-height,60px) + 1rem)!important}
+@media (max-width:767px){.static-page-root .hero-lead-block .breadcrumb{top:calc(var(--header-height-mobile,56px) + 1rem)!important}}
+/* Precios orientativos: la cifra grande en todas las áreas (en Rotulación salía pequeña) */
+.static-page-root .precio-valor{font-family:var(--u-font-head,inherit);font-size:clamp(2.2rem,3.5vw,3.2rem)!important;font-weight:900;line-height:1!important}
+/* Tablas en móvil: se deslizan dentro de su caja y se nota que hay más (sombra en el borde + aviso) */
+.static-page-root .u-table-wrap{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.static-page-root .u-table-wrap.has-more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent)}
+.static-page-root .u-table-wrap.has-more.at-end{-webkit-mask-image:none;mask-image:none}
+.static-page-root .u-table-hint{display:none;margin:.6rem 0 0;font-family:var(--f-mono,monospace);font-size:.7rem!important;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.static-page-root .u-table-hint.is-on{display:block}
+/* Campo trampa antispam: fuera de la vista de las personas */
+.static-page-root .contact-a__hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.static-page-root .contact-a__note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+/* Títulos sin una palabra suelta en la última línea */
+.static-page-root :is(h1,h2,h3){text-wrap:balance}
+.static-page-root p{text-wrap:pretty}
+
+/* Botón de WhatsApp: se aparta cuando taparía la portada (móvil), el formulario o el pie */
+.static-page-root .wa-float{transition:transform .3s,opacity .3s,box-shadow .2s}
+.static-page-root .wa-float.is-tucked{opacity:0;transform:translateY(18px) scale(.85);pointer-events:none}
+/* Reseñas: mientras no estén las reales, acceso directo a la ficha de Google */
+.static-page-root .rv-empty{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem 2.5rem;margin-top:1.5rem;padding:clamp(22px,3vw,40px);border:1px solid rgba(255,255,255,.14);border-radius:var(--sx-r,10px);background:rgba(255,255,255,.03)}
+.static-page-root .rv-empty p{margin:0;max-width:58ch;font-size:var(--t-body,1.05rem)!important;color:#C9D1DE}
+.static-page-root :is(section,div).is-light .rv-empty{border-color:var(--u-line-dark,rgba(22,22,31,.12));background:#fff}
+.static-page-root :is(section,div).is-light .rv-empty p{color:#4A505C}
+.static-page-root .rv-empty .btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
+/* Contraste mínimo legible (4,5:1) en textos pequeños */
+.static-page-root .v2-card-num{color:#5F6673!important}
+.static-page-root .v2-card-tag{color:var(--u-blue-strong)!important}
+.static-page-root :is(section,div).is-light :is(h1,h2,h3) :is(em,.acc){color:var(--u-blue-strong)!important}
+.static-page-root :is(.precios-note,.precios-section p,.precios-wrap>p){color:rgba(255,255,255,.66)}
+.static-page-root :is(section,div).is-light p{color:#4A505C}
+.static-page-root :is(.u-section--dark,.srv-section,.rv-section,.hero,.hero-lead-block) .u-eyebrow{color:var(--u-blue)!important}
+.static-page-root .footer-brand p{color:rgba(255,255,255,.66)!important}
+.static-page-root p[style*="rgba(255,255,255,.3)"]{color:rgba(255,255,255,.66)!important}
+.static-page-root .srv-section:not(.is-light) .v2-head>span{color:var(--u-blue)!important}
+.static-page-root :is(section,div).is-light{--u-muted:#5F6673}
+.static-page-root :is(section,div).is-light :is(th,p){color:#4A505C}
+/* Rejilla de servicios con 5 tarjetas (Impresión): sin hueco al final (3 arriba + 2 anchas abajo; en tableta la última ocupa la fila) */
+@media (min-width:701px){
+  .static-page-root .v2-grid:has(>:nth-child(5):last-child){grid-template-columns:repeat(6,minmax(0,1fr))}
+  .static-page-root .v2-grid:has(>:nth-child(5):last-child)>*{grid-column:span 2}
+  .static-page-root .v2-grid:has(>:nth-child(5):last-child)>:nth-child(n+4){grid-column:span 3}
+}
+@media (min-width:481px) and (max-width:700px){
+  .static-page-root .v2-grid:has(>:nth-child(5):last-child)>:last-child{grid-column:1/-1}
+}
+.static-page-root .proy-all{color:inherit!important;opacity:.85}
+.static-page-root :is(section,div).is-light th{color:#4A505C!important}
+.static-page-root .u-btn--wapp{background:#0E7A3E!important;color:#fff!important}
