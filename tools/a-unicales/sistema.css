@@ -105,3 +105,5 @@
 .static-page-root .ux-cta .sx-kicker{font-family:var(--f-mono)!important;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--u-blue)!important}
 /* Titulares sobre fondo oscuro siempre en blanco */
 .static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section) :is(h1,h2){color:#fff!important}
+/* Vídeo de fondo de la portada (Eventos, Impresión): ocupa la caja de la foto, sin sonido */
+.static-page-root .hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
