@@ -93,11 +93,8 @@ def build_html(lang):
                    f'<span class="services-d__n mono">{i:02d} · {t[f"s{i}_sub"]}</span><h3>{t[f"s{i}_h"]}</h3><p>{t[f"s{i}_p"]}</p>'
                    f'<a href="{t[f"u_s{i}"]}">{t["see_service"]} <span aria-hidden="true">→</span></a></li>')
         slides.append(f'          <div class="services-d__slide{" is-on" if i == 1 else ""}"><img src="{src}" alt="" width="{w}" height="{h}" loading="lazy"></div>')
-    projs = []
-    for i, (slug, img) in enumerate(PROJECTS, 1):
-        title = t[f"p{i}"]; client, _, kind = title.partition(" – ")
-        projs.append(f'      <li><a class="work-g__a" href="{t["u_proj"]}{slug}"><img src="/images/projects/{img}/cover-min.jpg" alt="{title} — Unical Graphic" loading="lazy" decoding="async">'
-                     f'<span class="work-g__t"><span class="sx-meta">{i:02d} · {kind}</span><span class="work-g__h">{client}</span><span class="work-g__ar">{t["see_project"]} →</span></span></a></li>')
+    import landing_proyectos   # proyectos elegidos, con título y portada de projects.ts
+    projs = [landing_proyectos.items(lang)]
     belt = "".join(f'<span class="num-a__it"><b>{v}</b><i>{t[k]}</i></span>' for v, k in (("+32", "n1"), (t["n2v"], "n2"), ("+40", "n3"), ("3M · Avery", "n4")))
     secs = "\n".join(f'        <li class="sec-a__it rv"><span class="sx-meta">{i:02d}</span><h3 class="sx-h3">{t[f"se{i}"]}</h3><p>{t[f"se{i}p"]}</p></li>' for i in range(1, 9))
     s = rd(HERE / "template.html")
