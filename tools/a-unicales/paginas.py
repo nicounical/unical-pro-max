@@ -8,6 +8,7 @@
 import re, sys, pathlib, html as H
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from gen import form_html, pick_rules, rd, UP
+import proceso
 
 ST = UP / "src/pages/static"
 HERE = pathlib.Path(__file__).parent
@@ -85,6 +86,7 @@ def page(path, lang):
     s = s[:i].rstrip() + "\n\n" + landing_foot(lang)
     # 3) fichas de proyecto
     s = cards(s)
+    s = proceso.apply(s, path.parts[-2], lang)   # «Cómo trabajamos» común
     s = accent(s)
     f.write_text(s, encoding="utf-8")
 
@@ -101,7 +103,7 @@ def sistema_css():
     picked = pick_rules(land, re.compile(r"\.contact-a|\.work-g|(?<![\w-])footer|\.footer-|\.wa-float|\.btn(?![\w-])|\.sx-kicker|\.sx-meta|\.acc(?![\w-])"))
     out = ("/* Generado por tools/a-unicales/paginas.py: no editar a mano (editar sistema.css del generador). */\n"
            "/* ---------- Copiado de la landing: pie, formulario, fichas de proyecto, botón ---------- */\n" + picked
-           + "\n\n" + rd(HERE / "sistema.css"))
+           + "\n\n" + rd(HERE / "sistema.css") + "\n\n" + rd(HERE / "proceso.css"))
     (ST / "shared").mkdir(exist_ok=True)
     (ST / "shared/sistema.css").write_text(out, encoding="utf-8")
 

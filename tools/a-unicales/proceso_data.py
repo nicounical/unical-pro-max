@@ -1,0 +1,46 @@
+# -*- coding: utf-8 -*-
+"""Pasos de «Cómo trabajamos» de las páginas de área (antes vivían solo en castellano dentro de script.js)."""
+HUB_STEPS = {
+ "impresion": {
+  "es": [("Presupuesto en 24h", "Recibimos tu consulta y te enviamos presupuesto cerrado con materiales y precio final. Sin sorpresas. Antes de las 24h.", "Respuesta garantizada en menos de 24h"),
+         ("Preparación del archivo", "Revisamos tu archivo o lo preparamos desde cero. Te confirmamos que está listo para producir con la resolución y formato correctos.", "Ves la prueba antes de imprimir"),
+         ("Producción en taller", "Imprimimos en nuestro taller de Cabrera de Mar con tecnología UV y látex. Materiales certificados y control de calidad en cada trabajo.", "Impresión 100% propia"),
+         ("Entrega o instalación", "Entregamos en tu dirección o instalamos nosotros. En el plazo acordado, sin excusas.", "Entrega garantizada en 48h")],
+  "ca": [("Pressupost en 24h", "Rebem la teva consulta i t'enviem pressupost tancat amb materials i preu final. Sense sorpreses. Abans de 24h.", "Resposta garantida en menys de 24h"),
+         ("Preparació de l'arxiu", "Revisem el teu arxiu o el preparem des de zero. Et confirmem que està llest per produir amb la resolució i el format correctes.", "Veus la prova abans d'imprimir"),
+         ("Producció al taller", "Imprimim al nostre taller de Cabrera de Mar amb tecnologia UV i làtex. Materials certificats i control de qualitat a cada feina.", "Impressió 100% pròpia"),
+         ("Lliurament o instal·lació", "Lliurem a la teva adreça o ho instal·lem nosaltres. En el termini acordat, sense excuses.", "Lliurament garantit en 48h")],
+  "en": [("Quote in 24h", "We receive your enquiry and send you a fixed quote with materials and final price. No surprises. Within 24h.", "Reply guaranteed within 24h"),
+         ("File preparation", "We check your file or prepare it from scratch, and confirm it is ready for production at the right resolution and format.", "You see a proof before printing"),
+         ("Production in our workshop", "We print in our Cabrera de Mar workshop with UV and latex technology. Certified materials and quality control on every job.", "100% in-house printing"),
+         ("Delivery or installation", "We deliver to your address or install it ourselves. On the agreed date, no excuses.", "Delivery guaranteed in 48h")]},
+ "rotulacion": {
+  "es": [("Presupuesto en 24h", "Recibimos tu consulta y te enviamos un presupuesto detallado con materiales, medidas y precio cerrado. Sin sorpresas. Sin letra pequeña. Antes de las 24h.", "Respuesta garantizada en menos de 24h"),
+         ("Diseño y aprobación", "Nuestro equipo crea la propuesta gráfica o adapta tu branding. Te enviamos una simulación real sobre tu fachada o vehículo. Revisiones incluidas hasta que el resultado te convenza.", "Ves el resultado antes de producir"),
+         ("Producción en taller", "Fabricamos en nuestras propias instalaciones de Cabrera de Mar. Control de calidad en cada pieza. Si hay que ajustar algo, lo hacemos al momento.", "Fabricación 100% propia"),
+         ("Instalación y entrega", "Nuestros equipos van a tu local, fachada o flota. Dejamos todo funcionando, limpio y listo, y te entregamos el parte de obra.", "Instalación en toda España")],
+  "ca": [("Pressupost en 24h", "Rebem la teva consulta i t'enviem un pressupost detallat amb materials, mides i preu tancat. Sense sorpreses ni lletra petita. Abans de 24h.", "Resposta garantida en menys de 24h"),
+         ("Disseny i aprovació", "El nostre equip crea la proposta gràfica o adapta el teu branding. T'enviem una simulació real sobre la teva façana o vehicle. Revisions incloses fins que el resultat et convenci.", "Veus el resultat abans de produir"),
+         ("Producció al taller", "Fabriquem a les nostres instal·lacions de Cabrera de Mar. Control de qualitat a cada peça. Si cal ajustar alguna cosa, ho fem al moment.", "Fabricació 100% pròpia"),
+         ("Instal·lació i lliurament", "Els nostres equips van al teu local, façana o flota. Ho deixem tot funcionant, net i a punt, i et lliurem el part d'obra.", "Instal·lació a tot Espanya")],
+  "en": [("Quote in 24h", "We receive your enquiry and send you a detailed quote with materials, sizes and a fixed price. No surprises, no small print. Within 24h.", "Reply guaranteed within 24h"),
+         ("Design and approval", "Our team creates the artwork or adapts your branding, and sends you a real mock-up on your façade or vehicle. Revisions included until you are happy.", "You see the result before production"),
+         ("Production in our workshop", "We manufacture in our own Cabrera de Mar facilities, with quality control on every piece. If something needs adjusting, we do it on the spot.", "100% in-house manufacturing"),
+         ("Installation and handover", "Our teams go to your premises, façade or fleet. We leave everything working, clean and ready, and hand over the job report.", "Installation throughout Spain")]},
+ "eventos": {
+  "es": [("Briefing y presupuesto", "Nos cuentas el evento, el espacio y los objetivos. Te enviamos presupuesto detallado en menos de 24h. Sin compromisos.", "Respuesta garantizada en menos de 24h"),
+         ("Diseño y renders", "Creamos bocetos y renders del stand o instalación para que apruebes antes de producir. Revisiones incluidas hasta que te convenza.", "Ves el resultado antes de producir"),
+         ("Producción en taller", "Fabricamos todos los elementos en nuestro taller de Cabrera de Mar, con control de calidad total.", "Fabricación 100% propia"),
+         ("Montaje el día del evento", "Transportamos, montamos y supervisamos in situ. Nuestro equipo está allí el día del evento, pase lo que pase. Desmontaje incluido.", "Equipo in situ el día del evento")],
+  "ca": [("Briefing i pressupost", "Ens expliques l'esdeveniment, l'espai i els objectius. T'enviem pressupost detallat en menys de 24h. Sense compromís.", "Resposta garantida en menys de 24h"),
+         ("Disseny i renders", "Creem esbossos i renders de l'stand o la instal·lació perquè els aprovis abans de produir. Revisions incloses fins que et convenci.", "Veus el resultat abans de produir"),
+         ("Producció al taller", "Fabriquem tots els elements al nostre taller de Cabrera de Mar, amb control de qualitat total.", "Fabricació 100% pròpia"),
+         ("Muntatge el dia de l'esdeveniment", "Transportem, muntem i supervisem in situ. El nostre equip hi és el dia de l'esdeveniment, passi el que passi. Desmuntatge inclòs.", "Equip in situ el dia de l'esdeveniment")],
+  "en": [("Briefing and quote", "Tell us about the event, the space and your goals. We send you a detailed quote within 24h. No commitment.", "Reply guaranteed within 24h"),
+         ("Design and renders", "We create sketches and renders of the stand or installation for you to approve before production. Revisions included until you are happy.", "You see the result before production"),
+         ("Production in our workshop", "We manufacture every element in our Cabrera de Mar workshop, with full quality control.", "100% in-house manufacturing"),
+         ("Set-up on event day", "We transport, build and supervise on site. Our team is there on event day, whatever happens. Dismantling included.", "On-site team on event day")]},
+}
+UI = {"es": dict(phase="Fase", pause="Pausar", play="Reproducir", step="Paso"),
+      "ca": dict(phase="Fase", pause="Pausar", play="Reproduir", step="Pas"),
+      "en": dict(phase="Step", pause="Pause", play="Play", step="Step")}
