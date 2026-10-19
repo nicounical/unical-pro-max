@@ -22,3 +22,5 @@
 .static-page-root .contact-a--still .contact-a__note{font-size:.8rem;line-height:1.5}
 .static-page-root .contact-a__ok{color:#FF8A8A}
 @media (max-width:860px){.static-page-root .contact-a--still .contact-a__in{grid-template-areas:"head" "form"}}
+/* Servicios: el número grande se veía cortado (3, 5, 6): caja más alta para que quepa el dígito entero */
+.static-page-root .services-d__big{line-height:1;padding:.06em .04em .04em 0;margin-bottom:-.12em}
