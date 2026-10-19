@@ -55,6 +55,19 @@ def cards(s):
                 f'<h3 class="work-g__h">{H.escape(client, quote=False)}</h3><span class="work-g__ar">{ar}</span></span></a>')
     return re.sub(r'(<a class="p4-c"[^>]*>)(.*?)</a>', one, s, flags=re.S)
 
+def accent(s):
+    """Títulos sin palabra destacada: la última palabra (o las dos últimas si la última es muy corta) en azul, como en la landing."""
+    def one(m):
+        tag, attrs, inner = m.group(1), m.group(2), m.group(3)
+        if "<em" in inner or 'class="acc' in inner: return m.group(0)
+        k = inner.rfind(">"); head, tail = inner[:k + 1], inner[k + 1:]
+        words = tail.rstrip().split(" ")
+        if not tail.strip() or not words[-1]: return m.group(0)
+        n = 2 if len(re.sub(r"[\W_]", "", words[-1])) <= 3 and len(words) >= 3 else 1
+        keep, hl = " ".join(words[:-n]), " ".join(words[-n:])
+        return f"<{tag}{attrs}>{head}{keep + ' ' if keep else ''}<em>{hl}</em>{tail[len(tail.rstrip()):]}</{tag}>"
+    return re.sub(r"<(h1|h2)([^>]*)>(.*?)</\1>", one, s, flags=re.S)
+
 def page(path, lang):
     f = path / f"content.{lang}.html"; s = rd(f)
     # 1) formulario final
@@ -72,6 +85,7 @@ def page(path, lang):
     s = s[:i].rstrip() + "\n\n" + landing_foot(lang)
     # 3) fichas de proyecto
     s = cards(s)
+    s = accent(s)
     f.write_text(s, encoding="utf-8")
 
 def index_tsx(path):
