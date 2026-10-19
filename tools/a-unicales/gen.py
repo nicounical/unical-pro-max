@@ -98,7 +98,7 @@ def build_html(lang):
         title = t[f"p{i}"]; client, _, kind = title.partition(" – ")
         projs.append(f'      <li><a class="work-g__a" href="{t["u_proj"]}{slug}"><img src="/images/projects/{img}/cover-min.jpg" alt="{title} — Unical Graphic" loading="lazy" decoding="async">'
                      f'<span class="work-g__t"><span class="sx-meta">{i:02d} · {kind}</span><span class="work-g__h">{client}</span><span class="work-g__ar">{t["see_project"]} →</span></span></a></li>')
-    belt = "".join(f'<span class="num-a__it"><b>{v}</b><i>{t[k]}</i></span>' for v, k in (("+27", "n1"), (t["n2v"], "n2"), ("+40", "n3"), ("3M · Avery", "n4")))
+    belt = "".join(f'<span class="num-a__it"><b>{v}</b><i>{t[k]}</i></span>' for v, k in (("+32", "n1"), (t["n2v"], "n2"), ("+40", "n3"), ("3M · Avery", "n4")))
     secs = "\n".join(f'        <li class="sec-a__it rv"><span class="sx-meta">{i:02d}</span><h3 class="sx-h3">{t[f"se{i}"]}</h3><p>{t[f"se{i}p"]}</p></li>' for i in range(1, 9))
     s = rd(HERE / "template.html")
     s = s.replace('<b>Vinilo 3M · Avery</b>', f'<b>{t["hud_vinyl"]}</b>')

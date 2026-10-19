@@ -15,11 +15,11 @@ MAPS = "https://www.google.com/maps/search/?api=1&query=Unical+Graphic+Passatge+
 REVIEWS = []
 
 UI = {
-    "es": dict(empty="Más de 3.000 proyectos entregados desde 1999. Lo que opinan nuestros clientes está en nuestra ficha de Google, sin filtros.",
+    "es": dict(empty="Más de 3.000 proyectos entregados desde 1994. Lo que opinan nuestros clientes está en nuestra ficha de Google, sin filtros.",
                btn="Leer las reseñas en Google", src="Reseña de Google"),
-    "ca": dict(empty="Més de 3.000 projectes lliurats des del 1999. El que en pensen els nostres clients és a la nostra fitxa de Google, sense filtres.",
+    "ca": dict(empty="Més de 3.000 projectes lliurats des del 1994. El que en pensen els nostres clients és a la nostra fitxa de Google, sense filtres.",
                btn="Llegir les ressenyes a Google", src="Ressenya de Google"),
-    "en": dict(empty="Over 3,000 projects delivered since 1999. What our clients think is on our Google profile, unfiltered.",
+    "en": dict(empty="Over 3,000 projects delivered since 1994. What our clients think is on our Google profile, unfiltered.",
                btn="Read the reviews on Google", src="Google review"),
 }
 STAR = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>'
