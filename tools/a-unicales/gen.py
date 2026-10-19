@@ -232,6 +232,7 @@ if __name__ == "__main__":
         assert "[[" not in html, re.findall(r"\[\[\w+\]\]", html)
         # sin notas internas visibles desde el navegador (solo la marca del pie, que usa paginas.py)
         html = re.sub(r"<!--(?! =+ FOOTER).*?-->\n?", "", html, flags=re.S)
+        html = html.replace('<div class="variant reel-a" data-v="A" data-theme="light">', '<div class="variant reel-a" data-v="A" data-theme="dark">')   # showreel en fondo oscuro
         (LAND / f"content.{lang}.html").write_text(html, encoding="utf-8")
     (LAND / "styles.css").write_text(build_css(), encoding="utf-8")
     (LAND / "landing.js").write_text(build_js(), encoding="utf-8")

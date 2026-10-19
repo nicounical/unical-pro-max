@@ -49,3 +49,17 @@
 .static-page-root .sg b{color:var(--u-ink)}
 .static-page-root .sg b.long{color:var(--u-blue-strong)}
 .static-page-root .sg span{color:#5F6673}
+
+/* Showreel en fondo oscuro: textos claros, palabra destacada en azul claro, controles y línea en blanco */
+.static-page-root .reel-a{background:var(--u-night);color:var(--u-paper)}
+.static-page-root .reel-a__kicker{color:var(--u-blue)}
+.static-page-root .reel-a__kicker span{color:var(--u-muted)}
+.static-page-root .reel-a__title{color:#fff}
+.static-page-root .reel-a__title .acc{color:var(--u-blue)}
+.static-page-root .reel-a__frame{box-shadow:0 30px 90px -40px rgba(0,0,0,.8)}
+.static-page-root .reel-a__bar{border-top-color:var(--u-line)}
+.static-page-root .reel-a__note{color:#C9D1DE}
+.static-page-root .reel-a__full{color:#fff;border-bottom-color:var(--u-blue)}
+.static-page-root .reel-a__full:hover{color:var(--u-blue)}
+.static-page-root .reel-a .reel-ctl{color:#fff}
+.static-page-root .reel-a .reel-ctl__tc{color:#C9D1DE}
