@@ -1,0 +1,107 @@
+/* ============================================================
+   Sistema común de las páginas de Impresión, Rotulación y Eventos (áreas y servicios):
+   mismo diseño que la landing (tipografía, palabra azul, etiquetas, botones, tarjetas y fondos).
+   Va DESPUÉS del CSS propio de cada página, así que manda sobre él. Generado por tools/a-unicales/paginas.py
+   (la parte de pie, formulario y fichas de proyecto se copia de la landing al generar).
+   ============================================================ */
+.static-page-root{
+  --u-navy:#10101D; --u-navy-2:#1A1A2E; --u-night:#10101D; --u-paper:#F4F6FA; --u-bg-soft:#F4F6FA;
+  --u-ink:#16161F; --u-charcoal:#3A3A39; --u-muted-dark:#5F6673;
+  --f-head:"Poppins","Segoe UI",system-ui,sans-serif; --f-body:"Inter","Segoe UI",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --u-font-head:var(--f-head); --u-font-body:var(--f-body);
+  --w-head:700; --w-display:800; --pad:clamp(20px,4vw,64px); --sx-r:10px;
+  --ease:cubic-bezier(.16,1,.3,1); --ease-io:cubic-bezier(.76,0,.24,1);
+  --acc-c:var(--u-blue-strong);
+  font-family:var(--f-body); font-weight:500; color:var(--u-charcoal);
+}
+/* Fondos oscuros: la palabra destacada va en azul claro, como en la landing */
+.static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.cta-wrap,.ctap,.sp-related-section,.contact-a,[style*="--u-navy"],[style*="#1A1A2E"],[style*="#1a1a2e"]){--acc-c:var(--u-blue)}
+
+/* ---------- Titulares: Poppins gruesa, interlineado prieto ---------- */
+.static-page-root :is(h1,h2){font-family:var(--f-head)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.02!important}
+.static-page-root h3{font-family:var(--f-head)!important;font-weight:700!important;letter-spacing:-.03em!important}
+.static-page-root h1{font-size:clamp(2.6rem,5.4vw,5.6rem)}
+.static-page-root :is(.sp-h2,.sp-h2c,.qh-headline,.cta-headline,.mc-head h2,.proy-head h2,.rv-header h2,.v2-head h2,.proc-title,.pr-head h2){font-size:clamp(2rem,3.8vw,3.6rem)!important}
+/* Palabra destacada: cursiva gruesa en azul sólido (nada de letras perfiladas) */
+.static-page-root :is(h1,h2,h3,p,span,strong) em,.static-page-root .acc{font-style:italic!important;font-weight:800!important;color:var(--acc-c)!important;-webkit-text-stroke:0!important;letter-spacing:-.04em}
+.static-page-root p em{font-weight:inherit!important}
+
+/* ---------- Etiquetas sobre los títulos: letra técnica, como «05 · CÓMO TRABAJAMOS» ---------- */
+.static-page-root :is(.u-eyebrow,.cta-eyebrow,.qh-eyebrow,.hero-badge,.proc-tag,.v2-card-tag,.precio-badge){font-family:var(--f-mono)!important;font-size:.72rem!important;font-weight:500!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:var(--acc-c)!important;background:none!important;border:0!important;padding:0!important;border-radius:0!important;box-shadow:none!important}
+.static-page-root :is(.u-eyebrow,.cta-eyebrow,.qh-eyebrow,.hero-badge)::before{content:"●"!important;display:inline-block!important;width:auto!important;height:auto!important;background:none!important;margin-right:.6em;font-size:.6em;vertical-align:.2em;color:var(--acc-c)}
+.static-page-root .hero-badge{margin-bottom:1rem}
+
+/* ---------- Texto: más grande y con más contraste ---------- */
+.static-page-root :is(p,li,.faq-a,.hero-lead,.sp-lead,.mc-lead){font-family:var(--f-body)}
+.static-page-root :is(.hero-lead,.sp-lead,.mc-lead,.sp-body p,.qh-body p){font-size:clamp(1rem,1.15vw,1.12rem)!important;line-height:1.6!important}
+.static-page-root :is(.u-section:not(.u-section--dark):not(.u-section--grad),.u-section--soft,.qh-section) :is(p,li){color:#4A505C}
+.static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section) :is(p,li){color:#C9D1DE}
+.static-page-root .hero-claim{font-family:var(--f-head)!important;font-weight:700!important;color:#fff!important}
+
+/* ---------- Botones: los de la landing (píldora clara sobre oscuro, oscura sobre claro) ---------- */
+.static-page-root .u-btn{min-height:52px;padding:.9rem 1.6rem!important;border-radius:999px!important;font-family:var(--f-head)!important;font-weight:600!important;font-size:1rem!important;letter-spacing:0!important;box-shadow:none!important;transition:background .3s,color .3s,border-color .3s,transform .3s}
+.static-page-root .u-btn--primary{background:var(--u-night)!important;color:#fff!important;border:0!important}
+.static-page-root .u-btn--primary:hover{background:var(--u-blue-strong)!important;transform:none}
+.static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section,.ctap) .u-btn--primary{background:var(--u-paper)!important;color:var(--u-night)!important}
+.static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section,.ctap) .u-btn--primary:hover{background:var(--u-blue)!important}
+.static-page-root .u-btn--ghost{background:transparent!important;border:1.5px solid currentColor!important;color:inherit!important}
+.static-page-root .u-btn--ghost:hover{background:rgba(153,196,228,.14)!important}
+.static-page-root .u-btn--primary::after{content:"→";font-family:var(--f-head);transition:transform .3s var(--ease)}
+.static-page-root .u-btn--primary:has(svg)::after,.static-page-root .u-btn--primary:is([class*="arrow"])::after{content:none}
+.static-page-root .u-btn--primary:hover::after{transform:translateX(4px)}
+
+/* ---------- Tarjetas: bordes finos y esquinas pequeñas, sin sombras pesadas ---------- */
+.static-page-root :is(.rv-card,.pr-card,.precio-card,.v2-card,.wy-card,.fx-card,.sp-type,.faq-item,.qh-pill,.cf-pill,.pq-item,.mc-p){border-radius:var(--sx-r)!important;box-shadow:none!important}
+.static-page-root :is(.u-section:not(.u-section--dark):not(.u-section--grad),.u-section--soft,.qh-section) :is(.rv-card,.pr-card,.precio-card,.v2-card,.wy-card,.fx-card,.sp-type,.faq-item,.pq-item){border:1px solid rgba(22,22,31,.12)!important;background:#fff}
+.static-page-root .faq-q{font-family:var(--f-head)!important;font-weight:700!important;letter-spacing:-.02em}
+.static-page-root :is(.u-section--soft,.faq-light){background:var(--u-paper)!important}
+.static-page-root .u-section--grad{background:radial-gradient(60% 70% at 80% 30%,rgba(46,108,160,.28),transparent 70%),var(--u-night)!important}
+
+/* ---------- Portada: a sangre bajo la cabecera transparente, como la landing ---------- */
+.static-page-root :is(.hero,.hero-lead-block) .hero-overlay{background:linear-gradient(90deg,rgba(16,16,29,.9) 0%,rgba(16,16,29,.55) 55%,rgba(16,16,29,.25) 100%),linear-gradient(0deg,rgba(16,16,29,.75),transparent 45%)!important}
+.static-page-root :is(.hero,.hero-lead-block) h1{color:#fff!important}
+.static-page-root .breadcrumb{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* ---------- Fichas de proyecto: las de la landing ---------- */
+.static-page-root .p4{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:3px!important}
+.static-page-root .p4-c.work-g__a{border-radius:0!important;aspect-ratio:4/3;height:auto!important}
+.static-page-root .work-g__h{font-size:clamp(1rem,1.5vw,1.3rem)!important;color:#fff!important;margin:0}
+@media (max-width:900px){.static-page-root .p4{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* ---------- Formulario de presupuesto (el de la landing) ---------- */
+.static-page-root .ux-cta .contact-a{--u-muted:#A9B1C2;font-family:var(--f-body);font-weight:500;font-size:17px;line-height:1.55;color:var(--u-paper)}
+.static-page-root .ux-cta .contact-a__in{width:100%;max-width:1500px;margin-inline:auto;padding-inline:var(--pad)}
+.static-page-root .ux-cta .contact-a__title{font-size:clamp(2.4rem,4.8vw,5rem)!important;max-width:13ch;color:#fff}
+.static-page-root .ux-cta .contact-a__head p{color:#C9D1DE}
+.static-page-root .ux-cta .contact-a__form :is(p,span){color:inherit}
+.static-page-root .ux-cta .contact-a__note{color:#C9D1DE!important}
+.static-page-root .ux-cta .contact-a__ok{color:#FF8A8A!important}
+.static-page-root .ux-cta .contact-a--still .contact-a__vid{transform:none}
+.static-page-root .ux-cta .contact-a--still .contact-a__in{grid-template-areas:"head form";grid-template-rows:auto}
+.static-page-root .ux-cta .contact-a--still .contact-a__head{align-self:center}
+.static-page-root .ux-cta .contact-a__lead{margin-top:1rem;max-width:46ch;font-size:clamp(1rem,1.15vw,1.1rem);line-height:1.55}
+@media (max-width:860px){.static-page-root .ux-cta .contact-a--still .contact-a__in{grid-template-areas:"head" "form"}}
+
+/* ---------- Pie (el de la landing) ---------- */
+.static-page-root footer{font-size:16px;font-weight:400;line-height:1.6}
+.static-page-root footer h4{letter-spacing:.15em}
+.static-page-root footer :is(p,li){color:inherit}
+
+/* La portada sube por detrás de la cabecera (transparente sobre la foto), como en la landing */
+.static-page-root.uc-page-content{padding-top:0}
+.static-page-root .hero-lead-block{padding-top:calc(60px + clamp(3rem,6vw,5rem))!important}
+
+/* Mini formulario de la portada: vidrio oscuro como el formulario de la landing */
+.static-page-root .hlb-form{background:rgba(16,16,29,.62)!important;border:1px solid rgba(255,255,255,.16);border-radius:var(--sx-r)!important;box-shadow:none!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--u-paper)}
+.static-page-root .hlb-form h2{color:#fff!important;font-size:clamp(1.4rem,1.9vw,1.9rem)!important}
+.static-page-root .hlb-form>p{color:#C9D1DE!important}
+.static-page-root .hlb-form label{font-family:var(--f-mono)!important;font-size:.68rem!important;letter-spacing:.12em;text-transform:uppercase;color:#C9D1DE!important;font-weight:500!important}
+.static-page-root .hlb-form input{min-height:46px;border:1px solid rgba(255,255,255,.22)!important;border-radius:8px!important;background:rgba(255,255,255,.06)!important;color:var(--u-paper)!important;font-size:16px!important}
+.static-page-root .hlb-form input::placeholder{color:rgba(201,209,222,.55)}
+.static-page-root .hlb-form input:focus{outline:none;border-color:var(--u-blue)!important;background:rgba(255,255,255,.1)!important}
+.static-page-root .hlb-form .u-btn--primary{background:var(--u-paper)!important;color:var(--u-night)!important}
+.static-page-root .hlb-note{font-family:var(--f-mono);color:#C9D1DE!important}
+.static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section) .u-btn--ghost{color:#fff!important;border-color:rgba(255,255,255,.5)!important}
+.static-page-root .ux-cta .sx-kicker{font-family:var(--f-mono)!important;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--u-blue)!important}
+/* Titulares sobre fondo oscuro siempre en blanco */
+.static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section) :is(h1,h2){color:#fff!important}
