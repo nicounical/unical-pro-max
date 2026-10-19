@@ -169,13 +169,11 @@
   </div>
 </section>
 
-<!-- ========== CONTACTO · «Botón sobre vídeo»: formulario directo + botón de WhatsApp ========== -->
+<!-- ========== CONTACTO · formulario de presupuesto (mismos campos y mismo envío que la página Contacto). Fondo quieto: nada se mueve mientras se escribe ========== -->
 <section class="opt-sec" id="contacto" data-sec="contact">
-  <div class="variant contact-a" data-v="A" data-theme="dark">
-    <!-- VIDEO FONDO CONTACTO: para cambiar el vídeo, sustituye aquí el póster y las dos fuentes (webm + mp4) -->
-    <video class="contact-a__vid" data-autoplay muted loop playsinline preload="none" poster="/images/landing/v2/video/hero-coche.webp" aria-hidden="true">
-      <source src="/images/landing/v2/video/hero-coche-1440.webm" type="video/webm"><source src="/images/landing/v2/video/hero-coche.mp4" type="video/mp4">
-    </video>
+  <div class="variant contact-a contact-a--still" data-v="A" data-theme="dark">
+    <!-- FONDO CONTACTO: imagen fija (antes vídeo) -->
+    <img class="contact-a__vid" src="/images/landing/v2/video/hero-coche.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="contact-a__shade" aria-hidden="true"></div>
     <div class="contact-a__in wrap">
       <header class="contact-a__head">
@@ -183,38 +181,7 @@
         <h2 class="contact-a__title">[[cta_t1]] <span class="acc">[[cta_t2]]</span></h2>
         <p class="contact-a__lead">[[cta_p]]</p>
       </header>
-      <!-- Formulario directo en la página. TODO endpoint: igual que antes, valida y muestra el aviso de enviado sin mandar nada;
-           para conectarlo (p. ej. la función send-contact), quitar el preventDefault del bloque «contact» de landing.js. -->
-      <form class="contact-a__form" id="ctaForm" action="https://www.unical.es/es/contacto" method="post" novalidate aria-labelledby="contact-a-ft">
-        <p class="contact-a__ft" id="contact-a-ft">[[form_t]]</p>
-        <div class="contact-a__grid">
-          <label><span>[[f_name]]</span><input type="text" name="nombre" autocomplete="name" required placeholder="[[f_name_ph]]"></label>
-          <label><span>[[f_comp]]</span><input type="text" name="empresa" autocomplete="organization" placeholder="[[f_comp_ph]]"></label>
-          <label><span>[[f_mail]]</span><input type="email" name="email" autocomplete="email" required placeholder="tucorreo@empresa.com"></label>
-          <label><span>[[f_tel]]</span><input type="tel" name="telefono" autocomplete="tel" placeholder="600 000 000"></label>
-          <label class="contact-a__full"><span>[[f_need]]</span>
-            <select name="servicio" required>
-              <option value="">[[f_sel]]</option>
-              <option>[[o1]]</option><option>[[o2]]</option><option>[[o3]]</option><option>[[o4]]</option><option>[[o5]]</option><option>[[o6]]</option><option>[[o7]]</option>
-            </select></label>
-          <label class="contact-a__full"><span>[[f_msg]]</span><textarea name="mensaje" rows="3" placeholder="[[f_msg_ph]]"></textarea></label>
-        </div>
-        <label class="contact-a__check"><input type="checkbox" name="privacidad" required><span>[[f_priv1]] <a href="[[u_privacy]]">[[f_priv2]]</a>.</span></label>
-        <div class="contact-a__send">
-          <button type="submit" class="btn">[[send]] <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <p class="contact-a__note">[[f_note]]</p>
-        </div>
-        <p class="contact-a__ok" role="status" hidden>[[f_ok]]</p>
-      </form>
-      <div class="contact-a__core">
-        <svg class="contact-a__ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ca-circ" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0"/></defs><text><textPath href="#ca-circ">[[wa_ring]]</textPath></text></svg>
-        <a class="contact-a__btn" href="https://wa.me/34663512014?text=[[wa_text]]" target="_blank" rel="noopener" aria-label="[[wa_aria]]"><svg class="contact-a__wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>[[wa_btn1]]<br>[[wa_btn2]]</span></a>
-      </div>
-      <ul class="contact-a__ways" aria-label="[[ways]]">
-        <li><a href="tel:+34937502304"><span class="sx-meta">[[w_tel]]</span><b>937 50 23 04</b></a></li>
-        <li><a href="mailto:nico@unical.es"><span class="sx-meta">[[w_mail]]</span><b>nico@unical.es</b></a></li>
-        <li><span class="contact-a__addr"><span class="sx-meta">[[w_addr]]</span><b>Passatge la Carola, 2 · Cabrera de Mar</b></span></li>
-      </ul>
+[[FORM]]
     </div>
   </div>
 </section>

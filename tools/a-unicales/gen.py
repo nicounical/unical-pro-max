@@ -38,6 +38,48 @@ def clients_html():
     lis = re.findall(r'^\s*<li class="clients-mk.*?</li>$', s, re.M)
     return "\n".join("          " + l.strip().replace("assets/", ASSET) for l in lis)
 
+# Formulario: mismos textos, campos y opciones que la página Contacto (src/i18n/translations.ts)
+SVC_KEYS = ["impresion-digital-gran-formato", "rotulacion-vehiculos", "car-wrapping", "stands-para-ferias", "impresion-eventos", "plv-retail",
+            "senaletica-corporativa", "vinilos-decorativos", "publicidad-exterior", "laminas-solares", "renovacion-hoteles-restaurantes"]
+TL_KEYS = [("urgente-48h", "urgent"), ("1-semana", "oneWeek"), ("2-4-semanas", "twoToFourWeeks"), ("1-3-meses", "oneToThreeMonths"), ("sin-fecha", "noDate")]
+
+def site_tr():
+    """{lang: (contactPage, servicesTitles)} leyendo translations.ts (bloques en orden es, ca, en)."""
+    src = rd(UP / "src/i18n/translations.ts")
+    kv = re.compile(r'(?:"([^"]+)"|(\w+)):\s*(["\'`])((?:\\.|(?!\3).)*)\3')
+    def block(start):
+        i = src.index("{", start) + 1; d, k = 1, i
+        while d: d += {"{": 1, "}": -1}.get(src[k], 0); k += 1
+        return {(m.group(1) or m.group(2)): m.group(4).replace("\\'", "'").replace('\\"', '"') for m in kv.finditer(src[i:k - 1])}
+    cps = [m.start() for m in re.finditer(r"\bcontactPage:\s*\{", src)]
+    sts = [m.start() for m in re.finditer(r"\bservicesTitles:\s*\{", src)]
+    assert len(cps) == 3 and len(sts) == 3, (cps, sts)
+    return {l: (block(c), block(t)) for l, c, t in zip(("es", "ca", "en"), cps, sts)}
+
+def form_html(lang):
+    import html
+    c, st = site_tr()[lang]; e = lambda x: html.escape(x, quote=True)
+    svc = "".join(f'<option value="{k}">{e(st[k])}</option>' for k in SVC_KEYS)
+    tl = "".join(f'<option value="{v}">{e(c[k])}</option>' for v, k in TL_KEYS)
+    return f'''      <form class="contact-a__form" id="ctaForm" novalidate aria-labelledby="contact-a-ft" data-sending="{e(c["sending"])}" data-error="{e(c["submitError"])}">
+        <p class="contact-a__ft" id="contact-a-ft">{e(c["formTitle"])}</p>
+        <div class="contact-a__grid">
+          <label><span>{e(c["name"])}</span><input type="text" name="name" autocomplete="name" required placeholder="{e(c["namePlaceholder"])}"></label>
+          <label><span>{e(c["company"])}</span><input type="text" name="company" autocomplete="organization" placeholder="{e(c["companyPlaceholder"])}"></label>
+          <label><span>{e(c["email"])}</span><input type="email" name="email" autocomplete="email" required placeholder="{e(c["emailPlaceholder"])}"></label>
+          <label><span>{e(c["phone"])}</span><input type="tel" name="phone" autocomplete="tel" placeholder="{e(c["phonePlaceholder"])}"></label>
+          <label><span>{e(c["serviceInterest"])}</span><select name="service_interest"><option value="">{e(c["serviceInterestPlaceholder"])}</option>{svc}</select></label>
+          <label><span>{e(c["timeline"])}</span><select name="timeline"><option value="">{e(c["timelinePlaceholder"])}</option>{tl}</select></label>
+          <label class="contact-a__full"><span>{e(c["estimatedScope"])}</span><input type="text" name="estimated_scope" placeholder="{e(c["estimatedScopePlaceholder"])}"></label>
+          <label class="contact-a__full"><span>{e(c["message"])}</span><textarea name="message" rows="4" required placeholder="{e(c["messagePlaceholder"])}"></textarea></label>
+        </div>
+        <p class="contact-a__note">{e(c["privacy"])}</p>
+        <div class="contact-a__send">
+          <button type="submit" class="btn">{e(c["send"])} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="contact-a__ok" role="alert" hidden></p>
+      </form>'''
+
 def build_html(lang):
     t = dict(T[lang]); t.update(EXTRA[lang])
     svc, slides = [], []
@@ -57,7 +99,7 @@ def build_html(lang):
     s = rd(HERE / "template.html")
     s = s.replace('<b>Vinilo 3M · Avery</b>', f'<b>{t["hud_vinyl"]}</b>')
     s = (s.replace("[[SERVICES]]", "\n".join(svc)).replace("[[SLIDES]]", "\n".join(slides)).replace("[[PROJECTS]]", "\n".join(projs))
-          .replace("[[BELT]]", belt).replace("[[SECTORS]]", secs).replace("[[CLIENTS]]", clients_html()))
+          .replace("[[BELT]]", belt).replace("[[SECTORS]]", secs).replace("[[CLIENTS]]", clients_html()).replace("[[FORM]]", form_html(lang)))
     s = re.sub(r"\[\[(\w+)\]\]", lambda m: m.group(0) if m.group(1) == "NUMBERS_ORIG" else t[m.group(1)], s)
     old = rd(HERE / "orig" / f"content.{lang}.html")
     # Por qué elegirnos: se queda la sección que ya tenía la landing (sellos), tal cual
@@ -173,7 +215,10 @@ def build_js():
     js = js.replace('b.textContent = on ? "Reanudar animación" : "Pausar animación";', 'b.textContent = on ? UX.t("resume_anim") : UX.t("pause_anim");')
     js = js.replace('send.firstChild.textContent = "Enviado ";', 'send.firstChild.textContent = UX.t("sent") + " ";')
     js = js.replace('const NAMES = ["Presupuesto", "Diseño", "Producción", "Instalación"];', 'const NAMES = ["f1", "f2", "f3", "f4"].map(k => UX.t(k));')
-    for needle in ('UX.t("pause")', 'UX.t("sent")', 'map(k => UX.t(k))'):
+    # Formulario: envío real (mismo que la página Contacto, lo pone index.tsx) y sin el botón de WhatsApp
+    js = js.replace('mark(); ok.hidden = false; send.disabled = true; send.firstChild.textContent = UX.t("sent") + " ";', 'mark(); UX.submit(f, send, ok);')
+    js = js.replace('if (ux.reduce || !ux.fine) return offForm;', 'if (!btn || !core || ux.reduce || !ux.fine) return offForm;')
+    for needle in ('UX.t("pause")', 'UX.submit(f, send, ok)', '!btn || !core', 'map(k => UX.t(k))'):
         assert needle in js, needle
     shell = rd(HERE / "shell.js")
     return shell.replace("/*I18N*/", json.dumps(I18N_JS, ensure_ascii=False)).replace("/*SECTIONS*/", js)

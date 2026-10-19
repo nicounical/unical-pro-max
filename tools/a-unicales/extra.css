@@ -10,3 +10,15 @@
 .static-page-root footer h4{letter-spacing:.15em}
 /* Portada a sangre: en la landing el contenido sube por detrás de la cabecera (que va transparente sobre el vídeo) */
 .static-page-root.uc-page-content{padding-top:0}
+/* Por qué elegirnos (sección de siempre): la palabra azul con la misma cursiva que el resto de la web (.acc) */
+.static-page-root .nm-intro h2 em{font-style:italic;letter-spacing:-.04em}
+/* Servicios: el escaparate con la proporción de las fotos (4:3) para que no se recorten */
+.static-page-root .services-d__stage{display:flex;align-items:center}
+.static-page-root .services-d__frame{width:100%;height:auto;aspect-ratio:4/3;max-height:100%}
+/* Contacto: fondo quieto, solo titular + formulario (los datos ya están en el pie y el WhatsApp en el botón flotante) */
+.static-page-root .contact-a--still .contact-a__vid{transform:none}
+.static-page-root .contact-a--still .contact-a__in{grid-template-areas:"head form";grid-template-rows:auto}
+.static-page-root .contact-a--still .contact-a__head{align-self:center}
+.static-page-root .contact-a--still .contact-a__note{font-size:.8rem;line-height:1.5}
+.static-page-root .contact-a__ok{color:#FF8A8A}
+@media (max-width:860px){.static-page-root .contact-a--still .contact-a__in{grid-template-areas:"head" "form"}}

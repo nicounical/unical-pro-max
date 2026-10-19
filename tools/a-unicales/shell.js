@@ -38,6 +38,7 @@ const splitBy = (cls, el) => {
 };
 
 let openModal = () => {};
+let SUBMIT = null;
 const UX = {
   $, $$, reduce, fine, fmt, lenis: null,
   splitChars: el => splitBy("char", el), splitWords: el => splitBy("word", el),
@@ -51,14 +52,22 @@ const UX = {
     gsap.to(o, { v: end, duration: 2.2, ease: "power3.out", onUpdate: () => (el.textContent = fmt(o.v)), scrollTrigger: { trigger: el, start: "top 88%", once: true, ...opts } });
   },
   openReel() { openModal(); },
-  refresh() { ScrollTrigger.refresh(); }
+  refresh() { ScrollTrigger.refresh(); },
+  // Envío del formulario de presupuesto: lo hace index.tsx (send-contact + página de gracias), igual que la página Contacto
+  async submit(f, send, ok) {
+    if (!SUBMIT || send.disabled) return;
+    const label = send.firstChild.textContent;
+    send.disabled = true; send.firstChild.textContent = f.dataset.sending + " "; ok.hidden = true;
+    try { await SUBMIT(Object.fromEntries(new FormData(f))); }
+    catch { ok.textContent = f.dataset.error; ok.hidden = false; send.disabled = false; send.firstChild.textContent = label; }
+  }
 };
 
 /*SECTIONS*/
 
 /* ---------- Arranque / limpieza ---------- */
-export function initLanding(root, lang = "es") {
-  LANG = lang;
+export function initLanding(root, lang = "es", opts = {}) {
+  LANG = lang; SUBMIT = opts.onSubmit || null;
   const offs = [], cleanups = [];
   const on = (t, type, fn, o) => { t.addEventListener(type, fn, o); offs.push(() => t.removeEventListener(type, fn, o)); };
 
@@ -72,6 +81,14 @@ export function initLanding(root, lang = "es") {
     on(window, "keydown", e => { if (e.key === "Escape" && !modal.hidden) close(); });
   }
   on(root, "click", e => { if (e.target.closest("[data-reel]")) { e.preventDefault(); openModal(); } });
+  // Enlaces internos (Pedir presupuesto, Habla con nosotros…): salto directo, sin recorrer las animaciones de toda la página
+  on(root, "click", e => {
+    const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute("href").length < 2) return;
+    const t = root.querySelector(a.getAttribute("href")); if (!t) return;
+    e.preventDefault();
+    scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: "instant" });
+    if (!reduce) gsap.fromTo(t, { opacity: 0 }, { opacity: 1, duration: .45, ease: "power1.out", clearProps: "opacity" });
+  });
 
   // Si un vídeo falla al cargar (corte de red, petición cancelada), se reintenta una vez:
   // la portada no muestra el color hasta que sus dos vídeos están listos.
@@ -120,6 +137,6 @@ export function initLanding(root, lang = "es") {
     ctx.revert();
     offs.forEach(f => f());
     $$("video", root).forEach(v => v.pause());
-    openModal = () => {};
+    openModal = () => {}; SUBMIT = null;
   };
 }
