@@ -107,3 +107,9 @@
 .static-page-root :is(.hero,.hero-lead-block,.u-section--dark,.u-section--grad,.srv-section,.rv-section,.pr,.sp-related-section) :is(h1,h2){color:#fff!important}
 /* Vídeo de fondo de la portada (Eventos, Impresión): ocupa la caja de la foto, sin sonido */
 .static-page-root .hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* Mismo ancho de contenido que la landing (1500 px con el margen de la landing): los títulos quedan alineados con el logo */
+.static-page-root{--u-maxw:1500px;--u-gutter:var(--pad)}
+/* Secciones claras (las marca StaticPage según su fondo real): títulos y textos en oscuro */
+.static-page-root section.is-light{--acc-c:var(--u-blue-strong)}
+.static-page-root section.is-light :is(h1,h2){color:var(--u-ink)!important}
+.static-page-root section.is-light :is(p,li){color:#4A505C}
