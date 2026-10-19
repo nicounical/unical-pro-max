@@ -21,7 +21,6 @@
 .static-page-root :is(h1,h2){font-family:var(--f-head)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.02!important}
 .static-page-root h3{font-family:var(--f-head)!important;font-weight:700!important;letter-spacing:-.03em!important}
 .static-page-root h1{font-size:clamp(2.3rem,4.2vw,4.3rem)!important}
-.static-page-root :is(.sp-h2,.sp-h2c,.qh-headline,.cta-headline,.mc-head h2,.proy-head h2,.rv-header h2,.v2-head h2,.proc-title,.pr-head h2){font-size:clamp(2rem,3.8vw,3.6rem)!important}
 /* Palabra destacada: cursiva gruesa en azul sólido (nada de letras perfiladas) */
 .static-page-root :is(h1,h2,h3,p,span,strong) em,.static-page-root .acc{font-style:italic!important;font-weight:800!important;color:var(--acc-c)!important;-webkit-text-stroke:0!important;letter-spacing:-.04em}
 .static-page-root p em{font-weight:inherit!important}
@@ -118,3 +117,17 @@
   .static-page-root .hero{min-height:auto!important;padding-top:118px!important;padding-bottom:48px!important}
   .static-page-root .hero-project-pill{display:none!important}
 }
+
+/* =====================================================================
+   Escala tipográfica única para las 20 páginas (misma en todas; antes cada página tenía la suya)
+   Título de sección · subtítulo · texto · texto de tarjeta · cita
+   ===================================================================== */
+.static-page-root{--t-h2:clamp(2rem,3.4vw,3.25rem);--t-h3:clamp(1.15rem,1.4vw,1.35rem);--t-h3-big:clamp(1.5rem,2.2vw,2rem);--t-body:clamp(1rem,1.1vw,1.0625rem);--t-small:.95rem;--t-quote:clamp(1.15rem,1.6vw,1.4rem)}
+.static-page-root h2{font-size:var(--t-h2)!important;line-height:1.04!important}
+.static-page-root section:not(.ux-proc):not(.ux-cta) h3:not(.work-g__h){font-size:var(--t-h3)!important;line-height:1.2!important}
+.static-page-root section:not(.ux-proc):not(.ux-cta) :is(.mc-p,.mc-panes) h3{font-size:var(--t-h3-big)!important}
+.static-page-root section:not(.ux-proc):not(.ux-cta):not(.hero):not(.hero-lead-block) :is(p,li){font-size:var(--t-body)!important;line-height:1.65!important}
+.static-page-root section:not(.ux-proc):not(.ux-cta) :is(.rv-card,.sp-type,.pq-item,.precio-card,.v2-card,.wy-card,.fx-card,.pr-card,.faq-a,.u-table,.sp-note,.pc-factors,.srv-section a,.qh-pills) :is(p,li,td){font-size:var(--t-small)!important;line-height:1.6!important}
+.static-page-root .faq-a{font-size:var(--t-small)!important;line-height:1.65!important}
+.static-page-root .faq-q{font-size:clamp(1rem,1.15vw,1.08rem)!important}
+.static-page-root .rv-featured-text{font-size:var(--t-quote)!important;line-height:1.5!important}
