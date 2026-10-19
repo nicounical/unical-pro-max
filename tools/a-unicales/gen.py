@@ -30,8 +30,10 @@ PROJECTS = [  # slug, imagen (las mismas que la landing actual)
     ("la-vermuteria-rotulo-fachada", "la-vermuteria-rotulo-fachada"),
     ("tibidabo-cubos-publicidad-exterior", "tibidabo-cubos-publicidad-exterior"),
 ]
-SVC_IMG = [("impresion.jpg", 1600, 1200), ("rotulacion.jpg", 1600, 1200), ("stands.jpg", 1448, 1086),
-           ("eventos.jpg", 1600, 1068), ("letras-corporeas.jpg", 1600, 1068), ("retail.jpg", 1448, 1086)]
+SVC_IMG = [  # portadas de proyectos reales elegidas por Nico (2026-10-19): Oakley, TKE, Nestlé Health Science, Zelestra, Stephouse, Pantene
+    ("/images/projects/oakley-modulo-expositor/cover.jpg", 1086, 1449), ("/images/projects/tke-elevator-rotulacion-vehiculo/cover.jpg", 1200, 1600),
+    ("/images/projects/nestle-health-science-stand-nutricion-clinica/cover.jpg", 1024, 768), ("/images/projects/zelestra-escenografia-evento-corporativo/cover.jpg", 1448, 1086),
+    ("/images/projects/stephouse-letras-corporeas-luminosas/cover.jpg", 1600, 1200), ("/images/projects/pantene-photocall-accion-supermercado/cover.jpg", 1600, 900)]
 
 def clients_html():
     s = rd(PM / "src/sections/08-clients.html")
@@ -88,7 +90,7 @@ def build_html(lang):
     t = dict(T[lang]); t.update(EXTRA[lang])
     svc, slides = [], []
     for i, (img, w, h) in enumerate(SVC_IMG, 1):
-        src = f"/images/landing/{img}"
+        src = img if img.startswith("/") else f"/images/landing/{img}"
         svc.append(f'          <li class="services-d__item" data-i="{i-1}"><figure class="services-d__mfig"><img src="{src}" alt="{t[f"s{i}_alt"]}" width="{w}" height="{h}" loading="lazy"></figure>'
                    f'<span class="services-d__n mono">{i:02d} · {t[f"s{i}_sub"]}</span><h3>{t[f"s{i}_h"]}</h3><p>{t[f"s{i}_p"]}</p>'
                    f'<a href="{t[f"u_s{i}"]}">{t["see_service"]} <span aria-hidden="true">→</span></a></li>')
