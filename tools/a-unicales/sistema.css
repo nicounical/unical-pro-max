@@ -20,7 +20,7 @@
 /* ---------- Titulares: Poppins gruesa, interlineado prieto ---------- */
 .static-page-root :is(h1,h2){font-family:var(--f-head)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.02!important}
 .static-page-root h3{font-family:var(--f-head)!important;font-weight:700!important;letter-spacing:-.03em!important}
-.static-page-root h1{font-size:clamp(2.6rem,5.4vw,5.6rem)}
+.static-page-root h1{font-size:clamp(2.3rem,4.2vw,4.3rem)!important}
 .static-page-root :is(.sp-h2,.sp-h2c,.qh-headline,.cta-headline,.mc-head h2,.proy-head h2,.rv-header h2,.v2-head h2,.proc-title,.pr-head h2){font-size:clamp(2rem,3.8vw,3.6rem)!important}
 /* Palabra destacada: cursiva gruesa en azul sólido (nada de letras perfiladas) */
 .static-page-root :is(h1,h2,h3,p,span,strong) em,.static-page-root .acc{font-style:italic!important;font-weight:800!important;color:var(--acc-c)!important;-webkit-text-stroke:0!important;letter-spacing:-.04em}
@@ -113,3 +113,8 @@
 .static-page-root section.is-light{--acc-c:var(--u-blue-strong)}
 .static-page-root section.is-light :is(h1,h2){color:var(--u-ink)!important}
 .static-page-root section.is-light :is(p,li){color:#4A505C}
+/* Móvil: la portada de las áreas deja sitio a la cabecera y a la ruta, y sin la pastilla «Proyecto real» encima de los botones */
+@media (max-width:700px){
+  .static-page-root .hero{min-height:auto!important;padding-top:118px!important;padding-bottom:48px!important}
+  .static-page-root .hero-project-pill{display:none!important}
+}
