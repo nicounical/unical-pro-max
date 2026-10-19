@@ -8,7 +8,7 @@
 import re, sys, pathlib, html as H
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from gen import form_html, pick_rules, rd, UP
-import proceso
+import proceso, fichas
 
 ST = UP / "src/pages/static"
 HERE = pathlib.Path(__file__).parent
@@ -69,7 +69,7 @@ def accent(s):
         return f"<{tag}{attrs}>{head}{keep + ' ' if keep else ''}<em>{hl}</em>{tail[len(tail.rstrip()):]}</{tag}>"
     return re.sub(r"<(h1|h2)([^>]*)>(.*?)</\1>", one, s, flags=re.S)
 
-def page(path, lang):
+def page(path, lang, chosen=None):
     f = path / f"content.{lang}.html"; s = rd(f)
     # 1) formulario final
     if "<!-- ux-cta" in s:
@@ -86,9 +86,11 @@ def page(path, lang):
     s = s[:i].rstrip() + "\n\n" + landing_foot(lang)
     # 3) fichas de proyecto
     s = cards(s)
+    s, chosen = fichas.apply(s, path.parts[-2], path.parts[-1], lang, chosen)   # fichas = proyectos reales
     s = proceso.apply(s, path.parts[-2], lang)   # «Cómo trabajamos» común
     s = accent(s)
     f.write_text(s, encoding="utf-8")
+    return chosen
 
 def index_tsx(path):
     f = path / "index.tsx"; s = rd(f)
@@ -109,7 +111,8 @@ def sistema_css():
 
 if __name__ == "__main__":
     for p in PAGES:
-        for lang in LANGS: page(p, lang)
+        chosen = None
+        for lang in LANGS: chosen = page(p, lang, chosen)   # misma selección en los 3 idiomas
         index_tsx(p)
     sistema_css()
     print("ok", len(PAGES), "páginas")
