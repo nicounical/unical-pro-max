@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""«Cómo trabajamos» común a las páginas de área y de servicio: un solo marcado (ux-proc) y 5 diseños (data-v A–E)
+"""«Cómo trabajamos» común a las páginas de área y de servicio: un solo marcado (ux-proc) con el diseño «Ruta» (data-v E)
    que pinta src/pages/static/shared/proceso.ts. Aquí solo se extraen los textos de cada página y se escribe el marcado."""
 import re, html as H
 from proceso_data import HUB_STEPS, UI
@@ -48,7 +48,7 @@ def section(kicker, title, steps, lang):
         f'<div class="ux-proc__body"><span class="ux-proc__ph">{ui["phase"]} {k + 1:02d}</span><h3>{e(t)}</h3><p>{e(p)}</p>'
         + (f'<span class="ux-proc__tag">{e(g)}</span>' if g else "") + "</div></li>"
         for k, (t, p, g) in enumerate(steps))
-    return (f'<!-- ux-proc -->\n<section class="ux-proc" id="proceso" data-v="A" aria-roledescription="carrusel" '
+    return (f'<!-- ux-proc -->\n<section class="ux-proc" id="proceso" data-v="E" aria-roledescription="carrusel" '
             f'data-pause="{ui["pause"]}" data-play="{ui["play"]}">\n  <div class="ux-proc__in">\n'
             f'    <header class="ux-proc__head"><p class="ux-proc__kicker">{e(kicker)}</p><h2>{title}</h2></header>\n'
             f'    <div class="ux-proc__stage" aria-hidden="true"></div>\n'
