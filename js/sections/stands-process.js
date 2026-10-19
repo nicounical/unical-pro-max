@@ -1,19 +1,21 @@
-/* Stands · Cómo trabajamos · A «Despiece» (ronda 10b; antes C de la ronda 10)
-   Motor 3D compartido (canvas 2D, sin librerías): un stand de 6 × 3 m con tarima, pared trasera
-   con gráfica, pared lateral, mostrador con logo, tótem luminoso, pantalla, mesa y focos.
-   Cada versión decide cámara, materiales y maquetación a partir de t ∈ [0, 4] (las 4 fases). */
+/* Stands · Cómo trabajamos · A «Despiece» (ronda 10b; ronda 13: stand de 10 × 7 m con aéreo y gráfica de Unical)
+   Motor 3D propio (canvas 2D, sin librerías): un stand de 70 m² con tarima, pared en L, almacén, pantalla LED,
+   mostrador, dos tótems, zona de reunión, expositores, plantas y un aéreo colgado con focos.
+   Guion por t ∈ [0, 4]: 1 plano acotado · 2 las paredes se levantan · 3 las piezas se imprimen en taller
+   (separadas) · 4 montaje pieza a pieza, el aéreo baja desde arriba y se encienden los focos. */
 (() => {
   const { register, $, $$ } = UX;
   const clamp01 = v => Math.max(0, Math.min(1, v));
   const lerp = (a, b, k) => a + (b - a) * k;
   const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
   const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
   const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
   const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
   const norm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
   const css = getComputedStyle(document.documentElement);
-  const MONO = css.getPropertyValue("--f-mono").trim() || "monospace";
-  const HEAD = css.getPropertyValue("--f-head").trim() || "sans-serif";
+  const MONO = css.getPropertyValue("--f-mono").trim() || "'JetBrains Mono', monospace";
+  const HEAD = css.getPropertyValue("--f-head").trim() || "'Poppins', sans-serif";
   const NAMES = ["Presupuesto", "Diseño", "Producción", "Instalación"];
 
   /* ---------- Lienzo con DPR ≤ 2 que solo anima mientras se ve ---------- */
@@ -26,71 +28,118 @@
     return { redraw: () => frame(performance.now(), true), stop: () => { run = false; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); } };
   };
 
-  /* ---------- Texturas de la gráfica impresa (se generan una vez) ---------- */
+  /* ---------- Gráfica impresa del stand: todo diseño de Unical (se genera una vez) ---------- */
   const IMG = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
-  const cover = (g, img, x, y, w, h) => { if (!img) return; const s = Math.max(w / img.width, h / img.height), iw = img.width * s, ih = img.height * s; g.drawImage(img, x + (w - iw) / 2, y + (h - ih) / 2, iw, ih); };
   const mk = (w, h, fn) => { const c = document.createElement("canvas"); c.width = w; c.height = h; fn(c.getContext("2d"), w, h); return c; };
+  const NAVY = "#10182E", NIGHT = "#0B0F1E", BLUE = "#99C4E4", STRONG = "#2E6CA0", DEEP = "#1E5076";
+  /* ondas de la marca (las de la «~» del logo) */
+  const waves = (g, w, h, y0, amp, n, col, lw = 3) => {
+    g.save(); g.strokeStyle = col; g.lineWidth = lw;
+    for (let k = 0; k < n; k++) { g.globalAlpha = .9 - k * (.7 / n); g.beginPath();
+      for (let x = 0; x <= w; x += 8) { const y = y0 + k * amp * .55 + Math.sin(x / w * 6.283 * 1.4 + k * .5) * amp * (1 - k * .08); x ? g.lineTo(x, y) : g.moveTo(x, y); }
+      g.stroke(); }
+    g.restore();
+  };
   let TX = null, txP = null;
   const loadTextures = () => txP || (txP = Promise.all([
-    IMG("assets/img/logo/logo-unical-light-xl.png"), IMG("assets/img/logo/logo-unical.png"), IMG("assets/img/hubs/eventos/stand-luz.webp"),
-    document.fonts ? document.fonts.ready : null
-  ]).then(([lgL, lgD, luz]) => {
-    const logo = (g, img, x, y, w) => { if (img) g.drawImage(img, x, y, w, w * img.height / img.width); };
+    IMG("assets/img/logo/logo-unical-light-xl.png"), IMG("assets/img/logo/logo-unical.png"), document.fonts ? document.fonts.ready : null
+  ]).then(([lgL, lgD]) => {
     const logoC = (g, img, cx, cy, w) => { if (img) { const h = w * img.height / img.width; g.drawImage(img, cx - w / 2, cy - h / 2, w, h); } };
+    const txt = (g, s, x, y, font, col, align = "left") => { g.font = font; g.fillStyle = col; g.textAlign = align; g.textBaseline = "alphabetic"; g.fillText(s, x, y); };
     TX = {
-      /* Pared trasera = gráfica del cliente: foto «LUZ». Fondo con la misma foto muy desenfocada y,
-         encima, la franja de las letras (y ≈ 6–62 % de la foto) encajada en alto para que se lean enteras */
-      wall: mk(1200, 500, (g, w, h) => {
-        g.fillStyle = "#C8551A"; g.fillRect(0, 0, w, h);
-        if (luz) {
-          g.save(); g.filter = "blur(26px) saturate(1.15)"; cover(g, luz, -60, -60, w + 120, h + 120); g.restore();
-          const sy = luz.height * .06, sh = luz.height * .56, dh = h, dw = luz.width * dh / sh, dx = Math.min(w - dw - 20, 430); /* a la derecha de la TV (u ≈ 0,13–0,34) */
-          g.drawImage(luz, 0, sy, luz.width, sh, dx, 0, dw, dh);
-          /* fundido suave de los bordes de la franja con el fondo */
-          const fl = g.createLinearGradient(dx, 0, dx + 70, 0); fl.addColorStop(0, "rgba(160,60,18,.85)"); fl.addColorStop(1, "rgba(160,60,18,0)"); g.fillStyle = fl; g.fillRect(dx, 0, 70, h);
-          const fr = g.createLinearGradient(dx + dw, 0, dx + dw - 70, 0); fr.addColorStop(0, "rgba(160,60,18,.85)"); fr.addColorStop(1, "rgba(160,60,18,0)"); g.fillStyle = fr; g.fillRect(dx + dw - 70, 0, 70, h);
-        }
+      /* Pared del fondo (10 × 3 m). La pantalla LED tapa u ≈ 0,14–0,40 y el almacén u ≈ 0,74–1 */
+      wall: mk(2000, 600, (g, w, h) => {
+        const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, NIGHT); gr.addColorStop(.55, NAVY); gr.addColorStop(1, DEEP); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+        waves(g, w, h, h * .8, 34, 6, BLUE, 3);
+        const rg = g.createRadialGradient(w * .58, h * .45, 20, w * .58, h * .45, 520); rg.addColorStop(0, "rgba(153,196,228,.22)"); rg.addColorStop(1, "rgba(153,196,228,0)"); g.fillStyle = rg; g.fillRect(0, 0, w, h);
+        logoC(g, lgL, w * .57, h * .2, 380);
+        txt(g, "Producción visual", w * .43, h * .44, `800 76px ${HEAD}`, "#fff");
+        txt(g, "sin límites.", w * .43, h * .58, `italic 800 76px ${HEAD}`, BLUE);
+        txt(g, "IMPRESIÓN · ROTULACIÓN · STANDS · EVENTOS", w * .43, h * .68, `600 24px ${MONO}`, "rgba(221,238,255,.8)");
+        g.fillStyle = BLUE; g.fillRect(0, h - 12, w, 12);
       }),
-      /* Pared lateral izquierda: a juego con la trasera (degradado naranja → ámbar con bokeh) y SOLO el logo de Unical */
-      side: mk(420, 500, (g, w, h) => {
-        const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, "#D9541A"); gr.addColorStop(.55, "#E8822A"); gr.addColorStop(1, "#F2B045"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
-        const bok = [[60, 70, 46, .22], [330, 110, 60, .18], [110, 400, 70, .16], [360, 420, 40, .22], [220, 250, 90, .1], [40, 250, 28, .25], [300, 300, 22, .3]];
-        for (const [x, y, r, a] of bok) { const rg = g.createRadialGradient(x, y, 0, x, y, r); rg.addColorStop(0, `rgba(255,236,190,${a})`); rg.addColorStop(1, "rgba(255,236,190,0)"); g.fillStyle = rg; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
-        const sh = g.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, 220); sh.addColorStop(0, "rgba(90,30,8,.28)"); sh.addColorStop(1, "rgba(90,30,8,0)"); g.fillStyle = sh; g.fillRect(0, 0, w, h);
-        logoC(g, lgL, w / 2, h / 2, 320);
+      /* Pared lateral (3,8 × 3 m): azul de marca con el mensaje del stand */
+      side: mk(760, 600, (g, w, h) => {
+        const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, STRONG); gr.addColorStop(1, BLUE); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+        waves(g, w, h, h * .78, 26, 5, "rgba(255,255,255,.75)", 2.5);
+        logoC(g, lgL, w / 2, h * .2, 300);
+        txt(g, "Stands", w / 2, h * .46, `800 74px ${HEAD}`, "#fff", "center");
+        txt(g, "a medida.", w / 2, h * .59, `italic 800 74px ${HEAD}`, NAVY, "center");
       }),
-      counter: mk(420, 240, (g, w, h) => {
-        g.fillStyle = "#14223F"; g.fillRect(0, 0, w, h); logo(g, lgL, 70, 92, 280); g.fillStyle = "#99C4E4"; g.fillRect(0, h - 10, w, 10);
+      /* Almacén: frente blanco con puerta y logo, lateral azul noche */
+      store: mk(520, 600, (g, w, h) => {
+        g.fillStyle = "#F4F7FB"; g.fillRect(0, 0, w, h);
+        g.strokeStyle = "rgba(16,24,46,.35)"; g.lineWidth = 3; g.strokeRect(w * .58, h * .3, w * .3, h * .7); g.fillStyle = "rgba(16,24,46,.5)"; g.fillRect(w * .62, h * .64, 14, 4);
+        if (lgD) logoC(g, lgD, w * .3, h * .2, 220);
+        g.fillStyle = STRONG; g.fillRect(0, h - 14, w, 14);
       }),
-      totem: mk(140, 900, (g, w, h) => {
-        g.fillStyle = "#F7F9FC"; g.fillRect(0, 0, w, h);
-        const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#2E6CA0"); gr.addColorStop(1, "#99C4E4"); g.fillStyle = gr; g.fillRect(0, 260, w, h - 260);
-        logo(g, lgD, 14, 120, 112);
-        g.save(); g.translate(92, h - 60); g.rotate(-Math.PI / 2); g.fillStyle = "#fff"; g.font = `800 32px ${HEAD}`; g.fillText("Diseño · Producción · Montaje", 0, 0); g.restore();
+      storeSide: mk(400, 600, (g, w, h) => {
+        g.fillStyle = NAVY; g.fillRect(0, 0, w, h); waves(g, w, h, h * .55, 22, 5, BLUE, 2.5);
+        g.save(); g.translate(w * .5, h * .38); g.rotate(-Math.PI / 2); txt(g, "UNICAL", 0, 22, `800 64px ${HEAD}`, "#fff", "center"); g.restore();
       }),
-      /* TV apagada: panel negro con un reflejo diagonal muy sutil, sin imagen */
-      screen: mk(380, 220, (g, w, h) => {
-        g.fillStyle = "#05060A"; g.fillRect(0, 0, w, h);
-        const r = g.createLinearGradient(0, 0, w, h); r.addColorStop(0, "rgba(255,255,255,.07)"); r.addColorStop(.45, "rgba(255,255,255,.015)"); r.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = r; g.fillRect(6, 6, w - 12, h - 12);
-      })
+      counter: mk(600, 240, (g, w, h) => {
+        g.fillStyle = NAVY; g.fillRect(0, 0, w, h); waves(g, w, h, h * .78, 12, 3, "rgba(153,196,228,.6)", 2);
+        logoC(g, lgL, w / 2, h * .42, 300); g.fillStyle = BLUE; g.fillRect(0, h - 10, w, 10);
+      }),
+      totem: mk(160, 640, (g, w, h) => {
+        const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#fff"); gr.addColorStop(.35, "#fff"); gr.addColorStop(.36, STRONG); gr.addColorStop(1, BLUE); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+        if (lgD) logoC(g, lgD, w / 2, h * .17, 128);
+        g.save(); g.translate(w * .62, h * .95); g.rotate(-Math.PI / 2); txt(g, "Diseño · Producción · Montaje", 0, 0, `800 30px ${HEAD}`, "#fff"); g.restore();
+      }),
+      /* Pantalla LED encendida con el motivo de marca */
+      screen: mk(520, 300, (g, w, h) => {
+        const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, DEEP); gr.addColorStop(1, "#070A14"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+        waves(g, w, h, h * .66, 16, 4, BLUE, 2.5); logoC(g, lgL, w / 2, h * .38, 250);
+        txt(g, "SHOWREEL 2026", w / 2, h * .9, `600 16px ${MONO}`, "rgba(221,238,255,.85)", "center");
+      }),
+      /* Aéreo: banda de 6 × 1 m con el logo y la línea LED arriba y abajo */
+      aerial: mk(1200, 200, (g, w, h) => {
+        g.fillStyle = NAVY; g.fillRect(0, 0, w, h); logoC(g, lgL, w / 2, h / 2, 420);
+        g.fillStyle = BLUE; g.fillRect(0, 0, w, 8); g.fillRect(0, h - 8, w, 8);
+      }),
+      aerialS: mk(760, 200, (g, w, h) => {
+        g.fillStyle = NAVY; g.fillRect(0, 0, w, h); txt(g, "Producción visual sin límites", w / 2, h * .6, `800 48px ${HEAD}`, "#fff", "center");
+        g.fillStyle = BLUE; g.fillRect(0, 0, w, 8); g.fillRect(0, h - 8, w, 8);
+      }),
+      plinth: mk(200, 300, (g, w, h) => { g.fillStyle = "#F7F9FC"; g.fillRect(0, 0, w, h); g.fillStyle = STRONG; g.fillRect(0, 0, w, 26); if (lgD) logoC(g, lgD, w / 2, h * .55, 130); })
     };
   }));
 
-  /* ---------- Modelo: piezas [x0,y0,z0,x1,y1,z1], color, gráfica por cara y vector de despiece ---------- */
+  /* ---------- Modelo: 10 × 7 m. Piezas [x0,y0,z0,x1,y1,z1], color, gráfica por cara, despiece y orden de montaje ---------- */
+  const WHITE = [244, 246, 250], NAVYC = [20, 30, 56];
   const PARTS = [
-    { b: [-3, 0, -1.5, 3, .12, 1.5], c: [206, 212, 222], ex: [0, -.9, 0] },                                   // tarima
-    { b: [-3, .12, -1.5, 3, 2.62, -1.36], c: [240, 243, 248], tex: { front: "wall" }, ex: [0, .6, -2.2] },   // pared trasera
-    { b: [-3, .12, -1.36, -2.86, 2.62, .7], c: [240, 243, 248], tex: { right: "side" }, ex: [-2.4, .6, .2] }, // pared lateral
-    { b: [.3, .12, .35, 1.9, 1.0, .9], c: [22, 36, 66], tex: { front: "counter" }, ex: [1.8, .8, 2] },        // mostrador
-    { b: [.25, 1.0, .3, 1.95, 1.06, .95], c: [248, 249, 252], ex: [1.8, 1.8, 2] },                            // encimera
-    { b: [2.35, .12, .95, 2.75, 2.9, 1.25], c: [247, 249, 252], tex: { front: "totem" }, ex: [2.6, 1.2, 1.6] },// tótem
-    { b: [-2.25, 1.25, -1.36, -.95, 2.0, -1.3], c: [12, 12, 18], tex: { front: "screen" }, ex: [-.8, 1.6, -1.4] }, // pantalla
-    { b: [-1.9, .12, -.25, -1.3, .78, .35], c: [246, 247, 250], ex: [-1.8, 1.2, 1.4] },                       // mesa
-    { b: [-1.84, 2.62, -1.5, -1.76, 2.68, -.7], c: [36, 38, 50], ex: [-.4, 2.4, -1.4] },                      // brazos de focos
-    { b: [-.04, 2.62, -1.5, .04, 2.68, -.7], c: [36, 38, 50], ex: [0, 2.6, -1.4] },
-    { b: [1.76, 2.62, -1.5, 1.84, 2.68, -.7], c: [36, 38, 50], ex: [.4, 2.4, -1.4] }
+    { b: [-5, 0, -3.5, 5, .12, 3.5], c: [150, 160, 178], ex: [0, -.8, 0], floor: 1, plan: 1, o: 0 },                         // 0 tarima
+    { b: [-5, .12, -3.5, 5, 3.12, -3.3], c: WHITE, tex: { front: "wall" }, ex: [0, .9, -3.2], plan: 1, o: 1 },                 // 1 pared del fondo
+    { b: [-5, .12, -3.3, -4.8, 3.12, .5], c: WHITE, tex: { right: "side", left: "side" }, ex: [-2.6, .7, .2], plan: 1, o: 2 },              // 2 pared lateral
+    { b: [2.4, .12, -3.3, 5, 3.12, -1.3], c: WHITE, tex: { front: "store", left: "storeSide" }, ex: [3, 1, -1.2], plan: 1, o: 3 }, // 3 almacén
+    { b: [-3.6, 1.05, -3.3, -1.0, 2.55, -3.22], c: [10, 12, 20], tex: { front: "screen" }, ex: [-.6, 1.6, -1.8], o: 4 },     // 4 pantalla LED
+    { b: [1.0, .12, 1.7, 3.6, 1.05, 2.5], c: NAVYC, tex: { front: "counter" }, ex: [2.4, 1, 3], plan: 1, o: 5 },              // 5 mostrador
+    { b: [.95, 1.05, 1.65, 3.65, 1.11, 2.55], c: [250, 251, 253], ex: [2.4, 2, 3], o: 5 },                                    // 6 encimera
+    { b: [-4.6, .12, 2.7, -4.05, 2.7, 3.1], c: WHITE, tex: { front: "totem" }, ex: [-2.8, 1.4, 2.4], plan: 1, o: 6 },          // 7 tótem izquierdo
+    { b: [4.05, .12, 2.7, 4.6, 2.7, 3.1], c: WHITE, tex: { front: "totem" }, ex: [2.8, 1.4, 2.4], plan: 1, o: 6 },             // 8 tótem derecho
+    { b: [-3.5, .12, -1.4, -2.1, .85, -.2], c: [250, 251, 253], ex: [-2.4, 1.4, .8], plan: 1, o: 7 },                         // 9 mesa de reunión
+    { b: [-3.95, .12, -1.0, -3.6, .58, -.6], c: STRONGC(), ex: [-3, 1.2, .8], o: 7 },                                          // 10–13 sillas
+    { b: [-2.0, .12, -1.0, -1.65, .58, -.6], c: STRONGC(), ex: [-1.8, 1.2, .8], o: 7 },
+    { b: [-3.0, .12, -1.85, -2.6, .58, -1.5], c: STRONGC(), ex: [-2.4, 1.2, -.2], o: 7 },
+    { b: [-3.0, .12, -.1, -2.6, .58, .25], c: STRONGC(), ex: [-2.4, 1.2, 1.6], o: 7 },
+    { b: [-.9, .12, 2.3, -.3, 1.0, 2.9], c: WHITE, tex: { front: "plinth" }, ex: [-.4, 1.6, 2.6], plan: 1, o: 8 },            // 14–15 expositores
+    { b: [-.1, .12, 2.5, .45, .75, 3.05], c: WHITE, tex: { front: "plinth" }, ex: [.2, 1.6, 2.8], plan: 1, o: 8 },
+    { b: [-4.65, .12, -3.2, -4.15, .7, -2.7], c: [236, 238, 242], ex: [-2.6, 1, -1.6], o: 8 },                                // 16–17 jardineras + verde
+    { b: [-4.7, .7, -3.25, -4.1, 1.55, -2.65], c: [74, 128, 92], ex: [-2.6, 1.6, -1.6], o: 8 },
+    { b: [-1.6, 3.12, -3.5, -1.5, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.4, -2], o: 9 },                                      // 18–20 brazos de focos
+    { b: [.45, 3.12, -3.5, .55, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.6, -2], o: 9 },
+    { b: [1.9, 3.12, -3.5, 2.0, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.4, -2], o: 9 },
+    { b: [-3, 4.4, 1.85, 3, 5.4, 1.95], c: NAVYC, tex: { front: "aerial" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },               // 21–24 aéreo
+    { b: [-3, 4.4, -1.95, 3, 5.4, -1.85], c: NAVYC, tex: { back: "aerial" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },
+    { b: [-3.1, 4.4, -1.95, -3, 5.4, 1.95], c: NAVYC, tex: { left: "aerialS" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },
+    { b: [3, 4.4, -1.95, 3.1, 5.4, 1.95], c: NAVYC, tex: { right: "aerialS" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },
+    ...[[-2.9, -1.8], [2.9, -1.8], [-2.9, 1.8], [2.9, 1.8]].map(([x, z]) => ({ b: [x - .015, 5.4, z - .015, x + .015, 8.6, z + .015], c: [120, 130, 150], ex: [0, 4.5, 0], o: 10, aerial: 1, cable: 1 }))
   ];
-  const SPOTS = [[-1.8, 8], [0, 9], [1.8, 10]];
+  function STRONGC() { return [46, 108, 160]; }
+  const NORDER = Math.max(...PARTS.map(p => p.o)) + 1;
+  /* Focos: los de la pared (brazos) y los que cuelgan del aéreo */
+  const SPOTS = [{ pi: 18, x: -1.55, z: -2.65 }, { pi: 19, x: .5, z: -2.65 }, { pi: 20, x: 1.95, z: -2.65 },
+                 { pi: 21, x: -2, z: 1.9 }, { pi: 21, x: 0, z: 1.9 }, { pi: 21, x: 2, z: 1.9 }, { pi: 22, x: -1.5, z: -1.9 }, { pi: 22, x: 1.5, z: -1.9 }];
   const FACES = {
     front: { n: [0, 0, 1], q: b => [[b[0], b[4], b[5]], [b[3], b[4], b[5]], [b[3], b[1], b[5]], [b[0], b[1], b[5]]] },
     back: { n: [0, 0, -1], q: b => [[b[3], b[4], b[2]], [b[0], b[4], b[2]], [b[0], b[1], b[2]], [b[3], b[1], b[2]]] },
@@ -102,11 +151,17 @@
   const LIGHT = norm([-.35, .85, .55]);
   const corners = b => { const o = []; for (let i = 0; i < 8; i++) o.push([i & 4 ? b[3] : b[0], i & 2 ? b[4] : b[1], i & 1 ? b[5] : b[2]]); return o; };
   const EDGES = []; for (let a = 0; a < 8; a++) for (const k of [1, 2, 4]) if (!(a & k)) EDGES.push([a, a | k]);
-  // nube de puntos: muestras sobre las aristas, cada una con un origen aleatorio
-  const PTS = []; PARTS.forEach((_, pi) => EDGES.forEach(([a, b]) => { for (let k = 0; k < 5; k++) { const r = 3 + 3 * Math.cbrt(Math.random()), th = Math.random() * 6.283, ph = Math.acos(2 * Math.random() - 1); PTS.push({ pi, a, b, s: Math.random(), from: [r * Math.sin(ph) * Math.cos(th), 1.2 + r * Math.cos(ph) * .7, r * Math.sin(ph) * Math.sin(th)] }); } }));
+  // nube de puntos: muestras sobre las aristas, cada una con un origen aleatorio (los cables no llevan)
+  const PTS = []; PARTS.forEach((p, pi) => { if (p.cable) return; EDGES.forEach(([a, b]) => { for (let k = 0; k < 4; k++) { const r = 5 + 5 * Math.cbrt(Math.random()), th = Math.random() * 6.283, ph = Math.acos(2 * Math.random() - 1); PTS.push({ pi, a, b, s: Math.random(), from: [r * Math.sin(ph) * Math.cos(th), 2 + r * Math.cos(ph) * .7, r * Math.sin(ph) * Math.sin(th)] }); } }); });
 
+  /* Despiece de cada pieza: s.explode (0–1) o, en el montaje, una curva escalonada por orden de montaje */
+  const explodeOf = (p, s) => {
+    if (s.asm == null) return (s.explode || 0) * .72;
+    const d = p.o / NORDER * .62, k = clamp01((s.asm - d) / .38);
+    return (1 - easeOut(k)) * .72;
+  };
   /* Caja de una pieza en el estado actual (extrusión en altura y despiece) */
-  const boxOf = (p, s) => { const e = s.explode || 0, k = s.ext == null ? 1 : s.ext, b = p.b.slice();
+  const boxOf = (p, s) => { const e = explodeOf(p, s), k = s.ext == null ? 1 : s.ext, b = p.b.slice();
     if (k < 1 && b[1] >= .12) { b[1] = .12 + (b[1] - .12) * k; b[4] = .12 + (b[4] - .12) * k; } else if (k < 1) { b[4] = b[1] + (b[4] - b[1]) * Math.max(k, .15); }
     return [b[0] + p.ex[0] * e, b[1] + p.ex[1] * e, b[2] + p.ex[2] * e, b[3] + p.ex[0] * e, b[4] + p.ex[1] * e, b[5] + p.ex[2] * e]; };
 
@@ -138,58 +193,58 @@
     }
   };
   const poly = (g, pts) => { g.beginPath(); pts.forEach((v, i) => i ? g.lineTo(v[0], v[1]) : g.moveTo(v[0], v[1])); g.closePath(); };
+  const TEXN = { wall: 7, side: 4, aerial: 5, aerialS: 4 };
 
   /* ---------- Render de una escena ----------
-     s: yaw, pitch, dist, zoom, ty, cx, cy · grid · plan (0–1 dibujo de planta) · dims · ext (extrusión) · explode
-        pts (convergencia nube) · ptsA · wire (progreso aristas) · wireA · glow · fill (barrido de sólidos) · solidA
-        clay (maqueta blanca) · tex (gráfica) · light (focos encendidos) · time */
+     s: yaw, pitch, dist, zoom, ty, cx, cy · grid · plan (0–1 dibujo de planta) · planA · dims · ext (extrusión) · explode | asm (montaje escalonado)
+        pts (convergencia nube) · ptsA · wire · wireA · glow · fill (barrido de sólidos) · tex (gráfica) · light (focos) · outline */
   const render = (g, W, H, s) => {
     const { P, pos } = camera(s, W, H);
     const line = (a, b) => { const A = P(a), B = P(b); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); };
     // suelo técnico
-    if (s.grid) { g.lineWidth = 1; g.strokeStyle = `rgba(153,196,228,${.1 * s.grid})`; g.beginPath(); for (let k = -6; k <= 6.001; k += .5) { line([k, 0, -5], [k, 0, 5]); line([-6, 0, k * .84], [6, 0, k * .84]); } g.stroke(); }
+    if (s.grid) { g.lineWidth = 1; g.strokeStyle = `rgba(153,196,228,${.09 * s.grid})`; g.beginPath(); for (let k = -9; k <= 9.001; k += 1) { line([k, 0, -7], [k, 0, 7]); line([-9, 0, k * .78], [9, 0, k * .78]); } g.stroke(); }
     // planta acotada
     if (s.plan > 0) {
-      const pl = s.plan; g.lineWidth = 1.4; g.strokeStyle = `rgba(153,196,228,${.95 * (s.planA == null ? 1 : s.planA)})`; g.setLineDash([]);
-      PARTS.slice(0, 8).forEach((p, i) => { const k = clamp01(pl * 1.6 - i * .08); if (!k) return; const b = boxOf(p, { ...s, ext: 1 }), y = .002;
+      const pl = s.plan, pa = s.planA == null ? 1 : s.planA; g.lineWidth = 1.4; g.strokeStyle = `rgba(153,196,228,${.95 * pa})`; g.setLineDash([]);
+      PARTS.filter(p => p.plan).forEach((p, i) => { const k = clamp01(pl * 1.8 - i * .07); if (!k) return; const b = boxOf(p, { ...s, ext: 1 }), y = .002;
         const R = [[b[0], y, b[2]], [b[3], y, b[2]], [b[3], y, b[5]], [b[0], y, b[5]], [b[0], y, b[2]]], per = [];
         let L = 0; for (let j = 0; j < 4; j++) { const d = Math.hypot(R[j + 1][0] - R[j][0], R[j + 1][2] - R[j][2]); per.push(d); L += d; }
         let rem = L * k; g.beginPath(); const A0 = P(R[0]); g.moveTo(A0[0], A0[1]);
         for (let j = 0; j < 4 && rem > 0; j++) { const f = Math.min(1, rem / per[j]); rem -= per[j]; const E = P(R[j].map((c, m) => c + (R[j + 1][m] - c) * f)); g.lineTo(E[0], E[1]); }
         g.stroke(); });
       if (s.dims > 0) {
-        const a = clamp01(s.dims) * (s.planA == null ? 1 : s.planA); g.strokeStyle = `rgba(221,238,255,${.7 * a})`; g.fillStyle = `rgba(221,238,255,${.9 * a})`; g.lineWidth = 1; g.font = `500 11px ${MONO}`; g.textAlign = "center";
+        const a = clamp01(s.dims) * pa; g.strokeStyle = `rgba(221,238,255,${.7 * a})`; g.fillStyle = `rgba(221,238,255,${.9 * a})`; g.lineWidth = 1; g.font = `500 12px ${MONO}`; g.textAlign = "center";
         const dim = (A, B, off, label) => { const a1 = A.map((c, i) => c + off[i]), b1 = B.map((c, i) => c + off[i]); g.beginPath(); line(A, a1); line(B, b1); line(a1, b1); g.stroke();
           [a1, b1].forEach(v => { const q = P(v); g.fillRect(q[0] - 2, q[1] - 2, 4, 4); }); const m = P(a1.map((c, i) => (c + b1[i]) / 2)); g.fillText(label, m[0], m[1] - 8); };
-        dim([-3, 0, 1.5], [3, 0, 1.5], [0, 0, .55], "6,00 m"); dim([3, 0, -1.5], [3, 0, 1.5], [.55, 0, 0], "3,00 m");
-        if ((s.ext == null ? 1 : s.ext) > .3) dim([-3, .12, -1.5], [-3, .12 + 2.5 * (s.ext == null ? 1 : s.ext), -1.5], [-.5, 0, 0], "2,50 m");
+        dim([-5, 0, 3.5], [5, 0, 3.5], [0, 0, .8], "10,00 m"); dim([5, 0, -3.5], [5, 0, 3.5], [.8, 0, 0], "7,00 m");
+        const ex = s.ext == null ? 1 : s.ext; if (ex > .3) dim([-5, .12, -3.5], [-5, .12 + 3 * ex, -3.5], [-.7, 0, 0], "3,00 m");
+        // superficie en el centro de la planta
+        const c = P([0, .01, .4]); g.font = `800 ${Math.round(Math.max(18, W * .022))}px ${HEAD}`; g.fillStyle = `rgba(153,196,228,${.95 * a})`; g.fillText("70 m²", c[0], c[1]);
         g.textAlign = "start";
       }
     }
-    // sombra y charcos de luz en el suelo
-    const lit = s.light || 0, solid = Math.max(s.fill || 0, s.clay ? 1 : 0);
-    if (solid > 0) { const c = P([0, 0, .1]), r = Math.abs(P([3.6, 0, .1])[0] - c[0]); g.save(); g.translate(c[0], c[1]); g.scale(1, .32); const gr = g.createRadialGradient(0, 0, 0, 0, 0, r); gr.addColorStop(0, `rgba(0,0,0,${.45 * solid})`); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.beginPath(); g.arc(0, 0, r, 0, 6.283); g.fill(); g.restore(); }
-    // caras sólidas ordenadas de lejos a cerca, con barrido de abajo arriba
+    // sombra en el suelo
+    const lit = s.light || 0, solid = s.fill || 0;
+    if (solid > 0) { const c = P([0, 0, .1]), r = Math.abs(P([6, 0, .1])[0] - c[0]); g.save(); g.translate(c[0], c[1]); g.scale(1, .34); const gr = g.createRadialGradient(0, 0, 0, 0, 0, r); gr.addColorStop(0, `rgba(0,0,0,${.5 * solid})`); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.beginPath(); g.arc(0, 0, r, 0, 6.283); g.fill(); g.restore(); }
+    // caras sólidas ordenadas de lejos a cerca (la tarima siempre primero), con barrido de abajo arriba
     if (solid > 0) {
-      const sweep = s.clay ? 9 : -.2 + (s.fill || 0) * 3.4, list = [];
+      const sweep = -.2 + solid * 10.5, list = [];
       PARTS.forEach((p, pi) => { const b = boxOf(p, s); if (b[1] > sweep) return;
         for (const k in FACES) { const F = FACES[k], q = F.q(b), c = q.reduce((m, v) => [m[0] + v[0] / 4, m[1] + v[1] / 4, m[2] + v[2] / 4], [0, 0, 0]);
-          if (dot(F.n, sub(pos, c)) <= 0) continue; const sq = q.map(P); list.push({ p, k, q, sq, z: sq.reduce((m, v) => m + v[2], 0) / 4, n: F.n }); } });
+          if (dot(F.n, sub(pos, c)) <= 0) continue; const sq = q.map(P); list.push({ p, k, q, sq, z: p.floor ? 1e9 : sq.reduce((m, v) => m + v[2], 0) / 4, n: F.n }); } });
       list.sort((a, b) => b.z - a.z);
-      const sa = s.solidA == null ? 1 : s.solidA;
       list.forEach(({ p, k, q, sq, n }) => {
-        const base = s.clay ? [236, 239, 244] : p.c, sh = (.5 + .5 * Math.max(0, dot(n, LIGHT))) * (.82 + .22 * lit) + (n[1] > 0 ? .04 : 0);
-        g.globalAlpha = sa; g.fillStyle = `rgb(${base.map(v => Math.min(255, Math.round(v * sh))).join(",")})`; poly(g, sq); g.fill();
+        const sh = (.5 + .5 * Math.max(0, dot(n, LIGHT))) * (.8 + .24 * lit) + (n[1] > 0 ? .04 : 0);
+        g.fillStyle = `rgb(${p.c.map(v => Math.min(255, Math.round(v * sh))).join(",")})`; poly(g, sq); g.fill();
         const tx = p.tex && p.tex[k] && TX && TX[p.tex[k]];
-        if (tx && (s.tex || 0) > 0) { g.globalAlpha = sa * s.tex; texQuad(g, tx, q, P, p.tex[k] === "wall" ? 5 : 3); if (lit < 1) { g.globalAlpha = sa * s.tex * (1 - lit) * .28; g.fillStyle = "#000"; poly(g, sq); g.fill(); } }
-        g.globalAlpha = sa * (s.outline == null ? .35 : s.outline); g.strokeStyle = s.clay ? "rgba(46,108,160,.5)" : "rgba(153,196,228,.6)"; g.lineWidth = 1; poly(g, sq); g.stroke();
+        if (tx && (s.tex || 0) > 0) { g.globalAlpha = s.tex; texQuad(g, tx, q, P, TEXN[p.tex[k]] || 3); if (lit < 1) { g.globalAlpha = s.tex * (1 - lit) * .3; g.fillStyle = "#000"; poly(g, sq); g.fill(); } g.globalAlpha = 1; }
+        if (!p.cable) { g.globalAlpha = s.outline == null ? .35 : s.outline; g.strokeStyle = "rgba(153,196,228,.6)"; g.lineWidth = 1; poly(g, sq); g.stroke(); g.globalAlpha = 1; }
       });
-      g.globalAlpha = 1;
-      if (!s.clay && s.fill > 0 && s.fill < 1) { const y = sweep; poly(g, [[-3.6, y, -1.9], [3.6, y, -1.9], [3.6, y, 1.9], [-3.6, y, 1.9]].map(P)); g.fillStyle = "rgba(153,196,228,.07)"; g.fill(); g.strokeStyle = "rgba(221,238,255,.85)"; g.lineWidth = 1.4; g.stroke(); }
+      if (solid < 1) { const y = sweep; poly(g, [[-5.8, y, -4.2], [5.8, y, -4.2], [5.8, y, 4.2], [-5.8, y, 4.2]].map(P)); g.fillStyle = "rgba(153,196,228,.06)"; g.fill(); g.strokeStyle = "rgba(221,238,255,.8)"; g.lineWidth = 1.4; g.stroke(); }
     }
     // malla (aristas que se dibujan progresivamente)
     if ((s.wire || 0) > 0 && (s.wireA == null ? 1 : s.wireA) > .01) {
-      g.lineWidth = 1.2; g.strokeStyle = `rgba(153,196,228,${s.wireA == null ? .9 : s.wireA})`; if (s.glow) { g.shadowColor = "rgba(153,196,228,.9)"; g.shadowBlur = 8 * s.glow; }
+      g.lineWidth = 1.1; g.strokeStyle = `rgba(153,196,228,${s.wireA == null ? .9 : s.wireA})`; if (s.glow) { g.shadowColor = "rgba(153,196,228,.9)"; g.shadowBlur = 8 * s.glow; }
       g.beginPath(); let i = 0; const N = PARTS.length * EDGES.length;
       PARTS.forEach(p => { const C = corners(boxOf(p, s)); EDGES.forEach(([a, b]) => { const e = clamp01(s.wire * 1.7 - i++ / N * .7); if (!e) return; line(C[a], C[a].map((c, j) => c + (C[b][j] - c) * e)); }); });
       g.stroke(); g.shadowBlur = 0;
@@ -198,17 +253,18 @@
     const pa = s.ptsA || 0;
     if (pa > .02) { g.fillStyle = `rgba(221,238,255,${pa})`; const cc = PARTS.map(p => corners(boxOf(p, s))), k = ease(clamp01(s.pts || 0));
       PTS.forEach(o => { const A = cc[o.pi][o.a], B = cc[o.pi][o.b], to = [A[0] + (B[0] - A[0]) * o.s, A[1] + (B[1] - A[1]) * o.s, A[2] + (B[2] - A[2]) * o.s], v = P(o.from.map((c, j) => c + (to[j] - c) * k)); g.fillRect(v[0] - 1, v[1] - 1, 2, 2); }); }
-    // focos: haz de luz y halo (suma de luz)
+    // focos (se encienden uno tras otro), pantalla LED, tótems y línea LED del aéreo
     if (lit > .01) {
       g.save(); g.globalCompositeOperation = "lighter";
-      SPOTS.forEach(([x, pi]) => { const b = boxOf(PARTS[pi], s), ap = P([x, b[1] - .02, b[5]]), f1 = P([x - .8, .13, .55]), f2 = P([x + .8, .13, .55]), fc = P([x * .95, .13, .4]);
-        const gr = g.createLinearGradient(ap[0], ap[1], fc[0], fc[1]); gr.addColorStop(0, `rgba(255,244,222,${.32 * lit})`); gr.addColorStop(1, "rgba(255,244,222,0)");
+      SPOTS.forEach(({ pi, x, z }, i) => { const L = clamp01(lit * 1.6 - i * .08); if (!L) return; const p = PARTS[pi], b = boxOf(p, s), dx = b[0] - p.b[0], dy = b[1] - p.b[1], dz = b[2] - p.b[2];
+        const ap = P([x + dx, p.b[1] + dy - .02, z + dz]), fc = P([x * .95, .13, z + .7]), f1 = P([x * .95 - .9, .13, z + .7]), f2 = P([x * .95 + .9, .13, z + .7]);
+        const gr = g.createLinearGradient(ap[0], ap[1], fc[0], fc[1]); gr.addColorStop(0, `rgba(255,244,222,${.26 * L})`); gr.addColorStop(1, "rgba(255,244,222,0)");
         g.fillStyle = gr; g.beginPath(); g.moveTo(ap[0], ap[1]); g.lineTo(f1[0], f1[1]); g.lineTo(f2[0], f2[1]); g.closePath(); g.fill();
-        const rr = Math.abs(f2[0] - f1[0]) * .6; g.save(); g.translate(fc[0], fc[1]); g.scale(1, .35); const pg = g.createRadialGradient(0, 0, 0, 0, 0, rr); pg.addColorStop(0, `rgba(255,240,215,${.3 * lit})`); pg.addColorStop(1, "rgba(255,240,215,0)"); g.fillStyle = pg; g.beginPath(); g.arc(0, 0, rr, 0, 6.283); g.fill(); g.restore();
-        const hg = g.createRadialGradient(ap[0], ap[1], 0, ap[0], ap[1], 22); hg.addColorStop(0, `rgba(255,255,255,${.9 * lit})`); hg.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = hg; g.beginPath(); g.arc(ap[0], ap[1], 22, 0, 6.283); g.fill(); });
-      // brillo del tótem retroiluminado
-      const tb = boxOf(PARTS[5], s), tc = P([(tb[0] + tb[3]) / 2, (tb[1] + tb[4]) / 2, tb[5]]), th = Math.abs(P([tb[0], tb[4], tb[5]])[1] - P([tb[0], tb[1], tb[5]])[1]);
-      const tg = g.createRadialGradient(tc[0], tc[1], 0, tc[0], tc[1], th * .7); tg.addColorStop(0, `rgba(153,196,228,${.22 * lit})`); tg.addColorStop(1, "rgba(153,196,228,0)"); g.fillStyle = tg; g.beginPath(); g.arc(tc[0], tc[1], th * .7, 0, 6.283); g.fill();
+        const rr = Math.abs(f2[0] - f1[0]) * .6; g.save(); g.translate(fc[0], fc[1]); g.scale(1, .35); const pg = g.createRadialGradient(0, 0, 0, 0, 0, rr); pg.addColorStop(0, `rgba(255,240,215,${.24 * L})`); pg.addColorStop(1, "rgba(255,240,215,0)"); g.fillStyle = pg; g.beginPath(); g.arc(0, 0, rr, 0, 6.283); g.fill(); g.restore();
+        const hg = g.createRadialGradient(ap[0], ap[1], 0, ap[0], ap[1], 18); hg.addColorStop(0, `rgba(255,255,255,${.9 * L})`); hg.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = hg; g.beginPath(); g.arc(ap[0], ap[1], 18, 0, 6.283); g.fill(); });
+      const glow = (pi, face, col, k) => { const b = boxOf(PARTS[pi], s), c = P([(b[0] + b[3]) / 2, (b[1] + b[4]) / 2, face === "front" ? b[5] : (b[2] + b[5]) / 2]), r = Math.abs(P([b[3], b[4], b[5]])[0] - P([b[0], b[4], b[5]])[0]) * k + 30;
+        const gg = g.createRadialGradient(c[0], c[1], 0, c[0], c[1], r); gg.addColorStop(0, col); gg.addColorStop(1, "rgba(153,196,228,0)"); g.fillStyle = gg; g.beginPath(); g.arc(c[0], c[1], r, 0, 6.283); g.fill(); };
+      glow(4, "front", `rgba(153,196,228,${.2 * lit})`, .6); glow(7, "front", `rgba(153,196,228,${.16 * lit})`, 1.6); glow(8, "front", `rgba(153,196,228,${.16 * lit})`, 1.6); glow(21, "front", `rgba(153,196,228,${.12 * lit})`, .45);
       g.restore();
     }
   };
@@ -220,23 +276,38 @@
   const mount = (root, ux, { cv, trigger, pin, start, end, setUI, scene, onFrame }) => {
     let T = ux.reduce ? 4 : 0, shown = T;
     loadTextures().then(() => loop.redraw());
-    const loop = canvasLoop(cv, root, (g, W, H, now) => { shown += (T - shown) * .1; if (Math.abs(T - shown) < .001) shown = T; g.clearRect(0, 0, W, H); scene(g, W, H, shown, now); onFrame && onFrame(shown); }, ux);
+    const loop = canvasLoop(cv, root, (g, W, H, now) => { shown += (T - shown) * .085; if (Math.abs(T - shown) < .001) shown = T; g.clearRect(0, 0, W, H); scene(g, W, H, shown, now); onFrame && onFrame(shown); }, ux);
     if (ux.reduce) { root.classList.add("is-static"); setUI(4); loop.redraw(); return () => { loop.stop(); root.classList.remove("is-static"); }; }
     setUI(0);
     ScrollTrigger.create({ trigger, start, end, pin: pin || false, anticipatePin: pin ? 1 : 0, invalidateOnRefresh: true, onUpdate: st => { T = st.progress * 4; setUI(Math.min(3.999, T)); } });
     return () => loop.stop();
   };
   const onIdx = (items, i) => items.forEach((li, k) => { li.classList.toggle("on", k === i); li.classList.toggle("done", k < i); });
-  const pinEnd = () => innerWidth < 900 ? "+=240%" : "+=300%";
+  const pinEnd = () => innerWidth < 900 ? "+=300%" : "+=380%";
 
-  /* ---------- A · Despiece (también en la landing: Cómo trabajamos A) ---------- */
+  /* ---------- A · Despiece (también en la landing: Cómo trabajamos A) ----------
+     0–1 Presupuesto: la planta se dibuja y se acota (vista casi cenital) mientras la nube de puntos converge
+     1–2 Diseño: las paredes se levantan en malla y la cámara baja
+     2–3 Producción: las piezas se separan como en el taller, se rellenan y se imprimen
+     3–4 Instalación: montaje pieza a pieza; el aéreo baja el último y se encienden los focos */
   const despiece = (root, ux) => {
     const steps = $$(".stproc-a__steps li", root), bars = $$(".stproc-a__bar b", root), pin = $(".stproc-a__pin", root);
     const setUI = t => { onIdx(steps, Math.min(3, Math.floor(t))); bars.forEach((b, k) => b.style.setProperty("--p", clamp01(t - k))); };
     return mount(root, ux, { cv: $(".stproc-a__cv", root), trigger: pin, pin, start: "top top", end: pinEnd, setUI,
-      scene: (g, W, H, t, now) => { const { p0, p1, p2, p3 } = phases(t), m = W < 900, asm = ease(p3);
-        render(g, W, H, { yaw: -.95 + t * .22 + Math.sin(now * .0003) * .04, pitch: lerp(.5, .36, asm), dist: lerp(12.5, 9.2, asm), zoom: m ? 1.2 : 1.35, ty: lerp(1.6, 1.15, asm), cx: m ? .5 : .6, cy: m ? .46 : .5,
-          grid: .7 + .3 * asm, explode: 1 - asm, pts: p0, ptsA: .95 * (1 - p1 * .9), wire: p1, wireA: .85 - .55 * p2, glow: 1 - p2, fill: p2, tex: clamp01(p2 * 1.5 - .4), light: clamp01(p3 * 1.6 - .6), outline: .45 - .3 * asm }); } });
+      scene: (g, W, H, t, now) => { const { p0, p1, p2, p3 } = phases(t), m = W < 900, e1 = ease(p1), e2 = ease(p2), e3 = ease(p3);
+        const top = 1 - e1;                                   // cuánto de cenital tiene la cámara
+        render(g, W, H, {
+          yaw: -.15 - .55 * e1 - .2 * e2 + .35 * e3 + Math.sin(now * .00025) * .03,
+          pitch: lerp(lerp(1.15, .5, e1), .3, e3), dist: lerp(lerp(19, 17.5, e1), 15.5, e3) + 2.2 * e2 * (1 - e3),
+          zoom: m ? 1.05 : 1.55, ty: lerp(.2, 2.1, Math.max(e1, e3 * .9)) + .8 * e2 * (1 - e3), cx: m ? .5 : .62, cy: m ? .5 : lerp(.56, .54, e3),
+          grid: .6 + .4 * top,
+          plan: p0 * 1.1, planA: 1 - e1 * .85, dims: clamp01(p0 * 1.6 - .5) * (1 - p2),
+          ext: p0 < 1 ? 0 : e1,
+          explode: p2 < 1 ? e2 * (p3 > 0 ? 1 : 1) : 1, asm: p3 > 0 ? p3 : null,
+          pts: p0, ptsA: .85 * (1 - e1),
+          wire: clamp01(p0 * 1.2 + p1), wireA: .85 - .6 * e2, glow: 1 - e2,
+          fill: e2, tex: clamp01(p2 * 1.6 - .5),
+          light: clamp01(p3 * 1.8 - .75), outline: .4 - .28 * e3 }); } });
   };
   register("stands-process", "A", despiece);
   register("process", "A", despiece);
