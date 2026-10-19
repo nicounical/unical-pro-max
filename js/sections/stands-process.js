@@ -47,15 +47,15 @@
     const logoC = (g, img, cx, cy, w) => { if (img) { const h = w * img.height / img.width; g.drawImage(img, cx - w / 2, cy - h / 2, w, h); } };
     const txt = (g, s, x, y, font, col, align = "left") => { g.font = font; g.fillStyle = col; g.textAlign = align; g.textBaseline = "alphabetic"; g.fillText(s, x, y); };
     TX = {
-      /* Pared del fondo (10 × 3 m). La pantalla LED tapa u ≈ 0,14–0,40 y el almacén u ≈ 0,74–1 */
-      wall: mk(2000, 600, (g, w, h) => {
+      /* Pared del fondo (7,4 × 3 m, hasta el almacén). La pantalla LED tapa u ≈ 0,19–0,54 */
+      wall: mk(1480, 600, (g, w, h) => {
         const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, NIGHT); gr.addColorStop(.55, NAVY); gr.addColorStop(1, DEEP); g.fillStyle = gr; g.fillRect(0, 0, w, h);
         waves(g, w, h, h * .8, 34, 6, BLUE, 3);
-        const rg = g.createRadialGradient(w * .58, h * .45, 20, w * .58, h * .45, 520); rg.addColorStop(0, "rgba(153,196,228,.22)"); rg.addColorStop(1, "rgba(153,196,228,0)"); g.fillStyle = rg; g.fillRect(0, 0, w, h);
-        logoC(g, lgL, w * .57, h * .2, 380);
-        txt(g, "Producción visual", w * .43, h * .44, `800 76px ${HEAD}`, "#fff");
-        txt(g, "sin límites.", w * .43, h * .58, `italic 800 76px ${HEAD}`, BLUE);
-        txt(g, "IMPRESIÓN · ROTULACIÓN · STANDS · EVENTOS", w * .43, h * .68, `600 24px ${MONO}`, "rgba(221,238,255,.8)");
+        const rg = g.createRadialGradient(w * .78, h * .45, 20, w * .78, h * .45, 420); rg.addColorStop(0, "rgba(153,196,228,.22)"); rg.addColorStop(1, "rgba(153,196,228,0)"); g.fillStyle = rg; g.fillRect(0, 0, w, h);
+        logoC(g, lgL, w * .78, h * .17, 300);
+        txt(g, "Producción visual", w * .78, h * .42, `800 58px ${HEAD}`, "#fff", "center");
+        txt(g, "sin límites.", w * .78, h * .54, `italic 800 58px ${HEAD}`, BLUE, "center");
+        txt(g, "IMPRESIÓN · ROTULACIÓN · STANDS · EVENTOS", w * .78, h * .63, `600 17px ${MONO}`, "rgba(221,238,255,.8)", "center");
         g.fillStyle = BLUE; g.fillRect(0, h - 12, w, 12);
       }),
       /* Pared lateral (3,8 × 3 m): azul de marca con el mensaje del stand */
@@ -109,13 +109,13 @@
   const WHITE = [244, 246, 250], NAVYC = [20, 30, 56];
   const PARTS = [
     { b: [-5, 0, -3.5, 5, .12, 3.5], c: [150, 160, 178], ex: [0, -.8, 0], floor: 1, plan: 1, o: 0 },                         // 0 tarima
-    { b: [-5, .12, -3.5, 5, 3.12, -3.3], c: WHITE, tex: { front: "wall" }, ex: [0, .9, -3.2], plan: 1, o: 1 },                 // 1 pared del fondo
+    { b: [-5, .12, -3.5, 2.4, 3.12, -3.3], c: WHITE, tex: { front: "wall" }, ex: [0, .9, -3.2], plan: 1, o: 1 },                 // 1 pared del fondo
     { b: [-5, .12, -3.3, -4.8, 3.12, .5], c: WHITE, tex: { right: "side", left: "side" }, ex: [-2.6, .7, .2], plan: 1, o: 2 },              // 2 pared lateral
-    { b: [2.4, .12, -3.3, 5, 3.12, -1.3], c: WHITE, tex: { front: "store", left: "storeSide" }, ex: [3, 1, -1.2], plan: 1, o: 3 }, // 3 almacén
+    { b: [2.4, .12, -3.5, 5, 3.12, -1.3], c: WHITE, tex: { front: "store", left: "storeSide" }, ex: [3, 1, -1.2], plan: 1, o: 3 }, // 3 almacén
     { b: [-3.6, 1.05, -3.3, -1.0, 2.55, -3.22], c: [10, 12, 20], tex: { front: "screen" }, ex: [-.6, 1.6, -1.8], o: 4 },     // 4 pantalla LED
     { b: [1.0, .12, 1.7, 3.6, 1.05, 2.5], c: NAVYC, tex: { front: "counter" }, ex: [2.4, 1, 3], plan: 1, o: 5 },              // 5 mostrador
     { b: [.95, 1.05, 1.65, 3.65, 1.11, 2.55], c: [250, 251, 253], ex: [2.4, 2, 3], o: 5 },                                    // 6 encimera
-    { b: [-4.6, .12, 2.7, -4.05, 2.7, 3.1], c: WHITE, tex: { front: "totem" }, ex: [-2.8, 1.4, 2.4], plan: 1, o: 6 },          // 7 tótem izquierdo
+    { b: [-4.75, .12, .85, -4.2, 2.7, 1.25], c: WHITE, tex: { front: "totem" }, ex: [-2.8, 1.4, 1.6], plan: 1, o: 6 },          // 7 tótem izquierdo
     { b: [4.05, .12, 2.7, 4.6, 2.7, 3.1], c: WHITE, tex: { front: "totem" }, ex: [2.8, 1.4, 2.4], plan: 1, o: 6 },             // 8 tótem derecho
     { b: [-3.5, .12, -1.4, -2.1, .85, -.2], c: [250, 251, 253], ex: [-2.4, 1.4, .8], plan: 1, o: 7 },                         // 9 mesa de reunión
     { b: [-3.95, .12, -1.0, -3.6, .58, -.6], c: STRONGC(), ex: [-3, 1.2, .8], o: 7 },                                          // 10–13 sillas
@@ -128,7 +128,7 @@
     { b: [-4.7, .7, -3.25, -4.1, 1.55, -2.65], c: [74, 128, 92], ex: [-2.6, 1.6, -1.6], o: 8 },
     { b: [-1.6, 3.12, -3.5, -1.5, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.4, -2], o: 9 },                                      // 18–20 brazos de focos
     { b: [.45, 3.12, -3.5, .55, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.6, -2], o: 9 },
-    { b: [1.9, 3.12, -3.5, 2.0, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.4, -2], o: 9 },
+    { b: [1.6, 3.12, -3.5, 1.7, 3.2, -2.6], c: [36, 38, 50], ex: [0, 2.4, -2], o: 9 },
     { b: [-3, 4.4, 1.85, 3, 5.4, 1.95], c: NAVYC, tex: { front: "aerial" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },               // 21–24 aéreo
     { b: [-3, 4.4, -1.95, 3, 5.4, -1.85], c: NAVYC, tex: { back: "aerial" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },
     { b: [-3.1, 4.4, -1.95, -3, 5.4, 1.95], c: NAVYC, tex: { left: "aerialS" }, ex: [0, 4.5, 0], o: 10, aerial: 1 },
@@ -138,7 +138,7 @@
   function STRONGC() { return [46, 108, 160]; }
   const NORDER = Math.max(...PARTS.map(p => p.o)) + 1;
   /* Focos: los de la pared (brazos) y los que cuelgan del aéreo */
-  const SPOTS = [{ pi: 18, x: -1.55, z: -2.65 }, { pi: 19, x: .5, z: -2.65 }, { pi: 20, x: 1.95, z: -2.65 },
+  const SPOTS = [{ pi: 18, x: -1.55, z: -2.65 }, { pi: 19, x: .5, z: -2.65 }, { pi: 20, x: 1.65, z: -2.65 },
                  { pi: 21, x: -2, z: 1.9 }, { pi: 21, x: 0, z: 1.9 }, { pi: 21, x: 2, z: 1.9 }, { pi: 22, x: -1.5, z: -1.9 }, { pi: 22, x: 1.5, z: -1.9 }];
   const FACES = {
     front: { n: [0, 0, 1], q: b => [[b[0], b[4], b[5]], [b[3], b[4], b[5]], [b[3], b[1], b[5]], [b[0], b[1], b[5]]] },
@@ -258,13 +258,13 @@
       g.save(); g.globalCompositeOperation = "lighter";
       SPOTS.forEach(({ pi, x, z }, i) => { const L = clamp01(lit * 1.6 - i * .08); if (!L) return; const p = PARTS[pi], b = boxOf(p, s), dx = b[0] - p.b[0], dy = b[1] - p.b[1], dz = b[2] - p.b[2];
         const ap = P([x + dx, p.b[1] + dy - .02, z + dz]), fc = P([x * .95, .13, z + .7]), f1 = P([x * .95 - .9, .13, z + .7]), f2 = P([x * .95 + .9, .13, z + .7]);
-        const gr = g.createLinearGradient(ap[0], ap[1], fc[0], fc[1]); gr.addColorStop(0, `rgba(255,244,222,${.26 * L})`); gr.addColorStop(1, "rgba(255,244,222,0)");
+        const gr = g.createLinearGradient(ap[0], ap[1], fc[0], fc[1]); gr.addColorStop(0, `rgba(255,244,222,${.09 * L})`); gr.addColorStop(1, "rgba(255,244,222,0)");
         g.fillStyle = gr; g.beginPath(); g.moveTo(ap[0], ap[1]); g.lineTo(f1[0], f1[1]); g.lineTo(f2[0], f2[1]); g.closePath(); g.fill();
-        const rr = Math.abs(f2[0] - f1[0]) * .6; g.save(); g.translate(fc[0], fc[1]); g.scale(1, .35); const pg = g.createRadialGradient(0, 0, 0, 0, 0, rr); pg.addColorStop(0, `rgba(255,240,215,${.24 * L})`); pg.addColorStop(1, "rgba(255,240,215,0)"); g.fillStyle = pg; g.beginPath(); g.arc(0, 0, rr, 0, 6.283); g.fill(); g.restore();
-        const hg = g.createRadialGradient(ap[0], ap[1], 0, ap[0], ap[1], 18); hg.addColorStop(0, `rgba(255,255,255,${.9 * L})`); hg.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = hg; g.beginPath(); g.arc(ap[0], ap[1], 18, 0, 6.283); g.fill(); });
+        const rr = Math.abs(f2[0] - f1[0]) * .6; g.save(); g.translate(fc[0], fc[1]); g.scale(1, .35); const pg = g.createRadialGradient(0, 0, 0, 0, 0, rr); pg.addColorStop(0, `rgba(255,240,215,${.1 * L})`); pg.addColorStop(1, "rgba(255,240,215,0)"); g.fillStyle = pg; g.beginPath(); g.arc(0, 0, rr, 0, 6.283); g.fill(); g.restore();
+        const hg = g.createRadialGradient(ap[0], ap[1], 0, ap[0], ap[1], 9); hg.addColorStop(0, `rgba(255,255,255,${.5 * L})`); hg.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = hg; g.beginPath(); g.arc(ap[0], ap[1], 9, 0, 6.283); g.fill(); });
       const glow = (pi, face, col, k) => { const b = boxOf(PARTS[pi], s), c = P([(b[0] + b[3]) / 2, (b[1] + b[4]) / 2, face === "front" ? b[5] : (b[2] + b[5]) / 2]), r = Math.abs(P([b[3], b[4], b[5]])[0] - P([b[0], b[4], b[5]])[0]) * k + 30;
         const gg = g.createRadialGradient(c[0], c[1], 0, c[0], c[1], r); gg.addColorStop(0, col); gg.addColorStop(1, "rgba(153,196,228,0)"); g.fillStyle = gg; g.beginPath(); g.arc(c[0], c[1], r, 0, 6.283); g.fill(); };
-      glow(4, "front", `rgba(153,196,228,${.2 * lit})`, .6); glow(7, "front", `rgba(153,196,228,${.16 * lit})`, 1.6); glow(8, "front", `rgba(153,196,228,${.16 * lit})`, 1.6); glow(21, "front", `rgba(153,196,228,${.12 * lit})`, .45);
+      glow(4, "front", `rgba(153,196,228,${.08 * lit})`, .5); glow(7, "front", `rgba(153,196,228,${.06 * lit})`, 1.2); glow(8, "front", `rgba(153,196,228,${.06 * lit})`, 1.2);
       g.restore();
     }
   };
